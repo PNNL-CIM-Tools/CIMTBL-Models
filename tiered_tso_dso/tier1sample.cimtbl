@@ -1,0 +1,20 @@
+Object EnergySource: name=IEEE13nodeckt 
+
+Object BaseFrequency: name=base_freq, frequency=60
+Object BasePower: name=sbase, basePower (MVA)=100
+
+Object Substation: name=sub
+Object Feeder: name=tier1feeder, NormalEnergizingSubstation=sub
+
+Object TopologicalNode: name=feeder_head_bus, ConnectivityNodeContainer=sub
+
+Table BaseVoltage: name, nominalVoltage (V)
+    base_115, 115000
+    base_4160, 4160
+
+Table EnergyConsumer: name, bus, p (kW), q (kVAr),  BaseVoltage, EquipmentContainer=tier1feeder
+    aggregate_feeder_load, feeder_head_bus, 3000, 1155, base_4160
+
+Table PowerElectronicsConnection: name, bus, p (kW), q (kVAr),  BaseVoltage, EquipmentContainer=tier1feeder
+    aggregate_feeder_PV, feeder_head_bus, 400, 100, base_4160
+
