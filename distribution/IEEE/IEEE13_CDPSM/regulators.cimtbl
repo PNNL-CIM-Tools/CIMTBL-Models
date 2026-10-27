@@ -1,0 +1,51 @@
+# IEEE 13 feeder regulators (OpenDSS Transformer + RegControl ->
+# PowerTransformer + RatioTapChanger + TapChangerControl)
+#
+# Three single-phase 32-step regulators on 650 -> RG60 (behind the breaker,
+# BRKR -> RG60), 2.4 kV line-to-neutral, 1666 kVA (= 694 A, matching CTprim=700).
+# Modelled near-ideal, as is usual for step regulators: xhl = 0.01 %,
+# %LoadLoss = 0.01 % (0.005 % per winding).
+#
+# Each regulator is its own PowerTransformer, not one tank configuration shared
+# by three tanks. The taps differ per phase, and a RatioTapChanger on a
+# configuration's TransformerPhaseEnd would be shared by every tank using it.
+# OpenDSS Bank=Reg is not represented.
+
+Profile = cim18v17
+
+Table PowerTransformer: name, EquipmentContainer=ieee13nodeckt
+    reg1
+    reg2
+    reg3
+
+Table PowerTransformerEnd: name, node, phases, endNumber, connectionKind, grounded, ratedU (kV), ratedS (kVA), r (percent), BaseVoltage, PowerTransformer
+    reg1_1, brkr, A, 1, Y, true, 2.4, 1666, 0.005, bv_4p16kv, reg1
+    reg1_2, rg60, A, 2, Y, true, 2.4, 1666, 0.005, bv_4p16kv, reg1
+    reg2_1, brkr, B, 1, Y, true, 2.4, 1666, 0.005, bv_4p16kv, reg2
+    reg2_2, rg60, B, 2, Y, true, 2.4, 1666, 0.005, bv_4p16kv, reg2
+    reg3_1, brkr, C, 1, Y, true, 2.4, 1666, 0.005, bv_4p16kv, reg3
+    reg3_2, rg60, C, 2, Y, true, 2.4, 1666, 0.005, bv_4p16kv, reg3
+
+Table TransformerMeshImpedance: name, FromTransformerEnd, ToTransformerEnd, x (percent)
+    reg1_mesh_12, reg1_1, reg1_2, 0.01
+    reg2_mesh_12, reg2_1, reg2_2, 0.01
+    reg3_mesh_12, reg3_1, reg3_2, 0.01
+
+# RegControl vreg=122 band=2 ptratio=20 ctprim=700 R=3 X=9, regulating winding 2.
+# CIM values are primary quantities:
+#   targetValue    = vreg x ptratio = 2440 V,  targetDeadband = band x ptratio = 40 V
+#   lineDropR/X    = R, X are LDC dial volts on the 120 V / 0.2 A secondary base;
+#                    in primary ohms that is R x ptratio / ctprim = 3 x 20 / 700
+#                    and 9 x 20 / 700.
+Table TapChangerControl: name, mode, discrete, enabled, monitoredPhase, targetValue, targetDeadband, lineDropCompensation, lineDropR (ohm), lineDropX (ohm), Terminal
+    reg1_ctrl, voltage, true, true, A, 2440, 40, true, 0.085714, 0.257143, reg1_T2
+    reg2_ctrl, voltage, true, true, B, 2440, 40, true, 0.085714, 0.257143, reg2_T2
+    reg3_ctrl, voltage, true, true, C, 2440, 40, true, 0.085714, 0.257143, reg3_T2
+
+# OpenDSS defaults: 32 steps of 0.625 % (+/-10 %), delay 15 s, tapdelay 2 s.
+# step = the IEEE 13 published taps (Transformer.RegN.Taps after the
+# solve): 1.0625 -> +10, 1.05 -> +8, 1.06875 -> +11.
+Table RatioTapChanger: name, lowStep, highStep, neutralStep, normalStep, step, stepVoltageIncrement, neutralU (V), ltcFlag, controlEnabled, ptRatio, ctRating, ctRatio, initialDelay (s), subsequentDelay (s), TapChangerControl, TransformerEnd
+    reg1, -16, 16, 0, 0, 10, 0.625, 2400, true, true, 20, 700, 3500, 15, 2, reg1_ctrl, reg1_2
+    reg2, -16, 16, 0, 0, 8,  0.625, 2400, true, true, 20, 700, 3500, 15, 2, reg2_ctrl, reg2_2
+    reg3, -16, 16, 0, 0, 11, 0.625, 2400, true, true, 20, 700, 3500, 15, 2, reg3_ctrl, reg3_2

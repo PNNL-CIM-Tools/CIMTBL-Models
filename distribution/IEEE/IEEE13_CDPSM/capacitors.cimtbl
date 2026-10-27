@@ -1,0 +1,10 @@
+# IEEE 13 capacitors (OpenDSS Capacitor -> LinearShuntCompensator)
+#
+# nomU = OpenDSS kV (line-to-line for 3-phase, across the unit for 1-phase).
+# bPerSection = nomQ / nomU^2 (total for the bank).
+
+Profile = cim18v17
+
+Table LinearShuntCompensator: name, node, phases, phaseConnection, grounded, nomQ (kVAr), nomU (kV), bPerSection (S), sections, normalSections, maximumSections, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+    cap1, 675, ABC, Y, true, 600, 4.16, 0.034671, 1, 1, 1
+    cap2, 611, C,   Y, true, 100, 2.4,  0.017361, 1, 1, 1

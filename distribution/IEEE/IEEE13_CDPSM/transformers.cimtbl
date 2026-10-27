@@ -1,0 +1,46 @@
+# IEEE 13 power transformers (OpenDSS Transformer -> PowerTransformer)
+#
+# Per-end model: OpenDSS %r -> PowerTransformerEnd.r (percent, on the end's own
+# ratedU^2/ratedS); each OpenDSS X pair -> a TransformerMeshImpedance x
+# (percent, on the From end's ratedU^2/ratedS). The same rule applies to 2- and
+# 3-winding units.
+# A TransformerEnd's `node` puts its Terminal on the PowerTransformer
+# (sequenceNumber = endNumber, named <transformer>_T<endNumber>).
+
+Profile = cim18v17
+
+# --- sub3: 5000 kVA 115 kV delta - 4.16 kV grounded wye, unloaded 13.2 kV tertiary
+# Published IEEE 13 nameplate: R = 1 %, X = 8 %. The OpenDSS decks divide both
+# by 1000 (%r=(.5 1000 /), XHL=0.01) so that bus 650 sits at 1.0 pu and the
+# published results match. This file carries the nameplate, so 650 now sags.
+# The tertiary (a CDPSM test addition) has no published data:
+# XHT = 10 % and XLT = 4 % are assumed (star equivalent 7 / 1 / 3 %).
+Object PowerTransformer: name=sub3, vectorGroup=Dyn1yn1, EquipmentContainer=ieee13_sub
+
+Table PowerTransformerEnd: name, node, phases, endNumber, connectionKind, grounded, rground (ohm), xground (ohm), ratedU (kV), ratedS (kVA), r (percent), BaseVoltage, PowerTransformer=sub3
+    sub3_1, sourcebus, ABC,  1, D,  false, ,  ,    115,  5000, 0.5, bv_115kv
+    sub3_2, 650,       ABCN, 2, Yn, true,  0, 0.4, 4.16, 5000, 0.5, bv_4p16kv
+    sub3_3, 650z,      ABC,  3, Yn, true,  0, 0,   13.2, 1000, 0.5, bv_13p2kv
+
+Table TransformerMeshImpedance: name, FromTransformerEnd, ToTransformerEnd, x (percent)
+    sub3_mesh_12, sub3_1, sub3_2, 8
+    sub3_mesh_13, sub3_1, sub3_3, 10
+    sub3_mesh_23, sub3_2, sub3_3, 4
+
+# --- xfm1: 500 kVA 4.16 - 0.48 kV grounded wye-wye (published: R = 1.1 %, X = 2 %)
+Object PowerTransformer: name=xfm1, vectorGroup=YNyn0, EquipmentContainer=ieee13nodeckt
+
+Table PowerTransformerEnd: name, node, phases, endNumber, connectionKind, grounded, ratedU (kV), ratedS (kVA), r (percent), BaseVoltage, PowerTransformer=xfm1
+    xfm1_1, xf1, ABC, 1, Yn, true, 4.16, 500, 0.55, bv_4p16kv
+    xfm1_2, 634, ABC, 2, Yn, true, 0.48, 500, 0.55, bv_480v
+
+Object TransformerMeshImpedance: name=xfm1_mesh_12, FromTransformerEnd=xfm1_1, ToTransformerEnd=xfm1_2, x (percent)=2
+
+# --- tpoletop: one ct5 tank (xfmrcodes.cimtbl) on phase B of bus 670
+Object PowerTransformer: name=tpoletop, EquipmentContainer=ieee13nodeckt
+
+Object TransformerTank: name=tpoletop_tank, PowerTransformer=tpoletop, TankConfiguration=ct5, EquipmentContainer=ieee13nodeckt
+
+Table PowerTransformerEnd: name, node, phases, endNumber, connectionKind, grounded, BaseVoltage, PowerTransformer=tpoletop
+    tpoletop_1, 670,   B,    1, Y, true, bv_4p16kv
+    tpoletop_2, house, s1s2N, 2, I, true, bv_240v

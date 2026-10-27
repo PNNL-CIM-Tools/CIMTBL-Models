@@ -1,0 +1,26 @@
+# IEEE 13 switches (OpenDSS Line with Switch=y -> Switch subclasses)
+#
+# The OpenDSS r1=1e-4 stand-in impedance is dropped: CIM switches are ideal.
+# The class comes from the protection element that monitors the line:
+# Relay -> Breaker, Recloser -> Recloser, Fuse -> Fuse; none -> LoadBreakSwitch.
+# Not represented (no protection classes in cim18v17):
+#   Relay.brkr1     PhaseTrip=1200 GroundTrip=600 Delay=0.1
+#   Recloser.rec1   PhaseTrip=1200 GroundTrip=400
+#   Sectionaliser   PickupCurrent=100 Counts=2 (commented out in the deck too)
+
+Profile = cim18v17
+
+Table Breaker: name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+    brkr1, 650, brkr, ABC, false, false
+
+Table Recloser: name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+    rec1, 632, mid, ABC, false, false
+
+Table Fuse: name, node1, node2, phases, ratedCurrent (A), open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+    fuse1, 633, xf1, ABC, 100, false, false
+
+Table Sectionaliser: name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+    sect1, 684, tap, C, false, false
+
+Table LoadBreakSwitch: name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+    671692, 671, 692, ABC, false, false

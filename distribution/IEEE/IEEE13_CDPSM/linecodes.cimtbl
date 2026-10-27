@@ -1,0 +1,61 @@
+# IEEE 13 line codes (OpenDSS LineCode -> PerLengthPhaseImpedance + PhaseImpedanceData)
+#
+# One PhaseImpedanceData row per lower-triangle element. row/column are
+# conductor indices, not phases: ACLineSegmentPhase.sequenceNumber (the order
+# of a line's `phases` column) picks the row, so one code serves CB and BC lines.
+# b = 2*pi*60*C, from OpenDSS cmatrix (nF/mile).
+#
+# mtx601/mtx602 use the "corrected 9-14-2011" off-diagonals from
+# IEEE13_original/IEEE13Nodeckt.dss, which match Kersting's published
+# matrices. IEEE13_CDPSM.dss still carries the earlier values, with Zab and
+# Zbc swapped.
+# mtx601-mtx605 have no shunt susceptance here (CDPSM cmatrix = 0; the
+# published B matrices are not transcribed).
+
+Profile = cim18v17
+
+Table PerLengthPhaseImpedance: name, conductorCount, calculatedFrequency (Hz)
+    mtx601, 3, 60
+    mtx602, 3, 60
+    mtx603, 2, 60
+    mtx604, 2, 60
+    mtx605, 1, 60
+    mtx606, 3, 60
+    mtx607, 1, 60
+
+Table PhaseImpedanceData: PhaseImpedance, row, column, r (ohm/mile), x (ohm/mile), b (uS/mile)
+    mtx601, 1, 1, 0.3465, 1.0179,
+    mtx601, 2, 1, 0.1560, 0.5017,
+    mtx601, 2, 2, 0.3375, 1.0478,
+    mtx601, 3, 1, 0.1580, 0.4236,
+    mtx601, 3, 2, 0.1535, 0.3849,
+    mtx601, 3, 3, 0.3414, 1.0348,
+
+    mtx602, 1, 1, 0.7526, 1.1814,
+    mtx602, 2, 1, 0.1580, 0.4236,
+    mtx602, 2, 2, 0.7475, 1.1983,
+    mtx602, 3, 1, 0.1560, 0.5017,
+    mtx602, 3, 2, 0.1535, 0.3849,
+    mtx602, 3, 3, 0.7436, 1.2112,
+
+    mtx603, 1, 1, 1.3238, 1.3569,
+    mtx603, 2, 1, 0.2066, 0.4591,
+    mtx603, 2, 2, 1.3294, 1.3471,
+
+    mtx604, 1, 1, 1.3238, 1.3569,
+    mtx604, 2, 1, 0.2066, 0.4591,
+    mtx604, 2, 2, 1.3294, 1.3471,
+
+    mtx605, 1, 1, 1.3292, 1.3475,
+
+    # Concentric-neutral cable, recomputed by R. Dugan (Feb 2016) from CN
+    # cable data; cmatrix 383.948 nF/mile on the diagonal
+    mtx606, 1, 1, 0.791721,   0.438352,  144.745
+    mtx606, 2, 1, 0.318476,   0.0276838,
+    mtx606, 2, 2, 0.781649,   0.396697,  144.745
+    mtx606, 3, 1, 0.28345,   -0.0184204,
+    mtx606, 3, 2, 0.318476,   0.0276838,
+    mtx606, 3, 3, 0.791721,   0.438352,  144.745
+
+    # cmatrix 236 nF/mile
+    mtx607, 1, 1, 1.3425, 0.5124, 88.9699
