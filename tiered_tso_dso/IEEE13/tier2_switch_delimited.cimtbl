@@ -1,0 +1,87 @@
+# Tier 2 - Switch-Delimited Aggregate Data (self-screening)
+#
+# The feeder is cut at its switching devices into switch areas (ConnectedArea,
+# kind=switchArea). Each zone is one bus (TopologicalNode) carrying that zone's aggregate load,
+# generation and capacitance. Still no lines, no impedances, and no individual
+# customers.
+#
+#   650 =brkr1=> zone_head  (regulators, 632, 633, 645, 646)
+#     zone_head =rec1=>   zone_mid   (670, 671, 680, 684, 652, pole-top/house)
+#     zone_head =fuse1=>  zone_xfm1  (xf1 / 634 at 480 V: school PV + storage)
+#     zone_mid  =671692=> zone_675   (692, 675)
+#     zone_mid  =sect1=>  zone_611   (tap, 611)
+#
+# Boundaries are explicit: each switch Terminal names the area it bounds.
+
+Profile = cim18v17
+
+Import common.cimtbl
+
+Object ConnectedArea: name=ieee13_feeder_area, kind=feederArea
+
+Table ConnectedArea: name, kind, description, ContainedWithin=ieee13_feeder_area
+    zone_head, switchArea, breaker to recloser/fuse - 632 633 645 646
+    zone_mid,  switchArea, recloser downstream - 670 671 680 684 652
+    zone_xfm1, switchArea, fuse downstream - 500 kVA to 480 V at 634
+    zone_675,  switchArea, load-break switch downstream - 692 675
+    zone_611,  switchArea, sectionaliser downstream - 611
+
+Table TopologicalNode: name, BaseVoltage, ConnectivityNodeContainer
+    sourcebus, bv_115kv,  ieee13_sub
+    650,       bv_4p16kv, ieee13_sub
+    zone_head, bv_4p16kv, zone_head
+    zone_mid,  bv_4p16kv, zone_mid
+    zone_xfm1, bv_4p16kv, zone_xfm1
+    zone_675,  bv_4p16kv, zone_675
+    zone_611,  bv_4p16kv, zone_611
+
+Object EnergySource: name=source, bus=sourcebus, nominalVoltage (kV)=115, BaseVoltage=bv_115kv, EquipmentContainer=ieee13_sub
+
+# Substation transformer summary: ratings and connection only, no impedance
+Object PowerTransformer: name=sub3, vectorGroup=Dyn1, EquipmentContainer=ieee13_sub
+
+Table PowerTransformerEnd: name, bus, endNumber, connectionKind, ratedU (kV), ratedS (kVA), BaseVoltage, PowerTransformer=sub3
+    sub3_1, sourcebus, 1, D,  115,  5000, bv_115kv
+    sub3_2, 650,       2, Yn, 4.16, 5000, bv_4p16kv
+
+# Switching devices = zone boundaries (in the feeder area, per ConnectedAreaKind)
+Table Breaker: name, normalOpen, EquipmentContainer=ieee13_feeder_area
+    brkr1, false
+Table Recloser: name, normalOpen, EquipmentContainer=ieee13_feeder_area
+    rec1, false
+Table Fuse: name, normalOpen, EquipmentContainer=ieee13_feeder_area
+    fuse1, false
+Table LoadBreakSwitch: name, normalOpen, EquipmentContainer=ieee13_feeder_area
+    671692, false
+Table Sectionaliser: name, normalOpen, EquipmentContainer=ieee13_feeder_area
+    sect1, false
+
+Table Terminal: name, sequenceNumber, ConductingEquipment, TopologicalNode, BoundedConnectedArea
+    brkr1_T1,  1, brkr1,  650,       ieee13_feeder_area
+    brkr1_T2,  2, brkr1,  zone_head, zone_head
+    rec1_T1,   1, rec1,   zone_head, zone_head
+    rec1_T2,   2, rec1,   zone_mid,  zone_mid
+    fuse1_T1,  1, fuse1,  zone_head, zone_head
+    fuse1_T2,  2, fuse1,  zone_xfm1, zone_xfm1
+    671692_T1, 1, 671692, zone_mid,  zone_mid
+    671692_T2, 2, 671692, zone_675,  zone_675
+    sect1_T1,  1, sect1,  zone_mid,  zone_mid
+    sect1_T2,  2, sect1,  zone_611,  zone_611
+
+# Zone aggregates (sum = tier 1 feeder total: 3471 kW / 2105 kVAr)
+Table EnergyConsumer: name, bus, aggregate, p (kW), q (kVAr), BaseVoltage, EquipmentContainer
+    zone_head_load, zone_head, true, 400,  257, bv_4p16kv, zone_head
+    zone_mid_load,  zone_mid,  true, 1488, 865, bv_4p16kv, zone_mid
+    zone_xfm1_load, zone_xfm1, true, 400,  290, bv_4p16kv, zone_xfm1
+    zone_675_load,  zone_675,  true, 1013, 613, bv_4p16kv, zone_675
+    zone_611_load,  zone_611,  true, 170,  80,  bv_4p16kv, zone_611
+
+Table PowerElectronicsConnection: name, bus, aggregate, ratedS (kVA), BaseVoltage, EquipmentContainer
+    zone_mid_pv,       zone_mid,  true, 5,   bv_4p16kv, zone_mid
+    zone_mid_storage,  zone_mid,  true, 5,   bv_4p16kv, zone_mid
+    zone_xfm1_pv,      zone_xfm1, true, 300, bv_4p16kv, zone_xfm1
+    zone_xfm1_storage, zone_xfm1, true, 200, bv_4p16kv, zone_xfm1
+
+Table LinearShuntCompensator: name, bus, aggregate, nomQ (kVAr), nomU (kV), BaseVoltage, EquipmentContainer
+    zone_675_caps, zone_675, true, 600, 4.16, bv_4p16kv, zone_675
+    zone_611_caps, zone_611, true, 100, 4.16, bv_4p16kv, zone_611

@@ -1,0 +1,14 @@
+# Shared by every tier: who/where, plus voltage levels. Public at every tier.
+
+Profile = cim18v17
+
+Object GeographicalRegion: name=demo_utility, description=Demo Electric Utility
+Object SubGeographicalRegion: name=demo_service_area, Region=demo_utility
+
+Object Substation: name=ieee13_sub, description=115/4.16 kV distribution substation, Region=demo_service_area
+Object Feeder: name=ieee13nodeckt, description=IEEE 13 node test feeder, NormalEnergizingSubstation=ieee13_sub
+
+Table BaseVoltage: name, nominalVoltage (V)
+    bv_115kv,  115000
+    bv_4p16kv, 4160
+    bv_480v,   480
