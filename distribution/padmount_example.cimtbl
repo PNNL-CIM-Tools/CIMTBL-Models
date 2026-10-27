@@ -1,0 +1,21 @@
+# One padmount instance built from the padmount_1ph_250kva tank configuration.
+
+Profile = cim18v17
+
+Import templates/padmount_1ph_250kva.cimtbl
+
+Object PowerTransformer: name=padmount_2341
+
+Object TransformerTank: name=padmount_2341_tank, PowerTransformer=padmount_2341, TankConfiguration=padmount_1ph_250kva
+
+Table ConnectivityNode: name
+    cn_2341_hv
+    cn_2341_lv
+
+Table Terminal: name, sequenceNumber, phases, ConnectivityNode, ConductingEquipment
+    t_2341_1, 1, AB,   cn_2341_hv, padmount_2341
+    t_2341_2, 2, s12N, cn_2341_lv, padmount_2341
+
+Table PowerTransformerEnd: name, endNumber, connectionKind, Terminal, PowerTransformer
+    pad_2341_1, 1, Y, t_2341_1, padmount_2341
+    pad_2341_2, 2, I, t_2341_2, padmount_2341

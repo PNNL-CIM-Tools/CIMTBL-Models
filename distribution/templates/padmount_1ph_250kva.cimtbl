@@ -1,34 +1,27 @@
-# Single-phase loop-feed padmount: 250 kVA, 7200 V - 120/240 V, center-tapped secondary
+# Single-phase loop-feed padmount: 250 kVA, 12470GrdY/7200 - 120/240 V, center-tapped secondary
 #
-# cim18v17 has no TransformerTemplate class (proposed WG13 construct), so the
-# tank internals are attached directly to one PowerTransformer instance via
-# TransformerTank.PowerTransformer. Re-point to a template once the profile has one.
+# TransformerTankConfiguration = reusable tank design, like an OpenDSS XfmrCode.
+# Instances Import this file and point their TransformerTank at it with
+# TankConfiguration=padmount_1ph_250kva (see ../padmount_example.cimtbl).
 
 Profile = cim18v17
 
-Object PowerTransformer: name=padmount_2341
+Object TransformerTankConfiguration: name=padmount_1ph_250kva, percentImpedance=2.56, noLoadLoss (W)=310, loadLoss (W)=2050
 
-# ---------------------------------------------------------------- tank internals
-
-Object TransformerTank: name=padmount_tank, percentImpedance=2.56, noLoadLoss (W)=310, loadLoss (W)=2050, PowerTransformer=padmount_2341
-
-Table TransformerPhaseEnd: name, endNumber, sequenceNumber, phase, phaseNeutralU (V)
+Table TransformerPhaseEnd: name, endNumber, sequenceNumber, phase, phaseNeutralU (V), TankConfiguration=padmount_1ph_250kva
     pad_seq1, 1, 1, A,  7200
     pad_seq2, 1, 2, B,  7200
     pad_seq3, 2, 3, s1, 120
     pad_seq4, 2, 4, s2, 120
     pad_seq5, 2, 5, N,  0
 
-# ratedU: phase-to-phase nameplate designation (IEEE C57.12.00-2021 Table 7),
-#         same meaning as PowerTransformerEnd.ratedU: 12470GrdY/7200, 120/240.
+# ratedU: phase-to-phase nameplate designation (IEEE C57.12.00-2021 Table 7).
 # ratedS: the winding's own normal rating (each half-winding carries 125 kVA).
-# baseU:  voltage across the winding's own terminals (coil, = OpenDSS kVs).
-# baseS:  common percent-impedance base for the tank (= OpenDSS winding-1 kVA).
-# Percent impedances convert on baseU^2/baseS. NOTE: cim18v17's descriptions
-# of baseU/ratedU are the other way round; IEC WG fix pending
-# (cimtables .development/PERCENT_IMPEDANCE_BASE.md).
+# baseU:  voltage across the winding's own terminals (= OpenDSS kVs).
+# baseS:  primary rating, the base for both secondary halves (= OpenDSS kVAs).
+# Percent impedances convert on the From winding's baseU^2/baseS.
 # Polarity matches OpenDSS: X1->X2 (s1->N), X2->X3 (N->s2).
-Table TransformerWinding: name, ratedS (kVA), baseS (kVA), ratedU (V), baseU (V), FromTransformerEnd, ToTransformerEnd, TransformerTank=padmount_tank
+Table TransformerWinding: name, ratedS (kVA), baseS (kVA), ratedU (V), baseU (V), FromTransformerEnd, ToTransformerEnd, TankConfiguration=padmount_1ph_250kva
     pad_wdg1, 250, 250, 12470, 7200, pad_seq1, pad_seq5
     pad_wdg2, 125, 250, 240,   120,  pad_seq3, pad_seq5
     pad_wdg3, 125, 250, 240,   120,  pad_seq5, pad_seq4
@@ -36,7 +29,7 @@ Table TransformerWinding: name, ratedS (kVA), baseS (kVA), ratedU (V), baseU (V)
 # Bushing/lug designations per IEEE C57.12.70-2020 (H1A/H1B = loop feed).
 # Winding<->lug links are written from the lug side: in cim18v17
 # TransformerWinding.FromTransformerLug is serialize=False.
-Table TransformerLug: name, designation, TransformerEnd, FromTransformerWinding, ToTransformerWinding, TransformerTank=padmount_tank
+Table TransformerLug: name, designation, TransformerEnd, FromTransformerWinding, ToTransformerWinding, TankConfiguration=padmount_1ph_250kva
     lug_h1a, H1A, pad_seq1, pad_wdg1,
     lug_h1b, H1B, pad_seq2,         ,
     lug_h2,  H2,  pad_seq5,         , pad_wdg1
@@ -44,29 +37,15 @@ Table TransformerLug: name, designation, TransformerEnd, FromTransformerWinding,
     lug_x2,  X2,  pad_seq5, pad_wdg3, pad_wdg2
     lug_x3,  X3,  pad_seq4,         , pad_wdg3
 
-# half-winding impedances are not on the nameplate, so they come from the Hopkinson (1976) interlaced
+# quality = inferred (not an attribute in cim18v17): half-winding impedances
+# are not on the nameplate, so they come from the Hopkinson (1976) interlaced
 # secondary model (Kersting Fig. 4.8; the basis of OpenDSS's center-tap example).
-# Full-winding impedance from the tank nameplate:
+# Full-winding impedance from the configuration's nameplate values:
 #   R = loadLoss / ratedS = 2050 / 250000          = 0.82 %
 #   X = sqrt(percentImpedance^2 - R^2) = sqrt(2.56^2 - 0.82^2) = 2.4251 %
 #   H - X1X2 = H - X2X3 = 1.5R + j1.2X  (OpenDSS Xhl, Xht)
 #   X1X2 - X2X3         = 2.0R + j0.8X  (OpenDSS Xlt)
-# Percent on the From winding's baseU^2/baseS (all on 250 kVA, like OpenDSS).
 Table TransformerMeshImpedance: name, FromWinding, ToWinding, r (percent), x (percent)
     pad_mesh_12, pad_wdg1, pad_wdg2, 1.23, 2.9101
     pad_mesh_13, pad_wdg1, pad_wdg3, 1.23, 2.9101
     pad_mesh_23, pad_wdg2, pad_wdg3, 1.64, 1.9401
-
-# ---------------------------------------------------------------- connectivity
-
-Table ConnectivityNode: name
-    cn_2341_hv
-    cn_2341_lv
-
-Table Terminal: name, sequenceNumber, phases, ConnectivityNode, ConductingEquipment
-    t_2341_1, 1, AB,   cn_2341_hv, padmount_2341
-    t_2341_2, 2, s12N, cn_2341_lv, padmount_2341
-
-Table PowerTransformerEnd: name, endNumber, connectionKind, Terminal, PowerTransformer
-    pad_2341_1, 1, Y, t_2341_1, padmount_2341
-    pad_2341_2, 2, I, t_2341_2, padmount_2341
