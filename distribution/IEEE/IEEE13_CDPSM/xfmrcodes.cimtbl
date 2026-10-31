@@ -15,22 +15,22 @@ Profile = cim18v17
 
 # percentImpedance = sqrt(1.2^2 + 1.7^2); losses = %noloadloss and %R x 5 kVA
 # (percentImpedance is mistyped ActivePower in cim18v17; should be PerCent)
-Object TransformerTankConfiguration: name=ct5, percentImpedance=2.08, percentMagnetizingCurrent=0.5, noLoadLoss (W)=10, loadLoss (W)=60
+Object TransformerTankConfiguration: mRID=xc_ct5, name=ct5, percentImpedance=2.08, percentMagnetizingCurrent=0.5, noLoadLoss (W)=10, loadLoss (W)=60
 
-Table TransformerPhaseEnd: name, endNumber, sequenceNumber, phase, phaseNeutralU (V), TankConfiguration=ct5
-    ct5_h1, 1, 1, X,  2400
-    ct5_x1, 2, 2, s1, 120
-    ct5_x3, 2, 3, s2, 120
-    ct5_n,  2, 4, N,  0
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (V), TankConfiguration=xc_ct5
+    xc_ct5_h1, 1, 1, X,  2400
+    xc_ct5_x1, 2, 2, s1, 120
+    xc_ct5_x3, 2, 3, s2, 120
+    xc_ct5_n,  2, 4, N,  0
 
 # baseU = OpenDSS kVs, baseS = OpenDSS kVAs; ratedS halves carry 2.5 kVA each.
 # Polarity matches OpenDSS buses=[670.2 House.1.0 House.0.2]: s1->N, N->s2.
-Table TransformerWinding: name, ratedS (kVA), baseS (kVA), ratedU (V), baseU (V), r (percent), FromTransformerEnd, ToTransformerEnd, TankConfiguration=ct5
-    ct5_wdg1, 5,   5, 4160, 2400, 0.6, ct5_h1, ct5_n
-    ct5_wdg2, 2.5, 5, 240,  120,  1.2, ct5_x1, ct5_n
-    ct5_wdg3, 2.5, 5, 240,  120,  1.2, ct5_n,  ct5_x3
+Table TransformerWinding: mRID, ratedS (kVA), baseS (kVA), ratedU (V), baseU (V), r (percent), FromTransformerEnd, ToTransformerEnd, TankConfiguration=xc_ct5
+    xc_ct5_wdg1, 5,   5, 4160, 2400, 0.6, xc_ct5_h1, xc_ct5_n
+    xc_ct5_wdg2, 2.5, 5, 240,  120,  1.2, xc_ct5_x1, xc_ct5_n
+    xc_ct5_wdg3, 2.5, 5, 240,  120,  1.2, xc_ct5_n,  xc_ct5_x3
 
-Table TransformerMeshImpedance: name, FromWinding, ToWinding, x (percent)
-    ct5_mesh_12, ct5_wdg1, ct5_wdg2, 2.04
-    ct5_mesh_13, ct5_wdg1, ct5_wdg3, 2.04
-    ct5_mesh_23, ct5_wdg2, ct5_wdg3, 1.36
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, x (percent)
+    xc_ct5_mesh_12, xc_ct5_wdg1, xc_ct5_wdg2, 2.04
+    xc_ct5_mesh_13, xc_ct5_wdg1, xc_ct5_wdg3, 2.04
+    xc_ct5_mesh_23, xc_ct5_wdg2, xc_ct5_wdg3, 1.36

@@ -10,17 +10,17 @@
 
 Profile = cim18v17
 
-Table Breaker: name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
-    brkr1, 650, brkr, ABC, false, false
+Table Breaker: mRID, name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    sw_brkr1, brkr1, 650, brkr, ABC, false, false
 
-Table Recloser: name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
-    rec1, 632, mid, ABC, false, false
+Table Recloser: mRID, name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    sw_rec1, rec1, 632, mid, ABC, false, false
 
-Table Fuse: name, node1, node2, phases, ratedCurrent (A), open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
-    fuse1, 633, xf1, ABC, 100, false, false
+Table Fuse: mRID, name, node1, node2, phases, ratedCurrent (A), open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    sw_fuse1, fuse1, 633, xf1, ABC, 100, false, false
 
-Table Sectionaliser: name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
-    sect1, 684, tap, C, false, false
+Table Sectionaliser: mRID, name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    sw_sect1, sect1, 684, tap, C, false, false
 
-Table LoadBreakSwitch: name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
-    671692, 671, 692, ABC, false, false
+Table LoadBreakSwitch: mRID, name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    sw_671692, 671692, 671, 692, ABC, false, false

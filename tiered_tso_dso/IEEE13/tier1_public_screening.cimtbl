@@ -8,15 +8,15 @@ Profile = cim18v17
 
 Import common.cimtbl
 
-Object TopologicalNode: name=feeder_head, BaseVoltage=bv_4p16kv, ConnectivityNodeContainer=ieee13nodeckt
+Object TopologicalNode: mRID=feeder_head, BaseVoltage=bv_4p16kv, ConnectivityNodeContainer=fdr_ieee13nodeckt
 
 # Grid at the feeder head: nominal voltage only (no source impedance until tier 5)
-Object EnergySource: name=feeder_head_source, bus=feeder_head, nominalVoltage (kV)=4.16, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+Object EnergySource: mRID=src_feeder_head_source, name=feeder_head_source, bus=feeder_head, nominalVoltage (kV)=4.16, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
 
 # Peak = sum of the IEEE 13 spot loads; minP is illustrative (30 % of peak)
-Object EnergyConsumer: name=feeder_load_aggregate, bus=feeder_head, aggregate=true, p (kW)=3471, q (kVAr)=2105, maxP (kW)=3471, minP (kW)=1041, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+Object EnergyConsumer: mRID=ld_feeder_load_aggregate, name=feeder_load_aggregate, bus=feeder_head, aggregate=true, p (kW)=3471, q (kVAr)=2105, maxP (kW)=3471, minP (kW)=1041, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
 
 # Installed DER nameplate, feeder total
-Table PowerElectronicsConnection: name, bus, aggregate, ratedS (kVA), BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
+Table PowerElectronicsConnection: mRID, bus, aggregate, ratedS (kVA), BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
     feeder_pv_aggregate,      feeder_head, true, 305
     feeder_storage_aggregate, feeder_head, true, 205

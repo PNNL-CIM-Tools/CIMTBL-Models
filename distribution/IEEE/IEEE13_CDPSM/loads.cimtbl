@@ -9,26 +9,26 @@
 
 Profile = cim18v17
 
-Table EnergyConsumer: name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
-    671,  671, ABC, D, false, 1155, 660, zip_constant_pq
-    645,  645, B,   Y, true,  170,  125, zip_constant_pq
-    646,  646, BC,  D, false, 230,  132, zip_constant_z
-    692,  692, CA,  D, false, 170,  151, zip_constant_i
-    675a, 675, A,   Y, true,  485,  190, zip_constant_pq
-    675b, 675, B,   Y, true,  68,   60,  zip_constant_pq
-    675c, 675, C,   Y, true,  290,  212, zip_constant_pq
-    611,  611, C,   Y, true,  170,  80,  zip_constant_i
-    652,  652, A,   Y, true,  128,  86,  zip_constant_z
-    670a, 670, A,   Y, true,  17,   10,  zip_constant_pq
-    670b, 670, B,   Y, true,  66,   38,  zip_constant_pq
-    670c, 670, C,   Y, true,  117,  68,  zip_constant_pq
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    ld_671,  671,  671, ABC, D, false, 1155, 660, zip_constant_pq
+    ld_645,  645,  645, B,   Y, true,  170,  125, zip_constant_pq
+    ld_646,  646,  646, BC,  D, false, 230,  132, zip_constant_z
+    ld_692,  692,  692, CA,  D, false, 170,  151, zip_constant_i
+    ld_675a, 675a, 675, A,   Y, true,  485,  190, zip_constant_pq
+    ld_675b, 675b, 675, B,   Y, true,  68,   60,  zip_constant_pq
+    ld_675c, 675c, 675, C,   Y, true,  290,  212, zip_constant_pq
+    ld_611,  611,  611, C,   Y, true,  170,  80,  zip_constant_i
+    ld_652,  652,  652, A,   Y, true,  128,  86,  zip_constant_z
+    ld_670a, 670a, 670, A,   Y, true,  17,   10,  zip_constant_pq
+    ld_670b, 670b, 670, B,   Y, true,  66,   38,  zip_constant_pq
+    ld_670c, 670c, 670, C,   Y, true,  117,  68,  zip_constant_pq
 
-Table EnergyConsumer: name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_480v, EquipmentContainer=ieee13nodeckt
-    634a, 634, A, Y, true, 160, 110, zip_constant_pq
-    634b, 634, B, Y, true, 120, 90,  zip_constant_pq
-    634c, 634, C, Y, true, 120, 90,  zip_constant_pq
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_480v, EquipmentContainer=fdr_ieee13nodeckt
+    ld_634a, 634a, 634, A, Y, true, 160, 110, zip_constant_pq
+    ld_634b, 634b, 634, B, Y, true, 120, 90,  zip_constant_pq
+    ld_634c, 634c, 634, C, Y, true, 120, 90,  zip_constant_pq
 
 # kW=5.0 pf=0.85 -> q = 5 tan(acos 0.85). OpenDSS phases=2 wye on House.1.2
 # = two 120 V legs, s1-N and s2-N.
-Table EnergyConsumer: name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_240v, EquipmentContainer=ieee13nodeckt
-    house, house, s1s2, Y, true, 5.0, 3.0987, zip_constant_pq
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_240v, EquipmentContainer=fdr_ieee13nodeckt
+    ld_house, house, house, s1s2, Y, true, 5.0, 3.0987, zip_constant_pq

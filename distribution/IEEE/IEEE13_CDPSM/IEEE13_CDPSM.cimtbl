@@ -1,17 +1,18 @@
 # IEEE 13 node test feeder, CIM CDPSM variant
 #
 # Source: CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_CDPSM/IEEE13_CDPSM.dss
-# Names are the OpenDSS names, lowercased (OpenDSS is case-insensitive).
+# Rows are keyed by mRID: prefix + OpenDSS name, lowercased (OpenDSS is
+# case-insensitive); the OpenDSS name is kept in `name`. See README.md.
 # Translation decisions and deviations from the deck: README.md.
 
 Profile = cim18v17
 
-Object Substation: name=ieee13_sub
-Object Feeder: name=ieee13nodeckt, NormalEnergizingSubstation=ieee13_sub
+Object Substation: mRID=sub_ieee13, name=ieee13_sub
+Object Feeder: mRID=fdr_ieee13nodeckt, name=ieee13nodeckt, NormalEnergizingSubstation=sub_ieee13
 
 # Phase-to-phase nominal voltages (Set Voltagebases=[115, 4.16, 13.2, 0.48, 0.208];
 # the 120/240 V split-phase secondary is nominally 240, not 208).
-Table BaseVoltage: name, nominalVoltage (V)
+Table BaseVoltage: mRID, nominalVoltage (V)
     bv_115kv,  115000
     bv_13p2kv, 13200
     bv_4p16kv, 4160
@@ -19,7 +20,7 @@ Table BaseVoltage: name, nominalVoltage (V)
     bv_240v,   240
 
 # OpenDSS load models: 1 = constant PQ, 2 = constant Z, 5 = constant I
-Table LoadResponseCharacteristic: name, exponentModel, pConstantPower, pConstantCurrent, pConstantImpedance, qConstantPower, qConstantCurrent, qConstantImpedance
+Table LoadResponseCharacteristic: mRID, exponentModel, pConstantPower, pConstantCurrent, pConstantImpedance, qConstantPower, qConstantCurrent, qConstantImpedance
     zip_constant_pq, false, 1, 0, 0, 1, 0, 0
     zip_constant_z,  false, 0, 0, 1, 0, 0, 1
     zip_constant_i,  false, 0, 1, 0, 0, 1, 0
@@ -28,7 +29,7 @@ Table LoadResponseCharacteristic: name, exponentModel, pConstantPower, pConstant
 # (OpenDSS defaults X1/R1 = 4, X0/R0 = 3)
 #   Z1 = 115^2 / 20000 = 0.66125 ohm -> r = 0.160377, x = 0.641507
 #   |2 Z1 + Z0| = 3 x 115^2 / 21000  -> r0 = 0.179604, x0 = 0.538811
-Object EnergySource: name=source, node=sourcebus, phases=ABC, nominalVoltage (kV)=115, voltageMagnitude (kV)=115, voltageAngle (deg)=30, r (ohm)=0.160377, x (ohm)=0.641507, r0 (ohm)=0.179604, x0 (ohm)=0.538811, BaseVoltage=bv_115kv, EquipmentContainer=ieee13_sub
+Object EnergySource: mRID=src_source, name=source, node=sourcebus, phases=ABC, nominalVoltage (kV)=115, voltageMagnitude (kV)=115, voltageAngle (deg)=30, r (ohm)=0.160377, x (ohm)=0.641507, r0 (ohm)=0.179604, x0 (ohm)=0.538811, BaseVoltage=bv_115kv, EquipmentContainer=sub_ieee13
 
 Import linecodes.cimtbl
 Import xfmrcodes.cimtbl

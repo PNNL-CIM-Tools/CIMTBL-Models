@@ -22,10 +22,17 @@ The split follows the per-family files of larger decks (IEEE 9500: `LineCodes.ds
 
 ## Translation conventions
 
-- **Names** are the OpenDSS names lowercased. A name must be unique within its CIM
-  class. Two OpenDSS elements that land in the same class with the same name
-  are prefixed with the OpenDSS class (`pv_school`, `storage_school`). Terminals
-  are generated as `<equipment>_T<n>`.
+- **mRIDs** are the row keys and every reference is by mRID; an mRID must be
+  unique within the whole model, not just its class (CIM 18). They follow the
+  `cimtbl-translate` skill's prefix table (`.claude/skills/cimtbl-translate/`):
+  a class-family prefix + the OpenDSS name lowercased (`ld_671`, `ln_650632`,
+  `xf_reg1`, `sw_brkr1`, `lc_mtx601`), with the OpenDSS name kept in `name`.
+  Buses keep the bare OpenDSS bus name. Child rows extend their parent's mRID
+  (`xf_reg1_2`, `xf_reg1_tap`, `ln_650632_limits`); generated Terminals are
+  `<equipment mRID>_T<n>`. The two DER connections behind OpenDSS PVSystem.School
+  and Storage.School are `pv_school` / `storage_school`.
+- **`PhaseImpedanceData`** is not an IdentifiedObject (no mRID); each row's
+  `identifier` (`lc_mtx601_21` = row 2, column 1) seeds a deterministic UUID.
 - **Connectivity**: `node` / `node1` / `node2` = the OpenDSS bus name (no node suffix).
 - **`phases`** = the bus node suffix in written order, `.1 .2 .3` -> `A B C`
   (`632.3.2` -> `CB`). On a split-phase secondary (center-tap) bus, `.1 .2` ->

@@ -4,18 +4,18 @@ Profile = cim18v17
 
 Import templates/padmount_1ph_250kva.cimtbl
 
-Object PowerTransformer: name=padmount_2341
+Object PowerTransformer: mRID=xf_padmount_2341, name=padmount_2341
 
-Object TransformerTank: name=padmount_2341_tank, PowerTransformer=padmount_2341, TankConfiguration=padmount_1ph_250kva
+Object TransformerTank: mRID=xf_padmount_2341_tank, PowerTransformer=xf_padmount_2341, TankConfiguration=xc_padmount_1ph_250kva
 
-Table ConnectivityNode: name
+Table ConnectivityNode: mRID
     cn_2341_hv
     cn_2341_lv
 
-Table Terminal: name, sequenceNumber, phases, ConnectivityNode, ConductingEquipment
-    t_2341_1, 1, AB,   cn_2341_hv, padmount_2341
-    t_2341_2, 2, s12N, cn_2341_lv, padmount_2341
+Table Terminal: mRID, sequenceNumber, phases, ConnectivityNode, ConductingEquipment
+    t_2341_1, 1, AB,   cn_2341_hv, xf_padmount_2341
+    t_2341_2, 2, s12N, cn_2341_lv, xf_padmount_2341
 
-Table PowerTransformerEnd: name, endNumber, connectionKind, Terminal, PowerTransformer
-    pad_2341_1, 1, Y, t_2341_1, padmount_2341
-    pad_2341_2, 2, I, t_2341_2, padmount_2341
+Table PowerTransformerEnd: mRID, endNumber, connectionKind, Terminal, PowerTransformer
+    pad_2341_1, 1, Y, t_2341_1, xf_padmount_2341
+    pad_2341_2, 2, I, t_2341_2, xf_padmount_2341

@@ -5,42 +5,42 @@
 
 Profile = cim18v17
 
-Table ACLineSegment: name, node1, node2, phases, length (ft), PerLengthImpedance, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
-    650632, rg60, 632, ABC, 2000, mtx601
-    632670, mid,  670, ABC, 667,  mtx601
-    670671, 670,  671, ABC, 1333, mtx601
-    671680, 671,  680, ABC, 1000, mtx601
-    632633, 632,  633, ABC, 500,  mtx602
-    632645, 632,  645, CB,  500,  mtx603
-    645646, 645,  646, CB,  300,  mtx603
-    692675, 692,  675, ABC, 500,  mtx606
-    671684, 671,  684, AC,  300,  mtx604
-    684611, tap,  611, C,   300,  mtx605
-    684652, 684,  652, A,   800,  mtx607
+Table ACLineSegment: mRID, name, node1, node2, phases, length (ft), PerLengthImpedance, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    ln_650632, 650632, rg60, 632, ABC, 2000, lc_mtx601
+    ln_632670, 632670, mid,  670, ABC, 667,  lc_mtx601
+    ln_670671, 670671, 670,  671, ABC, 1333, lc_mtx601
+    ln_671680, 671680, 671,  680, ABC, 1000, lc_mtx601
+    ln_632633, 632633, 632,  633, ABC, 500,  lc_mtx602
+    ln_632645, 632645, 632,  645, CB,  500,  lc_mtx603
+    ln_645646, 645646, 645,  646, CB,  300,  lc_mtx603
+    ln_692675, 692675, 692,  675, ABC, 500,  lc_mtx606
+    ln_671684, 671684, 671,  684, AC,  300,  lc_mtx604
+    ln_684611, 684611, tap,  611, C,   300,  lc_mtx605
+    ln_684652, 684652, 684,  652, A,   800,  lc_mtx607
 
 # OpenDSS LineCode normamps, per line
-Table OperationalLimitSet: name, Equipment
-    650632_limits, 650632
-    632670_limits, 632670
-    670671_limits, 670671
-    671680_limits, 671680
-    632633_limits, 632633
-    632645_limits, 632645
-    645646_limits, 645646
-    692675_limits, 692675
-    671684_limits, 671684
-    684611_limits, 684611
-    684652_limits, 684652
+Table OperationalLimitSet: mRID, Equipment
+    ln_650632_limits, ln_650632
+    ln_632670_limits, ln_632670
+    ln_670671_limits, ln_670671
+    ln_671680_limits, ln_671680
+    ln_632633_limits, ln_632633
+    ln_632645_limits, ln_632645
+    ln_645646_limits, ln_645646
+    ln_692675_limits, ln_692675
+    ln_671684_limits, ln_671684
+    ln_684611_limits, ln_684611
+    ln_684652_limits, ln_684652
 
-Table CurrentLimit: name, normalValue (A), OperationalLimitSet
-    650632_normal, 730, 650632_limits
-    632670_normal, 730, 632670_limits
-    670671_normal, 730, 670671_limits
-    671680_normal, 730, 671680_limits
-    632633_normal, 340, 632633_limits
-    632645_normal, 230, 632645_limits
-    645646_normal, 230, 645646_limits
-    692675_normal, 260, 692675_limits
-    671684_normal, 230, 671684_limits
-    684611_normal, 230, 684611_limits
-    684652_normal, 165, 684652_limits
+Table CurrentLimit: mRID, normalValue (A), OperationalLimitSet
+    ln_650632_normal, 730, ln_650632_limits
+    ln_632670_normal, 730, ln_632670_limits
+    ln_670671_normal, 730, ln_670671_limits
+    ln_671680_normal, 730, ln_671680_limits
+    ln_632633_normal, 340, ln_632633_limits
+    ln_632645_normal, 230, ln_632645_limits
+    ln_645646_normal, 230, ln_645646_limits
+    ln_692675_normal, 260, ln_692675_limits
+    ln_671684_normal, 230, ln_671684_limits
+    ln_684611_normal, 230, ln_684611_limits
+    ln_684652_normal, 165, ln_684652_limits

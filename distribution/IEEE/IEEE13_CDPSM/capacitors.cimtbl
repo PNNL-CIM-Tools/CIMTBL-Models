@@ -5,6 +5,6 @@
 
 Profile = cim18v17
 
-Table LinearShuntCompensator: name, node, phases, phaseConnection, grounded, nomQ (kVAr), nomU (kV), bPerSection (S), sections, normalSections, maximumSections, BaseVoltage=bv_4p16kv, EquipmentContainer=ieee13nodeckt
-    cap1, 675, ABC, Y, true, 600, 4.16, 0.034671, 1, 1, 1
-    cap2, 611, C,   Y, true, 100, 2.4,  0.017361, 1, 1, 1
+Table LinearShuntCompensator: mRID, name, node, phases, phaseConnection, grounded, nomQ (kVAr), nomU (kV), bPerSection (S), sections, normalSections, maximumSections, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    cap_cap1, cap1, 675, ABC, Y, true, 600, 4.16, 0.034671, 1, 1, 1
+    cap_cap2, cap2, 611, C,   Y, true, 100, 2.4,  0.017361, 1, 1, 1

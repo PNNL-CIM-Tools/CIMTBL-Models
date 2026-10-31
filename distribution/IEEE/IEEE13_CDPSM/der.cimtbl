@@ -6,22 +6,22 @@
 #   Storage: p = -kWRated discharging, +kWRated charging, 0 idling
 #            (OpenDSS %discharge/%charge default 100; idling -> `waiting`)
 # Both OpenDSS PVSystem.School and Storage.School exist; the connections are
-# prefixed pv_/storage_ so the names stay unique within the class.
+# prefixed pv_/storage_ so their mRIDs stay unique.
 
 Profile = cim18v17
 
-Table PowerElectronicsConnection: name, node, phases, ratedS (kVA), ratedU (V), p (kW), q (kVAr), BaseVoltage, EquipmentContainer=ieee13nodeckt
+Table PowerElectronicsConnection: mRID, node, phases, ratedS (kVA), ratedU (V), p (kW), q (kVAr), BaseVoltage, EquipmentContainer=fdr_ieee13nodeckt
     pv_school,       634,   ABC,  300, 480, -240, 0, bv_480v
     storage_school,  634,   ABC,  100, 480, -100, 0, bv_480v
     storage_batidle, 634,   ABC,  100, 480, 0,    0, bv_480v
     pv_house,        house, s1s2, 5,   240, -4,   0, bv_240v
     storage_house,   house, s1s2, 5,   240, 5,    0, bv_240v
 
-Table PhotoVoltaicUnit: name, maxP (kW), PowerElectronicsConnection, EquipmentContainer=ieee13nodeckt
+Table PhotoVoltaicUnit: mRID, maxP (kW), PowerElectronicsConnection, EquipmentContainer=fdr_ieee13nodeckt
     pv_school_unit, 300, pv_school
     pv_house_unit,  5,   pv_house
 
-Table BatteryUnit: name, ratedE (kWh), storedE (kWh), batteryState, PowerElectronicsConnection, EquipmentContainer=ieee13nodeckt
+Table BatteryUnit: mRID, ratedE (kWh), storedE (kWh), batteryState, PowerElectronicsConnection, EquipmentContainer=fdr_ieee13nodeckt
     storage_school_unit,  200,  100, discharging, storage_school
     storage_batidle_unit, 200,  100, waiting,     storage_batidle
     storage_house_unit,   13.5, 5,   charging,    storage_house
