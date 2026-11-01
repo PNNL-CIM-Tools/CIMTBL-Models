@@ -1,3 +1,8 @@
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+# Rename Model for your model: UUIDs are seeded from it
+Model = demo_feeder
+
 Object EnergySource: mRID=src_sourcebus, name=sourcebus
 
 Object BaseFrequency: mRID=base_freq, frequency=60
@@ -136,7 +141,8 @@ Table PowerTransformerEnd: mRID, node, endNumber, r (percent), x (percent), rate
 
 # Transformer Instance
 
-Object PowerTransformer: mRID=xf_padmount_2341, name=padmount_2341, Template=padmount_template
+# The instance links to its template via TransformerTank.TankConfiguration (see padmount_example.cimtbl)
+Object PowerTransformer: mRID=xf_padmount_2341, name=padmount_2341
 Table PowerTransformerEnd: mRID, node, endNumber
     pad_2341_1, 671,   1
     pad_2341_2, House, 2

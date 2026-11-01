@@ -1,6 +1,8 @@
 # One padmount instance built from the padmount_1ph_250kva tank configuration.
 
 Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = padmount_example
 
 Import templates/padmount_1ph_250kva.cimtbl
 

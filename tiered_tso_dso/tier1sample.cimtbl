@@ -1,3 +1,7 @@
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = tier1sample
+
 Object EnergySource: mRID=src_IEEE13nodeckt, name=IEEE13nodeckt
 
 Object BaseFrequency: mRID=base_freq, frequency=60

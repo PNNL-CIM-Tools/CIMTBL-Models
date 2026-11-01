@@ -1,6 +1,9 @@
 # Shared by every tier: who/where, plus voltage levels. Public at every tier.
 
 Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+# One model scope for every tier, so shared objects keep one UUID across tiers
+Model = IEEE13_tiered
 
 Object GeographicalRegion: mRID=rgn_demo_utility, name=demo_utility, description=Demo Electric Utility
 Object SubGeographicalRegion: mRID=srgn_demo_service_area, name=demo_service_area, Region=rgn_demo_utility

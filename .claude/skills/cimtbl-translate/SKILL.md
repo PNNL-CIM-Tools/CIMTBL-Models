@@ -15,6 +15,15 @@ OpenDSS -> CIM mapping per element type, file split, and the realism audit).
 ## Identity: every row is keyed by mRID
 
 - `Profile = cim18v17` at the top of every file.
+- The file that defines a model (the master; for the tiered models, the `common.cimtbl`
+  every tier imports) also declares its model scope, right under `Profile`:
+  ```
+  Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+  Model = IEEE13_CDPSM
+  ```
+  `Model` is unique per model in this repo (the master's file name, e.g.
+  `padmount_example`). Files imported by more than one model (element-family parts,
+  `templates/`) declare neither: Import raises if two files in a chain disagree.
 - The first column of an `IdentifiedObject` row is **`mRID`** (required). It is a
   freeform string that must be **unique within the whole model**, across all classes
   (CIM 18). The loader rejects a reused mRID.
@@ -26,8 +35,9 @@ OpenDSS -> CIM mapping per element type, file split, and the realism audit).
   `PhaseImpedanceData`) have no mRID or name. Give them an `identifier` column instead.
   It is optional, but write one so UUIDs stay the same between exports:
   `<parent mRID>_<row><column>` for matrix entries, e.g. `lc_mtx601_21`.
-- The UUID is seeded from class + mRID only, so renaming (`name`) never changes
-  identity. Changing an mRID does.
+- The UUID is seeded from `Authority` + `Model` + class + mRID, so bus `671` in two
+  models gets two UUIDs. Renaming (`name`) never changes identity; changing an mRID or
+  the `Model` does.
 
 ## mRID prefixes
 
@@ -95,8 +105,9 @@ From the CIM-Tables checkout's environment (adjust the path to yours):
 uv run --project /home/ande188/CIM-Tables python -I .claude/skills/cimtbl-translate/check_cimtbl.py path/to/master.cimtbl
 ```
 
-It loads the master (imports included), fails with the file and line of the first bad
-row, and prints object counts. Errors you'll see:
+It loads the master (imports included) with `cimtables.load_model`, fails with the file
+and line of the first bad row, and prints the profile, model scope, container and object
+counts. Errors you'll see:
 
 - `mRID 'x' ... is already used by <Class>`: two rows share an mRID; apply the prefixes.
 - `<attr> 'x' (<Class>) not found in graph`: the reference is misspelled or declared

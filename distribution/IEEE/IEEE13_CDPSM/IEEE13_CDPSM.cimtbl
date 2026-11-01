@@ -6,6 +6,8 @@
 # Translation decisions and deviations from the deck: README.md.
 
 Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = IEEE13_CDPSM
 
 Object Substation: mRID=sub_ieee13, name=ieee13_sub
 Object Feeder: mRID=fdr_ieee13nodeckt, name=ieee13nodeckt, NormalEnergizingSubstation=sub_ieee13
