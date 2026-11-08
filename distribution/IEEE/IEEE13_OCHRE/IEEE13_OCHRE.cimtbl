@@ -1,0 +1,43 @@
+# IEEE 13 node feeder, OCHRE variant (secondary system: center-tapped service
+# transformers, triplex lines, triplex loads)
+#
+# Source: CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_OCHRE/Master.dss
+# and the files it redirects. Rows are keyed by mRID: prefix + OpenDSS name,
+# lowercased (OpenDSS is case-insensitive); the OpenDSS name is kept in `name`.
+# Bus names are the OpenDSS bus names as written (node_650, CAP1, trip_node1, ...).
+# Translation decisions and deviations from the deck: README.md.
+
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = IEEE13_OCHRE
+
+Object Substation: mRID=sub_ieee13ochre, name=ieee13ochre
+Object Feeder: mRID=fdr_ieee13ochre, name=ieee13ochre, NormalEnergizingSubstation=sub_ieee13ochre
+
+# OpenDSS voltagebases "115,4.16, 0.48,0.208", kept as written except the
+# split-phase base: the triplex secondary is 240 V (see README).
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    bv_115kv,  115
+    bv_4p16kv, 4.16
+    bv_480v,   0.48
+    bv_240v,   0.24
+
+# Batchedit (Master.dss): load..* model=5 -> constant current. The deck has no
+# other load model, so only zip_constant_i is defined.
+Table LoadResponseCharacteristic: mRID, exponentModel, pConstantPower, pConstantCurrent, pConstantImpedance, qConstantPower, qConstantCurrent, qConstantImpedance
+    zip_constant_i, false, 0, 1, 0, 0, 1, 0
+
+# VSource.dss: circuit basekv=115 MVAsc3=50000. pu and angle are OpenDSS defaults (1.0, 0).
+# Z1 = 115^2 / 50000 = 0.2645 ohm; X1/R1 = 4 (OpenDSS default) -> r = Z1/sqrt(17), x = 4r.
+# MVAsc1 is not in the deck, so no zero-sequence impedance is transcribed (README).
+Object EnergySource: mRID=src_ieee13ochre, name=ieee13ochre, node=sourcebus, phases=ABC, nominalVoltage (kV)=115, voltageMagnitude (kV)=115, voltageAngle (deg)=0, r (ohm)=0.064151, x (ohm)=0.256603, BaseVoltage=bv_115kv, EquipmentContainer=sub_ieee13ochre
+
+Import linecodes.cimtbl
+Import xfmrcodes.cimtbl
+Import transformers.cimtbl
+Import regulators.cimtbl
+Import switches.cimtbl
+Import lines.cimtbl
+Import triplex_lines.cimtbl
+Import capacitors.cimtbl
+Import loads.cimtbl

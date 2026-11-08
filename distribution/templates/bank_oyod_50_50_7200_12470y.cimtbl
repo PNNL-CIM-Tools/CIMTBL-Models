@@ -1,0 +1,66 @@
+# Open wye - open delta bank: two 50 kVA single-phase pole-mount tanks, 7200/12470Y -
+# 120/240 V, serving a combination 1-phase / 3-phase 4-wire 120/240 V secondary;
+# 1.73 x 50 = 87 kVA three-phase (note 1A).
+# Source: SRP Overhead Distribution Construction Standards, page 7-35-1,
+# https://www.srpnet.com/v3/assets/bltefc1fc708dcc94e7/bltac008ac0402d979e/overhead-distribution-construction-standards.pdf
+#
+# One TransformerBankConfiguration and one TransformerTankConfiguration per tank
+# position, L (lighting) and T (power), even though the two tanks are the same design:
+# their lugs land on different conductors. Each lug's sequenceNumber is the bank
+# conductor it lands on; an instance's TransformerPhaseEnds carry the same numbers and
+# the real phases, so one bank design serves any pair of primary phases:
+#   end 1 (open wye):   1 = first phase, 2 = second phase, 3 = N
+#   end 2 (open delta): 4 = a, 5 = b, 6 = c (power leg), 7 = N
+# Several lugs on one number are tied together (both H2 on the common neutral, L's X3
+# and T's X1 on b). T's X2 (center tap) has no number: it lands on nothing.
+#
+# Like polarity (note 3A): both H1 on a phase, H2 on the neutral; L X1-X2-X3 = a-N-b,
+# T X1 = b, X3 = c. That puts c at 120 * sqrt(3) = 207.8 V to neutral (note 3D) and the
+# delta at 240 V on every side (T with X1 = c would give 415.7 V c-a).
+#
+# Tank design: as polemount_1ph_50kva_7200_12470y.cimtbl (impedance and losses
+# illustrative, typical of a DOE 2016 50 kVA unit, not from a datasheet).
+
+Profile = cim18v17
+
+Object TransformerBankConfiguration: mRID=xb_oyod_50_50_7200_12470y, name=oyod_50_50_7200_12470y
+
+Table TransformerTankConfiguration: mRID, name, percentImpedance, noLoadLoss (W), loadLoss (W), BankConfiguration
+    xb_oyod_50_50_7200_12470y_l, oyod_50_50_7200_12470y_L, 2.0, 90, 540, xb_oyod_50_50_7200_12470y
+    xb_oyod_50_50_7200_12470y_t, oyod_50_50_7200_12470y_T, 2.0, 90, 540, xb_oyod_50_50_7200_12470y
+
+# Bushing/lug designations per IEEE C57.12.70-2020; sequenceNumber = bank conductor.
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration
+    xb_oyod_50_50_7200_12470y_l_lug_h1, H1, 1, xb_oyod_50_50_7200_12470y_l
+    xb_oyod_50_50_7200_12470y_l_lug_h2, H2, 3, xb_oyod_50_50_7200_12470y_l
+    xb_oyod_50_50_7200_12470y_l_lug_x1, X1, 4, xb_oyod_50_50_7200_12470y_l
+    xb_oyod_50_50_7200_12470y_l_lug_x2, X2, 7, xb_oyod_50_50_7200_12470y_l
+    xb_oyod_50_50_7200_12470y_l_lug_x3, X3, 5, xb_oyod_50_50_7200_12470y_l
+    xb_oyod_50_50_7200_12470y_t_lug_h1, H1, 2, xb_oyod_50_50_7200_12470y_t
+    xb_oyod_50_50_7200_12470y_t_lug_h2, H2, 3, xb_oyod_50_50_7200_12470y_t
+    xb_oyod_50_50_7200_12470y_t_lug_x1, X1, 5, xb_oyod_50_50_7200_12470y_t
+    xb_oyod_50_50_7200_12470y_t_lug_x2, X2, , xb_oyod_50_50_7200_12470y_t
+    xb_oyod_50_50_7200_12470y_t_lug_x3, X3, 6, xb_oyod_50_50_7200_12470y_t
+
+# ratedU: the phase-to-phase designation (7200/12470Y -> 12470; 120/240 -> 240).
+# ratedS: per phase on the split-phase secondary (each half 25 kVA).
+# baseU: the coil voltage. baseS: the tank kVA, the base for all three coils.
+# From = the polarity end: H1->H2, X1->X2, X2->X3.
+Table TransformerWinding: mRID, ratedU (V), baseU (V), ratedS (kVA), baseS (kVA), FromTransformerLug, ToTransformerLug, TankConfiguration
+    xb_oyod_50_50_7200_12470y_l_wdg_h1h2, 12470, 7200, 50, 50, xb_oyod_50_50_7200_12470y_l_lug_h1, xb_oyod_50_50_7200_12470y_l_lug_h2, xb_oyod_50_50_7200_12470y_l
+    xb_oyod_50_50_7200_12470y_l_wdg_x1x2, 240,   120,  25, 50, xb_oyod_50_50_7200_12470y_l_lug_x1, xb_oyod_50_50_7200_12470y_l_lug_x2, xb_oyod_50_50_7200_12470y_l
+    xb_oyod_50_50_7200_12470y_l_wdg_x2x3, 240,   120,  25, 50, xb_oyod_50_50_7200_12470y_l_lug_x2, xb_oyod_50_50_7200_12470y_l_lug_x3, xb_oyod_50_50_7200_12470y_l
+    xb_oyod_50_50_7200_12470y_t_wdg_h1h2, 12470, 7200, 50, 50, xb_oyod_50_50_7200_12470y_t_lug_h1, xb_oyod_50_50_7200_12470y_t_lug_h2, xb_oyod_50_50_7200_12470y_t
+    xb_oyod_50_50_7200_12470y_t_wdg_x1x2, 240,   120,  25, 50, xb_oyod_50_50_7200_12470y_t_lug_x1, xb_oyod_50_50_7200_12470y_t_lug_x2, xb_oyod_50_50_7200_12470y_t
+    xb_oyod_50_50_7200_12470y_t_wdg_x2x3, 240,   120,  25, 50, xb_oyod_50_50_7200_12470y_t_lug_x2, xb_oyod_50_50_7200_12470y_t_lug_x3, xb_oyod_50_50_7200_12470y_t
+
+# quality = inferred: Hopkinson interlaced secondary split, as in padmount_1ph_250kva.cimtbl:
+#   R = 540 / 50000 = 1.08 %, X = sqrt(2.0^2 - 1.08^2) = 1.6833 %
+#   H - X1X2 = H - X2X3 = 1.5R + j1.2X; X1X2 - X2X3 = 2.0R + j0.8X
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, r (percent), x (percent)
+    xb_oyod_50_50_7200_12470y_l_mesh_h_x1x2, xb_oyod_50_50_7200_12470y_l_wdg_h1h2, xb_oyod_50_50_7200_12470y_l_wdg_x1x2, 1.62, 2.0200
+    xb_oyod_50_50_7200_12470y_l_mesh_h_x2x3, xb_oyod_50_50_7200_12470y_l_wdg_h1h2, xb_oyod_50_50_7200_12470y_l_wdg_x2x3, 1.62, 2.0200
+    xb_oyod_50_50_7200_12470y_l_mesh_x1x2_x2x3, xb_oyod_50_50_7200_12470y_l_wdg_x1x2, xb_oyod_50_50_7200_12470y_l_wdg_x2x3, 2.16, 1.3467
+    xb_oyod_50_50_7200_12470y_t_mesh_h_x1x2, xb_oyod_50_50_7200_12470y_t_wdg_h1h2, xb_oyod_50_50_7200_12470y_t_wdg_x1x2, 1.62, 2.0200
+    xb_oyod_50_50_7200_12470y_t_mesh_h_x2x3, xb_oyod_50_50_7200_12470y_t_wdg_h1h2, xb_oyod_50_50_7200_12470y_t_wdg_x2x3, 1.62, 2.0200
+    xb_oyod_50_50_7200_12470y_t_mesh_x1x2_x2x3, xb_oyod_50_50_7200_12470y_t_wdg_x1x2, xb_oyod_50_50_7200_12470y_t_wdg_x2x3, 2.16, 1.3467

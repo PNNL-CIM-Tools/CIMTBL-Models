@@ -1,0 +1,48 @@
+# Three-phase padmount: 500 kVA, 12470 delta - 480Y/277 V, Dyn1 (ANSI standard: the
+# low-side voltage lags the high side by 30 degrees). Core form, one coil pair per leg.
+#
+# TransformerTankConfiguration = reusable tank design, like an OpenDSS XfmrCode.
+# Instances point their TransformerTank at it with TankConfiguration=xc_padmount_3ph_500kva_dyn1.
+#
+# Nameplate losses and impedance are illustrative (typical of a DOE 2016 500 kVA
+# unit), not from a specific datasheet.
+
+Profile = cim18v17
+
+Object TransformerTankConfiguration: mRID=xc_padmount_3ph_500kva_dyn1, name=padmount_3ph_500kva_dyn1, percentImpedance=5.75, noLoadLoss (W)=900, loadLoss (W)=4500
+
+Object TransformerCore: mRID=xc_padmount_3ph_500kva_dyn1_core, form=coreForm, TankConfiguration=xc_padmount_3ph_500kva_dyn1
+
+# Bushing/lug designations per IEEE C57.12.70-2020, before the windings that name them.
+# sequenceNumber = the conductor the lug lands on, in terminal order (end 1 A B C, then
+# end 2 A B C N); an instance's TransformerPhaseEnds carry the same numbers and the real phases.
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration=xc_padmount_3ph_500kva_dyn1
+    xc_padmount_3ph_500kva_dyn1_lug_h1, H1, 1
+    xc_padmount_3ph_500kva_dyn1_lug_h2, H2, 2
+    xc_padmount_3ph_500kva_dyn1_lug_h3, H3, 3
+    xc_padmount_3ph_500kva_dyn1_lug_x1, X1, 4
+    xc_padmount_3ph_500kva_dyn1_lug_x2, X2, 5
+    xc_padmount_3ph_500kva_dyn1_lug_x3, X3, 6
+    xc_padmount_3ph_500kva_dyn1_lug_x0, X0, 7
+
+# One winding per coil, From = the polarity-marked end. Dyn1 legs:
+#   H1-H3 with X1-X0, H2-H1 with X2-X0, H3-H2 with X3-X0.
+# ratedU: the side's nameplate designation (12470, 480). baseU: the coil voltage
+# (delta: line-to-line; wye: line-to-neutral). ratedS: three-phase basis (500);
+# baseS: the per-coil base (500 / 3).
+Table TransformerWinding: mRID, ratedU (V), baseU (V), ratedS (kVA), baseS (kVA), FromTransformerLug, ToTransformerLug, TankConfiguration=xc_padmount_3ph_500kva_dyn1
+    xc_padmount_3ph_500kva_dyn1_wdg_h1h3, 12470, 12470, 500, 166.6667, xc_padmount_3ph_500kva_dyn1_lug_h1, xc_padmount_3ph_500kva_dyn1_lug_h3
+    xc_padmount_3ph_500kva_dyn1_wdg_h2h1, 12470, 12470, 500, 166.6667, xc_padmount_3ph_500kva_dyn1_lug_h2, xc_padmount_3ph_500kva_dyn1_lug_h1
+    xc_padmount_3ph_500kva_dyn1_wdg_h3h2, 12470, 12470, 500, 166.6667, xc_padmount_3ph_500kva_dyn1_lug_h3, xc_padmount_3ph_500kva_dyn1_lug_h2
+    xc_padmount_3ph_500kva_dyn1_wdg_x1x0, 480,   277,   500, 166.6667, xc_padmount_3ph_500kva_dyn1_lug_x1, xc_padmount_3ph_500kva_dyn1_lug_x0
+    xc_padmount_3ph_500kva_dyn1_wdg_x2x0, 480,   277,   500, 166.6667, xc_padmount_3ph_500kva_dyn1_lug_x2, xc_padmount_3ph_500kva_dyn1_lug_x0
+    xc_padmount_3ph_500kva_dyn1_wdg_x3x0, 480,   277,   500, 166.6667, xc_padmount_3ph_500kva_dyn1_lug_x3, xc_padmount_3ph_500kva_dyn1_lug_x0
+
+# One mesh per leg, in percent on the From coil's baseU^2/baseS (the coil base, so the
+# tank's own percent values apply unchanged):
+#   R = loadLoss / kVA          = 4500 / 500000          = 0.90 %
+#   X = sqrt(percentImpedance^2 - R^2) = sqrt(5.75^2 - 0.90^2) = 5.6791 %
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, r (percent), x (percent)
+    xc_padmount_3ph_500kva_dyn1_mesh_a, xc_padmount_3ph_500kva_dyn1_wdg_h1h3, xc_padmount_3ph_500kva_dyn1_wdg_x1x0, 0.90, 5.6791
+    xc_padmount_3ph_500kva_dyn1_mesh_b, xc_padmount_3ph_500kva_dyn1_wdg_h2h1, xc_padmount_3ph_500kva_dyn1_wdg_x2x0, 0.90, 5.6791
+    xc_padmount_3ph_500kva_dyn1_mesh_c, xc_padmount_3ph_500kva_dyn1_wdg_h3h2, xc_padmount_3ph_500kva_dyn1_wdg_x3x0, 0.90, 5.6791

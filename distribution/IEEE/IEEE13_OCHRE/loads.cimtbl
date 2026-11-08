@@ -1,0 +1,52 @@
+# IEEE 13 OCHRE loads (OpenDSS TpxLoads.dss, 40 triplex loads -> EnergyConsumer)
+#
+# The deck has no Loads.dss: these 40 triplex loads are the only loads.
+# Each is a single-phase 240 V split-phase load across s1 s2 (wye, kv=0.208 in the deck,
+# which is 120 V per leg; BaseVoltage bv_240v, as in the CDPSM house load).
+# p/q are each load's own kW and kVAr as written (not totals).
+# `batchedit load..* model=5` (Master.dss) applies to every load -> zip_constant_i.
+# Load names are tl_house_N_240v; each load's bus is tl_house_N (the triplex line's far end).
+
+Profile = cim18v17
+
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_240v, EquipmentContainer=fdr_ieee13ochre
+    ld_tl_house_1_240v,  tl_house_1_240v,  tl_house_1,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_2_240v,  tl_house_2_240v,  tl_house_2,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_3_240v,  tl_house_3_240v,  tl_house_3,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_4_240v,  tl_house_4_240v,  tl_house_4,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_5_240v,  tl_house_5_240v,  tl_house_5,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_6_240v,  tl_house_6_240v,  tl_house_6,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_7_240v,  tl_house_7_240v,  tl_house_7,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_8_240v,  tl_house_8_240v,  tl_house_8,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_9_240v,  tl_house_9_240v,  tl_house_9,  s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_10_240v, tl_house_10_240v, tl_house_10, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_11_240v, tl_house_11_240v, tl_house_11, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_12_240v, tl_house_12_240v, tl_house_12, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_13_240v, tl_house_13_240v, tl_house_13, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_14_240v, tl_house_14_240v, tl_house_14, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_15_240v, tl_house_15_240v, tl_house_15, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_16_240v, tl_house_16_240v, tl_house_16, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_17_240v, tl_house_17_240v, tl_house_17, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_18_240v, tl_house_18_240v, tl_house_18, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_19_240v, tl_house_19_240v, tl_house_19, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_20_240v, tl_house_20_240v, tl_house_20, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_21_240v, tl_house_21_240v, tl_house_21, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_22_240v, tl_house_22_240v, tl_house_22, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_23_240v, tl_house_23_240v, tl_house_23, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_24_240v, tl_house_24_240v, tl_house_24, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_25_240v, tl_house_25_240v, tl_house_25, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_26_240v, tl_house_26_240v, tl_house_26, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_27_240v, tl_house_27_240v, tl_house_27, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_28_240v, tl_house_28_240v, tl_house_28, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_29_240v, tl_house_29_240v, tl_house_29, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_30_240v, tl_house_30_240v, tl_house_30, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_31_240v, tl_house_31_240v, tl_house_31, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_32_240v, tl_house_32_240v, tl_house_32, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_33_240v, tl_house_33_240v, tl_house_33, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_34_240v, tl_house_34_240v, tl_house_34, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_35_240v, tl_house_35_240v, tl_house_35, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_36_240v, tl_house_36_240v, tl_house_36, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_37_240v, tl_house_37_240v, tl_house_37, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_38_240v, tl_house_38_240v, tl_house_38, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_39_240v, tl_house_39_240v, tl_house_39, s1s2, Y, true, 5.840, 1.589, zip_constant_i
+    ld_tl_house_40_240v, tl_house_40_240v, tl_house_40, s1s2, Y, true, 5.840, 1.589, zip_constant_i

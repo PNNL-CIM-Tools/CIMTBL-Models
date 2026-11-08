@@ -1,0 +1,41 @@
+# IEEE 13 node test feeder, OpenDSS original deck
+#
+# Source: CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_original/IEEE13Nodeckt.dss
+# (the deck's `redirect IEEELineCodes.dss` only defines numbered line codes; the
+# mtx601-mtx607 codes used by the lines are defined inline in the deck).
+# Rows are keyed by mRID: prefix + OpenDSS name, lowercased (OpenDSS is
+# case-insensitive); the OpenDSS name is kept in `name`. See README.md.
+
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = IEEE13_original
+
+Object Substation: mRID=sub_ieee13, name=ieee13_sub
+Object Feeder: mRID=fdr_ieee13nodeckt, name=ieee13nodeckt, NormalEnergizingSubstation=sub_ieee13
+
+# OpenDSS Set Voltagebases=[115, 4.16, .48] (kV, as written).
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    bv_115kv,  115
+    bv_4p16kv, 4.16
+    bv_480v,   0.48
+
+# OpenDSS load models: 1 = constant PQ, 2 = constant Z, 5 = constant I
+Table LoadResponseCharacteristic: mRID, exponentModel, pConstantPower, pConstantCurrent, pConstantImpedance, qConstantPower, qConstantCurrent, qConstantImpedance
+    zip_constant_pq, false, 1, 0, 0, 1, 0, 0
+    zip_constant_z,  false, 0, 0, 1, 0, 0, 1
+    zip_constant_i,  false, 0, 1, 0, 0, 1, 0
+
+# Vsource: basekv=115 pu=1.0001 angle=30 MVAsc3=20000 MVAsc1=21000
+# (OpenDSS defaults X1/R1 = 4, X0/R0 = 3; same values as IEEE13_CDPSM)
+#   Z1 = 115^2 / 20000 = 0.66125 ohm -> r = 0.160377, x = 0.641507
+#   |2 Z1 + Z0| = 3 x 115^2 / 21000  -> r0 = 0.179604, x0 = 0.538811
+# voltageMagnitude = pu x basekv = 1.0001 x 115 kV = 115.0115 kV (derived, see README).
+Object EnergySource: mRID=src_source, name=source, node=sourcebus, phases=ABC, nominalVoltage (kV)=115, voltageMagnitude (kV)=115.0115, voltageAngle (deg)=30, r (ohm)=0.160377, x (ohm)=0.641507, r0 (ohm)=0.179604, x0 (ohm)=0.538811, BaseVoltage=bv_115kv, EquipmentContainer=sub_ieee13
+
+Import linecodes.cimtbl
+Import transformers.cimtbl
+Import regulators.cimtbl
+Import switches.cimtbl
+Import lines.cimtbl
+Import loads.cimtbl
+Import capacitors.cimtbl

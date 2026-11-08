@@ -1,0 +1,64 @@
+# CYME overhead sections -> ACLineSegment (10 sections; 632-671 is split at the
+# lumped-load node 670 into two segments, 667 ft and 1333 ft from 632).
+#
+# length (m): CYME stores lengths in metres (152.4 m = 500 ft, 609.6 m = 2000 ft).
+#   632-670 = 203.3016 m (667 ft); 670-671 = 406.2986 m, the rest of the CYME 609.6002 m
+#   (1333 ft is 406.2984 m; the 0.09 m difference keeps the CYME total).
+#
+# Impedance:
+#   - LINE606 (692-675) and LINE607 (684-652): user-defined impedances (PerLengthImpedance).
+#   - OverheadByPhase sections: WireConfiguration (conductors and spacing, linegeometries.cimtbl).
+#     The impedance is computed from the geometry by CYME, and the file has no result,
+#     so these carry no impedance here.
+#
+# phases: the conductors in position order, then N for the neutral. Token k is the
+# conductor at position k (ACLineSegmentPhase.sequenceNumber = k), so each token's
+# conductor is the WireSequenceConfiguration with sequenceNumber k. The phase order is the
+# CYME ConductorPosition string (see README.md), not the section's ABC node order.
+# The distributed load on 632-671 is lumped at 670 (loads.cimtbl).
+
+Profile = cim18v17
+
+Table ACLineSegment: mRID, name, node1, node2, phases, length (m), WireConfiguration, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_650
+    ln_l650_632,   L650_632,   rg60, 632, BACN, 609.6002,  wc_500_556_500
+    ln_l632_633,   L632_633,   632,  633, CABN, 152.4,     wc_500_4/0
+    ln_l632_671a,  L632_671_P1, 632, 670, BACN, 203.3016,  wc_500_556_500
+    ln_l632_671b,  L632_671_P2, 670, 671, BACN, 406.2986,  wc_500_556_500
+    ln_l671_680,   L671_680,   671,  680, BACN, 304.8,     wc_500_556_500
+    ln_l671_684,   L671_684,   671,  684, ACN,  91.44,     wc_505
+    ln_l684_611,   L684_611,   684,  611, CN,   91.440002, wc_510
+    ln_l645_646,   L645_646,   645,  646, CBN,  91.44,     wc_505
+    ln_l632_645,   L632_645,   632,  645, CBN,  152.4,     wc_505
+
+Table ACLineSegment: mRID, name, node1, node2, phases, length (m), PerLengthImpedance, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_650
+    ln_l692_675, L692_675, 692, 675, ABC, 152.4,   lc_line606
+    ln_l684_652, L684_652, 684, 652, A,   243.84,  lc_line607
+
+# CYME NominalRatingA/B/C = 0 on the sections, so the rating comes from the
+# equipment: LINE606/LINE607 NominalRatingA = 1000 A; OverheadByPhase sections use
+# their phase conductor's NominalRating (556_500 730 A, 4/0 340 A, 1/0 230 A).
+Table OperationalLimitSet: mRID, Equipment
+    ln_l650_632_limits,  ln_l650_632
+    ln_l632_633_limits,  ln_l632_633
+    ln_l632_671a_limits, ln_l632_671a
+    ln_l632_671b_limits, ln_l632_671b
+    ln_l671_680_limits,  ln_l671_680
+    ln_l671_684_limits,  ln_l671_684
+    ln_l684_611_limits,  ln_l684_611
+    ln_l645_646_limits,  ln_l645_646
+    ln_l632_645_limits,  ln_l632_645
+    ln_l692_675_limits,  ln_l692_675
+    ln_l684_652_limits,  ln_l684_652
+
+Table CurrentLimit: mRID, normalValue (A), OperationalLimitSet
+    ln_l650_632_normal,  730,  ln_l650_632_limits
+    ln_l632_633_normal,  340,  ln_l632_633_limits
+    ln_l632_671a_normal, 730,  ln_l632_671a_limits
+    ln_l632_671b_normal, 730,  ln_l632_671b_limits
+    ln_l671_680_normal,  730,  ln_l671_680_limits
+    ln_l671_684_normal,  230,  ln_l671_684_limits
+    ln_l684_611_normal,  230,  ln_l684_611_limits
+    ln_l645_646_normal,  230,  ln_l645_646_limits
+    ln_l632_645_normal,  230,  ln_l632_645_limits
+    ln_l692_675_normal,  1000, ln_l692_675_limits
+    ln_l684_652_normal,  1000, ln_l684_652_limits

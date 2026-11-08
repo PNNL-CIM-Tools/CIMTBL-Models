@@ -9,11 +9,11 @@ Object BaseFrequency: mRID=base_freq, frequency=60
 Object BasePower: mRID=sbase, basePower (MVA)=100
 
 # Phase-to-phase nominal voltages
-Table BaseVoltage: mRID, nominalVoltage (V)
-    base_115,  115000
-    base_4160, 4160
-    base_480,  480
-    base_240,  240
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    base_115,  115
+    base_4160, 4.16
+    base_480,  0.48
+    base_240,  0.24
 
 # Define EquipmentContainer objects
 Object Substation: mRID=sub_demo_sub, name=demo_sub

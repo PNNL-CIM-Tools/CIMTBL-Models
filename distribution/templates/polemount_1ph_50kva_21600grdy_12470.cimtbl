@@ -1,0 +1,55 @@
+# Single-phase pole-mount: 50 kVA, 21600GrdY/12470 - 120/240 V, center-tapped secondary,
+# two primary bushings (H1, H2).
+# X2 is bonded to the tank (ground symbol on the middle secondary terminal; no
+# attribute for it on a lug).
+# Polarity: subtractive (primary above 8660 V; IEEE C57.12.00).
+# Polarity moves X1/X3 on the tank, not the model.
+# Rating: IEEE C57.12.00-2021 Table 7 nameplate marking; SRP prints 12470/21600GrdY (7-33-1 prints 12470/21600).
+# Source: SRP Overhead Distribution Construction Standards, pages 7-33-1, 7-34-1, 7-35-1,
+# https://www.srpnet.com/v3/assets/bltefc1fc708dcc94e7/bltac008ac0402d979e/overhead-distribution-construction-standards.pdf
+# GrdY: reduced insulation at the H2 (neutral) end, which IEEE C57.12.00 Table 7
+# requires effectively grounded; SRP 7-34-1 nonetheless lists this rating for
+# phase-to-phase use, which puts H2 on a phase.
+#
+# The template is the tank only: lugs, windings and impedances. Each lug's
+# sequenceNumber is the conductor it lands on, in terminal order: end 1 (H1, H2),
+# then end 2 (X1 = s1, X3 = s2, X2 = N). An instance's TransformerPhaseEnds carry the
+# same numbers and the real phases, so the same tank goes phase to neutral (7-33-1)
+# or phase to phase (7-34-1). In a bank (7-35-1) each tank position has its own
+# configuration, numbered over the bank: see bank_oyod_50_50_7200_12470y.cimtbl.
+#
+# Impedance and losses are illustrative (typical of a DOE 2016 50 kVA unit:
+# 99.11 % at half load), not from a datasheet.
+
+Profile = cim18v17
+
+Object TransformerTankConfiguration: mRID=xc_polemount_1ph_50kva_21600grdy_12470, name=polemount_1ph_50kva_21600grdy_12470, percentImpedance=2.0, noLoadLoss (W)=90, loadLoss (W)=540
+
+# Bushing/lug designations per IEEE C57.12.70-2020, before the windings that name them.
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration=xc_polemount_1ph_50kva_21600grdy_12470
+    xc_polemount_1ph_50kva_21600grdy_12470_lug_h1, H1, 1
+    xc_polemount_1ph_50kva_21600grdy_12470_lug_h2, H2, 2
+    xc_polemount_1ph_50kva_21600grdy_12470_lug_x1, X1, 3
+    xc_polemount_1ph_50kva_21600grdy_12470_lug_x3, X3, 4
+    xc_polemount_1ph_50kva_21600grdy_12470_lug_x2, X2, 5
+
+# ratedU: the phase-to-phase designation (21600GrdY/12470 -> 21600; 120/240 -> 240).
+# ratedS: per phase on the split-phase secondary (each half 25 kVA).
+# baseU: the coil voltage. baseS: the tank kVA, the base for all three coils.
+# From = the polarity end: H1->H2, X1->X2, X2->X3 (OpenDSS s1->N, N->s2).
+Table TransformerWinding: mRID, ratedU (V), baseU (V), ratedS (kVA), baseS (kVA), FromTransformerLug, ToTransformerLug, TankConfiguration=xc_polemount_1ph_50kva_21600grdy_12470
+    xc_polemount_1ph_50kva_21600grdy_12470_wdg_h1h2, 21600, 12470, 50, 50, xc_polemount_1ph_50kva_21600grdy_12470_lug_h1, xc_polemount_1ph_50kva_21600grdy_12470_lug_h2
+    xc_polemount_1ph_50kva_21600grdy_12470_wdg_x1x2, 240, 120, 25, 50, xc_polemount_1ph_50kva_21600grdy_12470_lug_x1, xc_polemount_1ph_50kva_21600grdy_12470_lug_x2
+    xc_polemount_1ph_50kva_21600grdy_12470_wdg_x2x3, 240, 120, 25, 50, xc_polemount_1ph_50kva_21600grdy_12470_lug_x2, xc_polemount_1ph_50kva_21600grdy_12470_lug_x3
+
+# quality = inferred: half-winding impedances are not on the nameplate, so they come
+# from the Hopkinson (1976) interlaced secondary model (Kersting Fig. 4.8), as in
+# padmount_1ph_250kva.cimtbl. Full-winding impedance from the configuration:
+#   R = loadLoss / ratedS = 540 / 50000 = 1.08 %
+#   X = sqrt(percentImpedance^2 - R^2) = sqrt(2.0^2 - 1.08^2) = 1.6833 %
+#   H - X1X2 = H - X2X3 = 1.5R + j1.2X  (OpenDSS Xhl, Xht)
+#   X1X2 - X2X3         = 2.0R + j0.8X  (OpenDSS Xlt)
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, r (percent), x (percent)
+    xc_polemount_1ph_50kva_21600grdy_12470_mesh_h_x1x2, xc_polemount_1ph_50kva_21600grdy_12470_wdg_h1h2, xc_polemount_1ph_50kva_21600grdy_12470_wdg_x1x2, 1.62, 2.0200
+    xc_polemount_1ph_50kva_21600grdy_12470_mesh_h_x2x3, xc_polemount_1ph_50kva_21600grdy_12470_wdg_h1h2, xc_polemount_1ph_50kva_21600grdy_12470_wdg_x2x3, 1.62, 2.0200
+    xc_polemount_1ph_50kva_21600grdy_12470_mesh_x1x2_x2x3, xc_polemount_1ph_50kva_21600grdy_12470_wdg_x1x2, xc_polemount_1ph_50kva_21600grdy_12470_wdg_x2x3, 2.16, 1.3467

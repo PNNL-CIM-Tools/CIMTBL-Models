@@ -1,0 +1,57 @@
+# IEEE 13 line codes (OpenDSS LineCode -> PerLengthPhaseImpedance + PhaseImpedanceData)
+#
+# One PhaseImpedanceData row per lower-triangle element. row/column are
+# conductor indices, not phases: ACLineSegmentPhase.sequenceNumber (the order
+# of a line's `phases` column) picks the row, so one code serves CB and BC lines.
+# b = 2*pi*60*C, from the deck's cmatrix (nF/mile), as in IEEE13_CDPSM.
+#
+# mtx601-mtx605 have no cmatrix in the deck, so b is left unset (OpenDSS zero).
+# mtx606 is the active "Corrected mtx606 Feb 3 2016" definition, not the
+# /* */-commented "Original 606" block above it.
+
+Profile = cim18v17
+
+Table PerLengthPhaseImpedance: mRID, name, conductorCount, calculatedFrequency (Hz)
+    lc_mtx601, mtx601, 3, 60
+    lc_mtx602, mtx602, 3, 60
+    lc_mtx603, mtx603, 2, 60
+    lc_mtx604, mtx604, 2, 60
+    lc_mtx605, mtx605, 1, 60
+    lc_mtx606, mtx606, 3, 60
+    lc_mtx607, mtx607, 1, 60
+
+Table PhaseImpedanceData: identifier, PhaseImpedance, row, column, r (ohm/mile), x (ohm/mile), b (uS/mile)
+    lc_mtx601_11, lc_mtx601, 1, 1, 0.3465,   1.0179,
+    lc_mtx601_21, lc_mtx601, 2, 1, 0.1560,   0.5017,
+    lc_mtx601_22, lc_mtx601, 2, 2, 0.3375,   1.0478,
+    lc_mtx601_31, lc_mtx601, 3, 1, 0.1580,   0.4236,
+    lc_mtx601_32, lc_mtx601, 3, 2, 0.1535,   0.3849,
+    lc_mtx601_33, lc_mtx601, 3, 3, 0.3414,   1.0348,
+
+    lc_mtx602_11, lc_mtx602, 1, 1, 0.7526,   1.1814,
+    lc_mtx602_21, lc_mtx602, 2, 1, 0.1580,   0.4236,
+    lc_mtx602_22, lc_mtx602, 2, 2, 0.7475,   1.1983,
+    lc_mtx602_31, lc_mtx602, 3, 1, 0.1560,   0.5017,
+    lc_mtx602_32, lc_mtx602, 3, 2, 0.1535,   0.3849,
+    lc_mtx602_33, lc_mtx602, 3, 3, 0.7436,   1.2112,
+
+    lc_mtx603_11, lc_mtx603, 1, 1, 1.3238,   1.3569,
+    lc_mtx603_21, lc_mtx603, 2, 1, 0.2066,   0.4591,
+    lc_mtx603_22, lc_mtx603, 2, 2, 1.3294,   1.3471,
+
+    lc_mtx604_11, lc_mtx604, 1, 1, 1.3238,   1.3569,
+    lc_mtx604_21, lc_mtx604, 2, 1, 0.2066,   0.4591,
+    lc_mtx604_22, lc_mtx604, 2, 2, 1.3294,   1.3471,
+
+    lc_mtx605_11, lc_mtx605, 1, 1, 1.3292,   1.3475,
+
+    # Concentric-neutral cable (Dugan, Feb 2016); cmatrix 383.948 nF/mile on the diagonal
+    lc_mtx606_11, lc_mtx606, 1, 1, 0.791721, 0.438352,   144.745
+    lc_mtx606_21, lc_mtx606, 2, 1, 0.318476, 0.0276838,
+    lc_mtx606_22, lc_mtx606, 2, 2, 0.781649, 0.396697,   144.745
+    lc_mtx606_31, lc_mtx606, 3, 1, 0.28345,  -0.0184204,
+    lc_mtx606_32, lc_mtx606, 3, 2, 0.318476, 0.0276838,
+    lc_mtx606_33, lc_mtx606, 3, 3, 0.791721, 0.438352,   144.745
+
+    # cmatrix 236 nF/mile
+    lc_mtx607_11, lc_mtx607, 1, 1, 1.3425,   0.5124,     88.9699

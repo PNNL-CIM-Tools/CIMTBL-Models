@@ -1,0 +1,28 @@
+# CYME OverheadLineUnbalanced equipment with user-defined impedances
+# (LINE606, LINE607) -> PerLengthPhaseImpedance + PhaseImpedanceData.
+#
+# Only these two line equipment entries are referenced by the network. The eight
+# OverheadByPhase sections compute their impedance in CYME from conductor + spacing
+# and carry no impedance in the file, so they have no PerLengthPhaseImpedance here.
+#
+# Units are CYME's: ohm/km and micro-siemens/km (confirmed: LINE607 equals the
+# OpenDSS mtx607 values converted at 1.609344 km/mile).
+# One PhaseImpedanceData row per lower-triangle element; row/column are conductor
+# indices (row 1 = A, 2 = B, 3 = C, the line's phases order). Diagonal b is the
+# self shunt susceptance; the file has no mutual shunt, so off-diagonal b is blank.
+
+Profile = cim18v17
+
+Table PerLengthPhaseImpedance: mRID, name, conductorCount, calculatedFrequency (Hz)
+    lc_line606, LINE606, 3, 60
+    lc_line607, LINE607, 1, 60
+
+Table PhaseImpedanceData: identifier, PhaseImpedance, row, column, r (ohm/km), x (ohm/km), b (uS/km)
+    lc_line606_11, lc_line606, 1, 1, 0.495978, 0.277318, 60.204451
+    lc_line606_21, lc_line606, 2, 1, 0.191258, 0.010625,
+    lc_line606_22, lc_line606, 2, 2, 0.490324, 0.251096, 60.204451
+    lc_line606_31, lc_line606, 3, 1, 0.191258, 0.010625,
+    lc_line606_32, lc_line606, 3, 2, 0.191258, 0.010625,
+    lc_line606_33, lc_line606, 3, 3, 0.495978, 0.277318, 60.204451
+
+    lc_line607_11, lc_line607, 1, 1, 0.834191, 0.318390, 55.296553

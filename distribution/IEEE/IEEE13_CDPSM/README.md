@@ -8,9 +8,9 @@ dependency order (references must be declared before use):
 |---|---|---|
 | `IEEE13_CDPSM.cimtbl` | circuit / Vsource, voltage bases, load models | Substation, Feeder, BaseVoltage, LoadResponseCharacteristic, EnergySource |
 | `linecodes.cimtbl` | LineCode | PerLengthPhaseImpedance + PhaseImpedanceData |
-| `xfmrcodes.cimtbl` | XfmrCode | TransformerTankConfiguration (+ phase ends, windings, mesh) |
-| `transformers.cimtbl` | Transformer | PowerTransformer + PowerTransformerEnd + TransformerMeshImpedance (or TransformerTank for an XfmrCode instance) |
-| `regulators.cimtbl` | Transformer + RegControl | PowerTransformer + RatioTapChanger + TapChangerControl |
+| `xfmrcodes.cimtbl` | XfmrCode | TransformerTankConfiguration (+ lugs, windings, mesh) |
+| `transformers.cimtbl` | Transformer | PowerTransformer + PowerTransformerEnd + TransformerMeshImpedance (or TransformerTank + TransformerPhaseEnd for an XfmrCode instance) |
+| `regulators.cimtbl` | Transformer + RegControl | VoltageRegulator + AutoTransformerEnd + TransformerLug + TransformerWinding + TransformerMeshImpedance + RatioTapChanger + TapChangerControl |
 | `switches.cimtbl` | Line `Switch=y` | Breaker / Recloser / Fuse / Sectionaliser / LoadBreakSwitch |
 | `lines.cimtbl` | Line | ACLineSegment, OperationalLimitSet + CurrentLimit (normamps) |
 | `loads.cimtbl` | Load | EnergyConsumer |
@@ -26,10 +26,10 @@ The split follows the per-family files of larger decks (IEEE 9500: `LineCodes.ds
   unique within the whole model, not just its class (CIM 18). They follow the
   `cimtbl-translate` skill's prefix table (`.claude/skills/cimtbl-translate/`):
   a class-family prefix + the OpenDSS name lowercased (`ld_671`, `ln_650632`,
-  `xf_reg1`, `sw_brkr1`, `lc_mtx601`), with the OpenDSS name kept in `name`.
+  `vr_reg1`, `sw_brkr1`, `lc_mtx601`), with the OpenDSS name kept in `name`.
   Buses keep the bare OpenDSS bus name. Child rows extend their parent's mRID
-  (`xf_reg1_2`, `xf_reg1_tap`, `ln_650632_limits`); generated Terminals are
-  `<equipment mRID>_T<n>`. The two DER connections behind OpenDSS PVSystem.School
+  (`vr_reg1_2`, `vr_reg1_tap`, `ln_650632_limits`); generated Terminals are
+  `<equipment mRID>_T<n>` (`vr_reg1_T2`). The two DER connections behind OpenDSS PVSystem.School
   and Storage.School are `pv_school` / `storage_school`.
 - **`PhaseImpedanceData`** is not an IdentifiedObject (no mRID); each row's
   `identifier` (`lc_mtx601_21` = row 2, column 1) seeds a deterministic UUID.
@@ -58,9 +58,31 @@ The split follows the per-family files of larger decks (IEEE 9500: `LineCodes.ds
 - **XfmrCode** -> TransformerTankConfiguration, with:
   - `%Rs` -> `TransformerWinding.r (percent)`, `X**` -> mesh `x (percent)`;
   - `baseU` = `kvs`, `baseS` = `kVAs`, `ratedS` = the winding's own share;
-  - the primary phase end as `X`, assigned by the instance's terminal phases;
+  - tank only, phase-agnostic like the XfmrCode: TransformerLugs (`designation`,
+    `sequenceNumber` = the conductor the lug lands on, in terminal order) and
+    TransformerWindings from lug to lug. ct5: H1 = 1, X1 = 2, X3 = 3, and H2 and
+    X2 share 4 (N);
   - instance = `PowerTransformer` + `TransformerTank` (`TankConfiguration=`) +
-    `PowerTransformerEnd`s with node/phases.
+    `PowerTransformerEnd`s with node/phases + `TransformerPhaseEnd`s carrying the
+    lugs' sequenceNumbers and the real phase, `phaseNeutralU`, `grounded` and
+    `Terminal` (tpoletop: B, s1, s2, N). sub3 and xfm1 have no XfmrCode in the
+    deck, so they stay per-end PowerTransformers.
+- **Regulators** (as `../../regulator_example.cimtbl`): each OpenDSS regulator
+  Transformer -> one `VoltageRegulator` (`vr_reg1`) with:
+  - two `AutoTransformerEnd`s, end 1 = S (source, `vr_reg1_1`) and end 2 = L
+    (load, `vr_reg1_2`), phase `AN` / `BN` / `CN`, `baseU` = `kvs` (2.4 kV), `ratedS` = the
+    through rating `kVAs` (1666 kVA);
+  - three `TransformerLug`s S, L, SL (`vr_reg1_lug_s`, ...);
+  - one `TransformerWinding` S -> SL with the tap at L (`vr_reg1_wdg`), `ratedS`
+    = the buck/boost rating, 10 % of the through rating = 166.6 kVA (derived);
+    an `Update` row then sets `VoltageRegulator.AutoTransformerWinding`, since
+    the regulator is declared before its ends and winding;
+  - one `TransformerMeshImpedance` between the ends: x = `xhl` 0.01 %, r =
+    `%LoadLoss` 0.01 % (OpenDSS's 0.005 % per winding, summed: an
+    AutoTransformerEnd has no r);
+  - the RatioTapChanger on end 2 (OpenDSS `winding=2`), the TapChangerControl on
+    Terminal `vr_reg1_T2`;
+  - `construction` (type A/B) unset: the deck doesn't say.
 - **RegControl** -> CIM primary quantities:
   - `targetValue` = vreg × ptratio, `targetDeadband` = band × ptratio;
   - `lineDropR/X` = R or X (LDC volts) × ptratio / CTprim, in ohms;
@@ -103,9 +125,7 @@ Kept as-is, but worth knowing:
 
 ## Open questions
 
-- `TransformerTankConfiguration` cannot carry per-tank tap state. A RatioTapChanger
-  on a configuration's phase end is shared by every tank, so the regulators
-  here are three separate PowerTransformers.
-- The single-phase configuration's primary phase end uses `X`, so the code
-  isn't tied to one phase. `../../templates/padmount_1ph_250kva.cimtbl` uses
-  explicit `A`/`B` for H1A/H1B; one convention should be chosen.
+- A regulator has no reusable configuration in cim18v17:
+  `AutoTransformer.AutoTransformerWinding` points at one winding and the winding's
+  inverse is single-valued, so each VoltageRegulator owns its winding, and the
+  three regulators are written out one by one.

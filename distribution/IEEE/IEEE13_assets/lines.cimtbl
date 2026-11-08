@@ -1,0 +1,35 @@
+# IEEE 13 asset-variant lines (OpenDSS Line -> ACLineSegment)
+#
+# `phases` is written in OpenDSS bus-node order (632.3.2 -> CB): token k is conductor k.
+#
+# Geometry lines (Geometry=... or Spacing=... Wires=...): the line's impedance is computed
+# by OpenDSS from the geometry (Carson, Kron reduction), not in this file. They carry
+# WireConfiguration (the geometry, see linegeometries.cimtbl) and no PerLengthImpedance.
+# The per-conductor wire assignment is not written (see README).
+#
+# Line.645646 has an inline rmatrix/xmatrix in miles, so it keeps its own length unit and
+# PerLengthImpedance (linecodes.cimtbl).
+
+Profile = cim18v17
+
+Table ACLineSegment: mRID, name, node1, node2, phases, length (ft), WireConfiguration, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodecktassets
+    ln_650632, 650632, rg60, 632, ABC, 2000, wc_601
+    ln_632670, 632670, 632,  670, ABC, 667,  wc_601
+    ln_670671, 670671, 670,  671, ABC, 1333, wc_601
+    ln_671680, 671680, 671,  680, ABC, 1000, wc_601
+    ln_632633, 632633, 632,  633, ABC, 500,  wc_602
+    ln_632645, 632645, 632,  645, CB,  500,  wc_603
+    ln_692675, 692675, 692,  675, ABC, 500,  wc_606
+    ln_671684, 671684, 671,  684, AC,  300,  wc_604
+    ln_684611, 684611, 684,  611, C,   300,  wc_684611
+    ln_684652, 684652, 684,  652, A,   800,  wc_607
+
+Table ACLineSegment: mRID, name, node1, node2, phases, length (mi), PerLengthImpedance, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodecktassets
+    ln_645646, 645646, 645, 646, CB, 0.0568, lc_645646
+
+# OpenDSS normamps on Line.645646 (the only line in this deck with one)
+Table OperationalLimitSet: mRID, Equipment
+    ln_645646_limits, ln_645646
+
+Table CurrentLimit: mRID, normalValue (A), OperationalLimitSet
+    ln_645646_normal, 230, ln_645646_limits

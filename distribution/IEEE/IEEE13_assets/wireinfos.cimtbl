@@ -1,0 +1,36 @@
+# IEEE 13 asset-variant wire and cable data
+# (OpenDSS WireData -> OverheadWireInfo, TSData -> TapeShieldCableInfo,
+#  CNData -> ConcentricNeutralCableInfo)
+#
+# Values are the deck's, with the OpenDSS unit in the header (Radunits and GMRunits
+# = in; Runits = kft or mi). Derived values (not written in the deck) are marked:
+#   radius          = DIAM / 2            (OpenDSS gives a diameter; CIM stores a radius)
+#   diameterOverScreen (TS) = DiaShield - 2 x TapeLayer
+#   diameterOverScreen (CN) = DiaCable - 2 x DiaStrand
+#   neutralStrandRadius = DiaStrand / 2
+#   diameterOverNeutral = diameterOverJacket = DiaCable   (CN)
+#   The derivations follow CIMHub's OpenDSS importer (cimhub_opendss importer/conductors)
+#   and the OpenDSS ExportCIMXML.pas it cites. See README.md.
+# Rac has no temperature in OpenDSS. It is written to rAC25, rAC50 and rAC75 alike,
+# as the reference exporter does. Rdc -> rDC20. NormAmps -> ratedCurrent.
+# Ins (InsLayer) -> insulationThickness. EpsR has no CIM attribute and is left out.
+# tapeLap is a PerCent written with no unit: the loader treats any percent-unit column as a
+# relative impedance (needs a base), which a tape lap is not. Same as percentMagnetizingCurrent.
+
+Profile = cim18v17
+
+# WireData, per-kft DC resistance
+Table OverheadWireInfo: mRID, name, ratedCurrent (A), radius (in), gmr (in), rDC20 (ohm/kft)
+    wire_acsr_556_5, ACSR_556_5, 730, 0.46350, 0.37320, 0.035227273
+    wire_acsr_4/0,   ACSR_4/0,   340, 0.2815,  0.09768, 0.112121212
+    wire_acsr_1/0,   ACSR_1/0,   230, 0.199,   0.05352, 0.212121212
+
+# WireData with Rac given per mile
+Table OverheadWireInfo: mRID, name, ratedCurrent (A), radius (in), gmr (in), rAC25 (ohm/mile), rAC50 (ohm/mile), rAC75 (ohm/mile)
+    wire_cu_1/0, CU_1/0, 100, 0.184, 0.13356, 0.607, 0.607, 0.607
+
+Table TapeShieldCableInfo: mRID, name, ratedCurrent (A), radius (in), gmr (in), rAC25 (ohm/mile), rAC50 (ohm/mile), rAC75 (ohm/mile), insulationThickness (in), diameterOverInsulation (in), diameterOverScreen (in), diameterOverJacket (in), tapeThickness (in), tapeLap
+    cable_ts_1/0, TS_1/0, 165, 0.184, 0.13320, 0.97, 0.97, 0.97, 0.220, 0.82, 0.870, 1.06, 0.005, 20
+
+Table ConcentricNeutralCableInfo: mRID, name, ratedCurrent (A), radius (in), gmr (in), rAC25 (ohm/mile), rAC50 (ohm/mile), rAC75 (ohm/mile), insulationThickness (in), diameterOverInsulation (in), diameterOverScreen (in), diameterOverNeutral (in), diameterOverJacket (in), neutralStrandCount, neutralStrandRadius (in), neutralStrandGmr (in), neutralStrandRDC20 (ohm/mile)
+    cable_cn_250, CN_250, 260, 0.2835, 0.20520, 0.41, 0.41, 0.41, 0.220, 1.06, 1.1618, 1.29, 1.29, 13, 0.03205, 0.02496, 14.8722

@@ -1,0 +1,18 @@
+# IEEE 13 OCHRE switches (OpenDSS Line with switch=y/yes -> LoadBreakSwitch)
+#
+# Four switch lines, all LoadBreakSwitch: the deck has no Relay, Recloser or Fuse,
+# so no protection element sets a subclass (CDPSM rule: none -> LoadBreakSwitch).
+#   trunk     VSource.dss    sourcebus -> rootbus, 115 kV (bv_115kv)
+#   671-692   Switches.dss   the only feeder switch
+#   j1, j2    Jumpers.dss    CAP1 / CAP2 (capacitor bus) -> node_675
+# The OpenDSS r1=1e-4 stand-in impedance is dropped: CIM switches are ideal.
+# Jumpers are kept here (switch lines, no impedance in the deck).
+# Equipment container: the feeder, as for the CDPSM breakers.
+
+Profile = cim18v17
+
+Table LoadBreakSwitch: mRID, name, node1, node2, phases, open, normalOpen, BaseVoltage, EquipmentContainer=fdr_ieee13ochre
+    sw_trunk,   trunk,   sourcebus, rootbus, ABC, false, false, bv_115kv,  fdr_ieee13ochre
+    sw_671-692, 671-692, node_671,  node_692, ABC, false, false, bv_4p16kv, fdr_ieee13ochre
+    sw_j1,      j1,      CAP1,      node_675, ABC, false, false, bv_4p16kv, fdr_ieee13ochre
+    sw_j2,      j2,      CAP2,      node_675, ABC, false, false, bv_4p16kv, fdr_ieee13ochre

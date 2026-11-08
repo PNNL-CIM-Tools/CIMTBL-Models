@@ -1,0 +1,78 @@
+# CYME Regulator 650REG (3 single-phase units, Yg, SettingOption FixedTap,
+# section 7 -> RG60) -> three VoltageRegulators, one per phase unit, as in
+# distribution/regulator_example.cimtbl. Each owns its winding and tap state.
+#
+# The two ends: end 1 = S (source, node 7), end 2 = L (load, rg60), each wired phase to
+# neutral (phase AN, BN, CN; the SL lug is the grounded end). construction = typeA
+# (RegulatorDB ConstructionType A): the tap changer on the L lug, end 2.
+#
+# Rating (RegulatorDB REG650-632): 2.40178 kV LN, RatedKVA 150 per unit, MaximumBoost /
+# MaximumBuck 10 %, CTPrimaryRating 700 A, PTRatio 20, 32 taps.
+# The 150 kVA is the buck/boost (series winding) rating, so the through rating is
+# 150 / 10 % = 1500 kVA (derived), 625 A at 2.40178 kV, which fits the 700 A CT.
+#
+# Taps: TapPositionA/B/C = 10 / 8 / 11, fixed. Read as steps above neutral
+# (+10, +8, +11 of 0.625 %), the same tap values the CDPSM deck derives from the
+# published IEEE 13 taps (1.0625, 1.05, 1.06875). The sign convention is inferred,
+# not stated in the file.
+#
+# CYME gives no series impedance for the regulator units, so there is no mesh
+# (CDPSM used a near-ideal 0.01 %). Line-drop compensation is off (Rset = Xset = 0).
+# Set voltage 116.19 on the 120 V base -> targetValue = 116.19 x 20 = 2323.8 V
+# (primary). Bandwidth 2 V on the 120 V base -> targetDeadband = 2 x 20 = 40 V.
+# Fixed tap: the control exists but is disabled (enabled, controlEnabled = false).
+
+Profile = cim18v17
+
+Table VoltageRegulator: mRID, name, construction, EquipmentContainer=fdr_650
+    vr_650reg_a, 650REG_A, typeA
+    vr_650reg_b, 650REG_B, typeA
+    vr_650reg_c, 650REG_C, typeA
+
+# ratedS = the through rating (1500 kVA); baseU = the coil voltage (2.40178 kV).
+Table AutoTransformerEnd: mRID, endNumber, node, phase, baseU (kV), ratedS (kVA), BaseVoltage, AutoTransformer
+    vr_650reg_a_1, 1, 7, AN, 2.40178, 1500, bv_4p16kv, vr_650reg_a
+    vr_650reg_a_2, 2, rg60, AN, 2.40178, 1500, bv_4p16kv, vr_650reg_a
+    vr_650reg_b_1, 1, 7, BN, 2.40178, 1500, bv_4p16kv, vr_650reg_b
+    vr_650reg_b_2, 2, rg60, BN, 2.40178, 1500, bv_4p16kv, vr_650reg_b
+    vr_650reg_c_1, 1, 7, CN, 2.40178, 1500, bv_4p16kv, vr_650reg_c
+    vr_650reg_c_2, 2, rg60, CN, 2.40178, 1500, bv_4p16kv, vr_650reg_c
+
+# Lug designations per ANSI C57.15: S source, L load, SL source-load (grounded).
+Table TransformerLug: mRID, designation, sequenceNumber, TransformerEnd
+    vr_650reg_a_lug_s, S, 1, vr_650reg_a_1
+    vr_650reg_a_lug_l, L, 2, vr_650reg_a_2
+    vr_650reg_a_lug_sl, SL, 3,
+    vr_650reg_b_lug_s, S, 1, vr_650reg_b_1
+    vr_650reg_b_lug_l, L, 2, vr_650reg_b_2
+    vr_650reg_b_lug_sl, SL, 3,
+    vr_650reg_c_lug_s, S, 1, vr_650reg_c_1
+    vr_650reg_c_lug_l, L, 2, vr_650reg_c_2
+    vr_650reg_c_lug_sl, SL, 3,
+
+# One series winding S -> SL with the tap at L.
+# ratedS = CYME RatedKVA 150, the buck/boost rating
+# (MaximumBoost/Buck 10 %).
+Table TransformerWinding: mRID, ratedS (kVA), baseU (kV), FromTransformerEnd, ToTransformerEnd, FromTransformerLug, ToTransformerLug, AutoTransformerLug
+    vr_650reg_a_wdg, 150, 2.40178, vr_650reg_a_1, vr_650reg_a_2, vr_650reg_a_lug_s, vr_650reg_a_lug_sl, vr_650reg_a_lug_l
+    vr_650reg_b_wdg, 150, 2.40178, vr_650reg_b_1, vr_650reg_b_2, vr_650reg_b_lug_s, vr_650reg_b_lug_sl, vr_650reg_b_lug_l
+    vr_650reg_c_wdg, 150, 2.40178, vr_650reg_c_1, vr_650reg_c_2, vr_650reg_c_lug_s, vr_650reg_c_lug_sl, vr_650reg_c_lug_l
+
+# An Update: each regulator exists before its ends and winding.
+Update Table VoltageRegulator: mRID, AutoTransformerWinding
+    vr_650reg_a, vr_650reg_a_wdg
+    vr_650reg_b, vr_650reg_b_wdg
+    vr_650reg_c, vr_650reg_c_wdg
+
+Table TapChangerControl: mRID, mode, discrete, enabled, monitoredPhase, targetValue (V), targetDeadband (V), lineDropCompensation, Terminal
+    vr_650reg_a_ctrl, voltage, true, false, A, 2323.8, 40, false, vr_650reg_a_T2
+    vr_650reg_b_ctrl, voltage, true, false, B, 2323.8, 40, false, vr_650reg_b_T2
+    vr_650reg_c_ctrl, voltage, true, false, C, 2323.8, 40, false, vr_650reg_c_T2
+
+# lowStep/highStep = -16/+16 (32 taps, 10 % each way = 16 x 0.625 %).
+# ctRating = CTPrimaryRating 700 A. The CT secondary (ctRatio) is not in the file.
+# initialDelay = LTC ActivationDelayFirstTap 30 s; subsequentDelay = TimeBetweenTaps 2 s.
+Table RatioTapChanger: mRID, lowStep, highStep, neutralStep, normalStep, step, stepVoltageIncrement, neutralU (kV), ltcFlag, controlEnabled, ptRatio, ctRating (A), initialDelay (s), subsequentDelay (s), TapChangerControl, TransformerEnd
+    vr_650reg_a_tap, -16, 16, 0, 0, 10, 0.625, 2.40178, true, false, 20, 700, 30, 2, vr_650reg_a_ctrl, vr_650reg_a_2
+    vr_650reg_b_tap, -16, 16, 0, 0, 8,  0.625, 2.40178, true, false, 20, 700, 30, 2, vr_650reg_b_ctrl, vr_650reg_b_2
+    vr_650reg_c_tap, -16, 16, 0, 0, 11, 0.625, 2.40178, true, false, 20, 700, 30, 2, vr_650reg_c_ctrl, vr_650reg_c_2

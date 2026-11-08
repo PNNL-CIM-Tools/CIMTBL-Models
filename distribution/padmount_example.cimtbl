@@ -21,3 +21,12 @@ Table Terminal: mRID, sequenceNumber, phases, ConnectivityNode, ConductingEquipm
 Table PowerTransformerEnd: mRID, endNumber, connectionKind, Terminal, PowerTransformer
     pad_2341_1, 1, Y, t_2341_1, xf_padmount_2341
     pad_2341_2, 2, I, t_2341_2, xf_padmount_2341
+
+# The conductors the template's lugs land on (lug sequenceNumber = phase end
+# sequenceNumber), with the real phases. 5 is the common neutral: H2 and X2.
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (V), Terminal
+    pad_2341_seq1, 1, 1, A,  7200, t_2341_1
+    pad_2341_seq2, 1, 2, B,  7200, t_2341_1
+    pad_2341_seq3, 2, 3, s1, 120,  t_2341_2
+    pad_2341_seq4, 2, 4, s2, 120,  t_2341_2
+    pad_2341_seq5, 2, 5, N,  0,    t_2341_2

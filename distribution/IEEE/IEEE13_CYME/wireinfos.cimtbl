@@ -1,0 +1,13 @@
+# CYME ConductorDB entries used by the OverheadByPhase sections -> OverheadWireInfo.
+# Values as written in CYME units: NominalRating (A), ResistanceAC1 (25 C) and
+# ResistanceAC2 (50 C) in ohm/km, GMR in cm.
+#   radius (cm) = OutsideDiameter / 2   (derived: CYME gives the diameter, CIM stores a radius)
+# CYME's MaterialID is COPPER for all three, so material is written as CYME says.
+# The names (556_500, 4/0, 1/0) are CYME's; their ACSR/copper construction is not given.
+
+Profile = cim18v17
+
+Table OverheadWireInfo: mRID, name, ratedCurrent (A), radius (cm), gmr (cm), rAC25 (ohm/km), rAC50 (ohm/km), material
+    wire_556_500, 556_500, 730, 1.17729, 0.947928, 0.115575, 0.115575, copper
+    wire_4/0,     4/0,     340, 0.71501, 0.248107, 0.367852, 0.367852, copper
+    wire_1/0,     1/0,     230, 0.50546, 0.135941, 0.695936, 0.695936, copper

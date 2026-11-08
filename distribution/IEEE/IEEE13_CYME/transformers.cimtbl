@@ -1,0 +1,25 @@
+# CYME Transformer XFM1_XFO (device L633_634_XFM_1, section 633 -> 634) -> PowerTransformer
+# + one TransformerTank on the XFM1_XFO template (transformer_db.cimtbl) + its ends +
+# TransformerPhaseEnds: the conductors the template's lugs land on (lug sequenceNumber =
+# phase end sequenceNumber), with the real phases. The device is directly between 633 and
+# 634 (no fuse node, unlike CDPSM). Yg-Yg with 0 ohm grounding: grounded N on both ends.
+
+Profile = cim18v17
+
+Object PowerTransformer: mRID=xf_l633_634_xfm_1, name=L633_634_XFM_1, vectorGroup=YNyn0, EquipmentContainer=fdr_650
+
+Object TransformerTank: mRID=xf_l633_634_xfm_1_tank, PowerTransformer=xf_l633_634_xfm_1, TankConfiguration=xc_xfm1_xfo, EquipmentContainer=fdr_650
+
+Table PowerTransformerEnd: mRID, node, phases, endNumber, connectionKind, grounded, rground (ohm), xground (ohm), BaseVoltage, PowerTransformer=xf_l633_634_xfm_1
+    xf_l633_634_xfm_1_1, 633, ABCN, 1, Yn, true, 0, 0, bv_4p16kv
+    xf_l633_634_xfm_1_2, 634, ABCN, 2, Yn, true, 0, 0, bv_480v
+
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (V), grounded, Terminal
+    xf_l633_634_xfm_1_1_a, 1, 1, A, 2401.78, , xf_l633_634_xfm_1_T1
+    xf_l633_634_xfm_1_1_b, 1, 2, B, 2401.78, , xf_l633_634_xfm_1_T1
+    xf_l633_634_xfm_1_1_c, 1, 3, C, 2401.78, , xf_l633_634_xfm_1_T1
+    xf_l633_634_xfm_1_1_n, 1, 4, N, 0, true, xf_l633_634_xfm_1_T1
+    xf_l633_634_xfm_1_2_a, 2, 5, A, 277.13, , xf_l633_634_xfm_1_T2
+    xf_l633_634_xfm_1_2_b, 2, 6, B, 277.13, , xf_l633_634_xfm_1_T2
+    xf_l633_634_xfm_1_2_c, 2, 7, C, 277.13, , xf_l633_634_xfm_1_T2
+    xf_l633_634_xfm_1_2_n, 2, 8, N, 0, true, xf_l633_634_xfm_1_T2

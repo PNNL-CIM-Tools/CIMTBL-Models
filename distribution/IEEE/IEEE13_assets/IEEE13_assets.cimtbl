@@ -1,0 +1,45 @@
+# IEEE 13 node test feeder, assets variant (wire/cable/spacing/geometry, XfmrCode, CapControl)
+#
+# Source: CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_assets/IEEE13_Assets.dss
+# Rows are keyed by mRID: prefix + OpenDSS name, lowercased (OpenDSS is
+# case-insensitive); the OpenDSS name is kept in `name`. See README.md.
+# Translation decisions and deviations from the deck: README.md.
+
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = IEEE13_assets
+
+Object Substation: mRID=sub_ieee13, name=ieee13_sub
+Object Feeder: mRID=fdr_ieee13nodecktassets, name=ieee13nodecktassets, NormalEnergizingSubstation=sub_ieee13
+
+# Set Voltagebases=[115, 4.16, .48]. The 2.4 kV line-to-neutral loads and regulators
+# sit on the 4.16 kV base, and the 0.277 kV loads on 480 V (line-to-line convention,
+# as in IEEE13_CDPSM).
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    bv_115kv,  115
+    bv_4p16kv, 4.16
+    bv_480v,   0.48
+
+# OpenDSS load models: 1 = constant PQ, 2 = constant Z, 5 = constant I
+Table LoadResponseCharacteristic: mRID, exponentModel, pConstantPower, pConstantCurrent, pConstantImpedance, qConstantPower, qConstantCurrent, qConstantImpedance
+    zip_constant_pq, false, 1, 0, 0, 1, 0, 0
+    zip_constant_z,  false, 0, 0, 1, 0, 0, 1
+    zip_constant_i,  false, 0, 1, 0, 0, 1, 0
+
+# Vsource: basekv=115 pu=1.00 angle=30 MVAsc3=20000 MVAsc1=21000 (same circuit line as
+# IEEE13_CDPSM; OpenDSS defaults X1/R1 = 4, X0/R0 = 3)
+#   Z1 = 115^2 / 20000 = 0.66125 ohm -> r = 0.160377, x = 0.641507
+#   |2 Z1 + Z0| = 3 x 115^2 / 21000  -> r0 = 0.179604, x0 = 0.538811
+Object EnergySource: mRID=src_source, name=source, node=sourcebus, phases=ABC, nominalVoltage (kV)=115, voltageMagnitude (kV)=115, voltageAngle (deg)=30, r (ohm)=0.160377, x (ohm)=0.641507, r0 (ohm)=0.179604, x0 (ohm)=0.538811, BaseVoltage=bv_115kv, EquipmentContainer=sub_ieee13
+
+Import wireinfos.cimtbl
+Import linespacings.cimtbl
+Import linegeometries.cimtbl
+Import linecodes.cimtbl
+Import xfmrcodes.cimtbl
+Import transformers.cimtbl
+Import regulators.cimtbl
+Import switches.cimtbl
+Import lines.cimtbl
+Import loads.cimtbl
+Import capacitors.cimtbl

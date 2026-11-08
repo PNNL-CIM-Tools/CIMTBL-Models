@@ -1,0 +1,147 @@
+# IEEE 13 OCHRE transformer codes (OpenDSS XfmrCode -> TransformerTankConfiguration)
+#
+# Six single-phase 3-winding center-tap codes (xfcode_AS/BS/CS_config and
+# xfcode_AS/BS/CS_config_634) and one 3-phase code (xfcode_OBJECT_151, at the end), one
+# tank configuration each, 1:1 with the deck. Tank-only templates: lugs, windings,
+# impedances; the phases are on each instance's TransformerPhaseEnds.
+#   _config:     primary wdg1 kv=2.401 (across the winding, 4.16 kV LL system)
+#   _config_634: primary wdg1 kv=0.277 (across the winding, 480 V LL system)
+# The phase letter in the name is the primary phase the deck uses each code on (AS = A,
+# BS = B, CS = C); the tanks themselves are identical. As tank-only templates they carry
+# no phase: each instance's TransformerPhaseEnds do (transformers.cimtbl).
+#
+# Follows distribution/templates/padmount_1ph_250kva.cimtbl:
+#   ratedU = phase-to-phase nameplate designation: 4.160 kV (4.16 kV system) for
+#            _config, 0.480 kV (480 V system) for _config_634; halves 0.240 kV (240 V)
+#   baseU  = coil voltage across the winding (OpenDSS kvs): 2.401 / 0.277 primary, 0.120 halves
+#   ratedS = the winding's own rating: primary 75 kVA; each half 37.5 kVA (half the tank)
+#   baseS  = tank kVA (OpenDSS kvas, 75): the base for both halves and for the percent values
+#
+# Per code (all six):
+#   xhl=1.632 xht=1.632 xlt=1.088  -> TransformerMeshImpedance x (percent): 12, 13, 23
+#   wdg1 %R=0.300; wdg2 %R=0.600; wdg3 %R=0.600 -> TransformerWinding r (percent)
+#   OpenDSS kva=75 on every winding is the tank rating; halves are 37.5 each.
+#
+# OpenDSS percent noloadloss/imag and percentImpedance are not in the deck, so omitted.
+# Lugs (designations as a standard 1-phase center-tap tank; the deck names buses, not
+# bushings): sequenceNumber = the conductor, in terminal order: 1 = H1 (end 1);
+# 2 = X1 (s1), 3 = X3 (s2), 4 = N (end 2). H2 shares 4: the deck's primary returns to
+# node 0, the center tap's ground (buses=[node.1 trip_node.1.0 trip_node.0.2]).
+# Polarity: wdg1 H1 -> H2, wdg2 X1 -> X2 (s1 -> N), wdg3 X2 -> X3 (N -> s2).
+
+Profile = cim18v17
+
+Table TransformerTankConfiguration: mRID, name
+    xc_xfcode_as_config,      xfcode_AS_config
+    xc_xfcode_bs_config,      xfcode_BS_config
+    xc_xfcode_cs_config,      xfcode_CS_config
+    xc_xfcode_as_config_634,  xfcode_AS_config_634
+    xc_xfcode_bs_config_634,  xfcode_BS_config_634
+    xc_xfcode_cs_config_634,  xfcode_CS_config_634
+
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration
+    xc_xfcode_as_config_lug_h1    , H1, 1, xc_xfcode_as_config
+    xc_xfcode_as_config_lug_h2    , H2, 4, xc_xfcode_as_config
+    xc_xfcode_as_config_lug_x1    , X1, 2, xc_xfcode_as_config
+    xc_xfcode_as_config_lug_x3    , X3, 3, xc_xfcode_as_config
+    xc_xfcode_as_config_lug_x2    , X2, 4, xc_xfcode_as_config
+    xc_xfcode_bs_config_lug_h1    , H1, 1, xc_xfcode_bs_config
+    xc_xfcode_bs_config_lug_h2    , H2, 4, xc_xfcode_bs_config
+    xc_xfcode_bs_config_lug_x1    , X1, 2, xc_xfcode_bs_config
+    xc_xfcode_bs_config_lug_x3    , X3, 3, xc_xfcode_bs_config
+    xc_xfcode_bs_config_lug_x2    , X2, 4, xc_xfcode_bs_config
+    xc_xfcode_cs_config_lug_h1    , H1, 1, xc_xfcode_cs_config
+    xc_xfcode_cs_config_lug_h2    , H2, 4, xc_xfcode_cs_config
+    xc_xfcode_cs_config_lug_x1    , X1, 2, xc_xfcode_cs_config
+    xc_xfcode_cs_config_lug_x3    , X3, 3, xc_xfcode_cs_config
+    xc_xfcode_cs_config_lug_x2    , X2, 4, xc_xfcode_cs_config
+    xc_xfcode_as_config_634_lug_h1, H1, 1, xc_xfcode_as_config_634
+    xc_xfcode_as_config_634_lug_h2, H2, 4, xc_xfcode_as_config_634
+    xc_xfcode_as_config_634_lug_x1, X1, 2, xc_xfcode_as_config_634
+    xc_xfcode_as_config_634_lug_x3, X3, 3, xc_xfcode_as_config_634
+    xc_xfcode_as_config_634_lug_x2, X2, 4, xc_xfcode_as_config_634
+    xc_xfcode_bs_config_634_lug_h1, H1, 1, xc_xfcode_bs_config_634
+    xc_xfcode_bs_config_634_lug_h2, H2, 4, xc_xfcode_bs_config_634
+    xc_xfcode_bs_config_634_lug_x1, X1, 2, xc_xfcode_bs_config_634
+    xc_xfcode_bs_config_634_lug_x3, X3, 3, xc_xfcode_bs_config_634
+    xc_xfcode_bs_config_634_lug_x2, X2, 4, xc_xfcode_bs_config_634
+    xc_xfcode_cs_config_634_lug_h1, H1, 1, xc_xfcode_cs_config_634
+    xc_xfcode_cs_config_634_lug_h2, H2, 4, xc_xfcode_cs_config_634
+    xc_xfcode_cs_config_634_lug_x1, X1, 2, xc_xfcode_cs_config_634
+    xc_xfcode_cs_config_634_lug_x3, X3, 3, xc_xfcode_cs_config_634
+    xc_xfcode_cs_config_634_lug_x2, X2, 4, xc_xfcode_cs_config_634
+
+Table TransformerWinding: mRID, ratedS (kVA), baseS (kVA), ratedU (kV), baseU (kV), r (percent), FromTransformerLug, ToTransformerLug, TankConfiguration
+    xc_xfcode_as_config_wdg1,     75,   75, 4.160, 2.401, 0.300, xc_xfcode_as_config_lug_h1, xc_xfcode_as_config_lug_h2, xc_xfcode_as_config
+    xc_xfcode_as_config_wdg2,     37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_as_config_lug_x1, xc_xfcode_as_config_lug_x2, xc_xfcode_as_config
+    xc_xfcode_as_config_wdg3,     37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_as_config_lug_x2, xc_xfcode_as_config_lug_x3, xc_xfcode_as_config
+    xc_xfcode_bs_config_wdg1,     75,   75, 4.160, 2.401, 0.300, xc_xfcode_bs_config_lug_h1, xc_xfcode_bs_config_lug_h2, xc_xfcode_bs_config
+    xc_xfcode_bs_config_wdg2,     37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_bs_config_lug_x1, xc_xfcode_bs_config_lug_x2, xc_xfcode_bs_config
+    xc_xfcode_bs_config_wdg3,     37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_bs_config_lug_x2, xc_xfcode_bs_config_lug_x3, xc_xfcode_bs_config
+    xc_xfcode_cs_config_wdg1,     75,   75, 4.160, 2.401, 0.300, xc_xfcode_cs_config_lug_h1, xc_xfcode_cs_config_lug_h2, xc_xfcode_cs_config
+    xc_xfcode_cs_config_wdg2,     37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_cs_config_lug_x1, xc_xfcode_cs_config_lug_x2, xc_xfcode_cs_config
+    xc_xfcode_cs_config_wdg3,     37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_cs_config_lug_x2, xc_xfcode_cs_config_lug_x3, xc_xfcode_cs_config
+    xc_xfcode_as_config_634_wdg1, 75,   75, 0.480, 0.277, 0.300, xc_xfcode_as_config_634_lug_h1, xc_xfcode_as_config_634_lug_h2, xc_xfcode_as_config_634
+    xc_xfcode_as_config_634_wdg2, 37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_as_config_634_lug_x1, xc_xfcode_as_config_634_lug_x2, xc_xfcode_as_config_634
+    xc_xfcode_as_config_634_wdg3, 37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_as_config_634_lug_x2, xc_xfcode_as_config_634_lug_x3, xc_xfcode_as_config_634
+    xc_xfcode_bs_config_634_wdg1, 75,   75, 0.480, 0.277, 0.300, xc_xfcode_bs_config_634_lug_h1, xc_xfcode_bs_config_634_lug_h2, xc_xfcode_bs_config_634
+    xc_xfcode_bs_config_634_wdg2, 37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_bs_config_634_lug_x1, xc_xfcode_bs_config_634_lug_x2, xc_xfcode_bs_config_634
+    xc_xfcode_bs_config_634_wdg3, 37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_bs_config_634_lug_x2, xc_xfcode_bs_config_634_lug_x3, xc_xfcode_bs_config_634
+    xc_xfcode_cs_config_634_wdg1, 75,   75, 0.480, 0.277, 0.300, xc_xfcode_cs_config_634_lug_h1, xc_xfcode_cs_config_634_lug_h2, xc_xfcode_cs_config_634
+    xc_xfcode_cs_config_634_wdg2, 37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_cs_config_634_lug_x1, xc_xfcode_cs_config_634_lug_x2, xc_xfcode_cs_config_634
+    xc_xfcode_cs_config_634_wdg3, 37.5, 75, 0.240, 0.120, 0.600, xc_xfcode_cs_config_634_lug_x2, xc_xfcode_cs_config_634_lug_x3, xc_xfcode_cs_config_634
+
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, x (percent)
+    xc_xfcode_as_config_mesh_12,     xc_xfcode_as_config_wdg1,     xc_xfcode_as_config_wdg2,     1.632
+    xc_xfcode_as_config_mesh_13,     xc_xfcode_as_config_wdg1,     xc_xfcode_as_config_wdg3,     1.632
+    xc_xfcode_as_config_mesh_23,     xc_xfcode_as_config_wdg2,     xc_xfcode_as_config_wdg3,     1.088
+    xc_xfcode_bs_config_mesh_12,     xc_xfcode_bs_config_wdg1,     xc_xfcode_bs_config_wdg2,     1.632
+    xc_xfcode_bs_config_mesh_13,     xc_xfcode_bs_config_wdg1,     xc_xfcode_bs_config_wdg3,     1.632
+    xc_xfcode_bs_config_mesh_23,     xc_xfcode_bs_config_wdg2,     xc_xfcode_bs_config_wdg3,     1.088
+    xc_xfcode_cs_config_mesh_12,     xc_xfcode_cs_config_wdg1,     xc_xfcode_cs_config_wdg2,     1.632
+    xc_xfcode_cs_config_mesh_13,     xc_xfcode_cs_config_wdg1,     xc_xfcode_cs_config_wdg3,     1.632
+    xc_xfcode_cs_config_mesh_23,     xc_xfcode_cs_config_wdg2,     xc_xfcode_cs_config_wdg3,     1.088
+    xc_xfcode_as_config_634_mesh_12, xc_xfcode_as_config_634_wdg1, xc_xfcode_as_config_634_wdg2, 1.632
+    xc_xfcode_as_config_634_mesh_13, xc_xfcode_as_config_634_wdg1, xc_xfcode_as_config_634_wdg3, 1.632
+    xc_xfcode_as_config_634_mesh_23, xc_xfcode_as_config_634_wdg2, xc_xfcode_as_config_634_wdg3, 1.088
+    xc_xfcode_bs_config_634_mesh_12, xc_xfcode_bs_config_634_wdg1, xc_xfcode_bs_config_634_wdg2, 1.632
+    xc_xfcode_bs_config_634_mesh_13, xc_xfcode_bs_config_634_wdg1, xc_xfcode_bs_config_634_wdg3, 1.632
+    xc_xfcode_bs_config_634_mesh_23, xc_xfcode_bs_config_634_wdg2, xc_xfcode_bs_config_634_wdg3, 1.088
+    xc_xfcode_cs_config_634_mesh_12, xc_xfcode_cs_config_634_wdg1, xc_xfcode_cs_config_634_wdg2, 1.632
+    xc_xfcode_cs_config_634_mesh_13, xc_xfcode_cs_config_634_wdg1, xc_xfcode_cs_config_634_wdg3, 1.632
+    xc_xfcode_cs_config_634_mesh_23, xc_xfcode_cs_config_634_wdg2, xc_xfcode_cs_config_634_wdg3, 1.088
+
+# --- xfcode_OBJECT_151: 3-phase 500 kVA, 4.16 kV - 0.48 kV wye-wye (YNyn0), used once
+# (transformer_633-634). Deck: %loadloss=1.100 xhl=2.0, wdg=1 conn=wye kva=500 kv=4.160,
+# wdg=2 conn=wye kva=500 kv=0.480.
+# One coil per phase per side, H1-H0 / X1-X0 on leg a, and so on (wye-wye, 0 degrees).
+#   ratedU = the side's kV (4.160, 0.480); baseU = the coil, line to neutral
+#            (4.160 / sqrt(3) = 2.40178, 0.480 / sqrt(3) = 0.27713)
+#   ratedS = 500 (three-phase basis); baseS = 500 / 3 = 166.6667 per coil
+#   r = %loadloss / 2 = 0.55 % per coil; xhl = 2.0 % on each leg's mesh. On the coil
+#   base these are the deck's three-phase percent values unchanged.
+# Lugs: sequenceNumber in terminal order: end 1 H1 H2 H3 H0 = 1-4, end 2 X1 X2 X3 X0 = 5-8.
+Object TransformerTankConfiguration: mRID=xc_xfcode_object_151, name=xfcode_OBJECT_151
+
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration=xc_xfcode_object_151
+    xc_xfcode_object_151_lug_h1, H1, 1
+    xc_xfcode_object_151_lug_h2, H2, 2
+    xc_xfcode_object_151_lug_h3, H3, 3
+    xc_xfcode_object_151_lug_h0, H0, 4
+    xc_xfcode_object_151_lug_x1, X1, 5
+    xc_xfcode_object_151_lug_x2, X2, 6
+    xc_xfcode_object_151_lug_x3, X3, 7
+    xc_xfcode_object_151_lug_x0, X0, 8
+
+Table TransformerWinding: mRID, ratedU (kV), baseU (kV), ratedS (kVA), baseS (kVA), r (percent), FromTransformerLug, ToTransformerLug, TankConfiguration=xc_xfcode_object_151
+    xc_xfcode_object_151_wdg_h1h0, 4.160, 2.40178, 500, 166.6667, 0.55, xc_xfcode_object_151_lug_h1, xc_xfcode_object_151_lug_h0
+    xc_xfcode_object_151_wdg_h2h0, 4.160, 2.40178, 500, 166.6667, 0.55, xc_xfcode_object_151_lug_h2, xc_xfcode_object_151_lug_h0
+    xc_xfcode_object_151_wdg_h3h0, 4.160, 2.40178, 500, 166.6667, 0.55, xc_xfcode_object_151_lug_h3, xc_xfcode_object_151_lug_h0
+    xc_xfcode_object_151_wdg_x1x0, 0.480, 0.27713, 500, 166.6667, 0.55, xc_xfcode_object_151_lug_x1, xc_xfcode_object_151_lug_x0
+    xc_xfcode_object_151_wdg_x2x0, 0.480, 0.27713, 500, 166.6667, 0.55, xc_xfcode_object_151_lug_x2, xc_xfcode_object_151_lug_x0
+    xc_xfcode_object_151_wdg_x3x0, 0.480, 0.27713, 500, 166.6667, 0.55, xc_xfcode_object_151_lug_x3, xc_xfcode_object_151_lug_x0
+
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, x (percent)
+    xc_xfcode_object_151_mesh_a, xc_xfcode_object_151_wdg_h1h0, xc_xfcode_object_151_wdg_x1x0, 2.0
+    xc_xfcode_object_151_mesh_b, xc_xfcode_object_151_wdg_h2h0, xc_xfcode_object_151_wdg_x2x0, 2.0
+    xc_xfcode_object_151_mesh_c, xc_xfcode_object_151_wdg_h3h0, xc_xfcode_object_151_wdg_x3x0, 2.0

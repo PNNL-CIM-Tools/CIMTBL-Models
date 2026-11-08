@@ -1,35 +1,65 @@
 # IEEE 13 feeder regulators (OpenDSS Transformer + RegControl ->
-# PowerTransformer + RatioTapChanger + TapChangerControl)
+# VoltageRegulator + AutoTransformerEnds + TransformerWinding + RatioTapChanger +
+# TapChangerControl), as in distribution/regulator_example.cimtbl.
 #
-# Three single-phase 32-step regulators on 650 -> RG60 (behind the breaker,
-# BRKR -> RG60), 2.4 kV line-to-neutral, 1666 kVA (= 694 A, matching CTprim=700).
-# Modelled near-ideal, as is usual for step regulators: xhl = 0.01 %,
-# %LoadLoss = 0.01 % (0.005 % per winding).
+# Three single-phase 32-step regulators on BRKR -> RG60 (behind the breaker),
+# 2.4 kV line-to-neutral, 1666 kVA (= 694 A, matching CTprim=700). Each is its own
+# VoltageRegulator: the taps differ per phase. OpenDSS Bank=Reg is not represented.
 #
-# Each regulator is its own PowerTransformer, not one tank configuration shared
-# by three tanks. The taps differ per phase, and a RatioTapChanger on a
-# configuration's TransformerPhaseEnd would be shared by every tank using it.
-# OpenDSS Bank=Reg is not represented.
+# The two ends keep the OpenDSS two-winding shape: end 1 = S (source), end 2 = L (load),
+# each wired phase to neutral (phase AN, BN, CN; the SL lug is the grounded end). The source does
+# not say type A or B, so construction is unset; the tap is on end 2 (L), as OpenDSS
+# winding=2.
 
 Profile = cim18v17
 
-Table PowerTransformer: mRID, name, EquipmentContainer=fdr_ieee13nodeckt
-    xf_reg1, reg1
-    xf_reg2, reg2
-    xf_reg3, reg3
+Table VoltageRegulator: mRID, name, EquipmentContainer=fdr_ieee13nodeckt
+    vr_reg1, reg1
+    vr_reg2, reg2
+    vr_reg3, reg3
 
-Table PowerTransformerEnd: mRID, node, phases, endNumber, connectionKind, grounded, ratedU (kV), ratedS (kVA), r (percent), BaseVoltage, PowerTransformer
-    xf_reg1_1, brkr, A, 1, Y, true, 2.4, 1666, 0.005, bv_4p16kv, xf_reg1
-    xf_reg1_2, rg60, A, 2, Y, true, 2.4, 1666, 0.005, bv_4p16kv, xf_reg1
-    xf_reg2_1, brkr, B, 1, Y, true, 2.4, 1666, 0.005, bv_4p16kv, xf_reg2
-    xf_reg2_2, rg60, B, 2, Y, true, 2.4, 1666, 0.005, bv_4p16kv, xf_reg2
-    xf_reg3_1, brkr, C, 1, Y, true, 2.4, 1666, 0.005, bv_4p16kv, xf_reg3
-    xf_reg3_2, rg60, C, 2, Y, true, 2.4, 1666, 0.005, bv_4p16kv, xf_reg3
+# ratedS = the through rating (1666 kVA); baseU = the coil voltage (2.4 kV).
+Table AutoTransformerEnd: mRID, endNumber, node, phase, baseU (kV), ratedS (kVA), BaseVoltage, AutoTransformer
+    vr_reg1_1, 1, brkr, AN, 2.4, 1666, bv_4p16kv, vr_reg1
+    vr_reg1_2, 2, rg60, AN, 2.4, 1666, bv_4p16kv, vr_reg1
+    vr_reg2_1, 1, brkr, BN, 2.4, 1666, bv_4p16kv, vr_reg2
+    vr_reg2_2, 2, rg60, BN, 2.4, 1666, bv_4p16kv, vr_reg2
+    vr_reg3_1, 1, brkr, CN, 2.4, 1666, bv_4p16kv, vr_reg3
+    vr_reg3_2, 2, rg60, CN, 2.4, 1666, bv_4p16kv, vr_reg3
 
-Table TransformerMeshImpedance: mRID, FromTransformerEnd, ToTransformerEnd, x (percent)
-    xf_reg1_mesh_12, xf_reg1_1, xf_reg1_2, 0.01
-    xf_reg2_mesh_12, xf_reg2_1, xf_reg2_2, 0.01
-    xf_reg3_mesh_12, xf_reg3_1, xf_reg3_2, 0.01
+# Lug designations per ANSI C57.15: S source, L load, SL source-load (grounded).
+Table TransformerLug: mRID, designation, sequenceNumber, TransformerEnd
+    vr_reg1_lug_s, S, 1, vr_reg1_1
+    vr_reg1_lug_l, L, 2, vr_reg1_2
+    vr_reg1_lug_sl, SL, 3,
+    vr_reg2_lug_s, S, 1, vr_reg2_1
+    vr_reg2_lug_l, L, 2, vr_reg2_2
+    vr_reg2_lug_sl, SL, 3,
+    vr_reg3_lug_s, S, 1, vr_reg3_1
+    vr_reg3_lug_l, L, 2, vr_reg3_2
+    vr_reg3_lug_sl, SL, 3,
+
+# One series winding S -> SL with the tap at L.
+# ratedS = the +/-10 % range x the 1666 kVA through rating
+# = 166.6 kVA (derived).
+Table TransformerWinding: mRID, ratedS (kVA), baseU (kV), FromTransformerEnd, ToTransformerEnd, FromTransformerLug, ToTransformerLug, AutoTransformerLug
+    vr_reg1_wdg, 166.6, 2.4, vr_reg1_1, vr_reg1_2, vr_reg1_lug_s, vr_reg1_lug_sl, vr_reg1_lug_l
+    vr_reg2_wdg, 166.6, 2.4, vr_reg2_1, vr_reg2_2, vr_reg2_lug_s, vr_reg2_lug_sl, vr_reg2_lug_l
+    vr_reg3_wdg, 166.6, 2.4, vr_reg3_1, vr_reg3_2, vr_reg3_lug_s, vr_reg3_lug_sl, vr_reg3_lug_l
+
+# An Update: each regulator exists before its ends and winding.
+Update Table VoltageRegulator: mRID, AutoTransformerWinding
+    vr_reg1, vr_reg1_wdg
+    vr_reg2, vr_reg2_wdg
+    vr_reg3, vr_reg3_wdg
+
+# Near-ideal, as is usual for step regulators: OpenDSS xhl = 0.01 % and %LoadLoss =
+# 0.01 % (%r 0.005 per winding, so 0.01 % in series), both between the two ends on
+# end 1's baseU^2/ratedS (2.4 kV, 1666 kVA).
+Table TransformerMeshImpedance: mRID, FromTransformerEnd, ToTransformerEnd, r (percent), x (percent)
+    vr_reg1_mesh_12, vr_reg1_1, vr_reg1_2, 0.01, 0.01
+    vr_reg2_mesh_12, vr_reg2_1, vr_reg2_2, 0.01, 0.01
+    vr_reg3_mesh_12, vr_reg3_1, vr_reg3_2, 0.01, 0.01
 
 # RegControl vreg=122 band=2 ptratio=20 ctprim=700 R=3 X=9, regulating winding 2.
 # CIM values are primary quantities:
@@ -38,14 +68,14 @@ Table TransformerMeshImpedance: mRID, FromTransformerEnd, ToTransformerEnd, x (p
 #                    in primary ohms that is R x ptratio / ctprim = 3 x 20 / 700
 #                    and 9 x 20 / 700.
 Table TapChangerControl: mRID, mode, discrete, enabled, monitoredPhase, targetValue, targetDeadband, lineDropCompensation, lineDropR (ohm), lineDropX (ohm), Terminal
-    xf_reg1_ctrl, voltage, true, true, A, 2440, 40, true, 0.085714, 0.257143, xf_reg1_T2
-    xf_reg2_ctrl, voltage, true, true, B, 2440, 40, true, 0.085714, 0.257143, xf_reg2_T2
-    xf_reg3_ctrl, voltage, true, true, C, 2440, 40, true, 0.085714, 0.257143, xf_reg3_T2
+    vr_reg1_ctrl, voltage, true, true, A, 2440, 40, true, 0.085714, 0.257143, vr_reg1_T2
+    vr_reg2_ctrl, voltage, true, true, B, 2440, 40, true, 0.085714, 0.257143, vr_reg2_T2
+    vr_reg3_ctrl, voltage, true, true, C, 2440, 40, true, 0.085714, 0.257143, vr_reg3_T2
 
 # OpenDSS defaults: 32 steps of 0.625 % (+/-10 %), delay 15 s, tapdelay 2 s.
 # step = the IEEE 13 published taps (Transformer.RegN.Taps after the
 # solve): 1.0625 -> +10, 1.05 -> +8, 1.06875 -> +11.
 Table RatioTapChanger: mRID, lowStep, highStep, neutralStep, normalStep, step, stepVoltageIncrement, neutralU (V), ltcFlag, controlEnabled, ptRatio, ctRating, ctRatio, initialDelay (s), subsequentDelay (s), TapChangerControl, TransformerEnd
-    xf_reg1_tap, -16, 16, 0, 0, 10, 0.625, 2400, true, true, 20, 700, 3500, 15, 2, xf_reg1_ctrl, xf_reg1_2
-    xf_reg2_tap, -16, 16, 0, 0, 8,  0.625, 2400, true, true, 20, 700, 3500, 15, 2, xf_reg2_ctrl, xf_reg2_2
-    xf_reg3_tap, -16, 16, 0, 0, 11, 0.625, 2400, true, true, 20, 700, 3500, 15, 2, xf_reg3_ctrl, xf_reg3_2
+    vr_reg1_tap, -16, 16, 0, 0, 10, 0.625, 2400, true, true, 20, 700, 3500, 15, 2, vr_reg1_ctrl, vr_reg1_2
+    vr_reg2_tap, -16, 16, 0, 0, 8,  0.625, 2400, true, true, 20, 700, 3500, 15, 2, vr_reg2_ctrl, vr_reg2_2
+    vr_reg3_tap, -16, 16, 0, 0, 11, 0.625, 2400, true, true, 20, 700, 3500, 15, 2, vr_reg3_ctrl, vr_reg3_2

@@ -7,9 +7,8 @@
 # X = 1.7 %: Xhl = 1.2X, Xlt = 0.8X), so they transcribe directly:
 # %Rs -> TransformerWinding.r, X** -> TransformerMeshImpedance.x.
 #
-# The primary phase end is `X` (phase to be assigned by the instance): the code
-# is phase-agnostic, like an OpenDSS XfmrCode. The instance's end-1 terminal
-# says which phase (Tpoletop: B).
+# Tank only: the code is phase-agnostic, like an OpenDSS XfmrCode. The lugs carry the
+# conductor numbers; the instance's TransformerPhaseEnds give the phases (Tpoletop: B).
 
 Profile = cim18v17
 
@@ -17,18 +16,23 @@ Profile = cim18v17
 # (percentImpedance is mistyped ActivePower in cim18v17; should be PerCent)
 Object TransformerTankConfiguration: mRID=xc_ct5, name=ct5, percentImpedance=2.08, percentMagnetizingCurrent=0.5, noLoadLoss (W)=10, loadLoss (W)=60
 
-Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (V), TankConfiguration=xc_ct5
-    xc_ct5_h1, 1, 1, X,  2400
-    xc_ct5_x1, 2, 2, s1, 120
-    xc_ct5_x3, 2, 3, s2, 120
-    xc_ct5_n,  2, 4, N,  0
+# Lug designations as a standard 1-phase center-tap tank (the deck names buses, not
+# bushings). sequenceNumber = the conductor, in terminal order: 1 = H1 (end 1);
+# 2 = X1 (s1), 3 = X3 (s2), 4 = N (end 2). H2 shares 4: the deck's primary returns to
+# node 0, the same ground as the center tap (buses=[670.2 House.1.0 House.0.2]).
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration=xc_ct5
+    xc_ct5_lug_h1, H1, 1
+    xc_ct5_lug_h2, H2, 4
+    xc_ct5_lug_x1, X1, 2
+    xc_ct5_lug_x3, X3, 3
+    xc_ct5_lug_x2, X2, 4
 
 # baseU = OpenDSS kVs, baseS = OpenDSS kVAs; ratedS halves carry 2.5 kVA each.
 # Polarity matches OpenDSS buses=[670.2 House.1.0 House.0.2]: s1->N, N->s2.
-Table TransformerWinding: mRID, ratedS (kVA), baseS (kVA), ratedU (V), baseU (V), r (percent), FromTransformerEnd, ToTransformerEnd, TankConfiguration=xc_ct5
-    xc_ct5_wdg1, 5,   5, 4160, 2400, 0.6, xc_ct5_h1, xc_ct5_n
-    xc_ct5_wdg2, 2.5, 5, 240,  120,  1.2, xc_ct5_x1, xc_ct5_n
-    xc_ct5_wdg3, 2.5, 5, 240,  120,  1.2, xc_ct5_n,  xc_ct5_x3
+Table TransformerWinding: mRID, ratedS (kVA), baseS (kVA), ratedU (V), baseU (V), r (percent), FromTransformerLug, ToTransformerLug, TankConfiguration=xc_ct5
+    xc_ct5_wdg1, 5,   5, 4160, 2400, 0.6, xc_ct5_lug_h1, xc_ct5_lug_h2
+    xc_ct5_wdg2, 2.5, 5, 240,  120,  1.2, xc_ct5_lug_x1, xc_ct5_lug_x2
+    xc_ct5_wdg3, 2.5, 5, 240,  120,  1.2, xc_ct5_lug_x2, xc_ct5_lug_x3
 
 Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, x (percent)
     xc_ct5_mesh_12, xc_ct5_wdg1, xc_ct5_wdg2, 2.04

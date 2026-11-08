@@ -1,0 +1,71 @@
+# IEEE 13 asset-variant XfmrCodes (OpenDSS XfmrCode -> TransformerTankConfiguration)
+#
+# SubXfmr and FdrXfmr are tank-only templates: lugs, one winding per coil, one mesh per
+# leg. The phases are on each instance's TransformerPhaseEnds (transformers.cimtbl).
+# Lug sequenceNumber = the conductor, in terminal order: end 1 A B C (N), then end 2.
+# RegLeg is a regulator code: a regulator has no reusable configuration in cim18v17
+# (each owns its winding), so its values are written on each unit in regulators.cimtbl.
+#
+# Coil ratings (three-phase basis): ratedU = the side's kV; baseU = the coil (delta:
+# line to line; wye: line to neutral, kV / sqrt(3)); ratedS = the code's kva; baseS =
+# kva / 3 per coil. On the coil base the deck's three-phase percent values (%r per
+# winding, XHL) apply unchanged to every coil and leg.
+
+Profile = cim18v17
+
+# --- SubXfmr: 5000 kVA, 115 kV delta - 4.16 kV wye. Deck: XHL=(8 1000 /), %r=(.5 1000 /)
+# per winding: RPN expressions, transcribed as evaluated (0.008 %, 0.0005 %); these are
+# the deck's values, not the nameplate (IEEE13_CDPSM's sub3 uses 1 % / 8 %).
+# Delta-wye with the OpenDSS default (low side lags): Dyn1, legs H1-H3 / X1-X0,
+# H2-H1 / X2-X0, H3-H2 / X3-X0.
+Object TransformerTankConfiguration: mRID=xc_subxfmr, name=SubXfmr
+
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration=xc_subxfmr
+    xc_subxfmr_lug_h1, H1, 1
+    xc_subxfmr_lug_h2, H2, 2
+    xc_subxfmr_lug_h3, H3, 3
+    xc_subxfmr_lug_x1, X1, 4
+    xc_subxfmr_lug_x2, X2, 5
+    xc_subxfmr_lug_x3, X3, 6
+    xc_subxfmr_lug_x0, X0, 7
+
+Table TransformerWinding: mRID, ratedU (kV), baseU (kV), ratedS (kVA), baseS (kVA), r (percent), FromTransformerLug, ToTransformerLug, TankConfiguration=xc_subxfmr
+    xc_subxfmr_wdg_h1h3, 115, 115, 5000, 1666.6667, 0.0005, xc_subxfmr_lug_h1, xc_subxfmr_lug_h3
+    xc_subxfmr_wdg_h2h1, 115, 115, 5000, 1666.6667, 0.0005, xc_subxfmr_lug_h2, xc_subxfmr_lug_h1
+    xc_subxfmr_wdg_h3h2, 115, 115, 5000, 1666.6667, 0.0005, xc_subxfmr_lug_h3, xc_subxfmr_lug_h2
+    xc_subxfmr_wdg_x1x0, 4.16, 2.40178, 5000, 1666.6667, 0.0005, xc_subxfmr_lug_x1, xc_subxfmr_lug_x0
+    xc_subxfmr_wdg_x2x0, 4.16, 2.40178, 5000, 1666.6667, 0.0005, xc_subxfmr_lug_x2, xc_subxfmr_lug_x0
+    xc_subxfmr_wdg_x3x0, 4.16, 2.40178, 5000, 1666.6667, 0.0005, xc_subxfmr_lug_x3, xc_subxfmr_lug_x0
+
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, x (percent)
+    xc_subxfmr_mesh_a, xc_subxfmr_wdg_h1h3, xc_subxfmr_wdg_x1x0, 0.008
+    xc_subxfmr_mesh_b, xc_subxfmr_wdg_h2h1, xc_subxfmr_wdg_x2x0, 0.008
+    xc_subxfmr_mesh_c, xc_subxfmr_wdg_h3h2, xc_subxfmr_wdg_x3x0, 0.008
+
+# --- FdrXfmr: 500 kVA, 4.16 kV - 0.48 kV wye-wye (YNyn0). Deck: XHL=2, %r=.55 per
+# winding, %NoLoadLoss=0.6, %imag=1.1. noLoadLoss = 0.6 % x 500 kVA = 3000 W (derived:
+# the CIM attribute is in W); %imag -> percentMagnetizingCurrent.
+Object TransformerTankConfiguration: mRID=xc_fdrxfmr, name=FdrXfmr, noLoadLoss (W)=3000, percentMagnetizingCurrent=1.1
+
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration=xc_fdrxfmr
+    xc_fdrxfmr_lug_h1, H1, 1
+    xc_fdrxfmr_lug_h2, H2, 2
+    xc_fdrxfmr_lug_h3, H3, 3
+    xc_fdrxfmr_lug_h0, H0, 4
+    xc_fdrxfmr_lug_x1, X1, 5
+    xc_fdrxfmr_lug_x2, X2, 6
+    xc_fdrxfmr_lug_x3, X3, 7
+    xc_fdrxfmr_lug_x0, X0, 8
+
+Table TransformerWinding: mRID, ratedU (kV), baseU (kV), ratedS (kVA), baseS (kVA), r (percent), FromTransformerLug, ToTransformerLug, TankConfiguration=xc_fdrxfmr
+    xc_fdrxfmr_wdg_h1h0, 4.16, 2.40178, 500, 166.6667, 0.55, xc_fdrxfmr_lug_h1, xc_fdrxfmr_lug_h0
+    xc_fdrxfmr_wdg_h2h0, 4.16, 2.40178, 500, 166.6667, 0.55, xc_fdrxfmr_lug_h2, xc_fdrxfmr_lug_h0
+    xc_fdrxfmr_wdg_h3h0, 4.16, 2.40178, 500, 166.6667, 0.55, xc_fdrxfmr_lug_h3, xc_fdrxfmr_lug_h0
+    xc_fdrxfmr_wdg_x1x0, 0.48, 0.27713, 500, 166.6667, 0.55, xc_fdrxfmr_lug_x1, xc_fdrxfmr_lug_x0
+    xc_fdrxfmr_wdg_x2x0, 0.48, 0.27713, 500, 166.6667, 0.55, xc_fdrxfmr_lug_x2, xc_fdrxfmr_lug_x0
+    xc_fdrxfmr_wdg_x3x0, 0.48, 0.27713, 500, 166.6667, 0.55, xc_fdrxfmr_lug_x3, xc_fdrxfmr_lug_x0
+
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, x (percent)
+    xc_fdrxfmr_mesh_a, xc_fdrxfmr_wdg_h1h0, xc_fdrxfmr_wdg_x1x0, 2
+    xc_fdrxfmr_mesh_b, xc_fdrxfmr_wdg_h2h0, xc_fdrxfmr_wdg_x2x0, 2
+    xc_fdrxfmr_mesh_c, xc_fdrxfmr_wdg_h3h0, xc_fdrxfmr_wdg_x3x0, 2

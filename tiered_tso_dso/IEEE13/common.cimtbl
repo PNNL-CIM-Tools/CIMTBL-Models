@@ -11,7 +11,7 @@ Object SubGeographicalRegion: mRID=srgn_demo_service_area, name=demo_service_are
 Object Substation: mRID=sub_ieee13, name=ieee13_sub, description=115/4.16 kV distribution substation, Region=srgn_demo_service_area
 Object Feeder: mRID=fdr_ieee13nodeckt, name=ieee13nodeckt, description=IEEE 13 node test feeder, NormalEnergizingSubstation=sub_ieee13
 
-Table BaseVoltage: mRID, nominalVoltage (V)
-    bv_115kv,  115000
-    bv_4p16kv, 4160
-    bv_480v,   480
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    bv_115kv,  115
+    bv_4p16kv, 4.16
+    bv_480v,   0.48

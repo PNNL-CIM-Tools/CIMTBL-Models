@@ -1,0 +1,66 @@
+# IEEE 13 asset-variant LineGeometry -> WireConfiguration (the cim18v17 line template)
+#
+# spacing=<name> -> WireConfiguration.WireSpacing, pointing at linespacings.cimtbl.
+# Inline geometries (cond= x= h= with an inline cncable/tscable/wire) get their own
+# XYSpacing here (isTemplate=false). like=603 copies 603's spacing (and wires) for 604.
+# Line.684611 has an inline Spacing=510 Wires=[...], so it gets a line-level
+# WireConfiguration (wc_684611) on the library spacing spc_510.
+# wires=[...] / cond=<n> wire= -> one WireSequenceConfiguration per conductor, keyed
+# <wc>_<n>, sequenceNumber = the conductor's position in the spacing.
+# Not represented: reduce=y (Kron reduction) and the earth model (Carson).
+
+Profile = cim18v17
+
+Table XYSpacing: mRID, name, isTemplate
+    spc_606, 606, false
+    spc_607, 607, false
+
+Table XYConductorPosition: mRID, XYSpacing, sequenceNumber, xCoord (ft), yCoord (ft), kind
+    spc_606_1, spc_606, 1, -0.5, -4, phase
+    spc_606_2, spc_606, 2,  0.0, -4, phase
+    spc_606_3, spc_606, 3,  0.5, -4, phase
+
+    spc_607_1, spc_607, 1, 0.0,  -4, phase
+    spc_607_2, spc_607, 2, 0.25, -4, neutral
+
+Table WireConfiguration: mRID, name, numberOfPhases, WireSpacing
+    wc_601,    601,    3, spc_500
+    wc_602,    602,    3, spc_500
+    wc_603,    603,    2, spc_505
+    wc_604,    604,    2, spc_505
+    wc_605,    605,    1, spc_510
+    wc_606,    606,    3, spc_606
+    wc_607,    607,    1, spc_607
+    wc_684611, 684611, 1, spc_510
+
+Table WireSequenceConfiguration: mRID, WireConfiguration, sequenceNumber, WireInfo
+    wc_601_1,    wc_601,    1, wire_acsr_556_5
+    wc_601_2,    wc_601,    2, wire_acsr_556_5
+    wc_601_3,    wc_601,    3, wire_acsr_556_5
+    wc_601_4,    wc_601,    4, wire_acsr_4/0
+
+    wc_602_1,    wc_602,    1, wire_acsr_4/0
+    wc_602_2,    wc_602,    2, wire_acsr_4/0
+    wc_602_3,    wc_602,    3, wire_acsr_4/0
+    wc_602_4,    wc_602,    4, wire_acsr_4/0
+
+    wc_603_1,    wc_603,    1, wire_acsr_1/0
+    wc_603_2,    wc_603,    2, wire_acsr_1/0
+    wc_603_3,    wc_603,    3, wire_acsr_1/0
+
+    wc_604_1,    wc_604,    1, wire_acsr_1/0
+    wc_604_2,    wc_604,    2, wire_acsr_1/0
+    wc_604_3,    wc_604,    3, wire_acsr_1/0
+
+    wc_605_1,    wc_605,    1, wire_acsr_1/0
+    wc_605_2,    wc_605,    2, wire_acsr_1/0
+
+    wc_606_1,    wc_606,    1, cable_cn_250
+    wc_606_2,    wc_606,    2, cable_cn_250
+    wc_606_3,    wc_606,    3, cable_cn_250
+
+    wc_607_1,    wc_607,    1, cable_ts_1/0
+    wc_607_2,    wc_607,    2, wire_cu_1/0
+
+    wc_684611_1, wc_684611, 1, wire_acsr_1/0
+    wc_684611_2, wc_684611, 2, wire_acsr_1/0

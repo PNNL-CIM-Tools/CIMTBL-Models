@@ -1,0 +1,25 @@
+# CYME OverheadSpacingOfConductorDB -> XYSpacing (library templates) + XYConductorPosition.
+# Coordinates as written in CYME (metres). Position numbers are CYME's
+# PositionOfConductor1..n, with the phase conductors first and the neutral last;
+# kind = phase or neutral. The CYME circuit (C1) is dropped.
+# Line conductor assignment onto these positions is in linegeometries.cimtbl and README.md.
+
+Profile = cim18v17
+
+Table XYSpacing: mRID, name, isTemplate
+    spc_500, 500, true
+    spc_505, 505, true
+    spc_510, 510, true
+
+Table XYConductorPosition: mRID, XYSpacing, sequenceNumber, xCoord (m), yCoord (m), kind
+    spc_500_1, spc_500, 1, 0,      8.5344, phase
+    spc_500_2, spc_500, 2, 0.762,  8.5344, phase
+    spc_500_3, spc_500, 3, 2.1336, 8.5344, phase
+    spc_500_4, spc_500, 4, 1.2192, 7.3152, neutral
+
+    spc_505_1, spc_505, 1, 0,      8.5344, phase
+    spc_505_2, spc_505, 2, 2.1336, 8.5344, phase
+    spc_505_3, spc_505, 3, 1.2192, 7.3152, neutral
+
+    spc_510_1, spc_510, 1, 0,      8.8392, phase
+    spc_510_2, spc_510, 2, 0.1524, 7.3152, neutral

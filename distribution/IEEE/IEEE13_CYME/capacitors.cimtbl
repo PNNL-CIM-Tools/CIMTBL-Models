@@ -1,0 +1,11 @@
+# CYME ShuntCapacitor -> LinearShuntCompensator (both fixed, one section).
+# nomQ = total kVAr. nomU for the three-phase bank is line-to-line 4.16 kV: CYME gives
+# RatedVoltageKVLN 2.40178 kV per unit, and 2.40178 x sqrt(3) = 4.16 kV. The 611 unit is
+# single-phase, so its nomU is the unit's own 2.40178 kV across the unit.
+# bPerSection = nomQ / nomU^2 (total for the bank, siemens).
+
+Profile = cim18v17
+
+Table LinearShuntCompensator: mRID, name, node, phases, phaseConnection, grounded, nomQ (kVAr), nomU (kV), bPerSection (S), sections, normalSections, maximumSections, BaseVoltage, EquipmentContainer=fdr_650
+    cap_l675cap, L675CAP, 675, ABC, Y, true, 600, 4.16,    0.034671, 1, 1, 1, bv_4p16kv
+    cap_l611cap, L611CAP, 611, C,   Y, true, 100, 2.40178, 0.017334, 1, 1, 1, bv_4p16kv

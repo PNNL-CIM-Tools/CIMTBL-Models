@@ -1,0 +1,49 @@
+# IEEE 13 asset-variant transformers (OpenDSS Transformer with XfmrCode -> PowerTransformer)
+#
+# Each transformer is a PowerTransformer + one TransformerTank on its XfmrCode's template
+# (xfmrcodes.cimtbl) + its ends (connectivity, connection) + TransformerPhaseEnds: the
+# conductors the template's lugs land on (lug sequenceNumber = phase end sequenceNumber),
+# with the real phases. The ratings and impedances are the template's.
+# A TransformerEnd's `node` puts its Terminal on the PowerTransformer.
+
+Profile = cim18v17
+
+# --- Sub: XfmrCode SubXfmr, Buses=[SourceBus 650]. Delta-wye: vectorGroup Dyn1 (as sub3
+# in IEEE13_CDPSM). The wye winding has no Rneut or Xneut in the deck, so it is solidly
+# grounded (CIMHub's convention for an unset neutral); end 2 carries the grounded N.
+Object PowerTransformer: mRID=xf_sub, name=sub, vectorGroup=Dyn1, EquipmentContainer=sub_ieee13
+
+Object TransformerTank: mRID=xf_sub_tank, PowerTransformer=xf_sub, TankConfiguration=xc_subxfmr, EquipmentContainer=sub_ieee13
+
+Table PowerTransformerEnd: mRID, node, phases, endNumber, connectionKind, grounded, BaseVoltage, PowerTransformer=xf_sub
+    xf_sub_1, sourcebus, ABC,  1, D,  false, bv_115kv
+    xf_sub_2, 650,       ABCN, 2, Yn, true,  bv_4p16kv
+
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (V), grounded, Terminal
+    xf_sub_1_a, 1, 1, A, 66395.3, , xf_sub_T1
+    xf_sub_1_b, 1, 2, B, 66395.3, , xf_sub_T1
+    xf_sub_1_c, 1, 3, C, 66395.3, , xf_sub_T1
+    xf_sub_2_a, 2, 4, A, 2401.78, , xf_sub_T2
+    xf_sub_2_b, 2, 5, B, 2401.78, , xf_sub_T2
+    xf_sub_2_c, 2, 6, C, 2401.78, , xf_sub_T2
+    xf_sub_2_n, 2, 7, N, 0, true, xf_sub_T2
+
+# --- xfm1: XfmrCode FdrXfmr, Buses=[633 634], 500 kVA 4.16 - 0.48 kV grounded wye-wye.
+# The 4.16 kV end is on bus 633 directly (the deck has no fuse, so no XF1 node).
+Object PowerTransformer: mRID=xf_xfm1, name=xfm1, vectorGroup=YNyn0, EquipmentContainer=fdr_ieee13nodecktassets
+
+Object TransformerTank: mRID=xf_xfm1_tank, PowerTransformer=xf_xfm1, TankConfiguration=xc_fdrxfmr, EquipmentContainer=fdr_ieee13nodecktassets
+
+Table PowerTransformerEnd: mRID, node, phases, endNumber, connectionKind, grounded, BaseVoltage, PowerTransformer=xf_xfm1
+    xf_xfm1_1, 633, ABCN, 1, Yn, true, bv_4p16kv
+    xf_xfm1_2, 634, ABCN, 2, Yn, true, bv_480v
+
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (V), grounded, Terminal
+    xf_xfm1_1_a, 1, 1, A, 2401.78, , xf_xfm1_T1
+    xf_xfm1_1_b, 1, 2, B, 2401.78, , xf_xfm1_T1
+    xf_xfm1_1_c, 1, 3, C, 2401.78, , xf_xfm1_T1
+    xf_xfm1_1_n, 1, 4, N, 0, true, xf_xfm1_T1
+    xf_xfm1_2_a, 2, 5, A, 277.13, , xf_xfm1_T2
+    xf_xfm1_2_b, 2, 6, B, 277.13, , xf_xfm1_T2
+    xf_xfm1_2_c, 2, 7, C, 277.13, , xf_xfm1_T2
+    xf_xfm1_2_n, 2, 8, N, 0, true, xf_xfm1_T2

@@ -1,0 +1,12 @@
+# IEEE 13 switches (OpenDSS Line with Switch=y -> Switch subclasses)
+#
+# The deck has one switched line, Line.671692. The OpenDSS r1=1e-4 stand-in
+# impedance is dropped: CIM switches are ideal.
+# The class comes from the protection element that monitors the line: none in
+# this deck, so LoadBreakSwitch (as in IEEE13_CDPSM). The deck has no Relay,
+# Recloser, Fuse or Breaker elements, so no Breaker/Recloser/Fuse rows.
+
+Profile = cim18v17
+
+Table LoadBreakSwitch: mRID, name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    sw_671692, 671692, 671, 692, ABC, false, false

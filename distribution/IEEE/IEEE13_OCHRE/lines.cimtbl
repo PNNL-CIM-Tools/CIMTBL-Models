@@ -1,0 +1,28 @@
+# IEEE 13 OCHRE overhead and underground lines (OpenDSS Line with LineCode -> ACLineSegment)
+#
+# `phases` is written in OpenDSS bus-node order (node_632.2.3 -> BC): token k is
+# conductor k, i.e. row k of the line code's matrix (as written, no Kron reduction).
+# A code with a neutral conductor (kron=yes ignored) puts N last in `phases`, in the
+# matrix's conductor order. The deck's line has no N node, so N lands on the line's own
+# connectivity nodes (same as the CDPSM s1s2N secondary):
+#   4-wire OBJECT_14/15: ABCN; OBJECT_16 (2 phases + N): BCN; OBJECT_17 (nodes .1.3 + N): ACN;
+#   OBJECT_18 (node .3 + N): CN; OBJECT_22 (node .1 + N): AN; OBJECT_21 has no neutral: ABC.
+# The OpenDSS OverheadLines.dss and UndergroundLines.dss are one class and one file here.
+# Triplex lines are in triplex_lines.cimtbl.
+# No OpenDSS normamps in this deck, so no OperationalLimitSet / CurrentLimit rows.
+# The deck's line length is written in ft, as in the source.
+
+Profile = cim18v17
+
+Table ACLineSegment: mRID, name, node1, node2, phases, length (ft), PerLengthImpedance, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13ochre
+    ln_630-632,   630-632,   node_630,  node_632,  ABCN, 2000, lc_object_14
+    ln_632-6321,  632-6321,  node_632,  node_6321, ABCN, 500,  lc_object_14
+    ln_6321-671,  6321-671,  node_6321, node_671,  ABCN, 1500, lc_object_14
+    ln_671-680,   671-680,   node_671,  node_680,  ABCN, 1000, lc_object_14
+    ln_671-684,   671-684,   node_671,  node_684,  ACN,  300,  lc_object_17
+    ln_684-611,   684-611,   node_684,  node_611,  CN,   300,  lc_object_18
+    ln_632-633,   632-633,   node_632,  node_633,  ABCN, 500,  lc_object_15
+    ln_632-645,   632-645,   node_632,  node_645,  BCN,  500,  lc_object_16
+    ln_645-646,   645-646,   node_645,  node_646,  BCN,  300,  lc_object_16
+    ln_692-675,   692-675,   node_692,  node_675,  ABC,  500,  lc_object_21
+    ln_684-652,   684-652,   node_684,  node_652,  AN,   800,  lc_object_22

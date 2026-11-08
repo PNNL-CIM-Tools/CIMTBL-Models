@@ -1,0 +1,30 @@
+# IEEE 13 OCHRE capacitors (OpenDSS Capacitor -> LinearShuntCompensator) and CapControls
+#
+# Both banks are 3-phase wye at kv=4.160 (line-to-line), so nomU = 4.16 kV.
+# bPerSection = nomQ / nomU^2 (total for the bank, one section): 900000 / 4160^2 and 750000 / 4160^2.
+# The bank bus is the capacitor's own bus (CAP1, CAP2), tied to node_675 by a jumper (switches.cimtbl).
+# wye -> phaseConnection Y, grounded true (CDPSM capacitor precedent).
+#
+# CapControl -> RegulatingControl (voltage mode), one per capacitor, mRID <cap>_ctrl, linked
+# from the capacitor (ShuntCompensator.RegulatingControl), as in IEEE13_assets.
+#   targetValue    = (on + off) / 2 ; targetDeadband = off - on   (volts, ptratio = 1)
+#   CAP1: on 1950, off 2500 -> targetValue 2225 V, targetDeadband 550 V
+#   CAP2: on 2050, off 2600 -> targetValue 2325 V, targetDeadband 550 V
+#   monitoredPhase = A: ptphase=1, the element's first conductor (bus CAP1.1 / CAP2.1)
+#   Terminal = jumper j1 / j2's terminal 1 (sw_j1_T1 / sw_j2_T1): the same ConnectivityNode
+#   (CAP1 / CAP2) as the capacitor's terminal 1. The capacitor's own generated terminal
+#   (cap_capN_T1) is created only after the capacitor binds, and the capacitor must reference
+#   its control, so the control cannot point at it.
+#   CAP2 delay=300 s -> aVRDelay 300 on cap_cap2; CAP1 delay=0.0 -> aVRDelay 0 on cap_cap1.
+#   Not in cim18v17 (README): delayoff, deadtime.
+# Both controls enabled (no `set controlmode=off` in the deck).
+
+Profile = cim18v17
+
+Table RegulatingControl: mRID, name, mode, discrete, enabled, monitoredPhase, targetValue (V), targetDeadband (V), ptRatio, Terminal
+    cap_cap1_ctrl, CAP1_ctrl, voltage, true, true, A, 2225, 550, 1, sw_j1_T1
+    cap_cap2_ctrl, CAP2_ctrl, voltage, true, true, A, 2325, 550, 1, sw_j2_T1
+
+Table LinearShuntCompensator: mRID, name, node, phases, phaseConnection, grounded, nomQ (kVAr), nomU (kV), bPerSection (S), sections, normalSections, maximumSections, aVRDelay (s), controlEnabled, RegulatingControl, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13ochre
+    cap_cap1, CAP1, CAP1, ABC, Y, true, 900, 4.160, 0.0520063, 1, 1, 1, 0,   true, cap_cap1_ctrl
+    cap_cap2, CAP2, CAP2, ABC, Y, true, 750, 4.160, 0.0433386, 1, 1, 1, 300, true, cap_cap2_ctrl

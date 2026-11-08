@@ -1,0 +1,29 @@
+# IEEE 13 loads (OpenDSS Load -> EnergyConsumer)
+#
+# One EnergyConsumer per OpenDSS Load (15 loads); p/q are the totals. OpenDSS model ->
+# LoadResponse: 1 = zip_constant_pq, 2 = zip_constant_z, 5 = zip_constant_i
+# (defined in IEEE13_original.cimtbl).
+# Delta: `phases` lists the phases spanned. Bus1=646.2.3 -> BC, 692.3.1 -> CA.
+# OpenDSS kV is not carried: BaseVoltage gives the nominal. The 634 loads are
+# kV=0.277 (line-to-neutral, 480 V system), so they take bv_480v.
+
+Profile = cim18v17
+
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    ld_671,  671,  671, ABC, D, false, 1155, 660, zip_constant_pq
+    ld_645,  645,  645, B,   Y, true,  170,  125, zip_constant_pq
+    ld_646,  646,  646, BC,  D, false, 230,  132, zip_constant_z
+    ld_692,  692,  692, CA,  D, false, 170,  151, zip_constant_i
+    ld_675a, 675a, 675, A,   Y, true,  485,  190, zip_constant_pq
+    ld_675b, 675b, 675, B,   Y, true,  68,   60,  zip_constant_pq
+    ld_675c, 675c, 675, C,   Y, true,  290,  212, zip_constant_pq
+    ld_611,  611,  611, C,   Y, true,  170,  80,  zip_constant_i
+    ld_652,  652,  652, A,   Y, true,  128,  86,  zip_constant_z
+    ld_670a, 670a, 670, A,   Y, true,  17,   10,  zip_constant_pq
+    ld_670b, 670b, 670, B,   Y, true,  66,   38,  zip_constant_pq
+    ld_670c, 670c, 670, C,   Y, true,  117,  68,  zip_constant_pq
+
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_480v, EquipmentContainer=fdr_ieee13nodeckt
+    ld_634a, 634a, 634, A, Y, true, 160, 110, zip_constant_pq
+    ld_634b, 634b, 634, B, Y, true, 120, 90,  zip_constant_pq
+    ld_634c, 634c, 634, C, Y, true, 120, 90,  zip_constant_pq

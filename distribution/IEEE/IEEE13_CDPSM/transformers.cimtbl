@@ -44,3 +44,10 @@ Object TransformerTank: mRID=xf_tpoletop_tank, PowerTransformer=xf_tpoletop, Tan
 Table PowerTransformerEnd: mRID, node, phases, endNumber, connectionKind, grounded, BaseVoltage, PowerTransformer=xf_tpoletop
     xf_tpoletop_1, 670,   B,     1, Y, true, bv_4p16kv
     xf_tpoletop_2, house, s1s2N, 2, I, true, bv_240v
+
+# The conductors the ct5 lugs land on (lug sequenceNumber = phase end sequenceNumber).
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (V), grounded, Terminal
+    xf_tpoletop_b,  1, 1, B,  2400, ,     xf_tpoletop_T1
+    xf_tpoletop_s1, 2, 2, s1, 120,  ,     xf_tpoletop_T2
+    xf_tpoletop_s2, 2, 3, s2, 120,  ,     xf_tpoletop_T2
+    xf_tpoletop_n,  2, 4, N,  0,    true, xf_tpoletop_T2

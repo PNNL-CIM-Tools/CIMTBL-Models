@@ -1,0 +1,9 @@
+# IEEE 13 asset-variant switches (OpenDSS Line with Switch=y -> LoadBreakSwitch)
+#
+# This deck has no Relay, Recloser, Fuse or Sectionaliser, so the only switch is the
+# Line.671692 switch. Its r1/r0 = 1e-4 stand-in impedance is dropped: CIM switches are ideal.
+
+Profile = cim18v17
+
+Table LoadBreakSwitch: mRID, name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodecktassets
+    sw_671692, 671692, 671, 692, ABC, false, false

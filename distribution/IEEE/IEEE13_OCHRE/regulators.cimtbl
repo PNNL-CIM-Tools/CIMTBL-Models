@@ -1,0 +1,76 @@
+# IEEE 13 OCHRE feeder regulators (OpenDSS Transformer + RegControl ->
+# VoltageRegulator + AutoTransformerEnds + TransformerWinding + RatioTapChanger +
+# TapChangerControl), as in distribution/regulator_example.cimtbl.
+#
+# Three single-phase regulators (bank=vreg1), each on its own phase: node_650.N ->
+# node_630.N at 2.4 kV line-to-neutral, 100000 kVA per winding as written. Each is its
+# own VoltageRegulator. The deck gives no %R or %X for these units, so there is no mesh.
+# OpenDSS Bank=vreg1 is not represented.
+#
+# The two ends keep the OpenDSS two-winding shape: end 1 = S (source), end 2 = L (load),
+# each wired phase to neutral (phase AN, BN, CN; the SL lug is the grounded end). The source does
+# not say type A or B, so construction is unset; the tap is on end 2 (L), as OpenDSS
+# winding=2.
+#
+# RegControl (ptratio=1, so the primary quantities are the deck values):
+#   targetValue (V)     = vreg = 2400
+#   targetDeadband (V)  = band = 80
+#   lineDropCompensation = false: no R/X in the deck (OpenDSS R, X default to 0)
+#   initialDelay (s)    = delay = 0.0
+#   subsequentDelay (s) = OpenDSS default tapdelay = 2 (not in the deck)
+# step = 0 (neutral): the deck does not set a tap and this file has no solved taps.
+# Taps: numtaps=32 -> lowStep/highStep = -16/16 steps, stepVoltageIncrement 0.625 percent
+# (OpenDSS default).
+
+Profile = cim18v17
+
+Table VoltageRegulator: mRID, name, EquipmentContainer=fdr_ieee13ochre
+    vr_object_162_a, OBJECT_162_A
+    vr_object_162_b, OBJECT_162_B
+    vr_object_162_c, OBJECT_162_C
+
+# ratedS = the through rating (100000 kVA); baseU = the coil voltage (2.4 kV).
+Table AutoTransformerEnd: mRID, endNumber, node, phase, baseU (kV), ratedS (kVA), BaseVoltage, AutoTransformer
+    vr_object_162_a_1, 1, node_650, AN, 2.4, 100000, bv_4p16kv, vr_object_162_a
+    vr_object_162_a_2, 2, node_630, AN, 2.4, 100000, bv_4p16kv, vr_object_162_a
+    vr_object_162_b_1, 1, node_650, BN, 2.4, 100000, bv_4p16kv, vr_object_162_b
+    vr_object_162_b_2, 2, node_630, BN, 2.4, 100000, bv_4p16kv, vr_object_162_b
+    vr_object_162_c_1, 1, node_650, CN, 2.4, 100000, bv_4p16kv, vr_object_162_c
+    vr_object_162_c_2, 2, node_630, CN, 2.4, 100000, bv_4p16kv, vr_object_162_c
+
+# Lug designations per ANSI C57.15: S source, L load, SL source-load (grounded).
+Table TransformerLug: mRID, designation, sequenceNumber, TransformerEnd
+    vr_object_162_a_lug_s, S, 1, vr_object_162_a_1
+    vr_object_162_a_lug_l, L, 2, vr_object_162_a_2
+    vr_object_162_a_lug_sl, SL, 3,
+    vr_object_162_b_lug_s, S, 1, vr_object_162_b_1
+    vr_object_162_b_lug_l, L, 2, vr_object_162_b_2
+    vr_object_162_b_lug_sl, SL, 3,
+    vr_object_162_c_lug_s, S, 1, vr_object_162_c_1
+    vr_object_162_c_lug_l, L, 2, vr_object_162_c_2
+    vr_object_162_c_lug_sl, SL, 3,
+
+# One series winding S -> SL with the tap at L.
+# ratedS = the +/-10 % range x the 100000 kVA through rating
+# as written = 10000 kVA (derived).
+Table TransformerWinding: mRID, ratedS (kVA), baseU (kV), FromTransformerEnd, ToTransformerEnd, FromTransformerLug, ToTransformerLug, AutoTransformerLug
+    vr_object_162_a_wdg, 10000, 2.4, vr_object_162_a_1, vr_object_162_a_2, vr_object_162_a_lug_s, vr_object_162_a_lug_sl, vr_object_162_a_lug_l
+    vr_object_162_b_wdg, 10000, 2.4, vr_object_162_b_1, vr_object_162_b_2, vr_object_162_b_lug_s, vr_object_162_b_lug_sl, vr_object_162_b_lug_l
+    vr_object_162_c_wdg, 10000, 2.4, vr_object_162_c_1, vr_object_162_c_2, vr_object_162_c_lug_s, vr_object_162_c_lug_sl, vr_object_162_c_lug_l
+
+# An Update: each regulator exists before its ends and winding.
+Update Table VoltageRegulator: mRID, AutoTransformerWinding
+    vr_object_162_a, vr_object_162_a_wdg
+    vr_object_162_b, vr_object_162_b_wdg
+    vr_object_162_c, vr_object_162_c_wdg
+
+Table TapChangerControl: mRID, name, mode, discrete, enabled, monitoredPhase, targetValue (V), targetDeadband (V), lineDropCompensation, Terminal
+    vr_object_162_a_ctrl, OBJECT_162_regA, voltage, true, true, A, 2400, 80, false, vr_object_162_a_T2
+    vr_object_162_b_ctrl, OBJECT_162_regB, voltage, true, true, B, 2400, 80, false, vr_object_162_b_T2
+    vr_object_162_c_ctrl, OBJECT_162_regC, voltage, true, true, C, 2400, 80, false, vr_object_162_c_T2
+
+# neutralU = the regulator winding kv (2.4 kV, the neutral-tap voltage). ptRatio = 1.
+Table RatioTapChanger: mRID, lowStep, highStep, neutralStep, normalStep, step, stepVoltageIncrement, ltcFlag, controlEnabled, neutralU (kV), ptRatio, initialDelay (s), subsequentDelay (s), TapChangerControl, TransformerEnd
+    vr_object_162_a_tap, -16, 16, 0, 0, 0, 0.625, true, true, 2.4, 1, 0, 2, vr_object_162_a_ctrl, vr_object_162_a_2
+    vr_object_162_b_tap, -16, 16, 0, 0, 0, 0.625, true, true, 2.4, 1, 0, 2, vr_object_162_b_ctrl, vr_object_162_b_2
+    vr_object_162_c_tap, -16, 16, 0, 0, 0, 0.625, true, true, 2.4, 1, 0, 2, vr_object_162_c_ctrl, vr_object_162_c_2

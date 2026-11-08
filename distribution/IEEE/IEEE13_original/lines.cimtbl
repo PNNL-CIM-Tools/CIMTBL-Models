@@ -1,0 +1,21 @@
+# IEEE 13 overhead/underground lines (OpenDSS Line with LineCode -> ACLineSegment)
+#
+# `phases` is written in OpenDSS bus-node order (632.3.2 -> CB): token k is
+# conductor k, i.e. row k of the line code's matrix.
+# The deck has no normamps, so there are no OperationalLimitSet/CurrentLimit rows
+# (IEEE13_CDPSM has them from its own normamps).
+
+Profile = cim18v17
+
+Table ACLineSegment: mRID, name, node1, node2, phases, length (ft), PerLengthImpedance, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_ieee13nodeckt
+    ln_650632, 650632, rg60, 632, ABC, 2000, lc_mtx601
+    ln_632670, 632670, 632,  670, ABC, 667,  lc_mtx601
+    ln_670671, 670671, 670,  671, ABC, 1333, lc_mtx601
+    ln_671680, 671680, 671,  680, ABC, 1000, lc_mtx601
+    ln_632633, 632633, 632,  633, ABC, 500,  lc_mtx602
+    ln_632645, 632645, 632,  645, CB,  500,  lc_mtx603
+    ln_645646, 645646, 645,  646, CB,  300,  lc_mtx603
+    ln_692675, 692675, 692,  675, ABC, 500,  lc_mtx606
+    ln_671684, 671684, 671,  684, AC,  300,  lc_mtx604
+    ln_684611, 684611, 684,  611, C,   300,  lc_mtx605
+    ln_684652, 684652, 684,  652, A,   800,  lc_mtx607

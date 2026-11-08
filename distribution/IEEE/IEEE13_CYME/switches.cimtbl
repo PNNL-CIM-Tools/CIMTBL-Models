@@ -1,0 +1,10 @@
+# CYME Switch devices -> LoadBreakSwitch. CYME's generic Switch has no protection
+# element, so no Breaker or Recloser is created (the CDPSM breaker, recloser,
+# fuse and sectionaliser have no counterpart in this file).
+# ClosedPhase = ABC and NormalStatus = Closed for both, so open=false.
+
+Profile = cim18v17
+
+Table LoadBreakSwitch: mRID, name, node1, node2, phases, open, normalOpen, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_650
+    sw_296,               296,              650, 7,  ABC, false, false
+    sw_l671_692_sw-1, L671_692_SW-1, 671, 692, ABC, false, false

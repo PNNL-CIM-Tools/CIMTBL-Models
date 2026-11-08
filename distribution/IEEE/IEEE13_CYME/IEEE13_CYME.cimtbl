@@ -1,0 +1,41 @@
+# IEEE 13 node test feeder, CYME 9.4 study file
+#
+# Source: CIMHub_2_0/cimhub_cyme/tests/test_models/IEEE_13_node_test_feeder.sxst
+# (companion: IEEE_13_node_test_feeder.pdf, Eaton QA case "Load Flow - Unbalanced").
+# Rows are keyed by mRID: prefix + CYME device or equipment name, lowercased,
+# with the CYME name kept in `name`. Translation decisions, CYME units and every
+# deviation from the OpenDSS IEEE13_CDPSM model: README.md.
+
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = IEEE13_CYME
+
+Object Substation: mRID=sub_sub650wye, name=SUB650WYE
+Object Feeder: mRID=fdr_650, name=650, NormalEnergizingSubstation=sub_sub650wye
+
+# CYME KVLL = 4.16 kV at node 650 (no 115 kV source, no substation transformer).
+# 1240 MVA short-circuit level from the equivalent impedance (see README).
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    bv_4p16kv, 4.16
+    bv_480v,   0.48
+
+# CYME load model ID 1 ("DEFAULT") for every load; the file does not define its
+# ZIP fractions. Constant PQ is assumed (see README).
+Table LoadResponseCharacteristic: mRID, exponentModel, pConstantPower, pConstantCurrent, pConstantImpedance, qConstantPower, qConstantCurrent, qConstantImpedance
+    zip_constant_pq, false, 1, 0, 0, 1, 0, 0
+
+# CYME EquivalentSource: KVLL 4.16 kV, OperatingAngle1 0 deg, Yg,
+# FirstLevel R1/X1 = R0/X0 = 0.001731 / 0.013844 ohm (ImpedanceUnit Ohms).
+Object EnergySource: mRID=src_sub650wye_s2, name=SUB650WYE-S2, node=650, phases=ABC, nominalVoltage (kV)=4.16, voltageMagnitude (kV)=4.16, voltageAngle (deg)=0, r (ohm)=0.001731, x (ohm)=0.013844, r0 (ohm)=0.001731, x0 (ohm)=0.013844, BaseVoltage=bv_4p16kv, EquipmentContainer=sub_sub650wye
+
+Import linecodes.cimtbl
+Import wireinfos.cimtbl
+Import linespacings.cimtbl
+Import linegeometries.cimtbl
+Import transformer_db.cimtbl
+Import transformers.cimtbl
+Import regulators.cimtbl
+Import switches.cimtbl
+Import lines.cimtbl
+Import loads.cimtbl
+Import capacitors.cimtbl

@@ -1,0 +1,37 @@
+# One open wye - open delta bank (SRP 7-35-1) built from the bank template
+# templates/bank_oyod_50_50_7200_12470y.cimtbl: tank L on primary phase A, tank T on B.
+#
+# The template numbers every bank conductor (its lugs' sequenceNumber); this file says
+# which phase each number is. A bank on B and C would be the same rows with phases
+# B, C at 1, 2 (and the secondary named to match).
+
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = open_wye_open_delta_example
+
+Import templates/bank_oyod_50_50_7200_12470y.cimtbl
+
+Table BaseVoltage: mRID, name, nominalVoltage (kV)
+    bv_12_47kv, 12.47kV, 12.47
+    bv_240v,    240V,    0.24
+
+Object PowerTransformer: mRID=xf_ob1, name=ob1
+
+Table PowerTransformerEnd: mRID, endNumber, node, phases, connectionKind, BaseVoltage, PowerTransformer
+    xf_ob1_1, 1, cn_ob1_pri, ABN,  oY, bv_12_47kv, xf_ob1
+    xf_ob1_2, 2, cn_ob1_sec, ABCN, oD, bv_240v,    xf_ob1
+
+Table TransformerTank: mRID, name, PowerTransformer, TankConfiguration
+    xf_ob1_tank_l, ob1_L, xf_ob1, xb_oyod_50_50_7200_12470y_l
+    xf_ob1_tank_t, ob1_T, xf_ob1, xb_oyod_50_50_7200_12470y_t
+
+# sequenceNumber = the template's bank conductor; Terminal = the PowerTransformerEnd's
+# (generated xf_ob1_T1 / _T2). Position 6 (c, the power leg) is 207.8 V to neutral.
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (V), grounded, Terminal
+    xf_ob1_1_a, 1, 1, A, 7200,  , xf_ob1_T1
+    xf_ob1_1_b, 1, 2, B, 7200,  , xf_ob1_T1
+    xf_ob1_1_n, 1, 3, N, 0,     , xf_ob1_T1
+    xf_ob1_2_a, 2, 4, A, 120,   , xf_ob1_T2
+    xf_ob1_2_b, 2, 5, B, 120,   , xf_ob1_T2
+    xf_ob1_2_c, 2, 6, C, 207.8, , xf_ob1_T2
+    xf_ob1_2_n, 2, 7, N, 0, true, xf_ob1_T2

@@ -1,0 +1,32 @@
+# One WireConfiguration per distinct (spacing, conductor at each position) combination.
+# Lines with the same spacing and the same conductor at every position share one.
+# The conductor at position n is the conductor of the phase that CYME's
+# ConductorPosition puts at n (see README.md); sequenceNumber = position n.
+#   spc_500 positions 1-3 phases, 4 neutral; spc_505 positions 1-2 phases, 3 neutral;
+#   spc_510 position 1 phase, 2 neutral.
+
+Profile = cim18v17
+
+Table WireConfiguration: mRID, name, numberOfPhases, WireSpacing
+    wc_500_556_500, 500 with 556_500 phases and 4/0 neutral, 3, spc_500
+    wc_500_4/0,     500 with 4/0 phases and 4/0 neutral,     3, spc_500
+    wc_505,         505 with 1/0 phases and 1/0 neutral,     2, spc_505
+    wc_510,         510 with 1/0 phase and 1/0 neutral,      1, spc_510
+
+Table WireSequenceConfiguration: mRID, WireConfiguration, sequenceNumber, WireInfo
+    wc_500_556_500_1, wc_500_556_500, 1, wire_556_500
+    wc_500_556_500_2, wc_500_556_500, 2, wire_556_500
+    wc_500_556_500_3, wc_500_556_500, 3, wire_556_500
+    wc_500_556_500_4, wc_500_556_500, 4, wire_4/0
+
+    wc_500_4/0_1,     wc_500_4/0,     1, wire_4/0
+    wc_500_4/0_2,     wc_500_4/0,     2, wire_4/0
+    wc_500_4/0_3,     wc_500_4/0,     3, wire_4/0
+    wc_500_4/0_4,     wc_500_4/0,     4, wire_4/0
+
+    wc_505_1,         wc_505,         1, wire_1/0
+    wc_505_2,         wc_505,         2, wire_1/0
+    wc_505_3,         wc_505,         3, wire_1/0
+
+    wc_510_1,         wc_510,         1, wire_1/0
+    wc_510_2,         wc_510,         2, wire_1/0

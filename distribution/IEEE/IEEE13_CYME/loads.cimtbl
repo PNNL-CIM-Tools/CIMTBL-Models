@@ -1,0 +1,39 @@
+# CYME SpotLoad -> EnergyConsumer (8 spot loads, 12 consumers). The CYME
+# DistributedLoad on 632-671 is lumped at node 670 (3 per-phase consumers below;
+# TODO (CIM18 gap) in README.md).
+#
+# p/q are totals. CYME gives one value per phase, so a three-phase load with
+# different per-phase values is split into one EnergyConsumer per phase (as in
+# CDPSM), and a three-phase delta load with equal branches is one consumer whose
+# p/q are the sum of its branches.
+# Delta: `phases` lists the branches. CYME labels each delta branch by its from-phase
+# (value Phase=A on a delta = AB, B = BC, C = CA), as in CDPSM.
+# All loads use LoadModelID 1 -> zip_constant_pq.
+
+Profile = cim18v17
+
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_650
+    ld_load611, LOAD611, 611, C,   Y,  true,  170, 80,  zip_constant_pq
+    ld_load645, LOAD645, 645, B,   Y,  true,  170, 125, zip_constant_pq
+    ld_load646, LOAD646, 646, BC,  D,  false, 230, 132, zip_constant_pq
+    ld_load652, LOAD652, 652, A,   Y,  true,  128, 86,  zip_constant_pq
+    ld_load671, LOAD671, 671, ABC, D,  false, 1155, 660, zip_constant_pq
+    ld_load692, LOAD692, 692, CA,  D,  false, 170, 151, zip_constant_pq
+
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_480v, EquipmentContainer=fdr_650
+    ld_load634a, LOAD634_A, 634, A, Y, true, 160, 110, zip_constant_pq
+    ld_load634b, LOAD634_B, 634, B, Y, true, 120, 90,  zip_constant_pq
+    ld_load634c, LOAD634_C, 634, C, Y, true, 120, 90,  zip_constant_pq
+
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_650
+    ld_load675a, LOAD675_A, 675, A, Y, true, 485, 190, zip_constant_pq
+    ld_load675b, LOAD675_B, 675, B, Y, true, 68,  60,  zip_constant_pq
+    ld_load675c, LOAD675_C, 675, C, Y, true, 290, 212, zip_constant_pq
+
+# CYME DistributedLoad L632_671-1 (per-phase totals, on section L632_671), lumped at
+# the added node 670 (632-670 = 667 ft, 670-671 = 1333 ft). TODO (CIM18 gap): CIM 18 has
+# no distributed load along a line segment; see README.md.
+Table EnergyConsumer: mRID, name, node, phases, phaseConnection, grounded, p (kW), q (kVAr), LoadResponse, BaseVoltage=bv_4p16kv, EquipmentContainer=fdr_650
+    ld_l632_671-1_a, L632_671-1_A, 670, A, Y, true, 17,  10, zip_constant_pq
+    ld_l632_671-1_b, L632_671-1_B, 670, B, Y, true, 66,  38, zip_constant_pq
+    ld_l632_671-1_c, L632_671-1_C, 670, C, Y, true, 117, 68, zip_constant_pq

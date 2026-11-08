@@ -1,0 +1,52 @@
+# One single-phase step-voltage regulator, ANSI type A, as a VoltageRegulator
+# (an AutoTransformer) with one series winding and two AutoTransformerEnds.
+#
+# Nameplate: 7620 V, 100 A load current, 76.2 kVA, +/-10 % in 32 steps of 5/8 %.
+# The kVA is the buck/boost rating, regulation range x through rating:
+# 0.10 x 762 kVA (7620 V x 100 A).
+#
+# The two ends keep the OpenDSS two-winding shape, so a converter can still
+# write a bank with Buses=[S L]: end 1 is the S (source) side, end 2 is the
+# L (load) side. The physical winding runs from the S lug to the SL lug, with
+# L as the tap (AutoTransformerLug). Type A puts the tap changer on the L side.
+#
+# Not in templates/: a regulator has no reusable configuration in cim18v17.
+# AutoTransformer.AutoTransformerWinding points at one winding, and the
+# winding's inverse is single-valued, so each regulator owns its winding.
+
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = regulator_example
+
+Table BaseVoltage: mRID, name, nominalVoltage (kV)
+    bv_12_47kv, 12.47kV, 12.47
+
+Object VoltageRegulator: mRID=vr_reg1a, name=reg1a, construction=typeA
+
+# node puts each end's Terminal on the regulator (vr_reg1a_T1, _T2, sequenceNumber
+# = endNumber) and phase sets its PhaseCode.
+# ratedS = through rating (= OpenDSS kVAs); baseU = coil voltage (= OpenDSS kVs).
+Table AutoTransformerEnd: mRID, endNumber, node, phase, baseU (kV), ratedS (kVA), AutoTransformer, BaseVoltage
+    vr_reg1a_end1, 1, cn_reg1_src,  AN, 7.62, 762, vr_reg1a, bv_12_47kv
+    vr_reg1a_end2, 2, cn_reg1_load, AN, 7.62, 762, vr_reg1a, bv_12_47kv
+
+# Lug designations per ANSI C57.15: S source, L load, SL source-load (grounded).
+# The lugs come before the winding, which names its From, To and Auto lugs.
+Table TransformerLug: mRID, designation, sequenceNumber, TransformerEnd
+    vr_reg1a_lug_s,  S,  1, vr_reg1a_end1
+    vr_reg1a_lug_l,  L,  2, vr_reg1a_end2
+    vr_reg1a_lug_sl, SL, 3,
+
+# ratedS = buck/boost rating (nameplate kVA); baseU = coil voltage S to SL.
+Table TransformerWinding: mRID, ratedS (kVA), baseU (kV), FromTransformerEnd, ToTransformerEnd, FromTransformerLug, ToTransformerLug, AutoTransformerLug
+    vr_reg1a_wdg, 76.2, 7.62, vr_reg1a_end1, vr_reg1a_end2, vr_reg1a_lug_s, vr_reg1a_lug_sl, vr_reg1a_lug_l
+
+# An Update: the regulator must exist before its ends and winding.
+Update VoltageRegulator: mRID=vr_reg1a, AutoTransformerWinding=vr_reg1a_wdg
+
+# Control on the 120 V PT basis x ptRatio (7620/120 = 63.5):
+# band center 120 V -> 7620 V, bandwidth 2 V -> 127 V.
+Object TapChangerControl: mRID=vr_reg1a_ctrl, name=reg1a_ctrl, mode=voltage, discrete=true, enabled=true, monitoredPhase=A, targetValue (V)=7620, targetDeadband (V)=127, lineDropCompensation=false, Terminal=vr_reg1a_T2
+
+# Type A: tap changer on end 2 (L). step = normalStep: no solved tap.
+Object RatioTapChanger: mRID=vr_reg1a_tap, name=reg1a_tap, TransformerEnd=vr_reg1a_end2, TapChangerControl=vr_reg1a_ctrl, highStep=16, lowStep=-16, neutralStep=0, normalStep=0, step=0, stepVoltageIncrement=0.625, neutralU (kV)=7.62, ltcFlag=true, controlEnabled=true, ptRatio=63.5, ctRating=100, initialDelay (s)=30, subsequentDelay (s)=2

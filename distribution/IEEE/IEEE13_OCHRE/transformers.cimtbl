@@ -1,0 +1,187 @@
+# IEEE 13 OCHRE power transformers (OpenDSS Transformer -> PowerTransformer)
+#
+# Two forms, as in the worked example:
+#   - a direct PowerTransformer with explicit ends: source_650 (VSource.dss, the
+#     115/4.16 kV substation unit, no xfmrcode);
+#   - units built on an xfmrcode, each a PowerTransformer + TransformerTank
+#     (TankConfiguration = the code's template in xfmrcodes.cimtbl) + its ends +
+#     TransformerPhaseEnds: transformer_633-634 (xfcode_OBJECT_151) and 15 single-phase
+#     center-tapped units, end 1 = the primary phase, end 2 = the s1 s2 N secondary.
+#     The phase ends carry the template lugs' conductor numbers and the real phases.
+#
+# Two-winding units: the deck's %loadloss is split evenly over the two ends
+# (r = %loadloss / 2 per end, the CDPSM xfm1 convention). xhl is the mesh x (percent),
+# on the From end. Wye windings with no neutral node in the deck -> Yn, grounded
+# (OpenDSS default conn=wye; the CDPSM xfm1 precedent).
+# Node names are the OpenDSS bus names. The center-tap node of each secondary
+# (`trip_nodeN.0`) is the N conductor of end 2, which the triplex lines carry (s1s2N).
+
+Profile = cim18v17
+
+# --- source_650 (VSource.dss): 115 kV - 4.16 kV, 100000 kVA per winding, OpenDSS default
+# wye on both windings. %loadloss=0.0001 -> r 0.00005 per end; xhl=0.0001 -> mesh x 0.0001.
+# %noloadloss and %imag have no direct-PowerTransformer field, so they are dropped.
+Object PowerTransformer: mRID=xf_source_650, name=source_650, vectorGroup=YNyn0, EquipmentContainer=sub_ieee13ochre
+
+Table PowerTransformerEnd: mRID, node, phases, endNumber, connectionKind, grounded, ratedU (kV), ratedS (kVA), r (percent), BaseVoltage, PowerTransformer
+    xf_source_650_1, rootbus, ABC, 1, Yn, true, 115,   100000, 0.00005, bv_115kv,  xf_source_650
+    xf_source_650_2, node_650, ABC, 2, Yn, true, 4.160, 100000, 0.00005, bv_4p16kv, xf_source_650
+
+Table TransformerMeshImpedance: mRID, FromTransformerEnd, ToTransformerEnd, x (percent)
+    xf_source_650_mesh_12, xf_source_650_1, xf_source_650_2, 0.0001
+
+# --- transformer_633-634: one tank on xfcode_OBJECT_151 (xfmrcodes.cimtbl), 500 kVA
+# 4.16 - 0.48 kV wye-wye. The deck's buses are node_633.1.2.3 / node_634.1.2.3 (neutral
+# to ground, OpenDSS default); the terminals carry N for the grounded neutrals.
+Object PowerTransformer: mRID=xf_transformer_633-634, name=transformer_633-634, vectorGroup=YNyn0, EquipmentContainer=fdr_ieee13ochre
+
+Object TransformerTank: mRID=xf_transformer_633-634_tank, PowerTransformer=xf_transformer_633-634, TankConfiguration=xc_xfcode_object_151, EquipmentContainer=fdr_ieee13ochre
+
+Table PowerTransformerEnd: mRID, node, phases, endNumber, connectionKind, grounded, BaseVoltage, PowerTransformer
+    xf_transformer_633-634_1, node_633, ABCN, 1, Yn, true, bv_4p16kv, xf_transformer_633-634
+    xf_transformer_633-634_2, node_634, ABCN, 2, Yn, true, bv_480v,   xf_transformer_633-634
+
+# The conductors the xfcode_OBJECT_151 lugs land on (lug sequenceNumber).
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (kV), grounded, Terminal
+    xf_transformer_633-634_1_a, 1, 1, A, 2.40178, ,     xf_transformer_633-634_T1
+    xf_transformer_633-634_1_b, 1, 2, B, 2.40178, ,     xf_transformer_633-634_T1
+    xf_transformer_633-634_1_c, 1, 3, C, 2.40178, ,     xf_transformer_633-634_T1
+    xf_transformer_633-634_1_n, 1, 4, N, 0,       true, xf_transformer_633-634_T1
+    xf_transformer_633-634_2_a, 2, 5, A, 0.27713,  ,     xf_transformer_633-634_T2
+    xf_transformer_633-634_2_b, 2, 6, B, 0.27713,  ,     xf_transformer_633-634_T2
+    xf_transformer_633-634_2_c, 2, 7, C, 0.27713,  ,     xf_transformer_633-634_T2
+    xf_transformer_633-634_2_n, 2, 8, N, 0,       true, xf_transformer_633-634_T2
+
+# --- 15 single-phase center-tapped service transformers (transformer_center_tap_N).
+# Primary: the OpenDSS bus and phase (AS = A, BS = B, CS = C); secondary: trip_nodeN, s1 s2 N.
+# Center tap: connectionKind I, grounded (CDPSM tpoletop precedent).
+Table PowerTransformer: mRID, name, EquipmentContainer=fdr_ieee13ochre
+    xf_transformer_center_tap_1,  transformer_center_tap_1
+    xf_transformer_center_tap_2,  transformer_center_tap_2
+    xf_transformer_center_tap_3,  transformer_center_tap_3
+    xf_transformer_center_tap_4,  transformer_center_tap_4
+    xf_transformer_center_tap_5,  transformer_center_tap_5
+    xf_transformer_center_tap_6,  transformer_center_tap_6
+    xf_transformer_center_tap_7,  transformer_center_tap_7
+    xf_transformer_center_tap_8,  transformer_center_tap_8
+    xf_transformer_center_tap_9,  transformer_center_tap_9
+    xf_transformer_center_tap_10, transformer_center_tap_10
+    xf_transformer_center_tap_11, transformer_center_tap_11
+    xf_transformer_center_tap_12, transformer_center_tap_12
+    xf_transformer_center_tap_13, transformer_center_tap_13
+    xf_transformer_center_tap_14, transformer_center_tap_14
+    xf_transformer_center_tap_15, transformer_center_tap_15
+
+Table TransformerTank: mRID, PowerTransformer, TankConfiguration, EquipmentContainer=fdr_ieee13ochre
+    xf_transformer_center_tap_1_tank,  xf_transformer_center_tap_1,  xc_xfcode_cs_config
+    xf_transformer_center_tap_2_tank,  xf_transformer_center_tap_2,  xc_xfcode_as_config_634
+    xf_transformer_center_tap_3_tank,  xf_transformer_center_tap_3,  xc_xfcode_bs_config_634
+    xf_transformer_center_tap_4_tank,  xf_transformer_center_tap_4,  xc_xfcode_cs_config_634
+    xf_transformer_center_tap_5_tank,  xf_transformer_center_tap_5,  xc_xfcode_bs_config
+    xf_transformer_center_tap_6_tank,  xf_transformer_center_tap_6,  xc_xfcode_cs_config
+    xf_transformer_center_tap_7_tank,  xf_transformer_center_tap_7,  xc_xfcode_bs_config
+    xf_transformer_center_tap_8_tank,  xf_transformer_center_tap_8,  xc_xfcode_cs_config
+    xf_transformer_center_tap_9_tank,  xf_transformer_center_tap_9,  xc_xfcode_as_config
+    xf_transformer_center_tap_10_tank, xf_transformer_center_tap_10, xc_xfcode_as_config
+    xf_transformer_center_tap_11_tank, xf_transformer_center_tap_11, xc_xfcode_bs_config
+    xf_transformer_center_tap_12_tank, xf_transformer_center_tap_12, xc_xfcode_cs_config
+    xf_transformer_center_tap_13_tank, xf_transformer_center_tap_13, xc_xfcode_as_config
+    xf_transformer_center_tap_14_tank, xf_transformer_center_tap_14, xc_xfcode_bs_config
+    xf_transformer_center_tap_15_tank, xf_transformer_center_tap_15, xc_xfcode_cs_config
+
+Table PowerTransformerEnd: mRID, node, phases, endNumber, connectionKind, grounded, BaseVoltage, PowerTransformer
+    xf_transformer_center_tap_1_1,  node_611, C, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_1
+    xf_transformer_center_tap_1_2,  trip_node1,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_1
+    xf_transformer_center_tap_2_1,  node_634, A, 1, Y, true, bv_480v,   xf_transformer_center_tap_2
+    xf_transformer_center_tap_2_2,  trip_node2,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_2
+    xf_transformer_center_tap_3_1,  node_634, B, 1, Y, true, bv_480v,   xf_transformer_center_tap_3
+    xf_transformer_center_tap_3_2,  trip_node3,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_3
+    xf_transformer_center_tap_4_1,  node_634, C, 1, Y, true, bv_480v,   xf_transformer_center_tap_4
+    xf_transformer_center_tap_4_2,  trip_node4,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_4
+    xf_transformer_center_tap_5_1,  node_645, B, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_5
+    xf_transformer_center_tap_5_2,  trip_node5,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_5
+    xf_transformer_center_tap_6_1,  node_645, C, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_6
+    xf_transformer_center_tap_6_2,  trip_node6,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_6
+    xf_transformer_center_tap_7_1,  node_646, B, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_7
+    xf_transformer_center_tap_7_2,  trip_node7,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_7
+    xf_transformer_center_tap_8_1,  node_646, C, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_8
+    xf_transformer_center_tap_8_2,  trip_node8,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_8
+    xf_transformer_center_tap_9_1,  node_652, A, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_9
+    xf_transformer_center_tap_9_2,  trip_node9,  s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_9
+    xf_transformer_center_tap_10_1, node_675, A, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_10
+    xf_transformer_center_tap_10_2, trip_node10, s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_10
+    xf_transformer_center_tap_11_1, node_675, B, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_11
+    xf_transformer_center_tap_11_2, trip_node11, s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_11
+    xf_transformer_center_tap_12_1, node_675, C, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_12
+    xf_transformer_center_tap_12_2, trip_node12, s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_12
+    xf_transformer_center_tap_13_1, node_692, A, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_13
+    xf_transformer_center_tap_13_2, trip_node13, s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_13
+    xf_transformer_center_tap_14_1, node_692, B, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_14
+    xf_transformer_center_tap_14_2, trip_node14, s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_14
+    xf_transformer_center_tap_15_1, node_692, C, 1, Y, true, bv_4p16kv, xf_transformer_center_tap_15
+    xf_transformer_center_tap_15_2, trip_node15, s1s2N, 2, I, true, bv_240v,  xf_transformer_center_tap_15
+
+# The conductors the center-tap codes' lugs land on (lug sequenceNumber = phase end
+# sequenceNumber): 1 = the primary phase (2.401 kV on the 4.16 kV codes, 0.277 kV on
+# the _634 codes, the deck's wdg=1 kv), 2 = s1, 3 = s2, 4 = N (the grounded center tap, which H2 shares).
+Table TransformerPhaseEnd: mRID, endNumber, sequenceNumber, phase, phaseNeutralU (kV), grounded, Terminal
+    xf_transformer_center_tap_1_c,   1, 1, C,  2.401, ,     xf_transformer_center_tap_1_T1
+    xf_transformer_center_tap_1_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_1_T2
+    xf_transformer_center_tap_1_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_1_T2
+    xf_transformer_center_tap_1_n,   2, 4, N,  0,     true, xf_transformer_center_tap_1_T2
+    xf_transformer_center_tap_2_a,   1, 1, A,  0.277, ,     xf_transformer_center_tap_2_T1
+    xf_transformer_center_tap_2_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_2_T2
+    xf_transformer_center_tap_2_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_2_T2
+    xf_transformer_center_tap_2_n,   2, 4, N,  0,     true, xf_transformer_center_tap_2_T2
+    xf_transformer_center_tap_3_b,   1, 1, B,  0.277, ,     xf_transformer_center_tap_3_T1
+    xf_transformer_center_tap_3_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_3_T2
+    xf_transformer_center_tap_3_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_3_T2
+    xf_transformer_center_tap_3_n,   2, 4, N,  0,     true, xf_transformer_center_tap_3_T2
+    xf_transformer_center_tap_4_c,   1, 1, C,  0.277, ,     xf_transformer_center_tap_4_T1
+    xf_transformer_center_tap_4_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_4_T2
+    xf_transformer_center_tap_4_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_4_T2
+    xf_transformer_center_tap_4_n,   2, 4, N,  0,     true, xf_transformer_center_tap_4_T2
+    xf_transformer_center_tap_5_b,   1, 1, B,  2.401, ,     xf_transformer_center_tap_5_T1
+    xf_transformer_center_tap_5_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_5_T2
+    xf_transformer_center_tap_5_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_5_T2
+    xf_transformer_center_tap_5_n,   2, 4, N,  0,     true, xf_transformer_center_tap_5_T2
+    xf_transformer_center_tap_6_c,   1, 1, C,  2.401, ,     xf_transformer_center_tap_6_T1
+    xf_transformer_center_tap_6_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_6_T2
+    xf_transformer_center_tap_6_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_6_T2
+    xf_transformer_center_tap_6_n,   2, 4, N,  0,     true, xf_transformer_center_tap_6_T2
+    xf_transformer_center_tap_7_b,   1, 1, B,  2.401, ,     xf_transformer_center_tap_7_T1
+    xf_transformer_center_tap_7_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_7_T2
+    xf_transformer_center_tap_7_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_7_T2
+    xf_transformer_center_tap_7_n,   2, 4, N,  0,     true, xf_transformer_center_tap_7_T2
+    xf_transformer_center_tap_8_c,   1, 1, C,  2.401, ,     xf_transformer_center_tap_8_T1
+    xf_transformer_center_tap_8_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_8_T2
+    xf_transformer_center_tap_8_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_8_T2
+    xf_transformer_center_tap_8_n,   2, 4, N,  0,     true, xf_transformer_center_tap_8_T2
+    xf_transformer_center_tap_9_a,   1, 1, A,  2.401, ,     xf_transformer_center_tap_9_T1
+    xf_transformer_center_tap_9_s1,  2, 2, s1, 0.120, ,     xf_transformer_center_tap_9_T2
+    xf_transformer_center_tap_9_s2,  2, 3, s2, 0.120, ,     xf_transformer_center_tap_9_T2
+    xf_transformer_center_tap_9_n,   2, 4, N,  0,     true, xf_transformer_center_tap_9_T2
+    xf_transformer_center_tap_10_a,  1, 1, A,  2.401, ,     xf_transformer_center_tap_10_T1
+    xf_transformer_center_tap_10_s1, 2, 2, s1, 0.120, ,     xf_transformer_center_tap_10_T2
+    xf_transformer_center_tap_10_s2, 2, 3, s2, 0.120, ,     xf_transformer_center_tap_10_T2
+    xf_transformer_center_tap_10_n,  2, 4, N,  0,     true, xf_transformer_center_tap_10_T2
+    xf_transformer_center_tap_11_b,  1, 1, B,  2.401, ,     xf_transformer_center_tap_11_T1
+    xf_transformer_center_tap_11_s1, 2, 2, s1, 0.120, ,     xf_transformer_center_tap_11_T2
+    xf_transformer_center_tap_11_s2, 2, 3, s2, 0.120, ,     xf_transformer_center_tap_11_T2
+    xf_transformer_center_tap_11_n,  2, 4, N,  0,     true, xf_transformer_center_tap_11_T2
+    xf_transformer_center_tap_12_c,  1, 1, C,  2.401, ,     xf_transformer_center_tap_12_T1
+    xf_transformer_center_tap_12_s1, 2, 2, s1, 0.120, ,     xf_transformer_center_tap_12_T2
+    xf_transformer_center_tap_12_s2, 2, 3, s2, 0.120, ,     xf_transformer_center_tap_12_T2
+    xf_transformer_center_tap_12_n,  2, 4, N,  0,     true, xf_transformer_center_tap_12_T2
+    xf_transformer_center_tap_13_a,  1, 1, A,  2.401, ,     xf_transformer_center_tap_13_T1
+    xf_transformer_center_tap_13_s1, 2, 2, s1, 0.120, ,     xf_transformer_center_tap_13_T2
+    xf_transformer_center_tap_13_s2, 2, 3, s2, 0.120, ,     xf_transformer_center_tap_13_T2
+    xf_transformer_center_tap_13_n,  2, 4, N,  0,     true, xf_transformer_center_tap_13_T2
+    xf_transformer_center_tap_14_b,  1, 1, B,  2.401, ,     xf_transformer_center_tap_14_T1
+    xf_transformer_center_tap_14_s1, 2, 2, s1, 0.120, ,     xf_transformer_center_tap_14_T2
+    xf_transformer_center_tap_14_s2, 2, 3, s2, 0.120, ,     xf_transformer_center_tap_14_T2
+    xf_transformer_center_tap_14_n,  2, 4, N,  0,     true, xf_transformer_center_tap_14_T2
+    xf_transformer_center_tap_15_c,  1, 1, C,  2.401, ,     xf_transformer_center_tap_15_T1
+    xf_transformer_center_tap_15_s1, 2, 2, s1, 0.120, ,     xf_transformer_center_tap_15_T2
+    xf_transformer_center_tap_15_s2, 2, 3, s2, 0.120, ,     xf_transformer_center_tap_15_T2
+    xf_transformer_center_tap_15_n,  2, 4, N,  0,     true, xf_transformer_center_tap_15_T2

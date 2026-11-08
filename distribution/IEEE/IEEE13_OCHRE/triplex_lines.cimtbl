@@ -1,0 +1,54 @@
+# IEEE 13 OCHRE triplex lines (OpenDSS TriplexLines.dss, 40 lines -> ACLineSegment)
+#
+# Each line runs from a center-tap secondary (trip_nodeK) to one triplex load bus
+# (tl_house_N). The deck's cable has 3 conductors (s1, s2, N) with neutral=3, and
+# kron=yes is not applied (as written, linecodes.cimtbl), so the line carries all three:
+# phases = s1s2N, with N in the matrix's third position (the neutral conductor).
+#
+# Connection pattern (from the deck): house N is fed from trip_node((N-1) mod 15) + 1,
+# and line OBJECT_(109+N) joins it, e.g. OBJECT_125 -> tl_house_16 on trip_node1.
+# length 1.0 ft as written.
+
+Profile = cim18v17
+
+Table ACLineSegment: mRID, name, node1, node2, phases, length (ft), PerLengthImpedance, BaseVoltage=bv_240v, EquipmentContainer=fdr_ieee13ochre
+    ln_object_110, OBJECT_110, trip_node1,  tl_house_1,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_111, OBJECT_111, trip_node2,  tl_house_2,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_112, OBJECT_112, trip_node3,  tl_house_3,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_113, OBJECT_113, trip_node4,  tl_house_4,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_114, OBJECT_114, trip_node5,  tl_house_5,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_115, OBJECT_115, trip_node6,  tl_house_6,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_116, OBJECT_116, trip_node7,  tl_house_7,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_117, OBJECT_117, trip_node8,  tl_house_8,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_118, OBJECT_118, trip_node9,  tl_house_9,  s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_119, OBJECT_119, trip_node10, tl_house_10, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_120, OBJECT_120, trip_node11, tl_house_11, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_121, OBJECT_121, trip_node12, tl_house_12, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_122, OBJECT_122, trip_node13, tl_house_13, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_123, OBJECT_123, trip_node14, tl_house_14, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_124, OBJECT_124, trip_node15, tl_house_15, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_125, OBJECT_125, trip_node1,  tl_house_16, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_126, OBJECT_126, trip_node2,  tl_house_17, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_127, OBJECT_127, trip_node3,  tl_house_18, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_128, OBJECT_128, trip_node4,  tl_house_19, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_129, OBJECT_129, trip_node5,  tl_house_20, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_130, OBJECT_130, trip_node6,  tl_house_21, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_131, OBJECT_131, trip_node7,  tl_house_22, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_132, OBJECT_132, trip_node8,  tl_house_23, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_133, OBJECT_133, trip_node9,  tl_house_24, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_134, OBJECT_134, trip_node10, tl_house_25, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_135, OBJECT_135, trip_node11, tl_house_26, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_136, OBJECT_136, trip_node12, tl_house_27, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_137, OBJECT_137, trip_node13, tl_house_28, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_138, OBJECT_138, trip_node14, tl_house_29, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_139, OBJECT_139, trip_node15, tl_house_30, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_140, OBJECT_140, trip_node1,  tl_house_31, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_141, OBJECT_141, trip_node2,  tl_house_32, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_142, OBJECT_142, trip_node3,  tl_house_33, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_143, OBJECT_143, trip_node4,  tl_house_34, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_144, OBJECT_144, trip_node5,  tl_house_35, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_145, OBJECT_145, trip_node6,  tl_house_36, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_146, OBJECT_146, trip_node7,  tl_house_37, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_147, OBJECT_147, trip_node8,  tl_house_38, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_148, OBJECT_148, trip_node9,  tl_house_39, s1s2N, 1.0, lc_triplex_line_configuration_1
+    ln_object_149, OBJECT_149, trip_node10, tl_house_40, s1s2N, 1.0, lc_triplex_line_configuration_1

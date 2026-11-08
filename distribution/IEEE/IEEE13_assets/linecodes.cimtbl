@@ -1,0 +1,15 @@
+# IEEE 13 asset-variant inline line impedance
+# (OpenDSS Line.645646 rmatrix/xmatrix; this deck has no LineCode objects)
+#
+# Units ohm/mile, from the Line's units=mi. The Line gives no cmatrix, so b is left
+# blank (no shunt susceptance), as in IEEE13_CDPSM. BaseFreq is OpenDSS's default 60 Hz.
+
+Profile = cim18v17
+
+Table PerLengthPhaseImpedance: mRID, name, conductorCount, calculatedFrequency (Hz)
+    lc_645646, 645646, 2, 60
+
+Table PhaseImpedanceData: identifier, PhaseImpedance, row, column, r (ohm/mile), x (ohm/mile), b (uS/mile)
+    lc_645646_11, lc_645646, 1, 1, 1.3238, 1.3569,
+    lc_645646_21, lc_645646, 2, 1, 0.2066, 0.4591,
+    lc_645646_22, lc_645646, 2, 2, 1.3294, 1.3471,

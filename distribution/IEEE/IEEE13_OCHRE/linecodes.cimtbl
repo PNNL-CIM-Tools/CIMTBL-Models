@@ -1,0 +1,92 @@
+# IEEE 13 OCHRE line codes (OpenDSS LineCode -> PerLengthPhaseImpedance + PhaseImpedanceData)
+#
+# Matrices are written as the deck gives them (no Kron reduction). kron=yes is
+# not applied: the codes with a neutral keep it as their last conductor, so the
+# lines on them carry N in `phases` (see lines.cimtbl, triplex_lines.cimtbl).
+# Conductor order = the deck's matrix order; conductorCount = nphases as written.
+#
+# Units: the deck's linecodes are units=mi, so r/x are ohm/mile as written.
+# No cmatrix in the deck, so no `b` column.
+#
+# identifier = <parent mRID>_<row><column>; row/column are conductor indices, and
+# ACLineSegmentPhase.sequenceNumber (the order of a line's `phases` column) picks the row.
+
+Profile = cim18v17
+
+Table PerLengthPhaseImpedance: mRID, name, conductorCount, calculatedFrequency (Hz)
+    lc_object_14, OBJECT_14, 4, 60
+    lc_object_15, OBJECT_15, 4, 60
+    lc_object_16, OBJECT_16, 3, 60
+    lc_object_17, OBJECT_17, 3, 60
+    lc_object_18, OBJECT_18, 2, 60
+    lc_object_21, OBJECT_21, 3, 60
+    lc_object_22, OBJECT_22, 2, 60
+    lc_triplex_line_configuration_1, triplex_line_configuration_1, 3, 60
+
+# calculatedFrequency: OpenDSS default basefreq (60 Hz); the deck does not set it.
+Table PhaseImpedanceData: identifier, PhaseImpedance, row, column, r (ohm/mile), x (ohm/mile)
+    # OBJECT_14: 4-wire (A, B, C, N), neutral = 4
+    lc_object_14_11, lc_object_14, 1, 1, 0.281202, 1.383077
+    lc_object_14_21, lc_object_14, 2, 1, 0.095302, 0.851546
+    lc_object_14_22, lc_object_14, 2, 2, 0.281202, 1.383077
+    lc_object_14_31, lc_object_14, 3, 1, 0.095302, 0.780223
+    lc_object_14_32, lc_object_14, 3, 2, 0.095302, 0.726610
+    lc_object_14_33, lc_object_14, 3, 3, 0.281202, 1.383077
+    lc_object_14_41, lc_object_14, 4, 1, 0.095302, 0.786532
+    lc_object_14_42, lc_object_14, 4, 2, 0.095302, 0.752461
+    lc_object_14_43, lc_object_14, 4, 3, 0.095302, 0.767438
+    lc_object_14_44, lc_object_14, 4, 4, 0.687302, 1.546504
+
+    # OBJECT_15: 4-wire (A, B, C, N), neutral = 4
+    lc_object_15_11, lc_object_15, 1, 1, 0.687302, 1.546504
+    lc_object_15_21, lc_object_15, 2, 1, 0.095302, 0.780223
+    lc_object_15_22, lc_object_15, 2, 2, 0.687302, 1.546504
+    lc_object_15_31, lc_object_15, 3, 1, 0.095302, 0.851546
+    lc_object_15_32, lc_object_15, 3, 2, 0.095302, 0.726610
+    lc_object_15_33, lc_object_15, 3, 3, 0.687302, 1.546504
+    lc_object_15_41, lc_object_15, 4, 1, 0.095302, 0.786532
+    lc_object_15_42, lc_object_15, 4, 2, 0.095302, 0.767438
+    lc_object_15_43, lc_object_15, 4, 3, 0.095302, 0.752461
+    lc_object_15_44, lc_object_15, 4, 4, 0.687302, 1.546504
+
+    # OBJECT_16: 3-wire (1, 2, N), neutral = 3; the 2-phase line 632-645 uses rows 1-2 + N
+    lc_object_16_11, lc_object_16, 1, 1, 1.215302, 1.619508
+    lc_object_16_21, lc_object_16, 2, 1, 0.095302, 0.726610
+    lc_object_16_22, lc_object_16, 2, 2, 1.215302, 1.619508
+    lc_object_16_31, lc_object_16, 3, 1, 0.095302, 0.767438
+    lc_object_16_32, lc_object_16, 3, 2, 0.095302, 0.752461
+    lc_object_16_33, lc_object_16, 3, 3, 1.215302, 1.619508
+
+    # OBJECT_17: 3-wire (1, 2, N), neutral = 3
+    lc_object_17_11, lc_object_17, 1, 1, 1.215302, 1.619508
+    lc_object_17_21, lc_object_17, 2, 1, 0.095302, 0.726610
+    lc_object_17_22, lc_object_17, 2, 2, 1.215302, 1.619508
+    lc_object_17_31, lc_object_17, 3, 1, 0.095302, 0.752461
+    lc_object_17_32, lc_object_17, 3, 2, 0.095302, 0.767438
+    lc_object_17_33, lc_object_17, 3, 3, 1.215302, 1.619508
+
+    # OBJECT_18: 2-wire (1, N), neutral = 2
+    lc_object_18_11, lc_object_18, 1, 1, 1.215302, 1.619508
+    lc_object_18_21, lc_object_18, 2, 1, 0.095302, 0.767438
+    lc_object_18_22, lc_object_18, 2, 2, 1.215302, 1.619508
+
+    # OBJECT_21: 3-phase underground, no neutral
+    lc_object_21_11, lc_object_21, 1, 1, 0.505302, 1.456433
+    lc_object_21_21, lc_object_21, 2, 1, 0.095302, 1.046839
+    lc_object_21_22, lc_object_21, 2, 2, 0.505302, 1.456433
+    lc_object_21_31, lc_object_21, 3, 1, 0.095302, 0.962731
+    lc_object_21_32, lc_object_21, 3, 2, 0.095302, 1.046839
+    lc_object_21_33, lc_object_21, 3, 3, 0.505302, 1.456433
+
+    # OBJECT_22: 2-wire (1, N), neutral = 2
+    lc_object_22_11, lc_object_22, 1, 1, 1.065302, 1.508869
+    lc_object_22_21, lc_object_22, 2, 1, 0.095302, 1.264255
+    lc_object_22_22, lc_object_22, 2, 2, 1.065302, 1.508869
+
+    # triplex_line_configuration_1: 3-wire (s1, s2, N), neutral = 3
+    lc_triplex_line_configuration_1_11, lc_triplex_line_configuration_1, 1, 1, 1.065302, 1.508869
+    lc_triplex_line_configuration_1_21, lc_triplex_line_configuration_1, 2, 1, 0.095302, 1.040227
+    lc_triplex_line_configuration_1_22, lc_triplex_line_configuration_1, 2, 2, 1.065302, 1.508869
+    lc_triplex_line_configuration_1_31, lc_triplex_line_configuration_1, 3, 1, 0.095302, 1.040227
+    lc_triplex_line_configuration_1_32, lc_triplex_line_configuration_1, 3, 2, 0.095302, 1.040227
+    lc_triplex_line_configuration_1_33, lc_triplex_line_configuration_1, 3, 3, 1.065302, 1.508869

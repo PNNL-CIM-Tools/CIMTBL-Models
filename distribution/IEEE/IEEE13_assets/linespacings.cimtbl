@@ -1,0 +1,26 @@
+# IEEE 13 asset-variant LineSpacing -> XYSpacing + XYConductorPosition
+#
+# x= and h= are the deck's arrays, in ft (units=ft), transcribed as written. The first
+# nphases conductors are phase conductors; the rest are neutral. The spacings are
+# library templates (isTemplate=true), referenced by LineGeometry spacing=...
+# The positions use OpenDSS h as yCoord.
+
+Profile = cim18v17
+
+Table XYSpacing: mRID, name, isTemplate
+    spc_500, 500, true
+    spc_505, 505, true
+    spc_510, 510, true
+
+Table XYConductorPosition: mRID, XYSpacing, sequenceNumber, xCoord (ft), yCoord (ft), kind
+    spc_500_1, spc_500, 1, -4, 28, phase
+    spc_500_2, spc_500, 2, -1, 28, phase
+    spc_500_3, spc_500, 3,  3, 28, phase
+    spc_500_4, spc_500, 4,  0, 24, neutral
+
+    spc_505_1, spc_505, 1, -4, 28, phase
+    spc_505_2, spc_505, 2,  3, 28, phase
+    spc_505_3, spc_505, 3,  0, 24, neutral
+
+    spc_510_1, spc_510, 1, 0.5, 29, phase
+    spc_510_2, spc_510, 2, 0,   24, neutral

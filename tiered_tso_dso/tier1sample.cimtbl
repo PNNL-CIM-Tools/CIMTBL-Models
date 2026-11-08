@@ -12,9 +12,9 @@ Object Feeder: mRID=fdr_tier1feeder, name=tier1feeder, NormalEnergizingSubstatio
 
 Object TopologicalNode: mRID=feeder_head_bus, ConnectivityNodeContainer=sub_sub
 
-Table BaseVoltage: mRID, nominalVoltage (V)
-    base_115,  115000
-    base_4160, 4160
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    base_115,  115
+    base_4160, 4.16
 
 Table EnergyConsumer: mRID, name, bus, p (kW), q (kVAr), BaseVoltage, EquipmentContainer=fdr_tier1feeder
     ld_aggregate_feeder_load, aggregate_feeder_load, feeder_head_bus, 3000, 1155, base_4160
