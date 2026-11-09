@@ -1,0 +1,46 @@
+# CYME TransformerDB XFM1_XFO -> TransformerTankConfiguration (tank-only template: lugs,
+# one winding per coil, one mesh per leg; the phases are on the instance's
+# TransformerPhaseEnds in transformers.cimtbl).
+#
+# XFM1_XFO: ThreePhase, ShellForm, Yg_Yg, PhaseShift 0deg (YNyn0), NominalRatingKVA
+# 500.001020, 4.16 kV - 0.48 kV (KVLL), grounding 0 ohm both sides, NoLoadLossesKW 0,
+# MagnetizingCurrent 0.
+# Impedance: Z1 = Z0 = 2.2825 %, X/R = X0/R0 = 1.8181. CYME gives Z and X/R, not R and X:
+#   R = Z / sqrt(1 + XR^2) = 1.10 %,  X = R x XR = 2.00 %  (derived; same in both sequences)
+# CYME's impedance is the primary-secondary pair, so it goes whole on each leg's mesh;
+# the coils carry no r. The ZeroSequenceImpedancePrimSec/PrimMag/SecMag entries (8, 20,
+# 30 %) describe a magnetizing branch CIM has no field for here, so they are not carried.
+#
+# Coil ratings (three-phase basis): ratedU = the side's kV LL; baseU = the coil, line to
+# neutral (4.16 / sqrt(3) = 2.40178, 0.48 / sqrt(3) = 0.27713); ratedS = 500.00102;
+# baseS = 500.00102 / 3 = 166.66701. On the coil base the percent values apply unchanged.
+# Lug sequenceNumber = the conductor, in terminal order: H1 H2 H3 H0 = 1-4, X1 X2 X3 X0 = 5-8.
+
+Profile = cim18v17
+
+Object TransformerTankConfiguration: mRID=xc_xfm1_xfo, name=XFM1_XFO, percentImpedance=2.2825, percentMagnetizingCurrent=0, noLoadLoss (W)=0
+
+Object TransformerCore: mRID=xc_xfm1_xfo_core, form=shellForm, TankConfiguration=xc_xfm1_xfo
+
+Table TransformerLug: mRID, designation, sequenceNumber, TankConfiguration=xc_xfm1_xfo
+    xc_xfm1_xfo_lug_h1, H1, 1
+    xc_xfm1_xfo_lug_h2, H2, 2
+    xc_xfm1_xfo_lug_h3, H3, 3
+    xc_xfm1_xfo_lug_h0, H0, 4
+    xc_xfm1_xfo_lug_x1, X1, 5
+    xc_xfm1_xfo_lug_x2, X2, 6
+    xc_xfm1_xfo_lug_x3, X3, 7
+    xc_xfm1_xfo_lug_x0, X0, 8
+
+Table TransformerWinding: mRID, ratedU (kV), baseU (kV), ratedS (kVA), baseS (kVA), FromTransformerLug, ToTransformerLug, TankConfiguration=xc_xfm1_xfo
+    xc_xfm1_xfo_wdg_h1h0, 4.16, 2.40178, 500.00102, 166.66701, xc_xfm1_xfo_lug_h1, xc_xfm1_xfo_lug_h0
+    xc_xfm1_xfo_wdg_h2h0, 4.16, 2.40178, 500.00102, 166.66701, xc_xfm1_xfo_lug_h2, xc_xfm1_xfo_lug_h0
+    xc_xfm1_xfo_wdg_h3h0, 4.16, 2.40178, 500.00102, 166.66701, xc_xfm1_xfo_lug_h3, xc_xfm1_xfo_lug_h0
+    xc_xfm1_xfo_wdg_x1x0, 0.48, 0.27713, 500.00102, 166.66701, xc_xfm1_xfo_lug_x1, xc_xfm1_xfo_lug_x0
+    xc_xfm1_xfo_wdg_x2x0, 0.48, 0.27713, 500.00102, 166.66701, xc_xfm1_xfo_lug_x2, xc_xfm1_xfo_lug_x0
+    xc_xfm1_xfo_wdg_x3x0, 0.48, 0.27713, 500.00102, 166.66701, xc_xfm1_xfo_lug_x3, xc_xfm1_xfo_lug_x0
+
+Table TransformerMeshImpedance: mRID, FromWinding, ToWinding, r (percent), x (percent), r0 (percent), x0 (percent)
+    xc_xfm1_xfo_mesh_a, xc_xfm1_xfo_wdg_h1h0, xc_xfm1_xfo_wdg_x1x0, 1.10, 2.00, 1.10, 2.00
+    xc_xfm1_xfo_mesh_b, xc_xfm1_xfo_wdg_h2h0, xc_xfm1_xfo_wdg_x2x0, 1.10, 2.00, 1.10, 2.00
+    xc_xfm1_xfo_mesh_c, xc_xfm1_xfo_wdg_h3h0, xc_xfm1_xfo_wdg_x3x0, 1.10, 2.00, 1.10, 2.00
