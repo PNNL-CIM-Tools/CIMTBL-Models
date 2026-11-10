@@ -148,7 +148,7 @@ Terminal uses that mRID, e.g. `TapChangerControl.Terminal = vr_reg1_T2`.
   the `cimtbl-transformer-template` skill (template = the tank; phases = the instance).
 - **Concepts CIM 18 lacks** (e.g. a distributed load): approximate them (a distributed
   load is lumped at an added mid-line node, like OpenDSS IEEE 13's 670) and log a `TODO
-  (CIM18 gap)` entry in the model README and in `distribution/CIM18_GAPS.md`.
+  (CIM18 gap)` entry in the model README and in `.development/CIM18_GAPS.md`.
 - **Percent impedances** go on the winding base (`r (percent)` on the end's own
   ratedU²/ratedS; mesh `x (percent)` on the From end). Don't convert to ohms by hand.
 - **Audit the values; don't just copy them.** Note every deviation from the source deck
@@ -156,10 +156,10 @@ Terminal uses that mRID, e.g. `TapChangerControl.Terminal = vr_reg1_T2`.
 
 ## Check the translation loads
 
-From the CIM-Tables checkout's environment (adjust the path to yours):
+With `cim-tables` from PyPI (or `python -I` in any environment that has it installed):
 
 ```bash
-uv run --project /home/ande188/CIM-Tables python -I .claude/skills/cimtbl-translate/check_cimtbl.py path/to/master.cimtbl
+uv run --no-project --prerelease=allow --with cim-tables python -I .claude/skills/cimtbl-translate/check_cimtbl.py path/to/master.cimtbl
 ```
 
 It loads the master (imports included) with `cimtables.load_model`, fails with the file

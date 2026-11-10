@@ -1,6 +1,6 @@
 # IEEE 13 node feeder (CDPSM variant)
 
-Translated from `CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_CDPSM/IEEE13_CDPSM.dss`
+Translated from [`IEEE13_CDPSM.dss`](https://github.com/GRIDAPPSD/Powergrid-Models/blob/develop/models/feeders/OpenDSS/IEEE/IEEE13_CDPSM/IEEE13_CDPSM.dss) (GRIDAPPSD/Powergrid-Models)
 to `.cimtbl` (profile `cim18v17`). Load the master; it imports the rest in
 dependency order (references must be declared before use):
 

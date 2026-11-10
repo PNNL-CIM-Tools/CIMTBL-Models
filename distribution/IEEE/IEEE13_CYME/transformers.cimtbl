@@ -1,7 +1,7 @@
 # CYME Transformer XFM1_XFO (device L633_634_XFM_1, section 633 -> 634) -> PowerTransformer
 # + one TransformerTank on the XFM1_XFO template (transformer_db.cimtbl) + its ends +
-# TransformerPhaseEnds: the conductors the template's lugs land on (lug sequenceNumber =
-# phase end sequenceNumber), with the real phases. The device is directly between 633 and
+# TransformerPhaseEnds: the conductors of the template's two phase-less tank ends (end 1 =
+# conductors 1-4, end 2 = 5-8), with the real phases. The device is directly between 633 and
 # 634 (no fuse node, unlike CDPSM). Yg-Yg with 0 ohm grounding: grounded N on both ends.
 
 Profile = cim18v17

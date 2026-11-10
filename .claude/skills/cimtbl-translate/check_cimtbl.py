@@ -1,6 +1,6 @@
 """Load .cimtbl model files under their declared profile and model scope and summarize them.
 
-Usage: python -I check_cimtbl.py MASTER.cimtbl [...]   (in the cimtables environment)
+Usage: python -I check_cimtbl.py MASTER.cimtbl [...]   (needs cim-tables installed)
 Exits non-zero, with the offending file and line, on the first row that fails to load.
 """
 import collections

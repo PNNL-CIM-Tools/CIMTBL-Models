@@ -1,6 +1,6 @@
 # IEEE 13 node feeder (assets variant)
 
-Translated from `CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_assets/IEEE13_Assets.dss`
+Translated from [`IEEE13_Assets.dss`](https://github.com/GRIDAPPSD/Powergrid-Models/blob/develop/models/feeders/OpenDSS/IEEE/IEEE13_assets/IEEE13_Assets.dss) (GRIDAPPSD/Powergrid-Models)
 to `.cimtbl` (profile `cim18v17`, model `IEEE13_assets`). Load the master; it imports the rest in
 dependency order (references must be declared before use):
 
@@ -60,8 +60,7 @@ Follows `IEEE13_CDPSM/README.md` and the `cimtbl-translate` skill. What's specif
 
 ## Derived values (not in the deck, not unit conversions)
 
-These follow the CIMHub OpenDSS importer (`cimhub_opendss/src/cimhub_opendss/importer/conductors/`)
-and the OpenDSS `ExportCIMXML.pas` it cites. A converter test can compare them directly.
+These follow CIMHub's OpenDSS importer and the OpenDSS `ExportCIMXML.pas` it cites. A converter test can compare them directly.
 
 | value | from | rule |
 |---|---|---|

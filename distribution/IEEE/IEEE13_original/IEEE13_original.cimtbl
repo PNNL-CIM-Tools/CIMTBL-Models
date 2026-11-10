@@ -1,6 +1,7 @@
 # IEEE 13 node test feeder, OpenDSS original deck
 #
-# Source: CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_original/IEEE13Nodeckt.dss
+# Source: OpenDSS IEEETestCases/13Bus/IEEE13Nodeckt.dss
+#   (https://github.com/dss-extensions/electricdss-tst/blob/master/Version8/Distrib/IEEETestCases/13Bus/IEEE13Nodeckt.dss)
 # (the deck's `redirect IEEELineCodes.dss` only defines numbered line codes; the
 # mtx601-mtx607 codes used by the lines are defined inline in the deck).
 # Rows are keyed by mRID: prefix + OpenDSS name, lowercased (OpenDSS is

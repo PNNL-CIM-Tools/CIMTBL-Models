@@ -1,6 +1,6 @@
 # IEEE 13 node feeder (OpenDSS original deck)
 
-Translated by hand from `CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_original/IEEE13Nodeckt.dss`
+Translated by hand from OpenDSS's [`IEEE13Nodeckt.dss`](https://github.com/dss-extensions/electricdss-tst/blob/master/Version8/Distrib/IEEETestCases/13Bus/IEEE13Nodeckt.dss)
 (its `redirect IEEELineCodes.dss` only defines numbered line codes; the `mtx601`-`mtx607`
 codes the lines use are defined inline in the deck) to `.cimtbl` (profile `cim18v17`).
 Load the master; it imports the rest in dependency order (references must be declared
@@ -104,7 +104,7 @@ the file differs from the deck:
   system), as in IEEE13_CDPSM.
 - **Load BaseVoltages.** Loads at 2.4 kV line-to-neutral use `bv_4p16kv`, as in IEEE13_CDPSM. The deck has no 2.4 kV BaseVoltage.
 - **mtx606** uses the active "Corrected mtx606 Feb 3 2016" definition. The earlier
-  "Original 606" values sit in the deck's `/* */` comment block and are not used.
+  "Original 606" values sit in a commented-out block of the deck and are not used.
 - **mtx601/mtx602 off-diagonals.** The deck's values are the corrected ones (Kersting-matching). They
   match IEEE13_CDPSM's `linecodes.cimtbl`, though its deck had them swapped.
 

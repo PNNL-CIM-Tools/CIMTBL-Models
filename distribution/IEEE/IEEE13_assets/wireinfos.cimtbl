@@ -9,8 +9,8 @@
 #   diameterOverScreen (CN) = DiaCable - 2 x DiaStrand
 #   neutralStrandRadius = DiaStrand / 2
 #   diameterOverNeutral = diameterOverJacket = DiaCable   (CN)
-#   The derivations follow CIMHub's OpenDSS importer (cimhub_opendss importer/conductors)
-#   and the OpenDSS ExportCIMXML.pas it cites. See README.md.
+#   The derivations follow CIMHub's OpenDSS importer and the OpenDSS ExportCIMXML.pas
+#   it cites. See README.md.
 # Rac has no temperature in OpenDSS. It is written to rAC25, rAC50 and rAC75 alike,
 # as the reference exporter does. Rdc -> rDC20. NormAmps -> ratedCurrent.
 # Ins (InsLayer) -> insulationThickness. EpsR has no CIM attribute and is left out.

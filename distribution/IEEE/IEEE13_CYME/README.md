@@ -1,7 +1,8 @@
 # IEEE 13 node feeder (CYME 9.4 study file)
 
-Translated by hand from `CIMHub_2_0/cimhub_cyme/tests/test_models/IEEE_13_node_test_feeder.sxst`
-(Eaton's QA validation case, companion `IEEE_13_node_test_feeder.pdf`) to `.cimtbl`
+Translated by hand from a CYME 9.4 study file of the IEEE 13 node test feeder
+(`IEEE_13_node_test_feeder.sxst`, Eaton's QA validation case "Load Flow - Unbalanced", with a
+companion `IEEE_13_node_test_feeder.pdf`; neither file is distributed here) to `.cimtbl`
 (profile `cim18v17`). The goal is what this file contains, not the textbook IEEE 13
 feeder. Where the file and the standard IEEE 13 / the OpenDSS CDPSM model disagree, the
 file wins and the difference is listed under "Differences from the OpenDSS IEEE 13".
@@ -15,7 +16,7 @@ Load the master; it imports the rest in dependency order:
 | `wireinfos.cimtbl` | ConductorDB 556_500, 4/0, 1/0 | OverheadWireInfo x3 |
 | `linespacings.cimtbl` | OverheadSpacingOfConductorDB 500, 505, 510 | XYSpacing x3 + XYConductorPosition x9 |
 | `linegeometries.cimtbl` | conductors at each position of the spacings, per line | WireConfiguration x4 + WireSequenceConfiguration x13 |
-| `transformer_db.cimtbl` | TransformerDB XFM1_XFO | TransformerTankConfiguration (tank-only template) + TransformerCore + TransformerLug x8 + TransformerWinding x6 + TransformerMeshImpedance x3 |
+| `transformer_db.cimtbl` | TransformerDB XFM1_XFO | TransformerTankConfiguration (tank-only template) + TransformerCore + TransformerTankEnd x2 + TransformerWinding x2 + TransformerMeshImpedance |
 | `transformers.cimtbl` | Transformer XFM1_XFO on section L633_634_XFM_1 | PowerTransformer + TransformerTank + 2 PowerTransformerEnd + TransformerPhaseEnd x8 |
 | `regulators.cimtbl` | Regulator 650REG (3 single-phase units, FixedTap) | 3 VoltageRegulator + AutoTransformerEnd + TransformerLug + TransformerWinding + RatioTapChanger + TapChangerControl |
 | `switches.cimtbl` | Switch 296, Switch L671_692_SW-1 | LoadBreakSwitch x2 |
@@ -26,18 +27,18 @@ Load the master; it imports the rest in dependency order:
 Check (from `CIMTBL-Models`):
 
 ```
-uv run --project /home/ande188/CIM-Tables python -I .claude/skills/cimtbl-translate/check_cimtbl.py distribution/IEEE/IEEE13_CYME/IEEE13_CYME.cimtbl
+uv run --no-project --prerelease=allow --with cim-tables python -I .claude/skills/cimtbl-translate/check_cimtbl.py distribution/IEEE/IEEE13_CYME/IEEE13_CYME.cimtbl
 ```
 
-Output: 290 objects (7 Identity-only PhaseImpedanceData): ACLineSegment 11,
+Output: 278 objects (7 Identity-only PhaseImpedanceData): ACLineSegment 11,
 ACLineSegmentPhase 35, AutoTransformerEnd 6, BaseVoltage 2, ConnectivityNode 16, CurrentLimit 11,
 EnergyConsumer 15, EnergyConsumerPhase 17, EnergySource 1, EnergySourcePhase 3, Feeder 1,
 LinearShuntCompensator 2, LinearShuntCompensatorPhase 4, LoadBreakSwitch 2,
 LoadResponseCharacteristic 1, OperationalLimitSet 11, OverheadWireInfo 3, PerLengthPhaseImpedance 2,
 PhaseImpedanceData 7, PowerTransformer 1, PowerTransformerEnd 2, RatioTapChanger 3, Substation 1,
-SwitchPhase 6, TapChangerControl 3, Terminal 52, TransformerCore 1, TransformerLug 17,
-TransformerMeshImpedance 3, TransformerPhaseEnd 8, TransformerTank 1, TransformerTankConfiguration 1,
-TransformerWinding 9, VoltageRegulator 3, WireConfiguration 4, WireSequenceConfiguration 13,
+SwitchPhase 6, TapChangerControl 3, Terminal 52, TransformerCore 1, TransformerLug 9,
+TransformerMeshImpedance 1, TransformerPhaseEnd 8, TransformerTank 1, TransformerTankConfiguration 1,
+TransformerTankEnd 2, TransformerWinding 5, VoltageRegulator 3, WireConfiguration 4, WireSequenceConfiguration 13,
 XYConductorPosition 9, XYSpacing 3.
 
 ## CYME units (determined from the file)
@@ -86,7 +87,7 @@ loads and shunts attach to their real bus directly, as in CDPSM.
 **mRIDs** follow the cimtbl-translate prefix table: `ln_`, `sw_`, `ld_`, `cap_`, `xf_`, `vr_`,
 `xc_`, `lc_`, `wire_`, `spc_`, `wc_`, `src_`; buses use the bare CYME name in lower case (`rg60`);
 `name` is the CYME device name. Child rows extend their parent (`_1`/`_2` ends, `_lug_s`, `_wdg`,
-`_tap`, `_ctrl` on a regulator; `_lug_h1`, `_wdg_h1h0`, `_mesh_a`, `_core` on the template; `_tank`,
+`_tap`, `_ctrl` on a regulator; `_end_1`, `_wdg_1`, `_mesh`, `_core` on the template; `_tank`,
 `_1_a` phase ends; `_limits`, `_normal`, `_<n>` for wire sequences and positions). The
 regulator's generated Terminal is `vr_650reg_a_T2`. Substation
 `sub_sub650wye`, feeder `fdr_650` (the CYME network ID 650). The two split segments of
@@ -157,7 +158,7 @@ section split at 667 ft from 632:
   values differ), total 200 kW, 116 kvar, the same totals as the distributed load.
 
 TODO (CIM18 gap): CIM 18 has no distributed load along a line segment, so the load is lumped at
-an added node. See `distribution/CIM18_GAPS.md`.
+an added node. See `.development/CIM18_GAPS.md`.
 
 ## Deviations and judgment calls
 
@@ -195,17 +196,17 @@ an added node. See `distribution/CIM18_GAPS.md`.
    `subsequentDelay 2 s` (`TimeBetweenTaps`). These do not matter for FixedTap.
 10. **XFM1 as a template and an instance.** TransformerDB XFM1_XFO is a tank-only
     TransformerTankConfiguration `xc_xfm1_xfo` in `transformer_db.cimtbl`: `TransformerCore`
-    `form=shellForm` (`WindingType ShellForm`), 8 lugs (H1 H2 H3 H0 = 1-4, X1 X2 X3 X0 = 5-8),
-    6 coils (`ratedU` = the side's kV LL, `baseU` = line to neutral 2.40178 / 0.27713 kV,
-    `ratedS` 500.00102, `baseS` = kVA / 3 = 166.66701) and 3 meshes, one per leg.
+    `form=shellForm` (`WindingType ShellForm`), two `TransformerTankEnd`s with no phases
+    (`Yn`, `rground`/`xground` 0), one winding per end (`ratedU` = `baseU` = the side's kV LL,
+    `ratedS` = `baseS` = 500.00102 kVA, the three-phase basis) and one mesh between them.
     Impedance: CYME gives Z = 2.2825 % and X/R = 1.8181 (`PositiveSequenceImpedancePercent`,
     `XRRatio`), the same in zero sequence. Derived R = 1.10 % and X = 2.00 %. CYME's impedance
-    is the primary-secondary pair, so it goes whole on each leg's mesh (r 1.10, x 2.00,
-    r0 1.10, x0 2.00 %) and the coils carry no r. The ZeroSequenceImpedancePrimSec / PrimMag /
+    is the primary-secondary pair, so it goes whole on the mesh (r 1.10, x 2.00,
+    r0 1.10, x0 2.00 %) and the windings carry no r. The ZeroSequenceImpedancePrimSec / PrimMag /
     SecMag entries (8, 20, 30 %) are not carried. The instance (`transformers.cimtbl`) is a
     PowerTransformer + TransformerTank on the template + two ends, 633 and 634, `ABCN`, `Yn`,
-    grounded, `rground`/`xground` 0 (grounding 0 ohm both sides), + 8 TransformerPhaseEnds with
-    the real phases and a grounded N on each side. The transformer sits directly between 633
+    grounded, `rground`/`xground` 0 (grounding 0 ohm both sides), + 8 TransformerPhaseEnds (end 1 =
+    conductors 1-4, end 2 = 5-8) with the real phases and a grounded N on each side. The transformer sits directly between 633
     and 634, with no fuse node. Ratings: 500 kVA (`500.00102` kVA as written), 4.16 / 0.48 kV,
     Yg-Yg (`YNyn0`).
 11. **Wire radius is derived**: `radius (cm)` = OutsideDiameter / 2 (CYME gives the diameter).
@@ -277,7 +278,7 @@ Note on the PDF: the PDF's own comparison tables (CYMDIST vs IEEE published) are
 - **Distributed load** (`DistributedLoad` L632_671-1, 17+j10 / 66+j38 / 117+j68 kW/kvar along
   632-671): CIM 18 has no load spread along an `ACLineSegment` (EnergyConsumer attaches at a
   node only). Approximated: the line is split at an added node 670 (667 ft from 632) and the
-  load is lumped there as three EnergyConsumers, one per phase. Logged in `distribution/CIM18_GAPS.md`.
+  load is lumped there as three EnergyConsumers, one per phase. Logged in `.development/CIM18_GAPS.md`.
 
 ## Open questions
 

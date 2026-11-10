@@ -7,7 +7,7 @@
 #
 # mtx601-mtx605 have no cmatrix in the deck, so b is left unset (OpenDSS zero).
 # mtx606 is the active "Corrected mtx606 Feb 3 2016" definition, not the
-# /* */-commented "Original 606" block above it.
+# commented-out "Original 606" block above it.
 
 Profile = cim18v17
 

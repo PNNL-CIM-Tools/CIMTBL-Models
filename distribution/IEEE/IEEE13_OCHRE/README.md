@@ -1,6 +1,6 @@
 # IEEE 13 node feeder (OCHRE variant)
 
-Translated by hand from `CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_OCHRE/`
+Translated by hand from [`IEEE13_OCHRE/`](https://github.com/GRIDAPPSD/Powergrid-Models/tree/develop/models/feeders/OpenDSS/IEEE/IEEE13_OCHRE) (GRIDAPPSD/Powergrid-Models)
 (`Master.dss` and the files it redirects) to `.cimtbl` (profile `cim18v17`, model
 `IEEE13_OCHRE`). Load the master; it imports the rest in dependency order:
 

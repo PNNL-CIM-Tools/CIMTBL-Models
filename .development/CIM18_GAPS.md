@@ -176,3 +176,47 @@ CIM 18 profile, not for the translations.
 - **Approximation:** the RAW import lists a given VM/VA on the node's row; the export writes the defaults (CIMHub
   `cimhub_raw` R6, 2026-11-09).
 - **Models:** none of the public RAW cases (the hand-built R6 forms atom has one).
+
+## TODO (CIM18 gap): the side of a voltage-controlling winding its controlled bus is on
+
+- **Source:** PSS/E RAW v34 transformer CONTk's sign: positive adjusts the ratio as if bus CONTk is on the winding
+  2 or 3 side, negative as if bus |CONTk| is on the winding 1 side. It matters only when the bus is not one of the
+  transformer's own (I, J, K).
+- **CIM 18:** a `TapChangerControl` names its regulated `Terminal`; a solver infers the direction from the topology,
+  and nothing records the source's stated side.
+- **Needed:** none if the topology always decides; otherwise a direction flag on `TapChangerControl`.
+- **Approximation:** the control regulates bus |CONTk|; the sign is listed on the control row, and the export writes
+  CONTk positive (CIMHub `cimhub_raw` R4b, 2026-11-09).
+- **Models:** none of the public RAW cases (the hand-built R4b atom has one).
+
+## TODO (CIM18 gap): a FACTS device's series element, UPFC and IPFC
+
+- **Source:** PSS/E RAW v34 FACTS device with J ≠ 0: a series element between buses I and J (MODE 1..8: SSSC,
+  UPFC with an active-power bridge TRMX, IPFC master/slave pairs via MNAME), with its setpoints PDES, QDES, SET1,
+  SET2, VSREF and limits VTMN, VTMX, VSMX, IMX, LINX.
+- **CIM 18:** `StaticSynchronousSeriesCompensator` (SSSC) and `StaticSynchronousCompensator` (shunt) exist as bare
+  `FACTSEquipment`; nothing combines a shunt and a series element, or pairs two series elements, and no class holds
+  the series setpoints.
+- **Needed:** a UPFC / IPFC form, or series-element setpoints on `StaticSynchronousSeriesCompensator`.
+- **Approximation:** a series element raises (no case has one); a shunt-only device's series fields are listed on
+  its row when not the default (CIMHub `cimhub_raw` P2a, 2026-11-09).
+- **Models:** none of the public RAW cases.
+
+## TODO (CIM18 gap): a FACTS shunt's share of a coordinated voltage control
+
+- **Source:** PSS/E RAW v34 FACTS device RMPCT: the percent of the Mvar needed at the regulated bus that the shunt
+  element supplies (as switched shunt and WMOD 1 generator RMPCT).
+- **CIM 18:** `qPercent` is on `SynchronousMachine` only; `VsConverter` has `qShare`.
+- **Needed:** `qPercent` on `RegulatingCondEq` (proposed to the profile owner 2026-11-09, not taken for now).
+- **Approximation:** listed on the device's row when not 100 (CIMHub `cimhub_raw` P2a, 2026-11-09).
+- **Models:** none of the public RAW cases (the hand-built P2a atom has one).
+
+## TODO (CIM18 gap): a VSC converter's minimum loss and power weighting factor
+
+- **Source:** PSS/E RAW v34 VSC converter MINLOSS (kW) and PWF (the split of a rating violation's reduction between
+  P and Q).
+- **CIM 18:** `ACDCConverter` has `idleLoss`, `switchingLoss` and `resistiveLoss`, but no floor on the loss and no
+  reduction weighting.
+- **Needed:** two attributes on `VsConverter`, if solvers need them.
+- **Approximation:** listed on the converter's row when not the default (CIMHub `cimhub_raw` P2a, 2026-11-09).
+- **Models:** none of the public RAW cases (the hand-built P2a atom has both).

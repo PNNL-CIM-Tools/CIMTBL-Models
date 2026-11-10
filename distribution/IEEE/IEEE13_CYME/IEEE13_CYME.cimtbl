@@ -1,7 +1,7 @@
 # IEEE 13 node test feeder, CYME 9.4 study file
 #
-# Source: CIMHub_2_0/cimhub_cyme/tests/test_models/IEEE_13_node_test_feeder.sxst
-# (companion: IEEE_13_node_test_feeder.pdf, Eaton QA case "Load Flow - Unbalanced").
+# Source: IEEE_13_node_test_feeder.sxst, a CYME 9.4 study of the IEEE 13 node test feeder
+# (Eaton QA case "Load Flow - Unbalanced"; companion IEEE_13_node_test_feeder.pdf; not distributed).
 # Rows are keyed by mRID: prefix + CYME device or equipment name, lowercased,
 # with the CYME name kept in `name`. Translation decisions, CYME units and every
 # deviation from the OpenDSS IEEE13_CDPSM model: README.md.

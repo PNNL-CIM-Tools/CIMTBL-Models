@@ -1,6 +1,6 @@
 # IEEE 13 node test feeder, CIM CDPSM variant
 #
-# Source: CIMHub_2_0/test_data/models/feeders/OpenDSS/IEEE/IEEE13_CDPSM/IEEE13_CDPSM.dss
+# Source: https://github.com/GRIDAPPSD/Powergrid-Models/blob/develop/models/feeders/OpenDSS/IEEE/IEEE13_CDPSM/IEEE13_CDPSM.dss
 # Rows are keyed by mRID: prefix + OpenDSS name, lowercased (OpenDSS is
 # case-insensitive); the OpenDSS name is kept in `name`. See README.md.
 # Translation decisions and deviations from the deck: README.md.

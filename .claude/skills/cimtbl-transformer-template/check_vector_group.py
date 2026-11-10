@@ -1,6 +1,6 @@
 """Read a three-phase tank template's coil pairs back as a vector group.
 
-Usage: python -I check_vector_group.py TEMPLATE.cimtbl [...]   (in the cimtables environment)
+Usage: python -I check_vector_group.py TEMPLATE.cimtbl [...]   (needs cim-tables installed)
 
 A template has no phases (an instance's TransformerPhaseEnds carry them), so each lug's
 phase comes from its designation, the standard labelling: H1/X1/Y1 = A, 2 = B, 3 = C,

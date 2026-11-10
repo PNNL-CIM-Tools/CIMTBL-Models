@@ -164,10 +164,10 @@ Groups 6/5/7 (180° more) are the same coils with the low side's From and To swa
 
 ## 3. Check it
 
-From the CIM-Tables environment (adjust the path):
+With `cim-tables` from PyPI (or `python -I` in any environment that has it installed):
 
 ```bash
-P="uv run --project /home/ande188/CIM-Tables python -I"
+P="uv run --no-project --prerelease=allow --with cim-tables python -I"
 $P .claude/skills/cimtbl-translate/check_cimtbl.py distribution/templates/<name>.cimtbl
 $P .claude/skills/cimtbl-transformer-template/check_vector_group.py distribution/templates/<name>.cimtbl
 ```
