@@ -1,0 +1,10 @@
+# Substation s1, repeated in the package of each of its feeders. Identical in each of them.
+#
+# The source stands for the grid behind the substation bus: 10 % on 14 MVA at 12.47 kV, X/R = 10.
+# Feeder-head reclosers are in the feeders' own files.
+
+Profile = cim18v17
+
+Object Substation: mRID=sub_s1, name=s1
+
+Object EnergySource: mRID=src_s1, name=s1, node=s1_bus, nominalVoltage (kV)=12.47, voltageMagnitude (kV)=12.47, voltageAngle (deg)=0, r (ohm)=0.11107, x (ohm)=1.1107, r0 (ohm)=0.11107, x0 (ohm)=1.1107, BaseVoltage=bv_12p47kv, EquipmentContainer=sub_s1

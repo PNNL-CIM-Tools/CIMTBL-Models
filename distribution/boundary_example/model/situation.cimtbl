@@ -1,0 +1,18 @@
+# One operating state of the assembled model: as operated, not as built.
+#
+# Feeder s1-f2 has been rolled over onto feeder s1-f1: its head recloser is open and the tie to
+# s1-f1 is closed. No ConnectedArea, boundary node or container changes. Only the positions do.
+# Load this file onto the assembled model (boundary_example.cimtbl), after it.
+
+Profile = cim18v17
+
+Update Table Recloser: mRID, open
+    sw_s1_f1, false
+    sw_s1_f2, true
+    sw_s1_f3, false
+    sw_s2_f1, false
+    sw_s2_f2, false
+
+Update LoadBreakSwitch: mRID=sw_tie_s1_f1_s1_f2, open=false
+
+Update Disconnector: mRID=sw_tie_s1_f3_s2_f1, open=true

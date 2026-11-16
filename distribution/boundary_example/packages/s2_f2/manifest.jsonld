@@ -1,0 +1,290 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "cim": "http://cim.ucaiug.io/cim101/draft#",
+    "cim:FrameModel.perimeter": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dct:requires": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dct:conformsTo": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dct:license": {
+      "@type": "@id"
+    }
+  },
+  "@id": "urn:uuid:e1be5f79-ea80-5361-ad3c-d8e8995988bd",
+  "@type": "dcat:Catalog",
+  "dct:title": "Boundary example: package s2_f2 v1.0.0",
+  "dct:issued": "2026-11-16T00:00:00Z",
+  "dcat:dataset": [
+    {
+      "@id": "urn:uuid:14afb0b1-56df-5924-919f-2d51dda92c91",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "14afb0b1-56df-5924-919f-2d51dda92c91",
+      "dct:title": "Boundary example: feeder s2_f2",
+      "dct:description": "Feeder s2_f2 of substation s2: self-contained, with its substation and source.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+        "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/s2_f2.cimtbl",
+          "dcat:mediaType": "text/plain",
+          "dcat:byteSize": 417,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "5ca9c470e22a4e900f89a1b48deb5337b8de308c611ff013520dfa4c73870b58"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/feeder_s2_f2.cimtbl",
+          "dcat:mediaType": "text/plain",
+          "dcat:byteSize": 1216,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "a2ada72832d25a49f56a8a5e679876643a3619536c888d8d2011e902419ff30c"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "s2_f2.xml",
+          "dcat:mediaType": "application/rdf+xml",
+          "dcat:byteSize": 20187,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "dba982327be45fdd0ab1ff4826c2745198076abe39dbc8f7ff38f590eeebbb38"
+          }
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "s2_f2.jsonld",
+          "dcat:mediaType": "application/ld+json",
+          "dcat:byteSize": 14934,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "80a3075cef5b08daf951dea00dc5606e57221daa1d172833fede4ab0c3498d59"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+      "@type": [
+        "dcat:Dataset"
+      ],
+      "dct:identifier": "2eef0934-f0f0-5990-87ee-c7c28def2a93",
+      "dct:title": "Boundary example: reference data",
+      "dct:description": "Base voltages, the line impedance and the as-built ConnectedArea objects that every feeder of the example points at.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/catalog.cimtbl",
+          "dcat:mediaType": "text/plain",
+          "dcat:byteSize": 474,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "b2b532f87e6c481e441a848521c236195da99d4aaee541c4d3e5e607bffe6a46"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/areas.cimtbl",
+          "dcat:mediaType": "text/plain",
+          "dcat:byteSize": 759,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "1311a029b435f9503316a8187cdaec25a2bb17326193c083dd9fd23334d54d03"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+      "@type": [
+        "dcat:Dataset",
+        "cim:BoundaryModel"
+      ],
+      "dct:identifier": "e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+      "dct:title": "Boundary example: boundary model",
+      "dct:description": "The connectivity nodes either side of each tie between feeders, and nothing else. Each names as its container the smallest ConnectedArea that contains both feeders.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/boundary.cimtbl",
+          "dcat:mediaType": "text/plain",
+          "dcat:byteSize": 787,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "408ff57bb80b05e4c149b78b07c7264c6beeedd214e824f9a610ea29edfca247"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "boundary.xml",
+          "dcat:mediaType": "application/rdf+xml",
+          "dcat:byteSize": 2506,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "3bcb16ac51774ebef6f75f891ac5a44cd64d538113708c3d1a6e6438d6f27232"
+          }
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "boundary.jsonld",
+          "dcat:mediaType": "application/ld+json",
+          "dcat:byteSize": 2004,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "8b391b2b3029f24a7539b90ba782ee34dd69af54be5f7f1b9073d11a5cfc57af"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "d84f0aaf-43be-54bc-95f2-a6987c4246a5",
+      "dct:title": "Boundary example: substation s2",
+      "dct:description": "Substation s2 and its source, repeated in the package of each of its feeders so that each solves alone.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/substation_s2.cimtbl",
+          "dcat:mediaType": "text/plain",
+          "dcat:byteSize": 557,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "bd3fe9cc382908f25cb07d8e6e036a5b961b44ae5df8026b0278e3f7db3d5b19"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:f63c3e25-4846-57ff-b283-0b99892dd0b4",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "f63c3e25-4846-57ff-b283-0b99892dd0b4",
+      "dct:title": "Boundary example: ties between feeders",
+      "dct:description": "The normally-open switches between feeders. Each belongs to the smallest ConnectedArea that contains both feeders. Loaded only where both sides of a tie are present.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "cim:FrameModel.perimeter": [
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ],
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/ties.cimtbl",
+          "dcat:mediaType": "text/plain",
+          "dcat:byteSize": 1310,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumValue": "89ac7835dbf370f2e339a582f6395793934fc79215efbabeb74e1fbc8c03f9bb"
+          },
+          "dct:conformsTo": [
+            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+          ]
+        }
+      ]
+    }
+  ]
+}

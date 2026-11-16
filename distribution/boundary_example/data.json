@@ -1,0 +1,168 @@
+{
+  "@context": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
+  "@type": "dcat:Catalog",
+  "conformsTo": "https://project-open-data.cio.gov/v1.1/schema",
+  "describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
+  "dataset": [
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "b9f0e07d-5981-5124-afe6-6cd85803890a",
+      "title": "Boundary example: feeder s1_f1",
+      "description": "Feeder s1_f1 of substation s1: self-contained, with its substation and source.",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model"
+      ],
+      "modified": "2026-11-16",
+      "issued": "2026-11-16",
+      "accessLevel": "public",
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "publisher": {
+        "@type": "org:Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "landingPage": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f1",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f1",
+          "title": "Package s1_f1"
+        }
+      ]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "07b06abb-0109-591d-9d2b-851219d017c2",
+      "title": "Boundary example: feeder s1_f2",
+      "description": "Feeder s1_f2 of substation s1: self-contained, with its substation and source.",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model"
+      ],
+      "modified": "2026-11-16",
+      "issued": "2026-11-16",
+      "accessLevel": "public",
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "publisher": {
+        "@type": "org:Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "landingPage": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f2",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f2",
+          "title": "Package s1_f2"
+        }
+      ]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "3de64bbd-d2cf-5254-a9a1-728f20551e9c",
+      "title": "Boundary example: feeder s1_f3",
+      "description": "Feeder s1_f3 of substation s1: self-contained, with its substation and source.",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model"
+      ],
+      "modified": "2026-11-16",
+      "issued": "2026-11-16",
+      "accessLevel": "public",
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "publisher": {
+        "@type": "org:Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "landingPage": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f3",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f3",
+          "title": "Package s1_f3"
+        }
+      ]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
+      "title": "Boundary example: feeder s2_f1",
+      "description": "Feeder s2_f1 of substation s2: self-contained, with its substation and source.",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model"
+      ],
+      "modified": "2026-11-16",
+      "issued": "2026-11-16",
+      "accessLevel": "public",
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "publisher": {
+        "@type": "org:Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "landingPage": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f1",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f1",
+          "title": "Package s2_f1"
+        }
+      ]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "14afb0b1-56df-5924-919f-2d51dda92c91",
+      "title": "Boundary example: feeder s2_f2",
+      "description": "Feeder s2_f2 of substation s2: self-contained, with its substation and source.",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model"
+      ],
+      "modified": "2026-11-16",
+      "issued": "2026-11-16",
+      "accessLevel": "public",
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "publisher": {
+        "@type": "org:Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "landingPage": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f2",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f2",
+          "title": "Package s2_f2"
+        }
+      ]
+    }
+  ]
+}

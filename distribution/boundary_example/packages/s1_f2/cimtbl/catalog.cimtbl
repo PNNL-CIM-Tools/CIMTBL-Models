@@ -1,0 +1,12 @@
+# Objects every feeder of the example points at. Identical in every package.
+#
+# Illustrative values: this model shows how areas and boundaries are written, not a real system.
+
+Profile = cim18v17
+
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    bv_13p2kv,  13.2
+    bv_12p47kv, 12.47
+
+# One overhead conductor for every span
+Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89

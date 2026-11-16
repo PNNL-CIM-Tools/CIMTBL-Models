@@ -14,6 +14,12 @@ source, the translation decisions, and how the model differs from the others.
 | [`IEEE/IEEE13_OCHRE`](IEEE/IEEE13_OCHRE) | Powergrid-Models `IEEE13_OCHRE/` | 40 center-tapped service transformers, triplex lines and triplex loads. |
 | [`IEEE/IEEE13_CYME`](IEEE/IEEE13_CYME) | A CYME 9.4 study file | The feeder as CYME holds it: conductor geometry per line, a distributed load (lumped at an added node 670), a fixed-tap regulator. |
 
+## Boundary example
+
+[`boundary_example`](boundary_example) is a made-up model of two substations and five feeders with two ties. It
+shows boundary nodes defined together with `ConnectedArea`, each feeder as a self-contained package with DCAT
+metadata, and the five packages joining into one model.
+
 ## Transformer templates
 
 [`templates/`](templates) holds reusable transformer designs. A single tank is a `TransformerTankConfiguration`,

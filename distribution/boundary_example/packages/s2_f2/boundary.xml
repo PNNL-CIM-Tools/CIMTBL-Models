@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/#" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<md:FullModel rdf:about="urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8">
+  <md:Model.created>2026-11-16T00:00:00Z</md:Model.created>
+  <md:Model.description>boundary_example</md:Model.description>
+  <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
+</md:FullModel>
+<cim:ModelAuthority rdf:about="urn:uuid:881bacb7-3490-5cab-9b26-140c7784fdc4">
+  <cim:IdentifiedObject.name>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</cim:IdentifiedObject.name>
+</cim:ModelAuthority>
+<cim:ConnectivityNode rdf:about="urn:uuid:146663f5-9282-5d15-98d7-31f2323da552">
+  <cim:Identity.identifier>146663f5-9282-5d15-98d7-31f2323da552</cim:Identity.identifier>
+  <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:cd8b0a0e-0367-5b2c-98bb-7986a92e38c3"/>
+  <cim:IdentifiedObject.mRID>s1_f1_end</cim:IdentifiedObject.mRID>
+</cim:ConnectivityNode>
+<cim:ConnectivityNode rdf:about="urn:uuid:47069ca0-839c-527a-8057-d563868725ce">
+  <cim:Identity.identifier>47069ca0-839c-527a-8057-d563868725ce</cim:Identity.identifier>
+  <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"/>
+  <cim:IdentifiedObject.mRID>s1_f3_end</cim:IdentifiedObject.mRID>
+</cim:ConnectivityNode>
+<cim:ConnectivityNode rdf:about="urn:uuid:74d6002f-b4ef-5784-aece-b38c867e66e8">
+  <cim:Identity.identifier>74d6002f-b4ef-5784-aece-b38c867e66e8</cim:Identity.identifier>
+  <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"/>
+  <cim:IdentifiedObject.mRID>s2_f1_end</cim:IdentifiedObject.mRID>
+</cim:ConnectivityNode>
+<cim:ConnectivityNode rdf:about="urn:uuid:b4a1cd8f-8b20-5b20-be55-5e611a79b31e">
+  <cim:Identity.identifier>b4a1cd8f-8b20-5b20-be55-5e611a79b31e</cim:Identity.identifier>
+  <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:cd8b0a0e-0367-5b2c-98bb-7986a92e38c3"/>
+  <cim:IdentifiedObject.mRID>s1_f2_end</cim:IdentifiedObject.mRID>
+</cim:ConnectivityNode>
+</rdf:RDF>

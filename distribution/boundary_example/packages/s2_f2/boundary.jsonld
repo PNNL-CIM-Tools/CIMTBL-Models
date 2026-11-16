@@ -1,0 +1,59 @@
+{
+  "@context": [
+    "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
+    {
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dct": "http://purl.org/dc/terms/"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+      "@type": "dcat:Dataset",
+      "dct:identifier": "e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+      "dct:title": "Boundary example: boundary model",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:conformsTo": [
+        "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+      ]
+    },
+    {
+      "@id": "urn:uuid:881bacb7-3490-5cab-9b26-140c7784fdc4",
+      "@type": "cim:ModelAuthority",
+      "cim:IdentifiedObject.name": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models"
+    },
+    {
+      "@id": "urn:uuid:146663f5-9282-5d15-98d7-31f2323da552",
+      "@type": "cim:ConnectivityNode",
+      "cim:ConnectivityNode.ConnectivityNodeContainer": {
+        "@id": "urn:uuid:cd8b0a0e-0367-5b2c-98bb-7986a92e38c3"
+      },
+      "cim:IdentifiedObject.mRID": "s1_f1_end"
+    },
+    {
+      "@id": "urn:uuid:47069ca0-839c-527a-8057-d563868725ce",
+      "@type": "cim:ConnectivityNode",
+      "cim:ConnectivityNode.ConnectivityNodeContainer": {
+        "@id": "urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"
+      },
+      "cim:IdentifiedObject.mRID": "s1_f3_end"
+    },
+    {
+      "@id": "urn:uuid:74d6002f-b4ef-5784-aece-b38c867e66e8",
+      "@type": "cim:ConnectivityNode",
+      "cim:ConnectivityNode.ConnectivityNodeContainer": {
+        "@id": "urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"
+      },
+      "cim:IdentifiedObject.mRID": "s2_f1_end"
+    },
+    {
+      "@id": "urn:uuid:b4a1cd8f-8b20-5b20-be55-5e611a79b31e",
+      "@type": "cim:ConnectivityNode",
+      "cim:ConnectivityNode.ConnectivityNodeContainer": {
+        "@id": "urn:uuid:cd8b0a0e-0367-5b2c-98bb-7986a92e38c3"
+      },
+      "cim:IdentifiedObject.mRID": "s1_f2_end"
+    }
+  ]
+}

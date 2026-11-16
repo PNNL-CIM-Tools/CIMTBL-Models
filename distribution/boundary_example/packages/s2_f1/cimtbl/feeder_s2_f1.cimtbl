@@ -1,0 +1,43 @@
+# Feeder s2-f1: head recloser, two spans, two loads.
+
+Profile = cim18v17
+
+Object Feeder: mRID=fdr_s2_f1, name=s2-f1, NormalEnergizingSubstation=sub_s2
+
+# The head recloser is between the feeder area and the rest of its substation service area, so it
+# belongs to the substation and is flagged areaBoundary. It is written here, not in the substation
+# file, so that a package does not carry its siblings' head devices.
+Object Recloser: mRID=sw_s2_f1, name=s2-f1 head, node1=s2_bus, node2=s2_f1_head, normalOpen=false, areaBoundary=true, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
+
+# Computed by a topology processor: the feeder side of the head recloser bounds the feeder area.
+Update Terminal: mRID=sw_s2_f1_T2, BoundedConnectedArea=area_f_s2_f1
+
+Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_13p2kv, EquipmentContainer=fdr_s2_f1
+    ln_s2_f1_1, s2_f1_head, s2_f1_mid,  1.0
+    ln_s2_f1_2, s2_f1_mid,  s2_f1_step, 1.5
+
+Table EnergyConsumer: mRID, node, p (kW), q (kvar), BaseVoltage=bv_13p2kv, EquipmentContainer=fdr_s2_f1
+    ld_s2_f1_mid,  s2_f1_mid,  800, 200
+    ld_s2_f1_step, s2_f1_step, 500, 120
+
+# Step-down autotransformers, one single-phase unit per phase, 13.2 kV to 12.47 kV, so that both
+# sides of the tie to feeder s1-f3 are 12.47 kV. End 1 is the 13.2 kV side.
+# s2_f1_end is a boundary node (boundary.cimtbl): named here, not declared.
+Table AutoTransformer: mRID, name, EquipmentContainer=fdr_s2_f1
+    xf_s2_f1_step_a, step A
+    xf_s2_f1_step_b, step B
+    xf_s2_f1_step_c, step C
+
+# baseU: the coil voltage, line to neutral (13.2 / sqrt 3 = 7.62, 12.47 / sqrt 3 = 7.2)
+Table AutoTransformerEnd: mRID, AutoTransformer, endNumber, node, phase, baseU (kV), ratedS (kVA), BaseVoltage, grounded=true
+    xf_s2_f1_step_a_1, xf_s2_f1_step_a, 1, s2_f1_step, AN, 7.62, 500, bv_13p2kv
+    xf_s2_f1_step_a_2, xf_s2_f1_step_a, 2, s2_f1_end,  AN, 7.2,  500, bv_12p47kv
+    xf_s2_f1_step_b_1, xf_s2_f1_step_b, 1, s2_f1_step, BN, 7.62, 500, bv_13p2kv
+    xf_s2_f1_step_b_2, xf_s2_f1_step_b, 2, s2_f1_end,  BN, 7.2,  500, bv_12p47kv
+    xf_s2_f1_step_c_1, xf_s2_f1_step_c, 1, s2_f1_step, CN, 7.62, 500, bv_13p2kv
+    xf_s2_f1_step_c_2, xf_s2_f1_step_c, 2, s2_f1_end,  CN, 7.2,  500, bv_12p47kv
+
+Table TransformerMeshImpedance: mRID, FromTransformerEnd, ToTransformerEnd, r (percent)=0.2, x (percent)=1.0
+    xf_s2_f1_step_a_mesh_12, xf_s2_f1_step_a_1, xf_s2_f1_step_a_2
+    xf_s2_f1_step_b_mesh_12, xf_s2_f1_step_b_1, xf_s2_f1_step_b_2
+    xf_s2_f1_step_c_mesh_12, xf_s2_f1_step_c_1, xf_s2_f1_step_c_2

@@ -1,0 +1,13 @@
+# Feeder s1_f2, self-contained: its shared files, its substation, then its own objects.
+# ties.cimtbl is in this package but is not imported: the far side of each tie is in another package.
+
+Profile = cim18v17
+Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
+Model = boundary_example
+
+Import catalog.cimtbl
+Import areas.cimtbl
+Import boundary.cimtbl
+
+Import substation_s1.cimtbl
+Import feeder_s1_f2.cimtbl

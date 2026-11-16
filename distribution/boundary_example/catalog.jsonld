@@ -1,0 +1,245 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "cim": "http://cim.ucaiug.io/cim101/draft#",
+    "cim:FrameModel.perimeter": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dct:requires": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dct:conformsTo": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dct:license": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/catalog.jsonld",
+  "@type": "dcat:Catalog",
+  "dct:title": "Boundary example",
+  "dct:modified": "2026-11-16T00:00:00Z",
+  "dcat:dataset": [
+    {
+      "@id": "urn:uuid:b9f0e07d-5981-5124-afe6-6cd85803890a",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "b9f0e07d-5981-5124-afe6-6cd85803890a",
+      "dct:title": "Boundary example: feeder s1_f1",
+      "dct:description": "Feeder s1_f1 of substation s1: self-contained, with its substation and source.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "cim:FrameModel.perimeter": [
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ],
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+        "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f1",
+          "dct:title": "Package s1_f1",
+          "dcat:packageFormat": "application/zip"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:07b06abb-0109-591d-9d2b-851219d017c2",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "07b06abb-0109-591d-9d2b-851219d017c2",
+      "dct:title": "Boundary example: feeder s1_f2",
+      "dct:description": "Feeder s1_f2 of substation s1: self-contained, with its substation and source.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "cim:FrameModel.perimeter": [
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ],
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+        "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f2",
+          "dct:title": "Package s1_f2",
+          "dcat:packageFormat": "application/zip"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:3de64bbd-d2cf-5254-a9a1-728f20551e9c",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "3de64bbd-d2cf-5254-a9a1-728f20551e9c",
+      "dct:title": "Boundary example: feeder s1_f3",
+      "dct:description": "Feeder s1_f3 of substation s1: self-contained, with its substation and source.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "cim:FrameModel.perimeter": [
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ],
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+        "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f3",
+          "dct:title": "Package s1_f3",
+          "dcat:packageFormat": "application/zip"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
+      "dct:title": "Boundary example: feeder s2_f1",
+      "dct:description": "Feeder s2_f1 of substation s2: self-contained, with its substation and source.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "cim:FrameModel.perimeter": [
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ],
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+        "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f1",
+          "dct:title": "Package s2_f1",
+          "dcat:packageFormat": "application/zip"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:14afb0b1-56df-5924-919f-2d51dda92c91",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "14afb0b1-56df-5924-919f-2d51dda92c91",
+      "dct:title": "Boundary example: feeder s2_f2",
+      "dct:description": "Feeder s2_f2 of substation s2: self-contained, with its substation and source.",
+      "dct:issued": "2026-11-16T00:00:00Z",
+      "dcat:version": "1.0.0",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:publisher": {
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "cim:FrameModel.perimeter": [],
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+        "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5"
+      ],
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f2",
+          "dct:title": "Package s2_f2",
+          "dcat:packageFormat": "application/zip"
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+      "@type": [
+        "dcat:Dataset"
+      ],
+      "dct:identifier": "2eef0934-f0f0-5990-87ee-c7c28def2a93",
+      "dct:title": "Boundary example: reference data",
+      "dct:description": "Base voltages, the line impedance and the as-built ConnectedArea objects that every feeder of the example points at."
+    },
+    {
+      "@id": "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+      "@type": [
+        "dcat:Dataset",
+        "cim:BoundaryModel"
+      ],
+      "dct:identifier": "e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+      "dct:title": "Boundary example: boundary model",
+      "dct:description": "The connectivity nodes either side of each tie between feeders, and nothing else. Each names as its container the smallest ConnectedArea that contains both feeders."
+    },
+    {
+      "@id": "urn:uuid:f63c3e25-4846-57ff-b283-0b99892dd0b4",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "f63c3e25-4846-57ff-b283-0b99892dd0b4",
+      "dct:title": "Boundary example: ties between feeders",
+      "dct:description": "The normally-open switches between feeders. Each belongs to the smallest ConnectedArea that contains both feeders. Loaded only where both sides of a tie are present.",
+      "cim:FrameModel.perimeter": [
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ]
+    },
+    {
+      "@id": "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "e01db535-8c51-5697-92cc-10427e8d9b95",
+      "dct:title": "Boundary example: substation s1",
+      "dct:description": "Substation s1 and its source, repeated in the package of each of its feeders so that each solves alone."
+    },
+    {
+      "@id": "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
+      "dct:identifier": "d84f0aaf-43be-54bc-95f2-a6987c4246a5",
+      "dct:title": "Boundary example: substation s2",
+      "dct:description": "Substation s2 and its source, repeated in the package of each of its feeders so that each solves alone."
+    }
+  ]
+}

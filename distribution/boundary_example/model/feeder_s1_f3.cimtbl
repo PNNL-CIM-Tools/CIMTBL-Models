@@ -1,0 +1,22 @@
+# Feeder s1-f3: head recloser, two spans, two loads.
+
+Profile = cim18v17
+
+Object Feeder: mRID=fdr_s1_f3, name=s1-f3, NormalEnergizingSubstation=sub_s1
+
+# The head recloser is between the feeder area and the rest of its substation service area, so it
+# belongs to the substation and is flagged areaBoundary. It is written here, not in the substation
+# file, so that a package does not carry its siblings' head devices.
+Object Recloser: mRID=sw_s1_f3, name=s1-f3 head, node1=s1_bus, node2=s1_f3_head, normalOpen=false, areaBoundary=true, BaseVoltage=bv_12p47kv, EquipmentContainer=sub_s1
+
+# Computed by a topology processor: the feeder side of the head recloser bounds the feeder area.
+Update Terminal: mRID=sw_s1_f3_T2, BoundedConnectedArea=area_f_s1_f3
+
+# s1_f3_end is a boundary node (boundary.cimtbl): named here, not declared.
+Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
+    ln_s1_f3_1, s1_f3_head, s1_f3_mid, 1.0
+    ln_s1_f3_2, s1_f3_mid,  s1_f3_end, 1.5
+
+Table EnergyConsumer: mRID, node, p (kW), q (kvar), BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
+    ld_s1_f3_mid, s1_f3_mid, 800, 200
+    ld_s1_f3_end, s1_f3_end, 500, 120

@@ -1,0 +1,22 @@
+# The ties between feeders. Identical in every package.
+#
+# A switch between two areas belongs to the smallest area that contains both. A feeder's own master
+# does not import this file, because the far side of each tie is in another package.
+#
+# normalOpen is as built. The position (open) is as operated and is in the situation files.
+
+Profile = cim18v17
+
+# Same substation: in the substation service area
+Object LoadBreakSwitch: mRID=sw_tie_s1_f1_s1_f2, name=tie s1-f1 s1-f2, node1=s1_f1_end, node2=s1_f2_end, normalOpen=true, areaBoundary=true, topologicalUsage=acrossArea, BaseVoltage=bv_12p47kv, EquipmentContainer=area_ss_s1
+
+# Different substations: in the distribution area. Both sides are 12.47 kV: feeder s2-f1 steps
+# down from 13.2 kV one span before the tie.
+Object Disconnector: mRID=sw_tie_s1_f3_s2_f1, name=tie s1-f3 s2-f1, node1=s1_f3_end, node2=s2_f1_end, normalOpen=true, areaBoundary=true, topologicalUsage=acrossArea, BaseVoltage=bv_12p47kv, EquipmentContainer=area_d_example
+
+# Which feeder area each side of a tie bounds. A topology processor computes this from areaBoundary.
+Update Table Terminal: mRID, BoundedConnectedArea
+    sw_tie_s1_f1_s1_f2_T1, area_f_s1_f1
+    sw_tie_s1_f1_s1_f2_T2, area_f_s1_f2
+    sw_tie_s1_f3_s2_f1_T1, area_f_s1_f3
+    sw_tie_s1_f3_s2_f1_T2, area_f_s2_f1

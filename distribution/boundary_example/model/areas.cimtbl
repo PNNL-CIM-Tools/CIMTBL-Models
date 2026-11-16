@@ -1,0 +1,20 @@
+# The as-built areas. Identical in every package.
+#
+# ConnectedArea is what was built: it changes with construction, never with switching.
+# The mRIDs are the persistent references between packages: a feeder of substation 1 and a
+# feeder of substation 2 both name area_d_example.
+
+Profile = cim18v17
+
+Object ConnectedArea: mRID=area_d_example, name=example, kind=distributionArea
+
+Table ConnectedArea: mRID, name, kind=substationServiceArea, ContainedWithin=area_d_example
+    area_ss_s1, s1
+    area_ss_s2, s2
+
+Table ConnectedArea: mRID, name, kind=feederArea, ContainedWithin
+    area_f_s1_f1, s1-f1, area_ss_s1
+    area_f_s1_f2, s1-f2, area_ss_s1
+    area_f_s1_f3, s1-f3, area_ss_s1
+    area_f_s2_f1, s2-f1, area_ss_s2
+    area_f_s2_f2, s2-f2, area_ss_s2
