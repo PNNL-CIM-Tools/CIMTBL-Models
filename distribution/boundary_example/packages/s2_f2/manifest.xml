@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:gk="https://gridkitchen.pnnl.gov/ns/gk#">
+<dcat:Catalog rdf:about="urn:uuid:e1be5f79-ea80-5361-ad3c-d8e8995988bd">
+  <dcterms:identifier>e1be5f79-ea80-5361-ad3c-d8e8995988bd</dcterms:identifier>
+  <dcterms:title>Boundary example: package s2_f2 v1.0.0</dcterms:title>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+  <dcterms:modified>2026-11-16T00:00:00Z</dcterms:modified>
+  <dcat:version>1.0.0</dcat:version>
+  <dcat:dataset rdf:resource="urn:uuid:14afb0b1-56df-5924-919f-2d51dda92c91"/>
+  <dcat:dataset rdf:resource="urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"/>
+  <dcat:dataset rdf:resource="urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"/>
+  <dcat:dataset rdf:resource="urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5"/>
+  <dcat:dataset rdf:resource="urn:uuid:f63c3e25-4846-57ff-b283-0b99892dd0b4"/>
+</dcat:Catalog>
+<dcat:Dataset rdf:about="urn:uuid:14afb0b1-56df-5924-919f-2d51dda92c91">
+  <rdf:type rdf:resource="http://cim.ucaiug.io/cim101/draft#FrameModel"/>
+  <dcterms:identifier>14afb0b1-56df-5924-919f-2d51dda92c91</dcterms:identifier>
+  <dcterms:title>Boundary example: feeder s2_f2</dcterms:title>
+  <dcterms:description>Feeder s2_f2 of substation s2: self-contained, with its substation and source.</dcterms:description>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+  <dcat:version>1.0.0</dcat:version>
+  <adms:versionNotes>First release.</adms:versionNotes>
+  <dcat:isVersionOf rdf:resource="https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s2_f2"/>
+  <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
+  <dcterms:license rdf:resource="https://spdx.org/licenses/BSD-3-Clause.html"/>
+  <dcterms:accessRights>public</dcterms:accessRights>
+  <dcterms:publisher>
+    <foaf:Organization rdf:about="https://www.pnnl.gov/">
+      <foaf:name>Pacific Northwest National Laboratory</foaf:name>
+    </foaf:Organization>
+  </dcterms:publisher>
+  <prov:wasGeneratedBy>
+    <prov:Activity>
+      <rdfs:label>CIMTBL-Models boundary_example build.py</rdfs:label>
+    </prov:Activity>
+  </prov:wasGeneratedBy>
+  <dcterms:spatial rdf:resource="urn:uuid:76be0c6a-0699-5d28-a7cf-3eb64d0a326c"/>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"/>
+  <dcterms:requires rdf:resource="urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"/>
+  <dcterms:requires rdf:resource="urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"/>
+  <dcterms:requires rdf:resource="urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5"/>
+  <gk:vocabularyVersion>0.1.0</gk:vocabularyVersion>
+  <gk:modelClass rdf:resource="https://gridkitchen.pnnl.gov/ns/gk#ModelClass.Generic"/>
+  <gk:useCase rdf:resource="https://gridkitchen.pnnl.gov/ns/gk#UseCase.Representative"/>
+  <gk:primaryVoltage>13.2</gk:primaryVoltage>
+  <gk:voltageClass>15</gk:voltageClass>
+  <gk:mvConnection rdf:resource="https://gridkitchen.pnnl.gov/ns/gk#Connection.WyeGrounded"/>
+  <gk:feederLength>4.02</gk:feederLength>
+  <gk:loadCount>2</gk:loadCount>
+  <gk:dgCount>0</gk:dgCount>
+  <gk:fuseCount>0</gk:fuseCount>
+  <gk:recloserCount>1</gk:recloserCount>
+  <gk:sectionalizerCount>0</gk:sectionalizerCount>
+  <gk:substationLTC>false</gk:substationLTC>
+  <gk:regulatorCount>0</gk:regulatorCount>
+  <gk:capacitorCount>0</gk:capacitorCount>
+  <gk:lowVoltageNetwork>false</gk:lowVoltageNetwork>
+  <gk:geographicSpecificity rdf:resource="https://gridkitchen.pnnl.gov/ns/gk#GeographicSpecificity.None"/>
+  <gk:multiFeederCompatible>true</gk:multiFeederCompatible>
+  <gk:siblingGroup>boundary_example/s2</gk:siblingGroup>
+  <dcat:distribution rdf:resource="urn:uuid:e77f1142-241f-5f92-aca0-f93c1a6978de"/>
+  <dcat:distribution rdf:resource="urn:uuid:7146efe8-6e69-5048-9fcd-47e4a2882c5c"/>
+  <dcat:distribution rdf:resource="urn:uuid:e54d232e-fed5-5bb0-9923-8acebebf0f39"/>
+  <dcat:distribution rdf:resource="urn:uuid:457ba194-c30a-520b-abe5-55e6be44a035"/>
+</dcat:Dataset>
+<dcat:Distribution rdf:about="urn:uuid:e77f1142-241f-5f92-aca0-f93c1a6978de">
+  <dcat:accessURL rdf:resource="file://cimtbl/s2_f2.cimtbl"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/text/plain"/>
+  <dcat:byteSize>417</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>5ca9c470e22a4e900f89a1b48deb5337b8de308c611ff013520dfa4c73870b58</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"/>
+</dcat:Distribution>
+<dcat:Distribution rdf:about="urn:uuid:7146efe8-6e69-5048-9fcd-47e4a2882c5c">
+  <dcat:accessURL rdf:resource="file://cimtbl/feeder_s2_f2.cimtbl"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/text/plain"/>
+  <dcat:byteSize>1216</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>a2ada72832d25a49f56a8a5e679876643a3619536c888d8d2011e902419ff30c</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"/>
+</dcat:Distribution>
+<dcat:Distribution rdf:about="urn:uuid:e54d232e-fed5-5bb0-9923-8acebebf0f39">
+  <dcat:accessURL rdf:resource="file://s2_f2.xml"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/application/rdf+xml"/>
+  <dcat:byteSize>22888</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>43b8adf0dda725b14ed2fbe76f446be606c60a77d2509ac0fec981384797bb02</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+</dcat:Distribution>
+<dcat:Distribution rdf:about="urn:uuid:457ba194-c30a-520b-abe5-55e6be44a035">
+  <dcat:accessURL rdf:resource="file://s2_f2.jsonld"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/application/ld+json"/>
+  <dcat:byteSize>20166</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>3278e9f698f86e35edd3b657016b5eabc569c38fe03922e2409d5ea1a8ad10f9</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"/>
+</dcat:Distribution>
+<dcat:Dataset rdf:about="urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93">
+  <dcterms:identifier>2eef0934-f0f0-5990-87ee-c7c28def2a93</dcterms:identifier>
+  <dcterms:title>Boundary example: reference data</dcterms:title>
+  <dcterms:description>Base voltages, the line impedance and the as-built ConnectedArea objects that every feeder of the example points at.</dcterms:description>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+  <dcat:version>1.0.0</dcat:version>
+  <adms:versionNotes>First release.</adms:versionNotes>
+  <dcat:isVersionOf rdf:resource="https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#reference"/>
+  <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
+  <dcterms:license rdf:resource="https://spdx.org/licenses/BSD-3-Clause.html"/>
+  <dcterms:accessRights>public</dcterms:accessRights>
+  <dcterms:publisher>
+    <foaf:Organization rdf:about="https://www.pnnl.gov/">
+      <foaf:name>Pacific Northwest National Laboratory</foaf:name>
+    </foaf:Organization>
+  </dcterms:publisher>
+  <prov:wasGeneratedBy>
+    <prov:Activity>
+      <rdfs:label>CIMTBL-Models boundary_example build.py</rdfs:label>
+    </prov:Activity>
+  </prov:wasGeneratedBy>
+  <dcterms:spatial rdf:resource="urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"/>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"/>
+  <dcat:distribution rdf:resource="urn:uuid:80e7b4d2-ded1-5f9d-b1ed-5fcf48ab2549"/>
+  <dcat:distribution rdf:resource="urn:uuid:ef968dbc-1711-5714-8b9d-54a4bc4e367e"/>
+</dcat:Dataset>
+<dcat:Distribution rdf:about="urn:uuid:80e7b4d2-ded1-5f9d-b1ed-5fcf48ab2549">
+  <dcat:accessURL rdf:resource="file://cimtbl/catalog.cimtbl"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/text/plain"/>
+  <dcat:byteSize>474</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>b2b532f87e6c481e441a848521c236195da99d4aaee541c4d3e5e607bffe6a46</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"/>
+</dcat:Distribution>
+<dcat:Distribution rdf:about="urn:uuid:ef968dbc-1711-5714-8b9d-54a4bc4e367e">
+  <dcat:accessURL rdf:resource="file://cimtbl/areas.cimtbl"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/text/plain"/>
+  <dcat:byteSize>759</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>1311a029b435f9503316a8187cdaec25a2bb17326193c083dd9fd23334d54d03</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"/>
+</dcat:Distribution>
+<dcat:Dataset rdf:about="urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8">
+  <rdf:type rdf:resource="http://cim.ucaiug.io/cim101/draft#BoundaryModel"/>
+  <dcterms:identifier>e8baaefb-7f4c-56c3-b6e2-4b0382029fd8</dcterms:identifier>
+  <dcterms:title>Boundary example: boundary model</dcterms:title>
+  <dcterms:description>The connectivity nodes either side of each tie between feeders, and nothing else. Each names as its container the smallest ConnectedArea that contains both feeders.</dcterms:description>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+  <dcat:version>1.0.0</dcat:version>
+  <adms:versionNotes>First release.</adms:versionNotes>
+  <dcat:isVersionOf rdf:resource="https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#boundary"/>
+  <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
+  <dcterms:license rdf:resource="https://spdx.org/licenses/BSD-3-Clause.html"/>
+  <dcterms:accessRights>public</dcterms:accessRights>
+  <dcterms:publisher>
+    <foaf:Organization rdf:about="https://www.pnnl.gov/">
+      <foaf:name>Pacific Northwest National Laboratory</foaf:name>
+    </foaf:Organization>
+  </dcterms:publisher>
+  <prov:wasGeneratedBy>
+    <prov:Activity>
+      <rdfs:label>CIMTBL-Models boundary_example build.py</rdfs:label>
+    </prov:Activity>
+  </prov:wasGeneratedBy>
+  <dcterms:spatial rdf:resource="urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"/>
+  <dcterms:requires rdf:resource="urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"/>
+  <dcat:distribution rdf:resource="urn:uuid:3554dc2d-0f0b-554c-9af6-dde2972c2310"/>
+  <dcat:distribution rdf:resource="urn:uuid:6a81fec8-5f9e-54ce-8c3d-b95f28e893a5"/>
+  <dcat:distribution rdf:resource="urn:uuid:ecb4bc5e-0122-544b-823d-ff8ccfcdb973"/>
+</dcat:Dataset>
+<dcat:Distribution rdf:about="urn:uuid:3554dc2d-0f0b-554c-9af6-dde2972c2310">
+  <dcat:accessURL rdf:resource="file://cimtbl/boundary.cimtbl"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/text/plain"/>
+  <dcat:byteSize>787</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>408ff57bb80b05e4c149b78b07c7264c6beeedd214e824f9a610ea29edfca247</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"/>
+</dcat:Distribution>
+<dcat:Distribution rdf:about="urn:uuid:6a81fec8-5f9e-54ce-8c3d-b95f28e893a5">
+  <dcat:accessURL rdf:resource="file://boundary.xml"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/application/rdf+xml"/>
+  <dcat:byteSize>3972</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>fe735d43fb5a34ea7433cc2f7e8fca2b76ebeb8b19b32c4e6efa6c723605dca3</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+</dcat:Distribution>
+<dcat:Distribution rdf:about="urn:uuid:ecb4bc5e-0122-544b-823d-ff8ccfcdb973">
+  <dcat:accessURL rdf:resource="file://boundary.jsonld"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/application/ld+json"/>
+  <dcat:byteSize>6388</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>7ebfd0e9679f33a89503551473f5f555d9d73cb8c79bded58bb823ab18570503</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"/>
+</dcat:Distribution>
+<dcat:Dataset rdf:about="urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5">
+  <rdf:type rdf:resource="http://cim.ucaiug.io/cim101/draft#FrameModel"/>
+  <dcterms:identifier>d84f0aaf-43be-54bc-95f2-a6987c4246a5</dcterms:identifier>
+  <dcterms:title>Boundary example: substation s2</dcterms:title>
+  <dcterms:description>Substation s2 and its source, repeated in the package of each of its feeders so that each solves alone.</dcterms:description>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+  <dcat:version>1.0.0</dcat:version>
+  <adms:versionNotes>First release.</adms:versionNotes>
+  <dcat:isVersionOf rdf:resource="https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#substation_s2"/>
+  <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
+  <dcterms:license rdf:resource="https://spdx.org/licenses/BSD-3-Clause.html"/>
+  <dcterms:accessRights>public</dcterms:accessRights>
+  <dcterms:publisher>
+    <foaf:Organization rdf:about="https://www.pnnl.gov/">
+      <foaf:name>Pacific Northwest National Laboratory</foaf:name>
+    </foaf:Organization>
+  </dcterms:publisher>
+  <prov:wasGeneratedBy>
+    <prov:Activity>
+      <rdfs:label>CIMTBL-Models boundary_example build.py</rdfs:label>
+    </prov:Activity>
+  </prov:wasGeneratedBy>
+  <dcterms:spatial rdf:resource="urn:uuid:cef1982f-56b4-53c6-b4aa-ef6e33a8d1df"/>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"/>
+  <dcterms:requires rdf:resource="urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"/>
+  <dcat:distribution rdf:resource="urn:uuid:ad71d9a3-3a7b-5312-90a1-288de056bd48"/>
+</dcat:Dataset>
+<dcat:Distribution rdf:about="urn:uuid:ad71d9a3-3a7b-5312-90a1-288de056bd48">
+  <dcat:accessURL rdf:resource="file://cimtbl/substation_s2.cimtbl"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/text/plain"/>
+  <dcat:byteSize>557</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>bd3fe9cc382908f25cb07d8e6e036a5b961b44ae5df8026b0278e3f7db3d5b19</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"/>
+</dcat:Distribution>
+<dcat:Dataset rdf:about="urn:uuid:f63c3e25-4846-57ff-b283-0b99892dd0b4">
+  <rdf:type rdf:resource="http://cim.ucaiug.io/cim101/draft#FrameModel"/>
+  <dcterms:identifier>f63c3e25-4846-57ff-b283-0b99892dd0b4</dcterms:identifier>
+  <dcterms:title>Boundary example: ties between feeders</dcterms:title>
+  <dcterms:description>The normally-open switches between feeders. Each belongs to the smallest ConnectedArea that contains both feeders. Loaded only where both sides of a tie are present.</dcterms:description>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+  <dcat:version>1.0.0</dcat:version>
+  <adms:versionNotes>First release.</adms:versionNotes>
+  <dcat:isVersionOf rdf:resource="https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#ties"/>
+  <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
+  <dcterms:license rdf:resource="https://spdx.org/licenses/BSD-3-Clause.html"/>
+  <dcterms:accessRights>public</dcterms:accessRights>
+  <dcterms:publisher>
+    <foaf:Organization rdf:about="https://www.pnnl.gov/">
+      <foaf:name>Pacific Northwest National Laboratory</foaf:name>
+    </foaf:Organization>
+  </dcterms:publisher>
+  <prov:wasGeneratedBy>
+    <prov:Activity>
+      <rdfs:label>CIMTBL-Models boundary_example build.py</rdfs:label>
+    </prov:Activity>
+  </prov:wasGeneratedBy>
+  <dcterms:spatial rdf:resource="urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"/>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"/>
+  <cim:FrameModel.perimeter rdf:resource="urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"/>
+  <dcterms:requires rdf:resource="urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"/>
+  <dcterms:requires rdf:resource="urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"/>
+  <dcat:distribution rdf:resource="urn:uuid:5ba7183e-7d5a-580d-b938-b1a9f9efefc6"/>
+</dcat:Dataset>
+<dcat:Distribution rdf:about="urn:uuid:5ba7183e-7d5a-580d-b938-b1a9f9efefc6">
+  <dcat:accessURL rdf:resource="file://cimtbl/ties.cimtbl"/>
+  <dcat:mediaType rdf:resource="https://www.iana.org/assignments/media-types/text/plain"/>
+  <dcat:byteSize>1310</dcat:byteSize>
+  <spdx:checksum>
+    <spdx:Checksum>
+      <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha256"/>
+      <spdx:checksumValue>89ac7835dbf370f2e339a582f6395793934fc79215efbabeb74e1fbc8c03f9bb</spdx:checksumValue>
+    </spdx:Checksum>
+  </spdx:checksum>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"/>
+</dcat:Distribution>
+</rdf:RDF>

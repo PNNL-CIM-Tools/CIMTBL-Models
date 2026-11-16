@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/#" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<md:FullModel rdf:about="urn:uuid:07b06abb-0109-591d-9d2b-851219d017c2">
-  <md:Model.created>2026-11-16T00:00:00Z</md:Model.created>
-  <md:Model.description>boundary_example</md:Model.description>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:gk="https://gridkitchen.pnnl.gov/ns/gk#" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:nc="http://entsoe.eu/ns/nc#">
+<dcat:Dataset rdf:about="urn:uuid:07b06abb-0109-591d-9d2b-851219d017c2">
+  <rdf:type rdf:resource="http://cim.ucaiug.io/cim101/draft#FrameModel"/>
+  <dcterms:identifier>07b06abb-0109-591d-9d2b-851219d017c2</dcterms:identifier>
+  <dcterms:title>Boundary example: feeder s1_f2</dcterms:title>
+  <dcterms:description>Feeder s1_f2 of substation s1: self-contained, with its substation and source.</dcterms:description>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+  <dcat:version>1.0.0</dcat:version>
+  <adms:versionNotes>First release.</adms:versionNotes>
+  <dcat:isVersionOf rdf:resource="https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s1_f2"/>
   <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
-</md:FullModel>
+  <dcterms:license rdf:resource="https://spdx.org/licenses/BSD-3-Clause.html"/>
+  <dcterms:accessRights>public</dcterms:accessRights>
+  <dcterms:publisher>
+    <foaf:Organization rdf:about="https://www.pnnl.gov/">
+      <foaf:name>Pacific Northwest National Laboratory</foaf:name>
+    </foaf:Organization>
+  </dcterms:publisher>
+  <prov:wasGeneratedBy>
+    <prov:Activity>
+      <rdfs:label>CIMTBL-Models boundary_example build.py</rdfs:label>
+    </prov:Activity>
+  </prov:wasGeneratedBy>
+  <dcterms:spatial rdf:resource="urn:uuid:10e1ca63-2acf-5102-835e-20b78c908440"/>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"/>
+  <cim:FrameModel.perimeter rdf:resource="urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"/>
+  <dcterms:requires rdf:resource="urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"/>
+  <dcterms:requires rdf:resource="urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"/>
+  <dcterms:requires rdf:resource="urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95"/>
+  <gk:vocabularyVersion>0.1.0</gk:vocabularyVersion>
+  <gk:modelClass rdf:resource="https://gridkitchen.pnnl.gov/ns/gk#ModelClass.Generic"/>
+  <gk:useCase rdf:resource="https://gridkitchen.pnnl.gov/ns/gk#UseCase.Representative"/>
+  <gk:primaryVoltage>12.47</gk:primaryVoltage>
+  <gk:voltageClass>15</gk:voltageClass>
+  <gk:mvConnection rdf:resource="https://gridkitchen.pnnl.gov/ns/gk#Connection.WyeGrounded"/>
+  <gk:feederLength>4.02</gk:feederLength>
+  <gk:loadCount>2</gk:loadCount>
+  <gk:dgCount>0</gk:dgCount>
+  <gk:fuseCount>0</gk:fuseCount>
+  <gk:recloserCount>1</gk:recloserCount>
+  <gk:sectionalizerCount>0</gk:sectionalizerCount>
+  <gk:substationLTC>false</gk:substationLTC>
+  <gk:regulatorCount>0</gk:regulatorCount>
+  <gk:capacitorCount>0</gk:capacitorCount>
+  <gk:lowVoltageNetwork>false</gk:lowVoltageNetwork>
+  <gk:geographicSpecificity rdf:resource="https://gridkitchen.pnnl.gov/ns/gk#GeographicSpecificity.None"/>
+  <gk:multiFeederCompatible>true</gk:multiFeederCompatible>
+  <gk:siblingGroup>boundary_example/s1</gk:siblingGroup>
+</dcat:Dataset>
 <cim:ModelAuthority rdf:about="urn:uuid:881bacb7-3490-5cab-9b26-140c7784fdc4">
   <cim:IdentifiedObject.name>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</cim:IdentifiedObject.name>
 </cim:ModelAuthority>

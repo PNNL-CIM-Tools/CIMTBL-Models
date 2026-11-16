@@ -59,8 +59,9 @@ s1-f1: its head recloser opens and tie 1 closes. No area, boundary node or conta
 | `model/boundary_example.cimtbl` | The assembled model: every shared file once, every feeder, then the ties |
 | `boundary_example.xml`, `.jsonld` | The assembled model in RDF |
 | `packages/<feeder>/` | One feeder's package, unpacked, as a user would download it |
-| `catalog.jsonld` | The public DCAT catalog entry for the five packages |
+| `catalog.jsonld` | The public catalog entries, in the Grid Kitchen layout |
 | `data.json` | The same entries in the Project Open Data layout, for site indexing |
+| `gk-context.jsonld` | The Grid Kitchen vocabulary context, inlined into the manifests |
 | `build.py` | Writes everything outside `model/` and checks it |
 
 ## A package
@@ -68,6 +69,7 @@ s1-f1: its head recloser opens and tie 1 closes. No area, boundary node or conta
 ```
 packages/s1_f3/
   manifest.jsonld              a dcat:Catalog of everything below, with checksums
+  manifest.xml                 the same catalog in RDF XML, laid out as ENTSO-E specifies
   s1_f3.xml, s1_f3.jsonld      the feeder in RDF
   boundary.xml, boundary.jsonld  the boundary model on its own in RDF
   cimtbl/
@@ -94,27 +96,58 @@ connected to them.
 
 ## The metadata
 
-`manifest.jsonld` lists five datasets. Four of them have the same identifier and the same checksums
-in every package that carries them, which is how five separate downloads point back at the same
-areas and boundary:
+The same facts are written in three layouts, so the two DCAT conventions in use can be compared on
+one model:
 
-| Dataset | Type | Files | Same across |
-|---|---|---|---|
-| The feeder | `FrameModel` | master, feeder file, RDF | — |
-| Reference data | — | `catalog.cimtbl`, `areas.cimtbl` | All five |
-| Boundary model | `BoundaryModel` | `boundary.cimtbl`, `boundary.xml`, `boundary.jsonld` | All five |
-| Substation | `FrameModel` | `substation_<s>.cimtbl` | Its feeders |
-| Ties | `FrameModel` | `ties.cimtbl` | All five |
+| Layout | Files | Follows |
+|---|---|---|
+| Grid Kitchen | `manifest.jsonld`, `catalog.jsonld`, the header of each `.jsonld` data file | DCAT-US 3.0 with the `gk:` vocabulary |
+| ENTSO-E | `manifest.xml`, the header of each `.xml` data file | Metadata for Dataset and Distribution Specification v2.4.0 |
+| Project Open Data | `data.json` | The v1.1 schema, for site indexing |
+
+A manifest lists five datasets. Four of them have the same identifier and the same checksums in
+every package that carries them, which is how five separate downloads point back at the same areas
+and boundary:
+
+| Dataset | Type | Files | Same across | `dct:spatial` |
+|---|---|---|---|---|
+| The feeder | `FrameModel` | master, feeder file, RDF | — | Its feeder area |
+| Reference data | — | `catalog.cimtbl`, `areas.cimtbl` | All five | The distribution area |
+| Boundary model | `BoundaryModel` | `boundary.cimtbl`, `boundary.xml`, `boundary.jsonld` | All five | The distribution area |
+| Substation | `FrameModel` | `substation_<s>.cimtbl` | Its feeders | Its substation service area |
+| Ties | `FrameModel` | `ties.cimtbl` | All five | The distribution area |
+
+What is common to both layouts:
 
 - `FrameModel.perimeter` points a feeder with a tie, and the ties dataset, at the boundary model.
   `FrameModel` and `BoundaryModel` are the draft grid-model metadata classes (the `cim18v17.metadata`
   profile of CIM-Profiles).
+- `dct:spatial` is the URI of the `ConnectedArea` object the dataset covers. This is the link from
+  the metadata to the as-built area, and it is a proposal of this example.
 - `dct:requires` records what must be loaded first.
 - A `.cimtbl` file carries only `Profile`, `Authority` and `Model`. Its `dct:conformsTo` is the
   profile's JSON-LD context, the document its JSON-LD twin names in `@context`.
-- The JSON-LD files open with a `dcat:Dataset` header whose identifier is the dataset's in the
-  manifest. The RDF XML files keep the `md:FullModel` header with the same identifier.
+- Every data file opens with the `dcat:Dataset` description its manifest gives it, in place of
+  `md:FullModel`.
 - All five packages use one `Authority` and `Model`, so a shared object has one UUID everywhere.
+
+Grid Kitchen layout:
+
+- The feeder dataset carries the `gk:` facts that can be computed from the model: voltage, length,
+  device and load counts, `gk:multiFeederCompatible` and `gk:siblingGroup`. State, setting, climate
+  and the quality measurements are left out, because a made-up model has no place and no source data.
+- `catalog.jsonld` uses the DCAT-US 3.0 terms and lists the five feeders and the four shared datasets.
+
+ENTSO-E layout:
+
+- `manifest.xml` is at the package root: a `dcat:Catalog` header, then each `dcat:Dataset` and
+  `dcat:Distribution` as its own resource with its own identifier, linked by reference.
+- File locations are `file://` paths inside the package and media types are IANA resources.
+- The boundary dataset states no `dcterms:conformsTo`, as that specification requires of a boundary.
+- `dcterms` is `http://purl.org/dc/terms/`, Dublin Core's own namespace. The sample dataset header in
+  the ENTSO-E specification, and the cim18v17 profile after it, write it with a trailing `#`.
+- The specification identifies a boundary dataset by `dcterms:spatial` pointing at a frame resource.
+  Here it points at the distribution area's `ConnectedArea`, and the dataset is typed `BoundaryModel`.
 
 ## Rebuild and check
 
@@ -125,7 +158,7 @@ uv run --no-project --prerelease=allow --with cim-tables python distribution/bou
 The build raises unless: every boundary node has its declared container in every package and in the
 assembled model; shared objects have one UUID across packages; every shared dataset has one set of
 checksums; each tie joins its two boundary nodes; and the operating state binds onto the assembled
-model. `--zip` also writes `dist/<feeder>.zip`, with `manifest.jsonld` first. The output is
+model. `--zip` also writes `dist/<feeder>.zip`, with the two manifests first. The output is
 deterministic.
 
 ## Open points
@@ -137,7 +170,8 @@ deterministic.
   is a plain `dcat:Dataset`.
 - **Boundary RDF points outside itself.** Each boundary node references its `ConnectedArea`, which is
   in the reference data, not in the boundary model.
-- **No Open Packaging parts.** The zip has `manifest.jsonld` at its root and no `[Content_Types].xml`
+- **No Open Packaging parts.** The zip has the manifests at its root and no `[Content_Types].xml`
   or `_rels`.
+- **Feeder length is written in kilometres.** The `gk:` vocabulary does not state the unit.
 - **Placeholders.** The contact address in `data.json` is a placeholder, and the catalog entries
   point at the package folders in this repository, not at downloadable zips.

@@ -1,30 +1,170 @@
 {
-  "@context": {
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "dct": "http://purl.org/dc/terms/",
-    "spdx": "http://spdx.org/rdf/terms#",
-    "foaf": "http://xmlns.com/foaf/0.1/",
-    "cim": "http://cim.ucaiug.io/cim101/draft#",
-    "cim:FrameModel.perimeter": {
-      "@type": "@id",
-      "@container": "@set"
+  "@context": [
+    "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
+    {
+      "gk": "https://gridkitchen.pnnl.gov/ns/gk#",
+      "dqv": "http://www.w3.org/ns/dqv#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "spdx": "http://spdx.org/rdf/terms#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "adms": "http://www.w3.org/ns/adms#",
+      "prov": "http://www.w3.org/ns/prov#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "org": "http://www.w3.org/ns/org#",
+      "gk:modelClass": {
+        "@type": "@id"
+      },
+      "gk:useCase": {
+        "@type": "@id"
+      },
+      "gk:application": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "gk:regionClass": {
+        "@type": "@id"
+      },
+      "gk:setting": {
+        "@type": "@id"
+      },
+      "gk:settingShares": {
+        "@container": "@list"
+      },
+      "gk:share": {
+        "@type": "xsd:decimal"
+      },
+      "gk:climateRegion": {
+        "@type": "@id"
+      },
+      "gk:primaryVoltage": {
+        "@type": "xsd:decimal"
+      },
+      "gk:voltageClass": {
+        "@type": "xsd:decimal"
+      },
+      "gk:hvConnection": {
+        "@type": "@id"
+      },
+      "gk:mvConnection": {
+        "@type": "@id"
+      },
+      "gk:lvConnection": {
+        "@type": "@id"
+      },
+      "gk:feederLength": {
+        "@type": "xsd:decimal"
+      },
+      "gk:undergroundShare": {
+        "@type": "xsd:decimal"
+      },
+      "gk:loadCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:customerCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:loadSizeDistribution": {
+        "@container": "@list"
+      },
+      "gk:dgSizeDistribution": {
+        "@container": "@list"
+      },
+      "gk:lowerBound": {
+        "@type": "xsd:decimal"
+      },
+      "gk:upperBound": {
+        "@type": "xsd:decimal"
+      },
+      "gk:dgCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:dgCapacityAC": {
+        "@type": "xsd:decimal"
+      },
+      "gk:evCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:fuseCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:recloserCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:sectionalizerCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:regulatorCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:capacitorCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:secondaryModeling": {
+        "@type": "@id"
+      },
+      "gk:geographicSpecificity": {
+        "@type": "@id"
+      },
+      "gk:siblingGroup": {
+        "@type": "xsd:string"
+      },
+      "gk:contentHash": {
+        "@type": "xsd:string"
+      },
+      "gk:component": {
+        "@type": "@id"
+      },
+      "gk:provenanceLevel": {
+        "@type": "@id"
+      },
+      "gk:archiveKey": {
+        "@type": "xsd:string"
+      },
+      "dqv:hasQualityMeasurement": {
+        "@container": "@set"
+      },
+      "dqv:isMeasurementOf": {
+        "@type": "@id"
+      },
+      "dqv:value": {
+        "@type": "xsd:decimal"
+      }
     },
-    "dct:requires": {
-      "@type": "@id",
-      "@container": "@set"
-    },
-    "dct:conformsTo": {
-      "@type": "@id",
-      "@container": "@set"
-    },
-    "dct:license": {
-      "@type": "@id"
+    {
+      "cim:FrameModel.perimeter": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dct:requires": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dct:conformsTo": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dct:license": {
+        "@type": "@id"
+      },
+      "dct:spatial": {
+        "@type": "@id"
+      },
+      "dcat:isVersionOf": {
+        "@type": "@id"
+      },
+      "spdx:algorithm": {
+        "@type": "@id"
+      }
     }
-  },
+  ],
   "@id": "urn:uuid:630a1228-9dc9-5b27-bd3d-12eedf3ec634",
   "@type": "dcat:Catalog",
+  "dct:identifier": "630a1228-9dc9-5b27-bd3d-12eedf3ec634",
   "dct:title": "Boundary example: package s1_f2 v1.0.0",
   "dct:issued": "2026-11-16T00:00:00Z",
+  "dct:modified": "2026-11-16T00:00:00Z",
+  "dcat:version": "1.0.0",
   "dcat:dataset": [
     {
       "@id": "urn:uuid:07b06abb-0109-591d-9d2b-851219d017c2",
@@ -37,11 +177,24 @@
       "dct:description": "Feeder s1_f2 of substation s1: self-contained, with its substation and source.",
       "dct:issued": "2026-11-16T00:00:00Z",
       "dcat:version": "1.0.0",
+      "adms:versionNotes": "First release.",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s1_f2",
+      "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
       "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:accessRights": "public",
       "dct:publisher": {
+        "@id": "https://www.pnnl.gov/",
         "@type": "foaf:Organization",
         "foaf:name": "Pacific Northwest National Laboratory"
       },
+      "prov:wasGeneratedBy": {
+        "@type": "prov:Activity",
+        "rdfs:label": "CIMTBL-Models boundary_example build.py"
+      },
+      "dct:spatial": "urn:uuid:10e1ca63-2acf-5102-835e-20b78c908440",
+      "dct:conformsTo": [
+        "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+      ],
       "cim:FrameModel.perimeter": [
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
       ],
@@ -50,8 +203,28 @@
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
         "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95"
       ],
+      "gk:vocabularyVersion": "0.1.0",
+      "gk:modelClass": "gk:ModelClass.Generic",
+      "gk:useCase": "gk:UseCase.Representative",
+      "gk:primaryVoltage": 12.47,
+      "gk:voltageClass": 15,
+      "gk:mvConnection": "gk:Connection.WyeGrounded",
+      "gk:feederLength": 4.02,
+      "gk:loadCount": 2,
+      "gk:dgCount": 0,
+      "gk:fuseCount": 0,
+      "gk:recloserCount": 1,
+      "gk:sectionalizerCount": 0,
+      "gk:substationLTC": false,
+      "gk:regulatorCount": 0,
+      "gk:capacitorCount": 0,
+      "gk:lowVoltageNetwork": false,
+      "gk:geographicSpecificity": "gk:GeographicSpecificity.None",
+      "gk:multiFeederCompatible": true,
+      "gk:siblingGroup": "boundary_example/s1",
       "dcat:distribution": [
         {
+          "@id": "urn:uuid:a8e45d1c-7fd8-5599-b0e4-b1264fd93eb4",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "cimtbl/s1_f2.cimtbl",
           "dcat:mediaType": "text/plain",
@@ -66,6 +239,7 @@
           ]
         },
         {
+          "@id": "urn:uuid:82f4f876-7a8e-5f8e-9d86-ce293ffe422d",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "cimtbl/feeder_s1_f2.cimtbl",
           "dcat:mediaType": "text/plain",
@@ -80,25 +254,27 @@
           ]
         },
         {
+          "@id": "urn:uuid:bcf50fda-d46f-5c1c-a59a-9162f79cdcc0",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "s1_f2.xml",
           "dcat:mediaType": "application/rdf+xml",
-          "dcat:byteSize": 19812,
+          "dcat:byteSize": 22605,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-            "spdx:checksumValue": "46c9d8c1aad62db340ef5cfaafc914964d6a5c9eaf7b758ece1e1b5458033104"
+            "spdx:checksumValue": "9af071df40cec18cf0fdb73e3225264f591754aee2fe3a0953e53c3aca89d2b3"
           }
         },
         {
+          "@id": "urn:uuid:5cbebb72-99e8-56ad-bdeb-749b425f9a2e",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "s1_f2.jsonld",
           "dcat:mediaType": "application/ld+json",
-          "dcat:byteSize": 14643,
+          "dcat:byteSize": 19977,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-            "spdx:checksumValue": "e23663ef117e0be584a8feee1f944981539abdc6b548a3688fd4c84d0aca7030"
+            "spdx:checksumValue": "a0e50d75e271ea6bda6d084153e7cc1daeaca4be68376be9424b3748738af2d5"
           },
           "dct:conformsTo": [
             "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
@@ -116,13 +292,27 @@
       "dct:description": "Base voltages, the line impedance and the as-built ConnectedArea objects that every feeder of the example points at.",
       "dct:issued": "2026-11-16T00:00:00Z",
       "dcat:version": "1.0.0",
+      "adms:versionNotes": "First release.",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#reference",
+      "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
       "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:accessRights": "public",
       "dct:publisher": {
+        "@id": "https://www.pnnl.gov/",
         "@type": "foaf:Organization",
         "foaf:name": "Pacific Northwest National Laboratory"
       },
+      "prov:wasGeneratedBy": {
+        "@type": "prov:Activity",
+        "rdfs:label": "CIMTBL-Models boundary_example build.py"
+      },
+      "dct:spatial": "urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56",
+      "dct:conformsTo": [
+        "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+      ],
       "dcat:distribution": [
         {
+          "@id": "urn:uuid:80e7b4d2-ded1-5f9d-b1ed-5fcf48ab2549",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "cimtbl/catalog.cimtbl",
           "dcat:mediaType": "text/plain",
@@ -137,6 +327,7 @@
           ]
         },
         {
+          "@id": "urn:uuid:ef968dbc-1711-5714-8b9d-54a4bc4e367e",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "cimtbl/areas.cimtbl",
           "dcat:mediaType": "text/plain",
@@ -163,16 +354,27 @@
       "dct:description": "The connectivity nodes either side of each tie between feeders, and nothing else. Each names as its container the smallest ConnectedArea that contains both feeders.",
       "dct:issued": "2026-11-16T00:00:00Z",
       "dcat:version": "1.0.0",
+      "adms:versionNotes": "First release.",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#boundary",
+      "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
       "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:accessRights": "public",
       "dct:publisher": {
+        "@id": "https://www.pnnl.gov/",
         "@type": "foaf:Organization",
         "foaf:name": "Pacific Northwest National Laboratory"
       },
+      "prov:wasGeneratedBy": {
+        "@type": "prov:Activity",
+        "rdfs:label": "CIMTBL-Models boundary_example build.py"
+      },
+      "dct:spatial": "urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56",
       "dct:requires": [
         "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"
       ],
       "dcat:distribution": [
         {
+          "@id": "urn:uuid:3554dc2d-0f0b-554c-9af6-dde2972c2310",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "cimtbl/boundary.cimtbl",
           "dcat:mediaType": "text/plain",
@@ -187,25 +389,27 @@
           ]
         },
         {
+          "@id": "urn:uuid:6a81fec8-5f9e-54ce-8c3d-b95f28e893a5",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "boundary.xml",
           "dcat:mediaType": "application/rdf+xml",
-          "dcat:byteSize": 2506,
+          "dcat:byteSize": 3972,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-            "spdx:checksumValue": "3bcb16ac51774ebef6f75f891ac5a44cd64d538113708c3d1a6e6438d6f27232"
+            "spdx:checksumValue": "fe735d43fb5a34ea7433cc2f7e8fca2b76ebeb8b19b32c4e6efa6c723605dca3"
           }
         },
         {
+          "@id": "urn:uuid:ecb4bc5e-0122-544b-823d-ff8ccfcdb973",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "boundary.jsonld",
           "dcat:mediaType": "application/ld+json",
-          "dcat:byteSize": 2004,
+          "dcat:byteSize": 6388,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-            "spdx:checksumValue": "8b391b2b3029f24a7539b90ba782ee34dd69af54be5f7f1b9073d11a5cfc57af"
+            "spdx:checksumValue": "7ebfd0e9679f33a89503551473f5f555d9d73cb8c79bded58bb823ab18570503"
           },
           "dct:conformsTo": [
             "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
@@ -224,16 +428,30 @@
       "dct:description": "Substation s1 and its source, repeated in the package of each of its feeders so that each solves alone.",
       "dct:issued": "2026-11-16T00:00:00Z",
       "dcat:version": "1.0.0",
+      "adms:versionNotes": "First release.",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#substation_s1",
+      "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
       "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:accessRights": "public",
       "dct:publisher": {
+        "@id": "https://www.pnnl.gov/",
         "@type": "foaf:Organization",
         "foaf:name": "Pacific Northwest National Laboratory"
       },
+      "prov:wasGeneratedBy": {
+        "@type": "prov:Activity",
+        "rdfs:label": "CIMTBL-Models boundary_example build.py"
+      },
+      "dct:spatial": "urn:uuid:cd8b0a0e-0367-5b2c-98bb-7986a92e38c3",
+      "dct:conformsTo": [
+        "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+      ],
       "dct:requires": [
         "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"
       ],
       "dcat:distribution": [
         {
+          "@id": "urn:uuid:dbd30bff-f858-5126-8a79-79d5494d9bea",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "cimtbl/substation_s1.cimtbl",
           "dcat:mediaType": "text/plain",
@@ -260,11 +478,24 @@
       "dct:description": "The normally-open switches between feeders. Each belongs to the smallest ConnectedArea that contains both feeders. Loaded only where both sides of a tie are present.",
       "dct:issued": "2026-11-16T00:00:00Z",
       "dcat:version": "1.0.0",
+      "adms:versionNotes": "First release.",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#ties",
+      "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
       "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:accessRights": "public",
       "dct:publisher": {
+        "@id": "https://www.pnnl.gov/",
         "@type": "foaf:Organization",
         "foaf:name": "Pacific Northwest National Laboratory"
       },
+      "prov:wasGeneratedBy": {
+        "@type": "prov:Activity",
+        "rdfs:label": "CIMTBL-Models boundary_example build.py"
+      },
+      "dct:spatial": "urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56",
+      "dct:conformsTo": [
+        "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+      ],
       "cim:FrameModel.perimeter": [
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
       ],
@@ -274,6 +505,7 @@
       ],
       "dcat:distribution": [
         {
+          "@id": "urn:uuid:5ba7183e-7d5a-580d-b938-b1a9f9efefc6",
           "@type": "dcat:Distribution",
           "dcat:accessURL": "cimtbl/ties.cimtbl",
           "dcat:mediaType": "text/plain",

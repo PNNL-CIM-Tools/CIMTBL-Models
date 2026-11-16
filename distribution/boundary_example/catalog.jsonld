@@ -1,47 +1,74 @@
 {
-  "@context": {
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "dct": "http://purl.org/dc/terms/",
-    "spdx": "http://spdx.org/rdf/terms#",
-    "foaf": "http://xmlns.com/foaf/0.1/",
-    "cim": "http://cim.ucaiug.io/cim101/draft#",
-    "cim:FrameModel.perimeter": {
-      "@type": "@id",
-      "@container": "@set"
-    },
-    "dct:requires": {
-      "@type": "@id",
-      "@container": "@set"
-    },
-    "dct:conformsTo": {
-      "@type": "@id",
-      "@container": "@set"
-    },
-    "dct:license": {
-      "@type": "@id"
+  "@context": [
+    "https://gridkitchen.pnnl.gov/ns/dcat-us/3.0.0/context.jsonld",
+    "https://gridkitchen.pnnl.gov/ns/gk/0.1.0/context.jsonld",
+    {
+      "cim": "http://cim.ucaiug.io/cim101/draft#",
+      "dct": "http://purl.org/dc/terms/",
+      "cim:FrameModel.perimeter": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dct:requires": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dct:spatial": {
+        "@type": "@id"
+      }
     }
-  },
+  ],
+  "@type": "Catalog",
   "@id": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/catalog.jsonld",
-  "@type": "dcat:Catalog",
-  "dct:title": "Boundary example",
-  "dct:modified": "2026-11-16T00:00:00Z",
-  "dcat:dataset": [
+  "title": "Boundary example",
+  "description": "Five feeder packages joined by boundary nodes.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pacific Northwest National Laboratory"
+  },
+  "modified": "2026-11-16T00:00:00Z",
+  "dataset": [
     {
+      "@type": [
+        "Dataset",
+        "cim:FrameModel"
+      ],
       "@id": "urn:uuid:b9f0e07d-5981-5124-afe6-6cd85803890a",
-      "@type": [
-        "dcat:Dataset",
-        "cim:FrameModel"
-      ],
-      "dct:identifier": "b9f0e07d-5981-5124-afe6-6cd85803890a",
-      "dct:title": "Boundary example: feeder s1_f1",
-      "dct:description": "Feeder s1_f1 of substation s1: self-contained, with its substation and source.",
-      "dct:issued": "2026-11-16T00:00:00Z",
-      "dcat:version": "1.0.0",
-      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-      "dct:publisher": {
-        "@type": "foaf:Organization",
-        "foaf:name": "Pacific Northwest National Laboratory"
+      "identifier": "b9f0e07d-5981-5124-afe6-6cd85803890a",
+      "title": "Boundary example: feeder s1_f1 v1.0.0",
+      "description": "Feeder s1_f1 of substation s1: self-contained, with its substation and source.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
       },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s1_f1",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:b47509bd-965c-507b-9bf1-c5dc5f385aab",
       "cim:FrameModel.perimeter": [
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
       ],
@@ -50,31 +77,80 @@
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
         "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95"
       ],
-      "dcat:distribution": [
+      "landingPage": {
+        "@type": "Document",
+        "@id": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f1",
+        "title": "s1_f1 version 1.0.0"
+      },
+      "distribution": [
         {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f1",
-          "dct:title": "Package s1_f1",
-          "dcat:packageFormat": "application/zip"
+          "@type": "Distribution",
+          "title": "CIM .cimtbl, RDF XML and JSON-LD package",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f1",
+          "packageFormat": "application/zip"
         }
-      ]
+      ],
+      "gk:vocabularyVersion": "0.1.0",
+      "gk:modelClass": "gk:ModelClass.Generic",
+      "gk:useCase": "gk:UseCase.Representative",
+      "gk:primaryVoltage": 12.47,
+      "gk:voltageClass": 15,
+      "gk:mvConnection": "gk:Connection.WyeGrounded",
+      "gk:feederLength": 4.02,
+      "gk:loadCount": 2,
+      "gk:dgCount": 0,
+      "gk:fuseCount": 0,
+      "gk:recloserCount": 1,
+      "gk:sectionalizerCount": 0,
+      "gk:substationLTC": false,
+      "gk:regulatorCount": 0,
+      "gk:capacitorCount": 0,
+      "gk:lowVoltageNetwork": false,
+      "gk:geographicSpecificity": "gk:GeographicSpecificity.None",
+      "gk:multiFeederCompatible": true,
+      "gk:siblingGroup": "boundary_example/s1"
     },
     {
+      "@type": [
+        "Dataset",
+        "cim:FrameModel"
+      ],
       "@id": "urn:uuid:07b06abb-0109-591d-9d2b-851219d017c2",
-      "@type": [
-        "dcat:Dataset",
-        "cim:FrameModel"
-      ],
-      "dct:identifier": "07b06abb-0109-591d-9d2b-851219d017c2",
-      "dct:title": "Boundary example: feeder s1_f2",
-      "dct:description": "Feeder s1_f2 of substation s1: self-contained, with its substation and source.",
-      "dct:issued": "2026-11-16T00:00:00Z",
-      "dcat:version": "1.0.0",
-      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-      "dct:publisher": {
-        "@type": "foaf:Organization",
-        "foaf:name": "Pacific Northwest National Laboratory"
+      "identifier": "07b06abb-0109-591d-9d2b-851219d017c2",
+      "title": "Boundary example: feeder s1_f2 v1.0.0",
+      "description": "Feeder s1_f2 of substation s1: self-contained, with its substation and source.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
       },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s1_f2",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:10e1ca63-2acf-5102-835e-20b78c908440",
       "cim:FrameModel.perimeter": [
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
       ],
@@ -83,31 +159,80 @@
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
         "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95"
       ],
-      "dcat:distribution": [
+      "landingPage": {
+        "@type": "Document",
+        "@id": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f2",
+        "title": "s1_f2 version 1.0.0"
+      },
+      "distribution": [
         {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f2",
-          "dct:title": "Package s1_f2",
-          "dcat:packageFormat": "application/zip"
+          "@type": "Distribution",
+          "title": "CIM .cimtbl, RDF XML and JSON-LD package",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f2",
+          "packageFormat": "application/zip"
         }
-      ]
+      ],
+      "gk:vocabularyVersion": "0.1.0",
+      "gk:modelClass": "gk:ModelClass.Generic",
+      "gk:useCase": "gk:UseCase.Representative",
+      "gk:primaryVoltage": 12.47,
+      "gk:voltageClass": 15,
+      "gk:mvConnection": "gk:Connection.WyeGrounded",
+      "gk:feederLength": 4.02,
+      "gk:loadCount": 2,
+      "gk:dgCount": 0,
+      "gk:fuseCount": 0,
+      "gk:recloserCount": 1,
+      "gk:sectionalizerCount": 0,
+      "gk:substationLTC": false,
+      "gk:regulatorCount": 0,
+      "gk:capacitorCount": 0,
+      "gk:lowVoltageNetwork": false,
+      "gk:geographicSpecificity": "gk:GeographicSpecificity.None",
+      "gk:multiFeederCompatible": true,
+      "gk:siblingGroup": "boundary_example/s1"
     },
     {
+      "@type": [
+        "Dataset",
+        "cim:FrameModel"
+      ],
       "@id": "urn:uuid:3de64bbd-d2cf-5254-a9a1-728f20551e9c",
-      "@type": [
-        "dcat:Dataset",
-        "cim:FrameModel"
-      ],
-      "dct:identifier": "3de64bbd-d2cf-5254-a9a1-728f20551e9c",
-      "dct:title": "Boundary example: feeder s1_f3",
-      "dct:description": "Feeder s1_f3 of substation s1: self-contained, with its substation and source.",
-      "dct:issued": "2026-11-16T00:00:00Z",
-      "dcat:version": "1.0.0",
-      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-      "dct:publisher": {
-        "@type": "foaf:Organization",
-        "foaf:name": "Pacific Northwest National Laboratory"
+      "identifier": "3de64bbd-d2cf-5254-a9a1-728f20551e9c",
+      "title": "Boundary example: feeder s1_f3 v1.0.0",
+      "description": "Feeder s1_f3 of substation s1: self-contained, with its substation and source.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
       },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s1_f3",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:375701e7-ddd3-5ab4-b2f8-4fc7dedab645",
       "cim:FrameModel.perimeter": [
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
       ],
@@ -116,31 +241,80 @@
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
         "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95"
       ],
-      "dcat:distribution": [
+      "landingPage": {
+        "@type": "Document",
+        "@id": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f3",
+        "title": "s1_f3 version 1.0.0"
+      },
+      "distribution": [
         {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f3",
-          "dct:title": "Package s1_f3",
-          "dcat:packageFormat": "application/zip"
+          "@type": "Distribution",
+          "title": "CIM .cimtbl, RDF XML and JSON-LD package",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s1_f3",
+          "packageFormat": "application/zip"
         }
-      ]
+      ],
+      "gk:vocabularyVersion": "0.1.0",
+      "gk:modelClass": "gk:ModelClass.Generic",
+      "gk:useCase": "gk:UseCase.Representative",
+      "gk:primaryVoltage": 12.47,
+      "gk:voltageClass": 15,
+      "gk:mvConnection": "gk:Connection.WyeGrounded",
+      "gk:feederLength": 4.02,
+      "gk:loadCount": 2,
+      "gk:dgCount": 0,
+      "gk:fuseCount": 0,
+      "gk:recloserCount": 1,
+      "gk:sectionalizerCount": 0,
+      "gk:substationLTC": false,
+      "gk:regulatorCount": 0,
+      "gk:capacitorCount": 0,
+      "gk:lowVoltageNetwork": false,
+      "gk:geographicSpecificity": "gk:GeographicSpecificity.None",
+      "gk:multiFeederCompatible": true,
+      "gk:siblingGroup": "boundary_example/s1"
     },
     {
-      "@id": "urn:uuid:49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
       "@type": [
-        "dcat:Dataset",
+        "Dataset",
         "cim:FrameModel"
       ],
-      "dct:identifier": "49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
-      "dct:title": "Boundary example: feeder s2_f1",
-      "dct:description": "Feeder s2_f1 of substation s2: self-contained, with its substation and source.",
-      "dct:issued": "2026-11-16T00:00:00Z",
-      "dcat:version": "1.0.0",
-      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-      "dct:publisher": {
-        "@type": "foaf:Organization",
-        "foaf:name": "Pacific Northwest National Laboratory"
+      "@id": "urn:uuid:49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
+      "identifier": "49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
+      "title": "Boundary example: feeder s2_f1 v1.0.0",
+      "description": "Feeder s2_f1 of substation s2: self-contained, with its substation and source.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
       },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s2_f1",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:19c5b9e9-ea35-510b-a400-5484252d213e",
       "cim:FrameModel.perimeter": [
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
       ],
@@ -149,97 +323,342 @@
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
         "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5"
       ],
-      "dcat:distribution": [
+      "landingPage": {
+        "@type": "Document",
+        "@id": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f1",
+        "title": "s2_f1 version 1.0.0"
+      },
+      "distribution": [
         {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f1",
-          "dct:title": "Package s2_f1",
-          "dcat:packageFormat": "application/zip"
+          "@type": "Distribution",
+          "title": "CIM .cimtbl, RDF XML and JSON-LD package",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f1",
+          "packageFormat": "application/zip"
         }
-      ]
+      ],
+      "gk:vocabularyVersion": "0.1.0",
+      "gk:modelClass": "gk:ModelClass.Generic",
+      "gk:useCase": "gk:UseCase.Representative",
+      "gk:primaryVoltage": 13.2,
+      "gk:voltageClass": 15,
+      "gk:mvConnection": "gk:Connection.WyeGrounded",
+      "gk:feederLength": 4.02,
+      "gk:loadCount": 2,
+      "gk:dgCount": 0,
+      "gk:fuseCount": 0,
+      "gk:recloserCount": 1,
+      "gk:sectionalizerCount": 0,
+      "gk:substationLTC": false,
+      "gk:regulatorCount": 0,
+      "gk:capacitorCount": 0,
+      "gk:lowVoltageNetwork": false,
+      "gk:geographicSpecificity": "gk:GeographicSpecificity.None",
+      "gk:multiFeederCompatible": true,
+      "gk:siblingGroup": "boundary_example/s2"
     },
     {
-      "@id": "urn:uuid:14afb0b1-56df-5924-919f-2d51dda92c91",
       "@type": [
-        "dcat:Dataset",
+        "Dataset",
         "cim:FrameModel"
       ],
-      "dct:identifier": "14afb0b1-56df-5924-919f-2d51dda92c91",
-      "dct:title": "Boundary example: feeder s2_f2",
-      "dct:description": "Feeder s2_f2 of substation s2: self-contained, with its substation and source.",
-      "dct:issued": "2026-11-16T00:00:00Z",
-      "dcat:version": "1.0.0",
-      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-      "dct:publisher": {
-        "@type": "foaf:Organization",
-        "foaf:name": "Pacific Northwest National Laboratory"
+      "@id": "urn:uuid:14afb0b1-56df-5924-919f-2d51dda92c91",
+      "identifier": "14afb0b1-56df-5924-919f-2d51dda92c91",
+      "title": "Boundary example: feeder s2_f2 v1.0.0",
+      "description": "Feeder s2_f2 of substation s2: self-contained, with its substation and source.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
       },
-      "cim:FrameModel.perimeter": [],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s2_f2",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:76be0c6a-0699-5d28-a7cf-3eb64d0a326c",
       "dct:requires": [
         "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
         "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5"
       ],
-      "dcat:distribution": [
+      "landingPage": {
+        "@type": "Document",
+        "@id": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f2",
+        "title": "s2_f2 version 1.0.0"
+      },
+      "distribution": [
         {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f2",
-          "dct:title": "Package s2_f2",
-          "dcat:packageFormat": "application/zip"
+          "@type": "Distribution",
+          "title": "CIM .cimtbl, RDF XML and JSON-LD package",
+          "accessURL": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example/packages/s2_f2",
+          "packageFormat": "application/zip"
         }
-      ]
-    },
-    {
-      "@id": "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
-      "@type": [
-        "dcat:Dataset"
       ],
-      "dct:identifier": "2eef0934-f0f0-5990-87ee-c7c28def2a93",
-      "dct:title": "Boundary example: reference data",
-      "dct:description": "Base voltages, the line impedance and the as-built ConnectedArea objects that every feeder of the example points at."
+      "gk:vocabularyVersion": "0.1.0",
+      "gk:modelClass": "gk:ModelClass.Generic",
+      "gk:useCase": "gk:UseCase.Representative",
+      "gk:primaryVoltage": 13.2,
+      "gk:voltageClass": 15,
+      "gk:mvConnection": "gk:Connection.WyeGrounded",
+      "gk:feederLength": 4.02,
+      "gk:loadCount": 2,
+      "gk:dgCount": 0,
+      "gk:fuseCount": 0,
+      "gk:recloserCount": 1,
+      "gk:sectionalizerCount": 0,
+      "gk:substationLTC": false,
+      "gk:regulatorCount": 0,
+      "gk:capacitorCount": 0,
+      "gk:lowVoltageNetwork": false,
+      "gk:geographicSpecificity": "gk:GeographicSpecificity.None",
+      "gk:multiFeederCompatible": true,
+      "gk:siblingGroup": "boundary_example/s2"
     },
     {
-      "@id": "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
       "@type": [
-        "dcat:Dataset",
+        "Dataset"
+      ],
+      "@id": "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+      "identifier": "2eef0934-f0f0-5990-87ee-c7c28def2a93",
+      "title": "Boundary example: reference data v1.0.0",
+      "description": "Base voltages, the line impedance and the as-built ConnectedArea objects that every feeder of the example points at.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#reference",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"
+    },
+    {
+      "@type": [
+        "Dataset",
         "cim:BoundaryModel"
       ],
-      "dct:identifier": "e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
-      "dct:title": "Boundary example: boundary model",
-      "dct:description": "The connectivity nodes either side of each tie between feeders, and nothing else. Each names as its container the smallest ConnectedArea that contains both feeders."
+      "@id": "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+      "identifier": "e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+      "title": "Boundary example: boundary model v1.0.0",
+      "description": "The connectivity nodes either side of each tie between feeders, and nothing else. Each names as its container the smallest ConnectedArea that contains both feeders.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#boundary",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56",
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"
+      ]
     },
     {
-      "@id": "urn:uuid:f63c3e25-4846-57ff-b283-0b99892dd0b4",
       "@type": [
-        "dcat:Dataset",
+        "Dataset",
         "cim:FrameModel"
       ],
-      "dct:identifier": "f63c3e25-4846-57ff-b283-0b99892dd0b4",
-      "dct:title": "Boundary example: ties between feeders",
-      "dct:description": "The normally-open switches between feeders. Each belongs to the smallest ConnectedArea that contains both feeders. Loaded only where both sides of a tie are present.",
+      "@id": "urn:uuid:f63c3e25-4846-57ff-b283-0b99892dd0b4",
+      "identifier": "f63c3e25-4846-57ff-b283-0b99892dd0b4",
+      "title": "Boundary example: ties between feeders v1.0.0",
+      "description": "The normally-open switches between feeders. Each belongs to the smallest ConnectedArea that contains both feeders. Loaded only where both sides of a tie are present.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#ties",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56",
       "cim:FrameModel.perimeter": [
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ],
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
         "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
       ]
     },
     {
-      "@id": "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95",
       "@type": [
-        "dcat:Dataset",
+        "Dataset",
         "cim:FrameModel"
       ],
-      "dct:identifier": "e01db535-8c51-5697-92cc-10427e8d9b95",
-      "dct:title": "Boundary example: substation s1",
-      "dct:description": "Substation s1 and its source, repeated in the package of each of its feeders so that each solves alone."
+      "@id": "urn:uuid:e01db535-8c51-5697-92cc-10427e8d9b95",
+      "identifier": "e01db535-8c51-5697-92cc-10427e8d9b95",
+      "title": "Boundary example: substation s1 v1.0.0",
+      "description": "Substation s1 and its source, repeated in the package of each of its feeders so that each solves alone.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#substation_s1",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:cd8b0a0e-0367-5b2c-98bb-7986a92e38c3",
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"
+      ]
     },
     {
-      "@id": "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5",
       "@type": [
-        "dcat:Dataset",
+        "Dataset",
         "cim:FrameModel"
       ],
-      "dct:identifier": "d84f0aaf-43be-54bc-95f2-a6987c4246a5",
-      "dct:title": "Boundary example: substation s2",
-      "dct:description": "Substation s2 and its source, repeated in the package of each of its feeders so that each solves alone."
+      "@id": "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5",
+      "identifier": "d84f0aaf-43be-54bc-95f2-a6987c4246a5",
+      "title": "Boundary example: substation s2 v1.0.0",
+      "description": "Substation s2 and its source, repeated in the package of each of its feeders so that each solves alone.",
+      "contactPoint": {
+        "@type": "Kind",
+        "fn": "CIMTBL-Models",
+        "hasEmail": "mailto:example@example.org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pacific Northwest National Laboratory"
+      },
+      "issued": "2026-11-16T00:00:00Z",
+      "modified": "2026-11-16T00:00:00Z",
+      "version": "1.0.0",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#substation_s2",
+      "keyword": [
+        "CIM",
+        "distribution feeder",
+        "boundary model",
+        "ConnectedArea"
+      ],
+      "theme": [
+        "Energy"
+      ],
+      "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "accessRights": "public",
+      "conformsTo": [
+        {
+          "@type": "Standard",
+          "identifier": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
+          "title": "CIM-Profiles cim18v17 SI units"
+        }
+      ],
+      "dct:spatial": "urn:uuid:cef1982f-56b4-53c6-b4aa-ef6e33a8d1df",
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93"
+      ]
     }
   ]
 }

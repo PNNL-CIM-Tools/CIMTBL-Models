@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/#" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<md:FullModel rdf:about="urn:uuid:46a13898-942b-5ec9-bfd8-0b41309682b8">
-  <md:Model.created>2026-11-16T00:00:00Z</md:Model.created>
-  <md:Model.description>boundary_example</md:Model.description>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:gk="https://gridkitchen.pnnl.gov/ns/gk#" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:nc="http://entsoe.eu/ns/nc#">
+<dcat:Dataset rdf:about="urn:uuid:46a13898-942b-5ec9-bfd8-0b41309682b8">
+  <rdf:type rdf:resource="http://cim.ucaiug.io/cim101/draft#GridAssembly"/>
+  <dcterms:identifier>46a13898-942b-5ec9-bfd8-0b41309682b8</dcterms:identifier>
+  <dcterms:title>Boundary example: assembled</dcterms:title>
+  <dcterms:description>All five feeders, their substations and the ties.</dcterms:description>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+  <dcat:version>1.0.0</dcat:version>
+  <adms:versionNotes>First release.</adms:versionNotes>
+  <dcat:isVersionOf rdf:resource="https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#assembled"/>
   <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
-</md:FullModel>
+  <dcterms:license rdf:resource="https://spdx.org/licenses/BSD-3-Clause.html"/>
+  <dcterms:accessRights>public</dcterms:accessRights>
+  <dcterms:publisher>
+    <foaf:Organization rdf:about="https://www.pnnl.gov/">
+      <foaf:name>Pacific Northwest National Laboratory</foaf:name>
+    </foaf:Organization>
+  </dcterms:publisher>
+  <prov:wasGeneratedBy>
+    <prov:Activity>
+      <rdfs:label>CIMTBL-Models boundary_example build.py</rdfs:label>
+    </prov:Activity>
+  </prov:wasGeneratedBy>
+  <dcterms:spatial rdf:resource="urn:uuid:da287db8-4899-5620-9bf9-77d56d11cc56"/>
+  <dcterms:conformsTo rdf:resource="https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"/>
+</dcat:Dataset>
 <cim:ModelAuthority rdf:about="urn:uuid:881bacb7-3490-5cab-9b26-140c7784fdc4">
   <cim:IdentifiedObject.name>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</cim:IdentifiedObject.name>
 </cim:ModelAuthority>

@@ -2,21 +2,219 @@
   "@context": [
     "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
     {
-      "dcat": "http://www.w3.org/ns/dcat#",
-      "dct": "http://purl.org/dc/terms/"
+      "gk": "https://gridkitchen.pnnl.gov/ns/gk#",
+      "dqv": "http://www.w3.org/ns/dqv#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "spdx": "http://spdx.org/rdf/terms#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "adms": "http://www.w3.org/ns/adms#",
+      "prov": "http://www.w3.org/ns/prov#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "org": "http://www.w3.org/ns/org#",
+      "gk:modelClass": {
+        "@type": "@id"
+      },
+      "gk:useCase": {
+        "@type": "@id"
+      },
+      "gk:application": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "gk:regionClass": {
+        "@type": "@id"
+      },
+      "gk:setting": {
+        "@type": "@id"
+      },
+      "gk:settingShares": {
+        "@container": "@list"
+      },
+      "gk:share": {
+        "@type": "xsd:decimal"
+      },
+      "gk:climateRegion": {
+        "@type": "@id"
+      },
+      "gk:primaryVoltage": {
+        "@type": "xsd:decimal"
+      },
+      "gk:voltageClass": {
+        "@type": "xsd:decimal"
+      },
+      "gk:hvConnection": {
+        "@type": "@id"
+      },
+      "gk:mvConnection": {
+        "@type": "@id"
+      },
+      "gk:lvConnection": {
+        "@type": "@id"
+      },
+      "gk:feederLength": {
+        "@type": "xsd:decimal"
+      },
+      "gk:undergroundShare": {
+        "@type": "xsd:decimal"
+      },
+      "gk:loadCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:customerCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:loadSizeDistribution": {
+        "@container": "@list"
+      },
+      "gk:dgSizeDistribution": {
+        "@container": "@list"
+      },
+      "gk:lowerBound": {
+        "@type": "xsd:decimal"
+      },
+      "gk:upperBound": {
+        "@type": "xsd:decimal"
+      },
+      "gk:dgCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:dgCapacityAC": {
+        "@type": "xsd:decimal"
+      },
+      "gk:evCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:fuseCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:recloserCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:sectionalizerCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:regulatorCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:capacitorCount": {
+        "@type": "xsd:integer"
+      },
+      "gk:secondaryModeling": {
+        "@type": "@id"
+      },
+      "gk:geographicSpecificity": {
+        "@type": "@id"
+      },
+      "gk:siblingGroup": {
+        "@type": "xsd:string"
+      },
+      "gk:contentHash": {
+        "@type": "xsd:string"
+      },
+      "gk:component": {
+        "@type": "@id"
+      },
+      "gk:provenanceLevel": {
+        "@type": "@id"
+      },
+      "gk:archiveKey": {
+        "@type": "xsd:string"
+      },
+      "dqv:hasQualityMeasurement": {
+        "@container": "@set"
+      },
+      "dqv:isMeasurementOf": {
+        "@type": "@id"
+      },
+      "dqv:value": {
+        "@type": "xsd:decimal"
+      }
+    },
+    {
+      "cim:FrameModel.perimeter": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dct:requires": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dct:conformsTo": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dct:license": {
+        "@type": "@id"
+      },
+      "dct:spatial": {
+        "@type": "@id"
+      },
+      "dcat:isVersionOf": {
+        "@type": "@id"
+      },
+      "spdx:algorithm": {
+        "@type": "@id"
+      }
     }
   ],
   "@graph": [
     {
       "@id": "urn:uuid:49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
-      "@type": "dcat:Dataset",
+      "@type": [
+        "dcat:Dataset",
+        "cim:FrameModel"
+      ],
       "dct:identifier": "49f3d326-4d5c-587f-ac0e-51d7ab1f9c75",
       "dct:title": "Boundary example: feeder s2_f1",
+      "dct:description": "Feeder s2_f1 of substation s2: self-contained, with its substation and source.",
       "dct:issued": "2026-11-16T00:00:00Z",
       "dcat:version": "1.0.0",
+      "adms:versionNotes": "First release.",
+      "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#s2_f1",
+      "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
+      "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+      "dct:accessRights": "public",
+      "dct:publisher": {
+        "@id": "https://www.pnnl.gov/",
+        "@type": "foaf:Organization",
+        "foaf:name": "Pacific Northwest National Laboratory"
+      },
+      "prov:wasGeneratedBy": {
+        "@type": "prov:Activity",
+        "rdfs:label": "CIMTBL-Models boundary_example build.py"
+      },
+      "dct:spatial": "urn:uuid:19c5b9e9-ea35-510b-a400-5484252d213e",
       "dct:conformsTo": [
         "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
-      ]
+      ],
+      "cim:FrameModel.perimeter": [
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8"
+      ],
+      "dct:requires": [
+        "urn:uuid:2eef0934-f0f0-5990-87ee-c7c28def2a93",
+        "urn:uuid:e8baaefb-7f4c-56c3-b6e2-4b0382029fd8",
+        "urn:uuid:d84f0aaf-43be-54bc-95f2-a6987c4246a5"
+      ],
+      "gk:vocabularyVersion": "0.1.0",
+      "gk:modelClass": "gk:ModelClass.Generic",
+      "gk:useCase": "gk:UseCase.Representative",
+      "gk:primaryVoltage": 13.2,
+      "gk:voltageClass": 15,
+      "gk:mvConnection": "gk:Connection.WyeGrounded",
+      "gk:feederLength": 4.02,
+      "gk:loadCount": 2,
+      "gk:dgCount": 0,
+      "gk:fuseCount": 0,
+      "gk:recloserCount": 1,
+      "gk:sectionalizerCount": 0,
+      "gk:substationLTC": false,
+      "gk:regulatorCount": 0,
+      "gk:capacitorCount": 0,
+      "gk:lowVoltageNetwork": false,
+      "gk:geographicSpecificity": "gk:GeographicSpecificity.None",
+      "gk:multiFeederCompatible": true,
+      "gk:siblingGroup": "boundary_example/s2"
     },
     {
       "@id": "urn:uuid:881bacb7-3490-5cab-9b26-140c7784fdc4",
