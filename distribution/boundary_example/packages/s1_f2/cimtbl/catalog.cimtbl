@@ -1,4 +1,5 @@
-# Objects every feeder of the example points at. Identical in every package.
+# Reference data: base voltages and the line impedance that every frame points at. Identical in
+# every package.
 #
 # Illustrative values: this model shows how areas and boundaries are written, not a real system.
 

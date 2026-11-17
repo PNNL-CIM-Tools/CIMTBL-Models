@@ -1,0 +1,28 @@
+{
+  "@context": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:uuid:12c5e636-b1df-558e-a9ae-e2ec7fd55e96",
+      "@type": "cim:EnergySource",
+      "cim:EnergySource.nominalVoltage": "12470",
+      "cim:EnergySource.r": "0.11107",
+      "cim:EnergySource.x": "1.1107",
+      "cim:EnergySource.voltageAngle": "0",
+      "cim:EnergySource.voltageMagnitude": "12470",
+      "cim:EnergySource.r0": "0.11107",
+      "cim:EnergySource.x0": "1.1107",
+      "cim:ConductingEquipment.BaseVoltage": "urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57",
+      "cim:Equipment.EquipmentContainer": "urn:uuid:dae9e879-540c-56fd-8c6a-17b15508bbdc",
+      "cim:IdentifiedObject.mRID": "src_s1",
+      "cim:IdentifiedObject.name": "s1"
+    },
+    {
+      "@id": "urn:uuid:cbf5c610-118a-58fb-9d84-9e689fcb1ba5",
+      "@type": "cim:Terminal",
+      "cim:Terminal.ConductingEquipment": "urn:uuid:12c5e636-b1df-558e-a9ae-e2ec7fd55e96",
+      "cim:Terminal.ConnectivityNode": "urn:uuid:e106dbfd-cee9-53d4-8375-b47bb2c73a9f",
+      "cim:ACDCTerminal.sequenceNumber": "1",
+      "cim:IdentifiedObject.mRID": "src_s1_T1"
+    }
+  ]
+}

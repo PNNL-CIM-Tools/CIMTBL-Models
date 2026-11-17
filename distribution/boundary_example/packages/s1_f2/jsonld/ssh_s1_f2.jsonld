@@ -1,0 +1,22 @@
+{
+  "@context": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:uuid:b8e567b4-74f4-53e3-81a9-8d166f3a4ce8",
+      "@type": "cim:EnergyConsumer",
+      "cim:EnergyConsumer.p": "800000",
+      "cim:EnergyConsumer.q": "200000"
+    },
+    {
+      "@id": "urn:uuid:d4c23d98-9545-5114-9733-5badc91723e0",
+      "@type": "cim:EnergyConsumer",
+      "cim:EnergyConsumer.p": "500000",
+      "cim:EnergyConsumer.q": "120000"
+    },
+    {
+      "@id": "urn:uuid:3c383e66-c7b0-50f1-b1de-2c6df89655b8",
+      "@type": "cim:Recloser",
+      "cim:Switch.open": "false"
+    }
+  ]
+}

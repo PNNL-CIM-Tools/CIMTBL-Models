@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<cim:EnergyConsumer rdf:about="urn:uuid:18a213eb-2b05-5226-9b6e-ebbcdd5a9146">
+  <cim:EnergyConsumer.p>800000.0</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>200000.0</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:EnergyConsumer rdf:about="urn:uuid:841a55f9-d007-53af-85d2-5315f6aa6362">
+  <cim:EnergyConsumer.p>500000.0</cim:EnergyConsumer.p>
+  <cim:EnergyConsumer.q>120000.0</cim:EnergyConsumer.q>
+</cim:EnergyConsumer>
+<cim:Recloser rdf:about="urn:uuid:a4e151d1-fad3-57a5-9291-f5bd7e8c734c">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:Recloser>
+</rdf:RDF>

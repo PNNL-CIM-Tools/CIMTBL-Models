@@ -16,9 +16,9 @@ source, the translation decisions, and how the model differs from the others.
 
 ## Boundary example
 
-[`boundary_example`](boundary_example) is a made-up model of two substations and five feeders with two ties. It
-shows boundary nodes defined together with `ConnectedArea`, each feeder as a self-contained package with DCAT
-metadata, and the five packages joining into one model.
+[`boundary_example`](boundary_example) is a made-up model of two substations and five feeders with two ties,
+organised as frames and boundaries after the GB Grid Code Planning Code (PC.G.3, modification GC0139). Each
+feeder is a self-contained package with DCAT metadata, and the five packages join into one model.
 
 ## Transformer templates
 

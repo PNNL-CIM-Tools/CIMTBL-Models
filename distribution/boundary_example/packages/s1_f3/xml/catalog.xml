@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<cim:BaseVoltage rdf:about="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241">
+  <cim:Identity.identifier>217958b4-53cb-5416-a7ae-375f00b81241</cim:Identity.identifier>
+  <cim:BaseVoltage.nominalVoltage>13200.0</cim:BaseVoltage.nominalVoltage>
+  <cim:IdentifiedObject.mRID>bv_13p2kv</cim:IdentifiedObject.mRID>
+</cim:BaseVoltage>
+<cim:BaseVoltage rdf:about="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57">
+  <cim:Identity.identifier>af05b919-1762-5348-8ee3-6f1dc1376a57</cim:Identity.identifier>
+  <cim:BaseVoltage.nominalVoltage>12470.0</cim:BaseVoltage.nominalVoltage>
+  <cim:IdentifiedObject.mRID>bv_12p47kv</cim:IdentifiedObject.mRID>
+</cim:BaseVoltage>
+<cim:PerLengthSequenceImpedance rdf:about="urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5">
+  <cim:Identity.identifier>0f702510-68a1-543f-822a-f8d9c8a95bc5</cim:Identity.identifier>
+  <cim:PerLengthSequenceImpedance.r>0.00019013958482462417</cim:PerLengthSequenceImpedance.r>
+  <cim:PerLengthSequenceImpedance.x>0.0003895997375328084</cim:PerLengthSequenceImpedance.x>
+  <cim:PerLengthSequenceImpedance.r0>0.00036785174580450164</cim:PerLengthSequenceImpedance.r0>
+  <cim:PerLengthSequenceImpedance.x0>0.001174391553328561</cim:PerLengthSequenceImpedance.x0>
+  <cim:IdentifiedObject.mRID>lc_336_acsr</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>336 ACSR</cim:IdentifiedObject.name>
+</cim:PerLengthSequenceImpedance>
+</rdf:RDF>

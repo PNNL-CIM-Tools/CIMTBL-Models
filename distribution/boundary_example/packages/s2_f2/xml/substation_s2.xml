@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<cim:EnergySource rdf:about="urn:uuid:732ba5b5-6f82-5c16-98ab-c704820d8a42">
+  <cim:Identity.identifier>732ba5b5-6f82-5c16-98ab-c704820d8a42</cim:Identity.identifier>
+  <cim:EnergySource.nominalVoltage>13200.0</cim:EnergySource.nominalVoltage>
+  <cim:EnergySource.r>0.12446</cim:EnergySource.r>
+  <cim:EnergySource.x>1.2446</cim:EnergySource.x>
+  <cim:EnergySource.voltageAngle>0.0</cim:EnergySource.voltageAngle>
+  <cim:EnergySource.voltageMagnitude>13200.0</cim:EnergySource.voltageMagnitude>
+  <cim:EnergySource.r0>0.12446</cim:EnergySource.r0>
+  <cim:EnergySource.x0>1.2446</cim:EnergySource.x0>
+  <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
+  <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
+  <cim:IdentifiedObject.mRID>src_s2</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>s2</cim:IdentifiedObject.name>
+</cim:EnergySource>
+<cim:Terminal rdf:about="urn:uuid:df6879e6-614d-5943-8834-97ea4ba814ce">
+  <cim:Identity.identifier>df6879e6-614d-5943-8834-97ea4ba814ce</cim:Identity.identifier>
+  <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:732ba5b5-6f82-5c16-98ab-c704820d8a42"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018"/>
+  <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+  <cim:IdentifiedObject.mRID>src_s2_T1</cim:IdentifiedObject.mRID>
+</cim:Terminal>
+</rdf:RDF>

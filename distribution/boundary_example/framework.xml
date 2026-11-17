@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:cim="http://cim.ucaiug.io/cim101/draft#">
+<cim:FrameworkEdition rdf:about="urn:uuid:26d7a86c-4775-5658-9fca-925fa9f3147c">
+  <dcterms:title>Boundary example framework, edition 1</dcterms:title>
+  <dcterms:issued>2026-11-16T00:00:00Z</dcterms:issued>
+</cim:FrameworkEdition>
+<cim:Frame rdf:about="urn:uuid:227c5eee-5bea-50e1-bdd1-e257d827e3ad">
+  <dcterms:title>Frame s1</dcterms:title>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:b4155549-0aa0-5fa5-8d7a-f28d925bb5d6"/>
+  <cim:Frame.includedIn rdf:resource="urn:uuid:26d7a86c-4775-5658-9fca-925fa9f3147c"/>
+</cim:Frame>
+<cim:Frame rdf:about="urn:uuid:f7d1f7be-a9fa-5ced-8412-061f9108f820">
+  <dcterms:title>Frame s2</dcterms:title>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:7f9871bd-3cba-5495-9a5f-9820260c81f3"/>
+  <cim:Frame.includedIn rdf:resource="urn:uuid:26d7a86c-4775-5658-9fca-925fa9f3147c"/>
+</cim:Frame>
+<cim:Frame rdf:about="urn:uuid:6994872e-a942-50b2-978e-517d6956d6ac">
+  <dcterms:title>Frame s1-f1</dcterms:title>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:b4155549-0aa0-5fa5-8d7a-f28d925bb5d6"/>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:dc740893-a983-599f-ba9a-acc132786a86"/>
+  <cim:Frame.includedIn rdf:resource="urn:uuid:26d7a86c-4775-5658-9fca-925fa9f3147c"/>
+</cim:Frame>
+<cim:Frame rdf:about="urn:uuid:231427a2-f6f0-5050-bb9d-782849855593">
+  <dcterms:title>Frame s1-f2</dcterms:title>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:b4155549-0aa0-5fa5-8d7a-f28d925bb5d6"/>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:dc740893-a983-599f-ba9a-acc132786a86"/>
+  <cim:Frame.includedIn rdf:resource="urn:uuid:26d7a86c-4775-5658-9fca-925fa9f3147c"/>
+</cim:Frame>
+<cim:Frame rdf:about="urn:uuid:941d12a4-7774-5011-bb8f-ba9427e077b6">
+  <dcterms:title>Frame s1-f3</dcterms:title>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:b4155549-0aa0-5fa5-8d7a-f28d925bb5d6"/>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:5c61f745-9264-5aed-9e82-6f7038ada283"/>
+  <cim:Frame.includedIn rdf:resource="urn:uuid:26d7a86c-4775-5658-9fca-925fa9f3147c"/>
+</cim:Frame>
+<cim:Frame rdf:about="urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e">
+  <dcterms:title>Frame s2-f1</dcterms:title>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:5c61f745-9264-5aed-9e82-6f7038ada283"/>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:7f9871bd-3cba-5495-9a5f-9820260c81f3"/>
+  <cim:Frame.includedIn rdf:resource="urn:uuid:26d7a86c-4775-5658-9fca-925fa9f3147c"/>
+</cim:Frame>
+<cim:Frame rdf:about="urn:uuid:8adce91a-722e-5280-bfa9-1486a36078fd">
+  <dcterms:title>Frame s2-f2</dcterms:title>
+  <cim:Frame.connectsTo rdf:resource="urn:uuid:7f9871bd-3cba-5495-9a5f-9820260c81f3"/>
+  <cim:Frame.includedIn rdf:resource="urn:uuid:26d7a86c-4775-5658-9fca-925fa9f3147c"/>
+</cim:Frame>
+<cim:Boundary rdf:about="urn:uuid:b4155549-0aa0-5fa5-8d7a-f28d925bb5d6">
+  <dcterms:title>Boundary s1 | s1-f1 | s1-f2 | s1-f3</dcterms:title>
+  <cim:Boundary.separates rdf:resource="urn:uuid:227c5eee-5bea-50e1-bdd1-e257d827e3ad"/>
+  <cim:Boundary.separates rdf:resource="urn:uuid:6994872e-a942-50b2-978e-517d6956d6ac"/>
+  <cim:Boundary.separates rdf:resource="urn:uuid:231427a2-f6f0-5050-bb9d-782849855593"/>
+  <cim:Boundary.separates rdf:resource="urn:uuid:941d12a4-7774-5011-bb8f-ba9427e077b6"/>
+</cim:Boundary>
+<cim:Boundary rdf:about="urn:uuid:dc740893-a983-599f-ba9a-acc132786a86">
+  <dcterms:title>Boundary s1-f1 | s1-f2</dcterms:title>
+  <cim:Boundary.separates rdf:resource="urn:uuid:6994872e-a942-50b2-978e-517d6956d6ac"/>
+  <cim:Boundary.separates rdf:resource="urn:uuid:231427a2-f6f0-5050-bb9d-782849855593"/>
+</cim:Boundary>
+<cim:Boundary rdf:about="urn:uuid:5c61f745-9264-5aed-9e82-6f7038ada283">
+  <dcterms:title>Boundary s1-f3 | s2-f1</dcterms:title>
+  <cim:Boundary.separates rdf:resource="urn:uuid:941d12a4-7774-5011-bb8f-ba9427e077b6"/>
+  <cim:Boundary.separates rdf:resource="urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e"/>
+</cim:Boundary>
+<cim:Boundary rdf:about="urn:uuid:7f9871bd-3cba-5495-9a5f-9820260c81f3">
+  <dcterms:title>Boundary s2 | s2-f1 | s2-f2</dcterms:title>
+  <cim:Boundary.separates rdf:resource="urn:uuid:f7d1f7be-a9fa-5ced-8412-061f9108f820"/>
+  <cim:Boundary.separates rdf:resource="urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e"/>
+  <cim:Boundary.separates rdf:resource="urn:uuid:8adce91a-722e-5280-bfa9-1486a36078fd"/>
+</cim:Boundary>
+</rdf:RDF>

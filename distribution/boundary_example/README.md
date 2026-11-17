@@ -1,153 +1,185 @@
-# Boundary example: two substations, five feeders, two ties
+# Boundary example: frames and boundaries for distribution feeders
 
-A small made-up model that shows how a boundary is defined together with `ConnectedArea`, and how
-five feeders published as five separate packages still join into one model. The electrical values
-are illustrative.
+A small made-up model, two substations and five feeders joined by two ties. It is organised as frames and
+boundaries in the way the GB Grid Code Planning Code describes them (PC.G.3, from modification GC0139), and
+it is described with the draft grid-model metadata classes of IEC 61970-55x (`cim18v17.metadata` in
+CIM-Profiles). Each feeder is published as its own package, and the five packages join into one model with
+no object declared twice. The electrical values are illustrative.
+
+Version 2.0.0 (2026-11-16). This version is for review: the questions at the end are the points where we
+are least sure we have read PC.G.3 and the 55x drafts correctly.
+
+## The system
 
 ```
-                    area_d_example (distributionArea)
-  ┌──────────────────────────────────────┐   ┌───────────────────────────────────┐
-  │ area_ss_s1 (substationServiceArea)   │   │ area_ss_s2                        │
-  │                                      │   │                                   │
-  │ src_s1 ── s1_bus, 12.47 kV           │   │ src_s2 ── s2_bus, 13.2 kV         │
-  │   ├─ R ─ feeder s1-f1 ── s1_f1_end ●─┐   │   ├─ R ─ feeder s2-f2             │
-  │   │                    tie 1 (open) ─┤   │   │                               │
-  │   ├─ R ─ feeder s1-f2 ── s1_f2_end ●─┘   │   └─ R ─ feeder s2-f1             │
-  │   │                                  │   │            │ 13.2 kV              │
-  │   └─ R ─ feeder s1-f3 ── s1_f3_end ●─┼───┼─● s2_f1_end ── autotransformer    │
-  │                           tie 2 (open, 12.47 kV both sides)                   │
-  └──────────────────────────────────────┘   └───────────────────────────────────┘
+  boundary s1 | s1-f1 | s1-f2 | s1-f3                boundary s2 | s2-f1 | s2-f2
+         ◆ s1_bus  12.47 kV                                 ◆ s2_bus  13.2 kV
+  src_s1 ┤ (frame s1)                                src_s2 ┤ (frame s2)
+         ├─R─ frame s1-f1 ──── s1_f1_end ─T1─┐              ├─R─ frame s2-f2
+         │                                   ◆ s1_f2_end    │
+         ├─R─ frame s1-f2 ───────────────────┘              └─R─ frame s2-f1 ── step-down ──┐
+         │                     (boundary s1-f1 | s1-f2)              13.2 to 12.47 kV       │
+         └─R─ frame s1-f3 ──── s1_f3_end ─T2────────────────────────────────────────────────◆ s2_f1_end
+                                                                    (boundary s1-f3 | s2-f1)
 
-  R  feeder-head recloser, areaBoundary = true        ●  boundary node
+  R       feeder-head recloser, in its feeder's frame
+  T1, T2  normally-open ties: T1 in frame s1-f1, T2 in frame s1-f3
+  ◆       boundary node
 ```
 
-## What it shows
+## How the GC0139 concepts map
 
-**`ConnectedArea` is as built.** The eight areas in `model/areas.cimtbl` nest by `ContainedWithin`:
-one distribution area, two substation service areas, five feeder areas. They change only with
-construction. Switch positions are as operated and are kept apart, in `model/situation.cimtbl`.
+| PC.G.3 concept | Here |
+|---|---|
+| Profile | Structural data: the frame, boundary and reference models. Situation data: one steady state hypothesis (SSH) per feeder frame. No solution models |
+| Frame | Each substation (`s1`, `s2`) and each feeder (`s1-f1` … `s2-f2`): seven frames |
+| Boundary | One for each set of frames whose systems connect: four boundaries, two of them multilateral |
+| PSM Interface Node | A boundary node: a `ConnectivityNode` in a boundary model |
+| Model | One `.cimtbl` file, with its RDF XML and JSON-LD twins: a frame model, a boundary model, an SSH, or reference data |
+| Assembly | A feeder package, and the whole example (`model/merged_assembly.cimtbl`) |
 
-**A boundary node is the node two models share.** It is not an ownership or operating boundary. The
-nodes either side of each tie are the boundary nodes, and `model/boundary.cimtbl` holds those four
-nodes and nothing else. A feeder names its boundary node in a `node` column and does not declare it.
-
-**The container rule.** A switch between two areas, and each of its boundary nodes, belongs to the
-smallest area that contains both:
-
-| Object | Between | Belongs to |
+| Frame | Holds | Perimeter |
 |---|---|---|
-| Feeder-head recloser `sw_s1_f1` | Feeder s1-f1 and the bus | Substation `sub_s1` |
-| Tie 1 `sw_tie_s1_f1_s1_f2` and its nodes | Two feeders of substation 1 | `area_ss_s1` |
-| Tie 2 `sw_tie_s1_f3_s2_f1` and its nodes | Feeders of two substations | `area_d_example` |
+| `s1`, `s2` | The source standing for the grid behind the bus | The substation's bus boundary |
+| `s1-f1` | Head recloser, lines, loads, tie T1 | `s1` bus boundary; `s1-f1 \| s1-f2` |
+| `s1-f2` | Head recloser, lines, loads | `s1` bus boundary; `s1-f1 \| s1-f2` |
+| `s1-f3` | Head recloser, lines, loads, tie T2 | `s1` bus boundary; `s1-f3 \| s2-f1` |
+| `s2-f1` | Head recloser, lines, loads, the step-down autotransformers | `s2` bus boundary; `s1-f3 \| s2-f1` |
+| `s2-f2` | Head recloser, lines, loads | `s2` bus boundary |
 
-`Switch.areaBoundary = true` is the input, set by a person or from GIS. `Terminal.BoundedConnectedArea`
-is what a topology processor computes from it; it is written by hand here.
+| Boundary | Node | Node's container |
+|---|---|---|
+| `s1 \| s1-f1 \| s1-f2 \| s1-f3` | `s1_bus` | `area_ss_s1` |
+| `s2 \| s2-f1 \| s2-f2` | `s2_bus` | `area_ss_s2` |
+| `s1-f1 \| s1-f2` | `s1_f2_end`, the far side of T1 | `area_ss_s1` |
+| `s1-f3 \| s2-f1` | `s2_f1_end`, the far side of T2 | `area_d_example` |
 
-**The voltage step is inside the feeder, not at the tie.** Feeder s2-f1 runs at 13.2 kV and steps
-down to 12.47 kV through three single-phase `AutoTransformer` units one span before tie 2. Each unit
-has one `AutoTransformerEnd` at 13.2 kV and one at 12.47 kV, so both sides of the tie have the same
-`BaseVoltage`.
+## The rules
 
-**Operating state does not move a boundary.** `model/situation.cimtbl` rolls feeder s1-f2 over onto
-s1-f1: its head recloser opens and tie 1 closes. No area, boundary node or container changes.
+1. **Every object is declared in exactly one model.** An object that several frames name is either a
+   boundary node or reference data. Two files never repeat a row.
+2. **A boundary model holds connectivity nodes and nothing else** (PC.G.3.4.1, Figure 11). There is one
+   boundary for each set of frames whose systems connect, and "all connections between the equipment of one
+   Frame and that of another Frame (or set of Frames) are defined using a single Boundary" (PC.G.3.2). So a
+   node belongs to the boundary of exactly the frames whose equipment connects to it.
+3. **A frame model references only its own objects, the boundary models on its perimeter and the reference
+   data.** It never references an object of another frame. This is the `BoundaryModel` rule of the 55x draft
+   ("frame models must have associations only with the boundary objects and not with any adjacent frame model
+   objects") and the PC.G.3.4.2 rule that Structural Frame Model objects point at PSM Interface Nodes in
+   Structural Boundary Models. An SSH states attributes of its own frame's objects only.
+4. **The substation bus is a boundary node.** The source is in the substation's frame. Each feeder-head
+   recloser is in its feeder's frame, with its bus-side terminal on the bus node. This follows Figure 11, where
+   the busbars of Substation B are PSM Interface Nodes and each bay is in the frame of the party it serves,
+   and PC.G.1.3.2.1 ("each busbar designated as a PSM Interface Node").
+5. **A tie switch is in exactly one frame, its owner's.** The owner is the feeder the source assigns the
+   device to, else the one whose name sorts first. One terminal is on the owner's own node, the other on the
+   boundary node, where the other feeder's line ends. This is the DNO2–DNO3 coupling of Figure 11: DNO2's
+   disconnector, the interface node, then DNO3's breaker.
+6. **Containers that several frames name are reference data.** `containers.cimtbl` holds the `Substation`s
+   (container of the source and of the feeder-head reclosers) and the as-built `ConnectedArea`s (container of
+   the boundary nodes and the ties). They change with construction, never with switching. `catalog.cimtbl`
+   holds the base voltages and the line impedance.
+7. **A boundary node's container is the smallest `ConnectedArea` that contains every frame of its boundary**,
+   and its boundary model is loaded after the containers and before any equipment. (cimtables gives a node
+   with no container the container of the first equipment that touches it.)
+8. **The SSH is per frame and holds only situation data:** the `p` and `q` of the loads and `Switch.open`.
+   Boundaries have none, as PC.G.3.3 expects. `Switch.normalOpen` is structural. Here every SSH describes
+   normal operation; another case, such as s1-f2 rolled over onto s1-f1, would be another set of SSH models
+   and would move no frame, boundary or container.
+9. **A package is an assembly that loads and solves on its own:** the feeder's frame, its substation's frame,
+   the boundary models on either perimeter, the reference data and the feeder's SSH. It has no dangling
+   references. This departs on purpose from a Solved PSM (PC.G.3.4.2), which keeps only the sender's frame
+   and its boundaries. A feeder alone has no source, so the package carries its substation's frame too.
+10. **A voltage step sits inside a frame, not at a boundary.** Feeder s2-f1 runs at 13.2 kV and steps down
+    through three single-phase autotransformers one span before T2, so both sides of the boundary node are
+    12.47 kV.
+11. `Switch.areaBoundary = true` on every feeder-head recloser and every tie. `Terminal.BoundedConnectedArea`
+    is left to a topology processor and is not written.
 
 ## Files
 
 | Path | What it is |
 |---|---|
-| `model/` | The model as written, each file once |
-| `model/boundary_example.cimtbl` | The assembled model: every shared file once, every feeder, then the ties |
-| `boundary_example.xml`, `.jsonld` | The assembled model in RDF |
+| `model/` | Every model as written, each once. `merged_assembly.cimtbl` assembles them all |
+| `framework.jsonld`, `framework.xml` | The framework edition: its seven frames and four boundaries |
+| `merged_assembly.xml`, `.jsonld` | The whole assembly in one file of each format |
 | `packages/<feeder>/` | One feeder's package, unpacked, as a user would download it |
-| `catalog.jsonld` | The public catalog entries, in the Grid Kitchen layout |
-| `data.json` | The same entries in the Project Open Data layout, for site indexing |
-| `gk-context.jsonld` | The Grid Kitchen vocabulary context, inlined into the manifests |
-| `build.py` | Writes everything outside `model/` and checks it |
+| `build.py` | Writes everything outside `model/`, and checks it |
 
-## A package
+A package, for feeder s1-f3:
 
 ```
 packages/s1_f3/
-  manifest.jsonld              a dcat:Catalog of everything below, with checksums
-  manifest.xml                 the same catalog in RDF XML, laid out as ENTSO-E specifies
-  s1_f3.xml, s1_f3.jsonld      the feeder in RDF
-  boundary.xml, boundary.jsonld  the boundary model on its own in RDF
+  manifest.jsonld, manifest.xml     a dcat:Catalog of everything below, with checksums
   cimtbl/
-    s1_f3.cimtbl               master: Profile, Authority, Model and Imports only
-    catalog.cimtbl             shared
-    areas.cimtbl               shared
-    boundary.cimtbl            shared
-    substation_s1.cimtbl       shared with s1-f1 and s1-f2
-    feeder_s1_f3.cimtbl        the feeder's own objects
-    ties.cimtbl                shared; not imported by the master
+    s1_f3.cimtbl                    the package master: Profile, Authority, Model and Imports only
+    catalog.cimtbl                  reference data
+    containers.cimtbl               reference data
+    boundary_s1-s1_f1-s1_f2-s1_f3.cimtbl   boundary model: s1_bus
+    boundary_s1_f3-s2_f1.cimtbl     boundary model: s2_f1_end
+    substation_s1.cimtbl            frame model s1
+    feeder_s1_f3.cimtbl             frame model s1-f3
+    ssh_s1_f3.cimtbl                steady state hypothesis of s1-f3
+  xml/                              the same models in RDF XML, one file per model, instance data only
+  jsonld/                           the same models in JSON-LD, one file per model, instance data only
 ```
 
-Each package loads and stands alone: it repeats its substation and source. An object that more than
-one package declares is in a shared file, which is byte-identical wherever it appears, so a reader
-joining two packages loads it once.
+The master imports reference data, boundary models, frame models, then the SSH. A model that more than one
+package carries is byte-identical in each, so a reader joining two packages loads it once and can tell by
+checksum that it is the same.
 
-The master imports `areas.cimtbl`, then `boundary.cimtbl`, before any equipment. The order matters:
-`cimtables` gives a node with no container the container of the first equipment that touches it, so
-a boundary node declared late, or not at all, would land in whichever feeder loaded first.
-
-`ties.cimtbl` is in every package but no feeder's master imports it, because the far side of each
-tie is in another package. A feeder package also holds the far-side boundary nodes with nothing
-connected to them.
+An SSH's RDF names each object it updates by `rdf:about` and states only the attributes it sets, as a CGMES
+SSH file does. The frame models' RDF has no `p`, `q` or `Switch.open`.
 
 ## The metadata
 
-The same facts are written in three layouts, so the two DCAT conventions in use can be compared on
-one model:
+Each package's `manifest.jsonld` (and `manifest.xml`, the same graph laid out as the ENTSO-E Metadata for
+Dataset and Distribution Specification v2.4.0 has it) is a `dcat:Catalog` of these datasets:
 
-| Layout | Files | Follows |
+| Dataset | `@type` | Links |
 |---|---|---|
-| Grid Kitchen | `manifest.jsonld`, `catalog.jsonld`, the header of each `.jsonld` data file | DCAT-US 3.0 with the `gk:` vocabulary |
-| ENTSO-E | `manifest.xml`, the header of each `.xml` data file | Metadata for Dataset and Distribution Specification v2.4.0 |
-| Project Open Data | `data.json` | The v1.1 schema, for site indexing |
+| The package | `dcat:Dataset`, `cim:GridAssembly` | Its distribution is the master |
+| Catalogue, containers | `dcat:Dataset` | — (cim18v17 has no reference-model class, though Frameworks v4 describes a `ReferenceModel`) |
+| Each boundary model | `dcat:Dataset`, `cim:BoundaryModel` | `dct:spatial` its `cim:Boundary`; `dct:requires` the containers; `cim:GridModel.usedIn` the package; no `dct:conformsTo` |
+| Each frame model | `dcat:Dataset`, `cim:FrameModel` | `cim:FrameModel.represents` and `dct:spatial` its `cim:Frame`; `cim:FrameModel.perimeter` its boundary models; `dct:requires` the reference data and its boundary models; `cim:GridModel.usedIn` the package |
+| The SSH | `dcat:Dataset`, `cim:FrameModel` | `represents` and `dct:spatial` the feeder's `cim:Frame`; `dct:requires` the feeder's frame model; `cim:GridModel.usedIn` the package |
 
-A manifest lists five datasets. Four of them have the same identifier and the same checksums in
-every package that carries them, which is how five separate downloads point back at the same areas
-and boundary:
+After the datasets, the manifest lists the `cim:Frame` and `cim:Boundary` resources they point at. Each
+boundary has `cim:Boundary.separates` for its frames. The package's two frames are listed with
+`cim:Frame.connectsTo` their boundaries. Any other frame that a listed boundary separates (a sibling feeder, or
+the feeder across a tie) is named by its title only. The manifest therefore has no undescribed reference, and the
+build checks this. `framework.jsonld` lists every frame, each with `cim:Frame.includedIn` the one
+`cim:FrameworkEdition`, and every boundary.
 
-| Dataset | Type | Files | Same across | `dct:spatial` |
-|---|---|---|---|---|
-| The feeder | `FrameModel` | master, feeder file, RDF | — | Its feeder area |
-| Reference data | — | `catalog.cimtbl`, `areas.cimtbl` | All five | The distribution area |
-| Boundary model | `BoundaryModel` | `boundary.cimtbl`, `boundary.xml`, `boundary.jsonld` | All five | The distribution area |
-| Substation | `FrameModel` | `substation_<s>.cimtbl` | Its feeders | Its substation service area |
-| Ties | `FrameModel` | `ties.cimtbl` | All five | The distribution area |
+The links are written in the direction cim18v17 serialises them: `GridModel.usedIn`, `Frame.includedIn` and
+`Frame.connectsTo`, not their inverses `GridAssembly.contains` and `FrameworkEdition.includes`. One consequence
+is that cim18v17 gives no way to place a `Boundary` in a framework edition: `FrameworkEdition.includes` takes
+frames only, and `Boundary` has no `includedIn`.
 
-What is common to both layouts:
-
-- `FrameModel.perimeter` points a feeder with a tie, and the ties dataset, at the boundary model.
-  `FrameModel` and `BoundaryModel` are the draft grid-model metadata classes (the `cim18v17.metadata`
-  profile of CIM-Profiles).
-- `dct:spatial` is the URI of the `ConnectedArea` object the dataset covers. This is the link from
-  the metadata to the as-built area, and it is a proposal of this example.
-- `dct:requires` records what must be loaded first.
-- A `.cimtbl` file carries only `Profile`, `Authority` and `Model`. Its `dct:conformsTo` is the
-  profile's JSON-LD context, the document its JSON-LD twin names in `@context`.
-- Every data file opens with the `dcat:Dataset` description its manifest gives it, in place of
-  `md:FullModel`.
-- All five packages use one `Authority` and `Model`, so a shared object has one UUID everywhere.
-
-Grid Kitchen layout:
-
-- The feeder dataset carries the `gk:` facts that can be computed from the model: voltage, length,
-  device and load counts, `gk:multiFeederCompatible` and `gk:siblingGroup`. State, setting, climate
-  and the quality measurements are left out, because a made-up model has no place and no source data.
-- `catalog.jsonld` uses the DCAT-US 3.0 terms and lists the five feeders and the four shared datasets.
-
-ENTSO-E layout:
-
-- `manifest.xml` is at the package root: a `dcat:Catalog` header, then each `dcat:Dataset` and
-  `dcat:Distribution` as its own resource with its own identifier, linked by reference.
-- File locations are `file://` paths inside the package and media types are IANA resources.
-- The boundary dataset states no `dcterms:conformsTo`, as that specification requires of a boundary.
-- `dcterms` is `http://purl.org/dc/terms/`, Dublin Core's own namespace. The sample dataset header in
-  the ENTSO-E specification, and the cim18v17 profile after it, write it with a trailing `#`.
-- The specification identifies a boundary dataset by `dcterms:spatial` pointing at a frame resource.
-  Here it points at the distribution area's `ConnectedArea`, and the dataset is typed `BoundaryModel`.
+- **`dct:spatial` names the frame or boundary**, as ENTSO-E's R:MD:ALL:NA:BoundaryIdentification has it for a
+  boundary and its `dcterms:spatial` definition has it for any model ("the responsibility area … also
+  referred to frame").
+- **A boundary dataset states no `dct:conformsTo`** (ENTSO-E C:MD:ALL:Dataset.conformsTo:cardinality). Every
+  other dataset names the profile's units vocabulary and JSON-LD context.
+- Every file is one `dcat:Distribution` with `dcat:accessURL` (relative in JSON-LD, `file://` in RDF XML),
+  an IANA `dcat:mediaType`, `dcat:byteSize` and an SPDX SHA-256 checksum.
+- A distribution's `dct:conformsTo` names its serialisation standard, as in ENTSO-E's example:
+  `urn:iso:std:iec:61970-552:2016` for RDF XML and `urn:iso:std:iec:61970-553:draft:ed-1` for JSON-LD. It also
+  names the profile context, as every Grid Kitchen package does, and for JSON-LD the units vocabulary. A
+  `.cimtbl` file names only the profile context, because its format has no standard.
+- Two terms follow the Grid Kitchen publishing contract rather than ENTSO-E. `md:Model.modelingAuthoritySet` is
+  kept, because CIM-Graph writes and reads the authority there. ENTSO-E's R:MD:ALL:NA:previousHeader asks new
+  profiles not to use it, but ENTSO-E's own transition example still does. Dependencies are given as
+  `dct:requires`, where ENTSO-E replaces `md:Model.DependentOn` with `dct:references`.
+- **The manifest is the only place a dataset is described.** A data file holds instance data and nothing
+  else: no `md:FullModel`, and no `dcat:Dataset` header. This follows the 55x metadata drafts: one metadata
+  file per message, in place of the 61970-552 file headers. ENTSO-E's specification also repeats the dataset
+  header in each data file; we do not. A JSON-LD file with no header is read in the profile's default units
+  (SI), which are the units it is written in.
+- Identifiers are UUID v5 of the dataset's name in this example's namespace, so a model has the same
+  identifier in every package that carries it. All files use one `Authority` and `Model`, so a shared object
+  has one UUID everywhere.
+- `dcterms` is `http://purl.org/dc/terms/`, Dublin Core's own namespace.
 
 ## Rebuild and check
 
@@ -155,23 +187,59 @@ ENTSO-E layout:
 uv run --no-project --prerelease=allow --with cim-tables python distribution/boundary_example/build.py [--zip]
 ```
 
-The build raises unless: every boundary node has its declared container in every package and in the
-assembled model; shared objects have one UUID across packages; every shared dataset has one set of
-checksums; each tie joins its two boundary nodes; and the operating state binds onto the assembled
-model. `--zip` also writes `dist/<feeder>.zip`, with the two manifests first. The output is
-deterministic.
+The build raises unless:
 
-## Open points
+1. every object is declared in exactly one file, and an SSH updates only its own frame's objects;
+2. every boundary model holds only connectivity nodes, of two or more frames;
+3. every model's RDF references only its own objects, the boundary models on its perimeter and the reference
+   data, and an SSH only its frame's objects;
+4. every boundary node is referenced by exactly the frames of its boundary;
+5. every package loads on its own, keeps each boundary node's container, gives every load its `p`, and has
+   no dangling reference across its RDF files. Its manifest, and `framework.jsonld`, describe every resource
+   they reference;
+6. a model carried by several packages has one identifier and one set of checksums;
+7. assembled, each tie runs from its owner's node to a boundary node and is open, and every head recloser is
+   closed.
 
-- **No link from `Feeder` or `Substation` to its `ConnectedArea`.** cim18v17 has none, so `fdr_s1_f1`
-  and `area_f_s1_f1` are tied by name only. Equipment keeps its `Feeder` or `Substation` as
-  `EquipmentContainer`; only the ties, which belong to no feeder, are contained by an area.
-- **Reference data has no metadata class.** The draft has no reference-model class, so that dataset
-  is a plain `dcat:Dataset`.
-- **Boundary RDF points outside itself.** Each boundary node references its `ConnectedArea`, which is
-  in the reference data, not in the boundary model.
-- **No Open Packaging parts.** The zip has the manifests at its root and no `[Content_Types].xml`
-  or `_rels`.
-- **Feeder length is written in kilometres.** The `gk:` vocabulary does not state the unit.
-- **Placeholders.** The contact address in `data.json` is a placeholder, and the catalog entries
-  point at the package folders in this repository, not at downloadable zips.
+`--zip` also writes `dist/<feeder>.zip`, manifests first. The output is deterministic.
+
+## Questions for review
+
+1. **Multilateral bus boundaries.** The bus boundary of a substation includes every one of its feeders.
+   Adding a feeder changes that boundary, so every sibling's frame has a new perimeter, and under the 55x
+   draft "a new Frame object is required if any of its perimeter boundaries are different". Is that the
+   intended consequence, or should each feeder bay meet the substation at its own node in a bilateral
+   boundary (the draft's "recommended practice")?
+2. **Containers as reference data.** Feeder-head reclosers are contained by the `Substation`, and boundary
+   nodes and ties by `ConnectedArea`s, all in reference data so that no frame points into another. Is that
+   how GB models handle a bay that one party owns inside another party's substation?
+3. **Tie containment.** A tie is in its owner's frame, but its container is the smallest area that contains
+   both feeders, not the owner's `Feeder`. Does that matter for frame ownership?
+4. **Boundary identity.** Frameworks v4 says "a BoundaryModel associates to the Boundary it defines". In
+   cim18v17, `BoundaryModel.defines` has an `EquivalentModel` as its target, and its description is that of an
+   equivalent. That looks like an error in the draft profile. Until it is fixed, `dct:spatial` carries the link,
+   as ENTSO-E's R:MD:ALL:NA:BoundaryIdentification has it. Is `defines` meant to point at the `Boundary`?
+5. **Frame and as-built area.** Nothing in cim18v17 or the draft links a `Frame`, `Feeder` or `Substation` to
+   its `ConnectedArea`; here they are tied by name only.
+6. **Substation situation data.** The source's voltage set point stays in the structural model, so the
+   substation frames have no SSH. CGMES would put it in SSH.
+7. **Profile keywords.** No `dcat:keyword` (EQ, SSH, …) is set, because a `.cimtbl` model is not split by
+   CGMES profile.
+8. **Not shown:** solution models, edge models and equivalents.
+
+## Changes from 1.0.0
+
+- Substations and feeders are frames. Each substation bus is a boundary node, and the substation frame holds
+  only the source.
+- One boundary model per set of connected frames replaces the single `boundary.cimtbl`, and holds one node
+  per tie, the far side, instead of both sides.
+- Each tie is in its owner's frame. `ties.cimtbl`, a frame that no master loaded, is gone.
+- `areas.cimtbl` becomes `containers.cimtbl` and also holds the `Substation`s.
+- One SSH per feeder frame, holding the loads' `p` and `q` and the switch positions, replaces the
+  assembly-wide `situation.cimtbl`. The rollover case is no longer shipped.
+- Each model has its own RDF, and each package's manifest lists one dataset per model plus the frames and
+  boundaries they point at. `dct:spatial` names a frame or boundary, not a `ConnectedArea`.
+- The Grid Kitchen catalog, `data.json` and `gk:` facts are removed: they belong to a publishing pipeline,
+  not to the frame and boundary structure.
+- `Terminal.BoundedConnectedArea` is no longer written by hand.
+- Data files carry no header. Each package's manifest describes its datasets, once.

@@ -1,0 +1,9 @@
+# Boundary s1-f3 | s2-f1: the far-side node of tie 2, owned by s1-f3, at the end of s2-f1.
+#
+# A boundary model holds only connectivity nodes. Each node's container is the smallest area that
+# contains every frame of the boundary. Import it after containers.cimtbl and before any equipment.
+
+Profile = cim18v17
+
+Table ConnectivityNode: mRID, ConnectivityNodeContainer=area_d_example
+    s2_f1_end

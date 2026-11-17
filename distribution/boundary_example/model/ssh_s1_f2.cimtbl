@@ -1,0 +1,10 @@
+# Steady state hypothesis (SSH) of frame s1-f2, normal operation: the p and q of its loads and the
+# positions of its switches, and nothing else. Load it after the frame's structural model.
+
+Profile = cim18v17
+
+Update Table EnergyConsumer: mRID, p (kW), q (kvar)
+    ld_s1_f2_mid, 800, 200
+    ld_s1_f2_end, 500, 120
+
+Update Recloser: mRID=sw_s1_f2, open=false

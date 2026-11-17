@@ -1,0 +1,27 @@
+{
+  "@context": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
+      "@type": "cim:BaseVoltage",
+      "cim:BaseVoltage.nominalVoltage": "13200",
+      "cim:IdentifiedObject.mRID": "bv_13p2kv"
+    },
+    {
+      "@id": "urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57",
+      "@type": "cim:BaseVoltage",
+      "cim:BaseVoltage.nominalVoltage": "12470",
+      "cim:IdentifiedObject.mRID": "bv_12p47kv"
+    },
+    {
+      "@id": "urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5",
+      "@type": "cim:PerLengthSequenceImpedance",
+      "cim:PerLengthSequenceImpedance.r": "0.00019013958482462417",
+      "cim:PerLengthSequenceImpedance.x": "0.0003895997375328084",
+      "cim:PerLengthSequenceImpedance.r0": "0.00036785174580450164",
+      "cim:PerLengthSequenceImpedance.x0": "0.001174391553328561",
+      "cim:IdentifiedObject.mRID": "lc_336_acsr",
+      "cim:IdentifiedObject.name": "336 ACSR"
+    }
+  ]
+}
