@@ -1,6 +1,10 @@
-# DSO service areas 
+# The DSO's service areas, as-built and nested by ContainedWithin, and the normally-open ties between
+# feeders. A tie belongs to neither of its feeders: it is contained by the smallest area that contains
+# both, and the nodes on its two sides are boundary nodes (boundary.cimtbl).
 
 Profile = cim18v17
+
+Object BaseVoltage: mRID=bv_12p47kv, nominalVoltage (kV)=12.47
 
 Table ConnectedArea: mRID, kind, ContainedWithin
     s1_s2_dist_area, distributionArea,
@@ -15,6 +19,8 @@ Table ConnectedArea: mRID, kind, ContainedWithin
     feed_area_s2_f1, feederArea, sub_s2_service_area
     feed_area_s2_f2, feederArea, sub_s2_service_area
 
+# Tie 1 joins feeders s1-f1 and s1-f2 of substation s1; tie 2 joins feeder s1-f3 to feeder s2-f1 of
+# substation s2. Both are 12.47 kV, because s2-f1 steps down from 13.2 kV before its side of tie 2.
 Table Disconnector: mRID, node1, node2, normalOpen, open, areaBoundary, BaseVoltage, EquipmentContainer
     sw_tie_s1_f1_s1_f2, s1_f1_bnd, s1_f2_bnd, true, true, true, bv_12p47kv, sub_s1_service_area
     sw_tie_s1_f3_s2_f1, s1_f3_bnd, s2_f1_bnd, true, true, true, bv_12p47kv, s1_s2_dist_area

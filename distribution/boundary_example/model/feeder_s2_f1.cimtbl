@@ -1,6 +1,13 @@
-# Frame s2-f1: the feeder's own equipment, from its head node to the step-down units.
+# Frame s2-f1: the feeder's own equipment, from its head node through the step-down units to its side
+# of tie 2.
 
 Profile = cim18v17
+
+Table BaseVoltage: mRID, nominalVoltage (kV)
+    bv_13p2kv,  13.2
+    bv_12p47kv, 12.47
+
+Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89
 
 Object Feeder: mRID=fdr_s2_f1, name=s2-f1, NormalEnergizingSubstation=sub_s2
 
@@ -18,8 +25,8 @@ Table EnergyConsumer: mRID, node, BaseVoltage=bv_13p2kv, EquipmentContainer=fdr_
 
 # Step-down autotransformers, one single-phase unit per phase, 13.2 kV to 12.47 kV, so that both
 # sides of the tie to feeder s1-f3 are 12.47 kV. End 1 is the 13.2 kV side.
-# s2_f1_end is a boundary node (boundary.cimtbl): named here, not declared. It is this feeder's side
-# of tie 2 (to s1-f3), which is in the boundary model.
+# s2_f1_bnd, the 12.47 kV side, is a boundary node (boundary.cimtbl): named here, not declared. It is
+# this feeder's side of tie 2 (to s1-f3), which is in dso_area.cimtbl.
 Table AutoTransformer: mRID, name, EquipmentContainer=fdr_s2_f1
     xf_s2_f1_step_a, step A
     xf_s2_f1_step_b, step B

@@ -1,10 +1,14 @@
-# Frame s2-f2: the feeder's own equipment, from its head node to its far end.
+# Frame s2-f2: the feeder's own equipment, from its head node to its far end. It has no tie.
 
 Profile = cim18v17
 
+Object BaseVoltage: mRID=bv_13p2kv, nominalVoltage (kV)=13.2
+
+Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89
+
 Object Feeder: mRID=fdr_s2_f2, name=s2-f2, NormalEnergizingSubstation=sub_s2
 
-# Its head node is a boundary node (boundary.cimtbl): named here, not declared. It has no tie.
+# Its head node is a boundary node (boundary.cimtbl): named here, not declared.
 Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_13p2kv, EquipmentContainer=fdr_s2_f2
     ln_s2_f2_1, s2_f2_head, s2_f2_mid, 1.0
     ln_s2_f2_2, s2_f2_mid,  s2_f2_end, 1.5

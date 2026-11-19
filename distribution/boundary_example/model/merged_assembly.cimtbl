@@ -1,16 +1,17 @@
-# The whole example as one assembly: reference data, the boundary model, every frame, then the
-# steady state hypothesis of the boundary and of every frame.
+# The whole example as one assembly: the service areas and their ties, the boundary model, every
+# frame, then the steady state hypothesis (SSH) of every feeder frame.
 #
-# The order matters in one place: the containers, then the boundary nodes, before any equipment,
-# because cimtables gives a node with no container the container of the first equipment that
-# touches it.
+# Each file declares the reference data it uses (base voltages, line impedances, wires, spacings),
+# so a file loaded after another that declares the same object restates it.
+#
+# The order matters in one place: the areas, then the boundary nodes, before any frame, because
+# cimtables gives a node with no container the container of the first equipment that touches it.
 
 Profile = cim18v17
 Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
 Model = boundary_example
 
-Import catalog.cimtbl
-Import containers.cimtbl
+Import dso_area.cimtbl
 Import boundary.cimtbl
 
 Import substation_s1.cimtbl
@@ -22,9 +23,6 @@ Import feeder_s1_f3.cimtbl
 Import feeder_s2_f1.cimtbl
 Import feeder_s2_f2.cimtbl
 
-Import ssh_boundary.cimtbl
-Import ssh_s1.cimtbl
-Import ssh_s2.cimtbl
 Import ssh_s1_f1.cimtbl
 Import ssh_s1_f2.cimtbl
 Import ssh_s1_f3.cimtbl

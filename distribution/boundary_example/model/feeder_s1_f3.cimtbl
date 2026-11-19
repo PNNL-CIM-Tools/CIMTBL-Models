@@ -1,30 +1,42 @@
-# Frame s1-f3: the feeder's own equipment, from its head node to its far end.
+# Frame s1-f3: the feeder's own equipment, from its head node to its side of tie 2.
 
 Profile = cim18v17
 
+Object BaseVoltage: mRID=bv_12p47kv, nominalVoltage (kV)=12.47
+
+Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89
+
+Object OverheadWireInfo: mRID=acsr_397, name=397 ACSR, sizeDescription=397.5 kcmil 26/7, material=acsr, strandCount=26, coreStrandCount=7, radius (in)=0.3915, gmr (ft)=0.0265, rAC50 (ohm/mile)=0.259, ratedCurrent (A)=590
+
 Object Feeder: mRID=fdr_s1_f3, name=s1-f3, NormalEnergizingSubstation=sub_s1
 
+# The first span shares its structure with the first span of s1-f2: one double-circuit spacing, s1-f2
+# on positions 1-3 (circuit 1), this feeder on positions 4-6 (circuit 2), and one neutral on
+# position 7 that both share. The group and the spacing are declared in both feeders.
 Object MultiCircuitGroup: mRID=f2_f3_dbl_circuit
 
 Object XYSpacing: mRID=rus_2_52_1, isTemplate=false, MultiCircuitGroup=f2_f3_dbl_circuit
 
-Table WirePosition: xCoord (in), yCoord (in), sequenceNumber, circuitNumber, kind, XYSpacing=rus_2_52_1
-    dbl_cct_pos_4, -44.0, 0.0, 4, 2, phase
-    dbl_cct_pos_5, 0.0,  18.0, 5, 2, phase
-    dbl_cct_pos_6, 44.0,  0.0, 6, 2, phase
-    dbl_cct_pos_7, 6.0,  -72.0, 7,  , neutral
+Table WirePosition: mRID, xCoord (in), yCoord (in), sequenceNumber, circuitNumber, kind, XYSpacing=rus_2_52_1
+    dbl_cct_pos_4, -44.0, 0.0,   4, 2, phase
+    dbl_cct_pos_5, 0.0,   18.0,  5, 2, phase
+    dbl_cct_pos_6, 44.0,  0.0,   6, 2, phase
+    dbl_cct_pos_7, 6.0,   -72.0, 7,  , neutral
 
-Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89
-
-Table ACLineSegment, mRID, node1, node2, length (mile), WireSpacing=rus_2_52_1, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f2, MultiCircuitGroup=f2_f3_dbl_circuit
+# Its head node and its side of tie 2 are boundary nodes (boundary.cimtbl): named here, not declared.
+Table ACLineSegment: mRID, node1, node2, length (mile), phases=ABCN, sequenceNumbers=4 5 6 7, WireSpacing=rus_2_52_1, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3, MultiCircuitGroup=f2_f3_dbl_circuit
     ln_s1_f3_1, s1_f3_head, s1_f3_mid, 1.0
+
+# The spacing is not a template (isTemplate=false), so each phase of the span names its wire
+Update Table ACLineSegmentPhase: mRID, MultiCircuitGroup, WireInfo=acsr_397
+    ln_s1_f3_1_A, 
+    ln_s1_f3_1_B,
+    ln_s1_f3_1_C,
+    ln_s1_f3_1_N, f2_f3_dbl_circuit
 
 Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
     ln_s1_f3_2, s1_f3_mid,  s1_f3_end, 1.5
     ln_s1_f3_3, s1_f3_end,  s1_f3_bnd, 0.5
-
-Update ACLineSegmentPhase: mRID, MultiCircuitGroup
-    ln_s1_f3_1_A, f2_f3_dbl_circuit
 
 Table EnergyConsumer: mRID, node, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
     ld_s1_f3_mid, s1_f3_mid

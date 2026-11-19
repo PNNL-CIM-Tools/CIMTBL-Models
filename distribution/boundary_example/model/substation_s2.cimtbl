@@ -3,10 +3,14 @@
 # the bus to that feeder's head node.
 #
 # The bus node is this frame's own. The head nodes are in the boundary model, so the joint with each
-# feeder is bilateral. The Substation container is reference data (containers.cimtbl). The source's
-# set point and the breakers' positions are in the substation's steady state hypothesis.
+# feeder is bilateral. The frame declares its Substation, which its feeders name as their
+# NormalEnergizingSubstation.
 
 Profile = cim18v17
+
+Object BaseVoltage: mRID=bv_13p2kv, nominalVoltage (kV)=13.2
+
+Object Substation: mRID=sub_s2
 
 Object ConnectivityNode: mRID=s2_bus, ConnectivityNodeContainer=sub_s2
 
