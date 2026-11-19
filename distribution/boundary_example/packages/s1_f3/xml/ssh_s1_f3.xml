@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<cim:Disconnector rdf:about="urn:uuid:7d3d1b7e-371b-5dad-84f8-a99e6b82b5a5">
-  <cim:Switch.open>true</cim:Switch.open>
-</cim:Disconnector>
 <cim:EnergyConsumer rdf:about="urn:uuid:4e57f957-491e-59f8-a80c-94c7f1b016e7">
   <cim:EnergyConsumer.p>500000.0</cim:EnergyConsumer.p>
   <cim:EnergyConsumer.q>120000.0</cim:EnergyConsumer.q>
@@ -11,7 +8,4 @@
   <cim:EnergyConsumer.p>800000.0</cim:EnergyConsumer.p>
   <cim:EnergyConsumer.q>200000.0</cim:EnergyConsumer.q>
 </cim:EnergyConsumer>
-<cim:Recloser rdf:about="urn:uuid:f3176360-1805-517c-9ce9-fd76c2413016">
-  <cim:Switch.open>false</cim:Switch.open>
-</cim:Recloser>
 </rdf:RDF>

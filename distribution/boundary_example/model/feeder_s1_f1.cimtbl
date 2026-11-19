@@ -1,24 +1,19 @@
-# Frame s1-f1: the feeder's own equipment, head recloser to its far end.
+# Frame s1-f1: the feeder's own equipment, from its head node to its far end.
 
 Profile = cim18v17
 
 Object Feeder: mRID=fdr_s1_f1, name=s1-f1, NormalEnergizingSubstation=sub_s1
 
-# The head recloser is in this frame. Its bus side is the boundary node s1_bus, which this file names
-# but does not declare. Its container is the Substation, which is reference data.
-Object Recloser: mRID=sw_s1_f1, name=s1-f1 head, node1=s1_bus, node2=s1_f1_head, normalOpen=false, areaBoundary=true, BaseVoltage=bv_12p47kv, EquipmentContainer=sub_s1
+Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89
 
-# s1_f1_end is this frame's own node: the owner's side of tie 1.
 Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f1
     ln_s1_f1_1, s1_f1_head, s1_f1_mid, 1.0
     ln_s1_f1_2, s1_f1_mid,  s1_f1_end, 1.5
+    ln_s2_f1_3, s1_f1_end,  s1_f1_bnd, 0.1
 
 Table EnergyConsumer: mRID, node, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f1
     ld_s1_f1_mid, s1_f1_mid
     ld_s1_f1_end, s1_f1_end
 
-# Tie 1 to feeder s1-f2. This frame owns it: the feeder whose name sorts first, since the source
-# assigns it to neither. One terminal is on this frame's node, the other on the boundary node.
-# Its container is the smallest area that contains both feeders. normalOpen is as built; the
-# position is in the steady state hypothesis.
-Object LoadBreakSwitch: mRID=sw_tie_s1_f1_s1_f2, name=tie s1-f1 s1-f2, node1=s1_f1_end, node2=s1_f2_end, normalOpen=true, areaBoundary=true, BaseVoltage=bv_12p47kv, EquipmentContainer=area_ss_s1
+# Feeder.NormalHeadTerminal: the first span's terminal on the head node
+Update Terminal: mRID=ln_s1_f1_1_T1, NormalHeadFeeder=fdr_s1_f1

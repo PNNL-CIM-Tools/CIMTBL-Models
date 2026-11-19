@@ -26,12 +26,6 @@
       "cim:IdentifiedObject.mRID": "s2_f2_mid"
     },
     {
-      "@id": "urn:uuid:5968f21d-2ad7-52a7-b6a2-177493fe306b",
-      "@type": "cim:ConnectivityNode",
-      "cim:ConnectivityNode.ConnectivityNodeContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
-      "cim:IdentifiedObject.mRID": "s2_f2_head"
-    },
-    {
       "@id": "urn:uuid:8642be30-8a47-5101-ab1f-428e8035ca64",
       "@type": "cim:ConnectivityNode",
       "cim:ConnectivityNode.ConnectivityNodeContainer": "urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6",
@@ -59,24 +53,6 @@
       "cim:IdentifiedObject.name": "s2-f2"
     },
     {
-      "@id": "urn:uuid:a4e151d1-fad3-57a5-9291-f5bd7e8c734c",
-      "@type": "cim:Recloser",
-      "cim:Switch.areaBoundary": "true",
-      "cim:Switch.normalOpen": "false",
-      "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
-      "cim:Equipment.EquipmentContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
-      "cim:IdentifiedObject.mRID": "sw_s2_f2",
-      "cim:IdentifiedObject.name": "s2-f2 head"
-    },
-    {
-      "@id": "urn:uuid:1d315260-4851-5d37-89b8-7c26e55e7e51",
-      "@type": "cim:Terminal",
-      "cim:Terminal.ConductingEquipment": "urn:uuid:a4e151d1-fad3-57a5-9291-f5bd7e8c734c",
-      "cim:Terminal.ConnectivityNode": "urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018",
-      "cim:ACDCTerminal.sequenceNumber": "1",
-      "cim:IdentifiedObject.mRID": "sw_s2_f2_T1"
-    },
-    {
       "@id": "urn:uuid:2470c505-d9fe-5e1e-808d-ce5fe0531de8",
       "@type": "cim:Terminal",
       "cim:Terminal.ConductingEquipment": "urn:uuid:841a55f9-d007-53af-85d2-5315f6aa6362",
@@ -101,14 +77,6 @@
       "cim:IdentifiedObject.mRID": "ld_s2_f2_mid_T1"
     },
     {
-      "@id": "urn:uuid:8afc482f-81a9-55d8-a1d6-a1f52c411be3",
-      "@type": "cim:Terminal",
-      "cim:Terminal.ConductingEquipment": "urn:uuid:a4e151d1-fad3-57a5-9291-f5bd7e8c734c",
-      "cim:Terminal.ConnectivityNode": "urn:uuid:5968f21d-2ad7-52a7-b6a2-177493fe306b",
-      "cim:ACDCTerminal.sequenceNumber": "2",
-      "cim:IdentifiedObject.mRID": "sw_s2_f2_T2"
-    },
-    {
       "@id": "urn:uuid:954f553b-2071-51ad-9ef2-fe1165115a43",
       "@type": "cim:Terminal",
       "cim:Terminal.ConductingEquipment": "urn:uuid:43bebb1c-db46-57d7-81c9-8d567b813d28",
@@ -129,6 +97,7 @@
       "@type": "cim:Terminal",
       "cim:Terminal.ConductingEquipment": "urn:uuid:43bebb1c-db46-57d7-81c9-8d567b813d28",
       "cim:Terminal.ConnectivityNode": "urn:uuid:5968f21d-2ad7-52a7-b6a2-177493fe306b",
+      "cim:Terminal.NormalHeadFeeder": "urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6",
       "cim:ACDCTerminal.sequenceNumber": "1",
       "cim:IdentifiedObject.mRID": "ln_s2_f2_1_T1"
     }

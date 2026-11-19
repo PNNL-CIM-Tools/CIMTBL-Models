@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<cim:Breaker rdf:about="urn:uuid:28e418c8-3ee7-556b-a5c8-328c133d4d27">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:Breaker>
+<cim:Breaker rdf:about="urn:uuid:62229793-5ae5-55a1-83d8-e637cb66b8f0">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:Breaker>
+<cim:Breaker rdf:about="urn:uuid:bb662115-f3b4-55d1-98de-84edcd384d24">
+  <cim:Switch.open>false</cim:Switch.open>
+</cim:Breaker>
+<cim:EnergySource rdf:about="urn:uuid:12c5e636-b1df-558e-a9ae-e2ec7fd55e96">
+  <cim:EnergySource.voltageAngle>0.0</cim:EnergySource.voltageAngle>
+  <cim:EnergySource.voltageMagnitude>12470.0</cim:EnergySource.voltageMagnitude>
+</cim:EnergySource>
+</rdf:RDF>

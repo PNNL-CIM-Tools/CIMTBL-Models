@@ -2,18 +2,19 @@
 
 Usage: python build.py [--zip]      (needs cim-tables installed)
 
-The organisation is that of the GB Grid Code Planning Code, PC.G.3 (modification GC0139): each
-substation and each feeder is a Frame; a Boundary joins each set of frames whose systems connect and
-its boundary model holds only connectivity nodes; every object is in exactly one model. The metadata
-uses the draft grid-model classes of IEC 61970-55x (cim18v17.metadata in CIM-Profiles) and the ENTSO-E
-Metadata for Dataset and Distribution Specification v2.4.0.
+The organisation is that of the GB Grid Code Planning Code, PC.G.3 (modification GC0139), as the Grid
+Kitchen publishing contract 0.4.0 applies it: each substation and each feeder is a Frame; one Boundary
+joins every frame of the distribution area, and its one boundary model holds the nodes where frames meet
+and the tie switches between them; every object is in exactly one model. The metadata uses the draft
+grid-model classes of IEC 61970-55x (cim18v17.metadata in CIM-Profiles).
 
 Writes:
-- framework.jsonld, framework.xml: the framework edition, its frames and its boundaries;
+- framework.xml: the framework edition, its frames and its boundary;
 - merged_assembly.xml, .jsonld: the whole assembly in one file of each;
-- packages/<feeder>/: one feeder's package, unpacked, with manifest.jsonld and manifest.xml. Its cimtbl/,
-  xml/ and jsonld/ hold each dataset in that format, instance data only (no header). A steady state
-  hypothesis (SSH) states only the attributes it sets, as a CGMES SSH file does;
+- packages/<feeder>/: one feeder's package, unpacked, with manifest.jsonld (DCAT: every model and file,
+  with checksums) and assembly.xml (grid model: how the models fit together as frames and boundary). Its
+  cimtbl/, jsonld/ and xml/ hold each model in that format, instance data only (no header). A steady
+  state hypothesis (SSH) states only the attributes it sets, as a CGMES SSH file does;
 - with --zip, dist/<feeder>.zip.
 
 Output is deterministic: the same model/ gives the same bytes.
@@ -40,187 +41,135 @@ MODEL = HERE / 'model'
 PACKAGES = HERE / 'packages'
 PROFILE = 'cim18v17'
 AUTHORITY = 'https://github.com/PNNL-CIM-Tools/CIMTBL-Models'
-SCOPE = 'boundary_example'
-HOME = AUTHORITY + '/tree/main/distribution/boundary_example'
-ISSUED = '2026-11-16T00:00:00Z'
-VERSION = '2.0.0'
-VERSION_NOTES = 'Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).'
+# Stands for the utility code of the contract's identifiers, and is the model scope of every file
+CODE = 'boundary_example'
+NAMESPACE = uuid.UUID('f2acde89-6756-4b1a-8817-efd5597eb830')
+ISSUED = '2026-11-18T00:00:00Z'
+VERSION = '3.0.0'
 LICENSE = 'https://spdx.org/licenses/BSD-3-Clause.html'
-PUBLISHER = {'@id': 'https://www.pnnl.gov/', '@type': 'foaf:Organization',
-             'foaf:name': 'Pacific Northwest National Laboratory'}
 PROFILE_DOCS = profile_jsonld(PROFILE)
+CONTEXT = PROFILE_DOCS['context']
 UNITS = PROFILE_DOCS['conventions'][PROFILE_DOCS['default']]
 NS = {
     'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    'dcat': 'http://www.w3.org/ns/dcat#',
-    'dcterms': 'http://purl.org/dc/terms/',
-    'adms': 'http://www.w3.org/ns/adms#',
-    'spdx': 'http://spdx.org/rdf/terms#',
-    'foaf': 'http://xmlns.com/foaf/0.1/',
-    'md': 'http://iec.ch/TC57/61970-552/ModelDescription/1#',
     'cim': 'http://cim.ucaiug.io/cim101/draft#',
+    'md': 'http://iec.ch/TC57/61970-552/ModelDescription/1#',
+    'dct': 'http://purl.org/dc/terms/',
+    'dcat': 'http://www.w3.org/ns/dcat#',
 }
-LISTS = ['cim:FrameModel.perimeter', 'cim:GridModel.usedIn', 'cim:Boundary.separates',
-         'cim:Frame.connectsTo', 'cim:Frame.includedIn', 'dct:requires', 'dct:conformsTo']
-LINKS = LISTS + ['cim:FrameModel.represents', 'dct:license', 'dct:spatial', 'dcat:isVersionOf',
-                 'spdx:algorithm', 'dcat:mediaType']
-CONTEXT = [PROFILE_DOCS['context'], {
-    'adms': NS['adms'], 'spdx': NS['spdx'], 'foaf': NS['foaf'],
-    **{term: {'@type': '@id', '@container': '@set'} if term in LISTS else {'@type': '@id'} for term in LINKS},
-}]
 MEDIA = {'.cimtbl': 'text/plain', '.xml': 'application/rdf+xml', '.jsonld': 'application/ld+json'}
-# The serialisation standard a file conforms to, as ENTSO-E's metadata specification names it
-SYNTAX = {'.xml': 'urn:iso:std:iec:61970-552:2016', '.jsonld': 'urn:iso:std:iec:61970-553:draft:ed-1'}
+RDF_552 = 'urn:iso:std:iec:61970-552:2016'
+JSONLD_553 = 'urn:iso:std:iec:61970-553:draft:ed-1'
+CONFORMS = {'.cimtbl': [CONTEXT], '.xml': [RDF_552, CONTEXT], '.jsonld': [JSONLD_553, CONTEXT] + UNITS}
 
 SUBSTATIONS = ['s1', 's2']
 FEEDERS = {'s1_f1': 's1', 's1_f2': 's1', 's1_f3': 's1', 's2_f1': 's2', 's2_f2': 's2'}
 FRAMES = SUBSTATIONS + list(FEEDERS)
-# A boundary is named for its frames, sorted and joined by '-': model/boundary_<set>.cimtbl
-BOUNDARIES = {path.stem.removeprefix('boundary_'): path.stem.removeprefix('boundary_').split('-')
-              for path in sorted(MODEL.glob('boundary_*-*.cimtbl'))}
+AREA = 'area_d_example'
+REFERENCE = ['catalog', 'containers']
+STRUCTURE = REFERENCE + ['boundary']
 
 
 def label(name: str) -> str:
     return name.replace('_', '-')
 
 
-def perimeter(frame: str) -> list[str]:
-    return [f'boundary_{name}' for name, frames in BOUNDARIES.items() if frame in frames]
-
-
-def identifier(kind: str, name: str) -> str:
-    """A persistent identifier: the same kind and name give the same UUID wherever they appear."""
-    return str(uuid.uuid5(uuid.NAMESPACE_URL, f'{AUTHORITY}/{SCOPE}/{kind}/{name}'))
-
-
-def iri(kind: str, name: str) -> str:
-    return 'urn:uuid:' + identifier(kind, name)
-
-
-def dataset_iri(name: str) -> str:
-    return iri('dataset', name)
-
-
 def frame_file(frame: str) -> str:
     return f'substation_{frame}' if frame in SUBSTATIONS else f'feeder_{frame}'
 
 
-# Every dataset of the example: its kind, its frame or boundary, what it requires, and its text.
-DATASETS = {
-    'catalog': dict(kind='reference', requires=[], title='Reference data: catalogue',
-                    description='Base voltages and the line impedance that every frame points at.'),
-    'containers': dict(kind='reference', requires=[], title='Reference data: containers',
-                       description='The containers that more than one frame names: the as-built '
-                                   'ConnectedArea objects, nested by ContainedWithin, and the Substations.'),
+def uuid_of(text: str) -> str:
+    return str(uuid.uuid5(NAMESPACE, text))
+
+
+# Every model of the example: its kind, its title, the frame it represents and the models it requires.
+MODELS = {
+    'catalog': dict(kind='reference', title='Catalogue data', requires=[]),
+    'containers': dict(kind='reference', title='Containers', requires=['catalog']),
+    'boundary': dict(kind='boundary', title='Boundary', requires=REFERENCE),
+    'ssh_boundary': dict(kind='boundary-ssh', title='Boundary situation', requires=['boundary']),
 }
-for _name, _frames in BOUNDARIES.items():
-    DATASETS[f'boundary_{_name}'] = dict(
-        kind='boundary', boundary=_name, requires=['containers'],
-        title=f'Boundary model {" | ".join(label(f) for f in _frames)}',
-        description='The connectivity nodes where frames ' + ', '.join(label(f) for f in _frames) + ' join, '
-                    'and nothing else.')
 for _frame in FRAMES:
-    _what = f'substation {_frame}: its source' if _frame in SUBSTATIONS else f'feeder {label(_frame)}'
-    DATASETS[frame_file(_frame)] = dict(
-        kind='frame', frame=_frame, requires=['catalog', 'containers'] + perimeter(_frame),
-        title=f'Frame model {label(_frame)}', description=f'The structural model of {_what}.')
-for _feeder in FEEDERS:
-    DATASETS[f'ssh_{_feeder}'] = dict(
-        kind='ssh', frame=_feeder, requires=[f'feeder_{_feeder}'],
-        title=f'Steady state hypothesis {label(_feeder)}',
-        description=f'The p and q of the loads and the positions of the switches of frame {label(_feeder)}, '
-                    'in normal operation.')
-# The datasets a model may reference besides its own objects
-ALLOWED = {name: (['catalog'] if name == 'containers' else []) +
-           (spec['requires'] if spec['kind'] in ('boundary', 'frame') else [])
-           for name, spec in DATASETS.items() if spec['kind'] != 'ssh'}
+    _what = 'Substation' if _frame in SUBSTATIONS else 'Feeder'
+    MODELS[frame_file(_frame)] = dict(kind='frame', title=f'{_what} frame', frame=_frame, requires=STRUCTURE)
+    MODELS[f'ssh_{_frame}'] = dict(kind='ssh', title=f'{_what} situation', frame=_frame,
+                                   requires=[frame_file(_frame)])
+# The structural model each SSH updates
+UPDATES = {name: spec['requires'][0] for name, spec in MODELS.items() if spec['kind'] in ('ssh', 'boundary-ssh')}
+# The models a structural model may reference besides its own objects
+ALLOWED = {name: spec['requires'] for name, spec in MODELS.items() if name not in UPDATES}
 
 
-def header(name: str) -> dict:
-    """The dcat:Dataset description of a dataset, as a package manifest lists it."""
-    spec = DATASETS[name]
-    extra_types = {'reference': [], 'boundary': ['cim:BoundaryModel'], 'frame': ['cim:FrameModel'],
-                   'ssh': ['cim:FrameModel'], 'assembly': ['cim:GridAssembly']}[spec['kind']]
-    out = {
-        '@id': dataset_iri(name),
-        '@type': ['dcat:Dataset'] + extra_types,
-        'dct:identifier': identifier('dataset', name),
-        'dct:title': spec['title'],
-        'dct:description': spec['description'],
-        'dct:issued': ISSUED,
-        'dcat:version': VERSION,
-        'adms:versionNotes': VERSION_NOTES,
-        'dcat:isVersionOf': f'{HOME}#{name}',
-        'md:Model.modelingAuthoritySet': AUTHORITY,
-        'dct:publisher': PUBLISHER,
-        'dct:license': LICENSE,
-    }
-    if spec['kind'] == 'boundary':
-        # ENTSO-E R:MD:ALL:NA:BoundaryIdentification: dct:spatial names the boundary, and no conformance is stated
-        out['dct:spatial'] = iri('boundary', spec['boundary'])
-    else:
-        out['dct:conformsTo'] = UNITS + [PROFILE_DOCS['context']]
-    if spec['kind'] in ('frame', 'ssh'):
-        out['dct:spatial'] = iri('frame', spec['frame'])
-        out['cim:FrameModel.represents'] = iri('frame', spec['frame'])
-    if spec['kind'] == 'frame':
-        out['cim:FrameModel.perimeter'] = [dataset_iri(b) for b in perimeter(spec['frame'])]
-    if spec['requires']:
-        out['dct:requires'] = [dataset_iri(n) for n in spec['requires']]
+def identifiers(network) -> dict:
+    """The contract's identifiers (section 2): model, frame and boundary IRIs, keyed by name.
+
+    Shared models are keyed by the UUID of the object they belong to, feeder models by
+    <model_id>@<version>, so a shared model has one identifier in every package that carries it."""
+    area = str(network.find_by_mRID(AREA).identifier)
+    keys = {'catalog': f'catalog/{CODE}', 'containers': f'containers/{area}', 'boundary': f'boundary/{area}',
+            'ssh_boundary': f'ssh-boundary/{area}'}
+    for sub in SUBSTATIONS:
+        station = str(network.find_by_mRID(f'sub_{sub}').identifier)
+        keys[f'substation_{sub}'] = f'substation/{station}'
+        keys[f'ssh_{sub}'] = f'ssh-substation/{station}'
+    for feeder in FEEDERS:
+        keys[f'feeder_{feeder}'] = f'feeder/{feeder}@{VERSION}'
+        keys[f'ssh_{feeder}'] = f'ssh-feeder/{feeder}@{VERSION}'
+    out = {name: 'urn:uuid:' + uuid_of(f'{CODE}/{key}') for name, key in keys.items()}
+    out |= {f'frame:{f}': 'urn:uuid:' + uuid_of(f'{CODE}/frame/{f}') for f in FRAMES}
+    out['area-boundary'] = 'urn:uuid:' + uuid_of(f'{CODE}/area-boundary/{area}')
     return out
-
-
-def framework_nodes(frames: list[str], boundaries: list[str]) -> list[dict]:
-    """The cim:Frame and cim:Boundary resources that datasets point at with dct:spatial.
-
-    Each of `frames` is described with the boundaries it connects to. Any other frame that one of
-    `boundaries` separates is named only, so that the nodes leave no frame undescribed."""
-    named = [f for f in FRAMES if f not in frames and any(f in BOUNDARIES[b] for b in boundaries)]
-    nodes = [{'@id': iri('frame', f), '@type': 'cim:Frame', 'dct:title': f'Frame {label(f)}',
-              'cim:Frame.connectsTo': [iri('boundary', b.removeprefix('boundary_')) for b in perimeter(f)]}
-             for f in frames]
-    nodes += [{'@id': iri('frame', f), '@type': 'cim:Frame', 'dct:title': f'Frame {label(f)}'} for f in named]
-    nodes += [{'@id': iri('boundary', b), '@type': 'cim:Boundary',
-               'dct:title': f'Boundary {" | ".join(label(f) for f in BOUNDARIES[b])}',
-               'cim:Boundary.separates': [iri('frame', f) for f in BOUNDARIES[b]]} for b in boundaries]
-    return nodes
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def expand(value: str) -> str:
-    prefix, _, rest = value.partition(':')
-    prefix = 'dcterms' if prefix == 'dct' else prefix
-    return NS[prefix] + rest if prefix in NS and not rest.startswith('//') else value
+def rdf_xml(nodes: list[dict]) -> str:
+    """Grid-model nodes as RDF XML: a urn:uuid value is a resource, anything else a literal."""
+    lines = ['<?xml version="1.0" encoding="utf-8"?>',
+             '<rdf:RDF ' + '\n    '.join(f'xmlns:{p}="{u}"' for p, u in NS.items()) + '>']
+    for node in nodes:
+        lines.append(f'  <{node["@type"]} rdf:about={quoteattr(node["@id"])}>')
+        for key, value in node.items():
+            if key.startswith('@'):
+                continue
+            for item in value if isinstance(value, list) else [value]:
+                if item.startswith('urn:uuid:'):
+                    lines.append(f'    <{key} rdf:resource={quoteattr(item)}/>')
+                else:
+                    lines.append(f'    <{key}>{escape(item)}</{key}>')
+        lines.append(f'  </{node["@type"]}>')
+    return '\n'.join(lines + ['</rdf:RDF>']) + '\n'
 
 
-def rdf_xml(node: dict, indent: str = '') -> list[str]:
-    """One JSON-LD node as RDF XML: links as rdf:resource, nested nodes inline, the rest as literals."""
-    node_types = node['@type'] if isinstance(node['@type'], list) else [node['@type']]
-    tag = node_types[0].replace('dct:', 'dcterms:')
-    about = f' rdf:about={quoteattr(node["@id"])}' if '@id' in node else ''
-    lines = [f'{indent}<{tag}{about}>']
-    lines += [f'{indent}  <rdf:type rdf:resource={quoteattr(expand(extra))}/>' for extra in node_types[1:]]
-    for key, value in node.items():
-        if key.startswith('@'):
-            continue
-        prop = key.replace('dct:', 'dcterms:')
-        for item in value if isinstance(value, list) else [value]:
-            if isinstance(item, dict) and set(item) == {'@id'}:
-                lines.append(f'{indent}  <{prop} rdf:resource={quoteattr(item["@id"])}/>')
-            elif isinstance(item, dict):
-                lines += [f'{indent}  <{prop}>'] + rdf_xml(item, indent + '    ') + [f'{indent}  </{prop}>']
-            elif key in LINKS or key == 'dcat:accessURL':
-                lines.append(f'{indent}  <{prop} rdf:resource={quoteattr(expand(item))}/>')
-            else:
-                lines.append(f'{indent}  <{prop}>{escape(str(item))}</{prop}>')
-    return lines + [f'{indent}</{tag}>']
+def frame_nodes(ids: dict, frames: list[str]) -> list[dict]:
+    """The cim:Frame resources and the one cim:Boundary. Each of `frames` is described with the boundary
+    it connects to; every other frame of the area is named only, so no reference is left undescribed."""
+    nodes = [{'@id': ids[f'frame:{f}'], '@type': 'cim:Frame', 'dct:title': label(f),
+              'cim:Frame.connectsTo': ids['area-boundary']} for f in frames]
+    nodes += [{'@id': ids[f'frame:{f}'], '@type': 'cim:Frame', 'dct:title': label(f)}
+              for f in sorted(FRAMES) if f not in frames]
+    nodes.append({'@id': ids['area-boundary'], '@type': 'cim:Boundary', 'dct:title': 'Distribution area boundary',
+                  'cim:Boundary.separates': [ids[f'frame:{f}'] for f in sorted(FRAMES)]})
+    return nodes
 
 
-def rdf_open() -> str:
-    return '<rdf:RDF ' + ' '.join(f'xmlns:{p}="{u}"' for p, u in NS.items()) + '>'
+def model_node(ids: dict, name: str, assembly: str) -> dict:
+    """A model as assembly.xml describes it (contract 5.3)."""
+    spec = MODELS[name]
+    node_type = {'reference': 'cim:GridModel', 'boundary': 'cim:BoundaryModel', 'boundary-ssh': 'cim:BoundaryModel',
+                 'frame': 'cim:FrameModel', 'ssh': 'cim:FrameModel'}[spec['kind']]
+    node = {'@id': ids[name], '@type': node_type, 'dct:title': spec['title'], 'cim:GridModel.usedIn': assembly,
+            'dct:requires': [ids[n] for n in spec['requires']]}
+    if spec['kind'] in ('boundary', 'boundary-ssh'):
+        node['dct:spatial'] = ids['area-boundary']
+    if 'frame' in spec:
+        node['cim:FrameModel.represents'] = ids[f'frame:{spec["frame"]}']
+        node['dct:spatial'] = ids[f'frame:{spec["frame"]}']
+    if spec['kind'] == 'frame':
+        node['cim:FrameModel.perimeter'] = ids['boundary']
+    return node
 
 
 def is_kept(prop: str, keep: set[str] | None) -> bool:
@@ -228,8 +177,8 @@ def is_kept(prop: str, keep: set[str] | None) -> bool:
 
 
 def write_rdf(graph: dict, cim, stem: Path, keep: set[str] | None = None) -> None:
-    """A graph's RDF XML and JSON-LD, instance data only: the package manifest is the one place a
-    dataset is described, so neither file has a header.
+    """A graph's RDF XML and JSON-LD, instance data only: the package metadata is the one place a model
+    is described, so neither file has a header.
 
     JSON-LD with no header is read in the profile's default units, which are the units it is written in.
     keep: write only these attributes of each object, as an SSH file states only its own.
@@ -248,47 +197,43 @@ def write_rdf(graph: dict, cim, stem: Path, keep: set[str] | None = None) -> Non
     stem.with_suffix('.jsonld').write_text(json.dumps(out, indent=2) + '\n', encoding='utf-8')
 
 
-def load_by_dataset() -> tuple[object, dict]:
-    """Load model/ one file at a time in assembly order, noting which file declares each object."""
-    order = ['containers'] + [f'boundary_{b}' for b in BOUNDARIES] + [frame_file(f) for f in FRAMES]
+def new_objects(network, before: set) -> dict:
+    new = {}
+    for cls, objs in network.graph.items():
+        for key, obj in objs.items():
+            if (cls, key) not in before:
+                new.setdefault(cls, {})[key] = obj
+    return new
+
+
+def load_by_model() -> tuple[object, dict]:
+    """Load the structural models one file at a time in assembly order, noting which file declares
+    each object."""
     scratch = MODEL / '_catalog.cimtbl'
     scratch.write_text(master_text('scratch', ['catalog']), encoding='utf-8')
     network = cimtables.load_model(str(scratch))
     scratch.unlink()
-    owned = {'catalog': {cls: dict(objs) for cls, objs in network.graph.items()}}
-    for name in order:
+    owned = {'catalog': new_objects(network, set())}
+    for name in ['containers', 'boundary'] + [frame_file(f) for f in FRAMES]:
         before = {(cls, key) for cls, objs in network.graph.items() for key in objs}
         cimtables.load(str(MODEL / f'{name}.cimtbl'), network)
-        new = {}
-        for cls, objs in network.graph.items():
-            for key, obj in objs.items():
-                if (cls, key) not in before:
-                    new.setdefault(cls, {})[key] = obj
-        owned[name] = new
+        owned[name] = new_objects(network, before)
     return network, owned
 
 
-def write_datasets(network, owned: dict, staging: Path) -> None:
-    for name, graph in owned.items():
-        write_rdf(graph, network.cim, staging / name)
-    edition = {'@id': iri('framework', 'edition-1'), '@type': 'cim:FrameworkEdition',
+def write_framework(ids: dict) -> None:
+    edition = {'@id': 'urn:uuid:' + uuid_of(f'{CODE}/framework/edition-1'), '@type': 'cim:FrameworkEdition',
                'dct:title': 'Boundary example framework, edition 1', 'dct:issued': ISSUED}
-    nodes = framework_nodes(FRAMES, list(BOUNDARIES))
+    nodes = frame_nodes(ids, FRAMES)
     for node in nodes[:len(FRAMES)]:
-        node['cim:Frame.includedIn'] = [edition['@id']]
-    framework = {'@context': CONTEXT, '@graph': [edition] + nodes}
-    (HERE / 'framework.jsonld').write_text(json.dumps(framework, indent=2) + '\n', encoding='utf-8')
-    lines = ['<?xml version="1.0" encoding="utf-8"?>', rdf_open()]
-    for node in [edition] + nodes:
-        lines += rdf_xml(node)
-    (HERE / 'framework.xml').write_text('\n'.join(lines + ['</rdf:RDF>']) + '\n', encoding='utf-8')
+        node['cim:Frame.includedIn'] = edition['@id']
+    (HERE / 'framework.xml').write_text(rdf_xml([edition] + nodes), encoding='utf-8')
 
 
 def apply_ssh(network, staging: Path) -> None:
-    """Load each frame's SSH onto the structural model, and write its RDF: each object it updates, with
-    only the attributes it sets."""
-    for feeder in FEEDERS:
-        name = f'ssh_{feeder}'
+    """Load each SSH onto the structural model, and write its RDF: each object it updates, with only the
+    attributes it sets."""
+    for name in UPDATES:
         records, _ = cimtables.parse_file(MODEL / f'{name}.cimtbl')
         attributes = {field for record in records for field in record.fields if field != 'mRID'}
         mrids = {record.fields['mRID'] for record in records}
@@ -302,93 +247,74 @@ def apply_ssh(network, staging: Path) -> None:
 
 
 def master_text(comment: str, imports: list[str]) -> str:
-    return (f'# {comment}\n\nProfile = {PROFILE}\nAuthority = {AUTHORITY}\nModel = {SCOPE}\n\n'
+    return (f'# {comment}\n\nProfile = {PROFILE}\nAuthority = {AUTHORITY}\nModel = {CODE}\n\n'
             + ''.join(f'Import {name}.cimtbl\n' for name in imports))
 
 
 def distribution(root: Path, path: Path) -> dict:
-    relative = path.relative_to(root).as_posix()
+    conforms = [RDF_552] if path.name == 'assembly.xml' else CONFORMS[path.suffix]
     return {
-        '@id': iri('file', f'{sha256(path)}/{relative}'),
         '@type': 'dcat:Distribution',
-        'dcat:accessURL': relative,
-        'dcat:mediaType': 'https://www.iana.org/assignments/media-types/' + MEDIA[path.suffix],
+        'dcat:accessURL': path.relative_to(root).as_posix(),
+        'dcat:mediaType': {'@id': 'https://www.iana.org/assignments/media-types/' + MEDIA[path.suffix]},
         'dcat:byteSize': path.stat().st_size,
-        'spdx:checksum': {'@type': 'spdx:Checksum', 'spdx:algorithm': 'spdx:checksumAlgorithm_sha256',
+        'spdx:checksum': {'@type': 'spdx:Checksum', 'spdx:algorithm': {'@id': 'spdx:checksumAlgorithm_sha256'},
                           'spdx:checksumValue': sha256(path)},
-        'dct:conformsTo': ([SYNTAX[path.suffix]] if path.suffix in SYNTAX else [])
-                          + (UNITS if path.suffix == '.jsonld' else []) + [PROFILE_DOCS['context']],
+        'dct:conformsTo': [{'@id': c} for c in conforms],
     }
 
 
-def manifest_xml(manifest: dict) -> str:
-    """The manifest as ENTSO-E's specification lays it out: a dcat:Catalog, then each dcat:Dataset and
-    dcat:Distribution as its own resource, linked by reference, with file:// locations."""
-    catalog, *framework = manifest['@graph']
-    datasets = catalog['dcat:dataset']
-    lines = ['<?xml version="1.0" encoding="utf-8"?>', rdf_open()]
-    lines += rdf_xml(dict(catalog, **{'dcat:dataset': [{'@id': ds['@id']} for ds in datasets]}))
-    for ds in datasets:
-        lines += rdf_xml(dict(ds, **{'dcat:distribution': [{'@id': d['@id']} for d in ds['dcat:distribution']]}))
-        for dist in ds['dcat:distribution']:
-            lines += rdf_xml(dict(dist, **{'dcat:accessURL': 'file://' + dist['dcat:accessURL']}))
-    for node in framework:
-        lines += rdf_xml(node)
-    return '\n'.join(lines + ['</rdf:RDF>']) + '\n'
-
-
-def package_datasets(feeder: str) -> list[str]:
+def package_models(feeder: str) -> list[str]:
+    """A package's models, in the master's import order (contract 3.5)."""
     substation = FEEDERS[feeder]
-    boundaries = sorted(set(perimeter(feeder)) | set(perimeter(substation)))
-    return ['catalog', 'containers'] + boundaries + [frame_file(substation), f'feeder_{feeder}', f'ssh_{feeder}']
+    return STRUCTURE + [frame_file(substation), frame_file(feeder), 'ssh_boundary', f'ssh_{substation}',
+                        f'ssh_{feeder}']
 
 
-def build_package(feeder: str, staging: Path) -> dict:
-    """One feeder's package: an assembly of its frame, its substation's frame, the boundary models on
-    either's perimeter and the reference data, so that it loads and solves on its own."""
+def build_package(feeder: str, staging: Path, ids: dict) -> dict:
+    """One feeder's package: its frame, its substation's frame, the boundary model, the reference data and
+    their SSHs, so that it loads and solves on its own."""
     root = PACKAGES / feeder
-    for folder in ('cimtbl', 'xml', 'jsonld'):
+    for folder in ('cimtbl', 'jsonld', 'xml'):
         (root / folder).mkdir(parents=True)
-    names = package_datasets(feeder)
+    names = package_models(feeder)
     files = {}
     for name in names:
         files[name] = [root / 'cimtbl' / f'{name}.cimtbl']
         shutil.copyfile(MODEL / f'{name}.cimtbl', files[name][0])
-        for folder in ('xml', 'jsonld'):
+        for folder in ('jsonld', 'xml'):
             shutil.copyfile(staging / f'{name}.{folder}', root / folder / f'{name}.{folder}')
             files[name].append(root / folder / f'{name}.{folder}')
     master = root / 'cimtbl' / f'{feeder}.cimtbl'
     master.write_text(master_text(
-        f'Package {label(feeder)}: the reference data, the boundary models, the frames of substation '
-        f'{FEEDERS[feeder]} and feeder {label(feeder)},\n# then the feeder\'s steady state hypothesis.', names),
-        encoding='utf-8')
+        f'Package {label(feeder)}: the reference data, the boundary model, the frames of substation '
+        f'{FEEDERS[feeder]} and feeder {label(feeder)},\n# then the steady state hypotheses of the boundary '
+        'and of both frames.', names), encoding='utf-8')
 
-    assembly = f'package_{feeder}'
-    DATASETS[assembly] = dict(
-        kind='assembly', requires=[], title=f'Package {label(feeder)}',
-        description=f'Feeder {label(feeder)} with its substation, ready to load and solve on its own: an '
-                    'assembly of two frame models, the boundary models on their perimeters, the reference '
-                    'data, and the steady state hypothesis of the feeder.')
-    datasets = [dict(header(assembly), **{'dcat:distribution': [distribution(root, master)]})]
-    for name in names:
-        dataset = header(name)
-        if DATASETS[name]['kind'] != 'reference':
-            dataset['cim:GridModel.usedIn'] = [dataset_iri(assembly)]
-        datasets.append(dict(dataset, **{'dcat:distribution': [distribution(root, f) for f in files[name]]}))
-    frames = [FEEDERS[feeder], feeder]
-    boundaries = [n.removeprefix('boundary_') for n in names if n.startswith('boundary_')]
-    manifest = {'@context': CONTEXT, '@graph': [{
-        '@id': iri('manifest', feeder),
+    title = f'Boundary example package {label(feeder)} v{VERSION}'
+    assembly_id = 'urn:uuid:' + uuid_of(f'{feeder}@{VERSION}')
+    assembly = [{'@id': assembly_id, '@type': 'cim:GridAssembly', 'dct:title': title, 'dcat:version': VERSION,
+                 'md:Model.modelingAuthoritySet': AUTHORITY}]
+    assembly += [model_node(ids, name, assembly_id) for name in names]
+    assembly += frame_nodes(ids, [FEEDERS[feeder], feeder])
+    (root / 'assembly.xml').write_text(rdf_xml(assembly), encoding='utf-8')
+
+    package = {'@id': assembly_id, '@type': 'dcat:Dataset', 'dct:identifier': assembly_id.removeprefix('urn:uuid:'),
+               'dct:title': label(feeder), 'dct:issued': ISSUED, 'dcat:version': VERSION,
+               'dct:license': {'@id': LICENSE},
+               'dcat:distribution': [distribution(root, master), distribution(root, root / 'assembly.xml')]}
+    datasets = [package] + [{'@id': ids[name], '@type': 'dcat:Dataset', 'dct:title': MODELS[name]['title'],
+                             'dcat:distribution': [distribution(root, f) for f in files[name]]} for name in names]
+    manifest = {
+        '@context': [CONTEXT, {'spdx': 'http://spdx.org/rdf/terms#'}],
+        '@id': 'urn:uuid:' + uuid_of(f'{feeder}@{VERSION}/manifest'),
         '@type': 'dcat:Catalog',
-        'dct:identifier': identifier('manifest', feeder),
-        'dct:title': f'Boundary example: package {label(feeder)} v{VERSION}',
+        'dct:title': title,
         'dct:issued': ISSUED,
-        'dcat:version': VERSION,
         'dcat:dataset': datasets,
-    }] + framework_nodes(frames, boundaries)}
+    }
     (root / 'manifest.jsonld').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
-    (root / 'manifest.xml').write_text(manifest_xml(manifest), encoding='utf-8')
-    return {'feeder': feeder, 'names': names, 'manifest': manifest, 'master': master}
+    return {'feeder': feeder, 'names': names, 'manifest': manifest, 'assembly': assembly, 'master': master}
 
 
 def references(node) -> set[str]:
@@ -403,22 +329,12 @@ def references(node) -> set[str]:
     return found
 
 
-def described(node) -> set[str]:
-    """Every @id a JSON-LD node, or a node nested in it, describes rather than only names."""
-    found = {node['@id']} if '@id' in node and len(node) > 1 else set()
-    for value in node.values():
-        for item in value if isinstance(value, list) else [value]:
-            if isinstance(item, dict):
-                found |= described(item)
-    return found
-
-
 def undescribed(graph: list[dict]) -> set[str]:
-    return set().union(*(references(n) for n in graph)) - set().union(*(described(n) for n in graph))
+    return set().union(*(references(n) for n in graph)) - {n['@id'] for n in graph if len(n) > 1}
 
 
 def graph_of(name: str) -> list[dict]:
-    """A dataset's JSON-LD objects, from the first package that carries it (check 6 makes every copy identical)."""
+    """A model's JSON-LD objects, from the first package that carries it (check 6 makes every copy identical)."""
     path = sorted(PACKAGES.glob(f'*/jsonld/{name}.jsonld'))[0]
     return json.loads(path.read_text(encoding='utf-8'))['@graph']
 
@@ -429,90 +345,94 @@ def ids_of(name: str) -> set[str]:
 
 def check(network, owned: dict, built: list[dict]) -> None:
     """The rules the example exists to show. Raises on the first that does not hold."""
-    # 1. Each object is declared in exactly one file
+    cim = network.cim
+    owner = {obj.mRID: name for name, graph in owned.items() for objs in graph.values() for obj in objs.values()}
+    # 1. Each object is declared in exactly one file. An Update in an SSH changes an object of the model
+    # it updates; one in a structural model, an object of that model (a terminal its equipment created)
     declared = {}
-    for name in list(owned) + [f'ssh_{f}' for f in FEEDERS]:
+    for name in list(owned) + list(UPDATES):
         records, _ = cimtables.parse_file(MODEL / f'{name}.cimtbl')
         for record in records:
             mrid = record.fields['mRID']
             if record.form == 'Update':
-                assert name.startswith('ssh_') and declared[mrid] == f'feeder_{name.removeprefix("ssh_")}', (name, mrid)
+                assert owner[mrid] == UPDATES.get(name, name), (name, mrid, owner[mrid])
             else:
                 assert mrid not in declared, (mrid, name, declared.get(mrid))
                 declared[mrid] = name
-    # 2. A boundary model holds only connectivity nodes, of two or more frames
-    for name, frames in BOUNDARIES.items():
-        assert set(owned[f'boundary_{name}']) == {network.cim.ConnectivityNode}, name
-        assert len(frames) >= 2 and frames == sorted(frames) and set(frames) <= set(FRAMES), name
-    # 3. A model references only its own objects, its perimeter's boundary nodes and the reference data
+    # 2. The boundary model holds the nodes where frames meet and the switches between them, nothing else,
+    # and each of its switches has both terminals on its own nodes
+    boundary = owned['boundary']
+    assert all(cls in (cim.ConnectivityNode, cim.Terminal) or issubclass(cls, cim.Switch) for cls in boundary)
+    switches = [s for cls, objs in boundary.items() if issubclass(cls, cim.Switch) for s in objs.values()]
+    nodes = {node.mRID for node in boundary[cim.ConnectivityNode].values()}
+    assert all({t.ConnectivityNode.mRID for t in s.Terminals} <= nodes for s in switches)
+    # 3. A model references only its own objects, the boundary and the reference data; an SSH states
+    # attributes of its own model's objects only
     for name, allowed in ALLOWED.items():
         reach = ids_of(name).union(*(ids_of(n) for n in allowed))
         stray = set().union(*(references(node) for node in graph_of(name))) - reach
         assert not stray, (name, sorted(stray)[:3])
-    # An SSH states attributes of its own frame's objects only
-    for feeder in FEEDERS:
-        assert ids_of(f'ssh_{feeder}') <= ids_of(f'feeder_{feeder}'), feeder
-        assert not set().union(*(references(node) for node in graph_of(f'ssh_{feeder}'))), feeder
-    # 4. A boundary node is referenced by exactly the frames of its boundary
-    for name, frames in BOUNDARIES.items():
-        for node in ids_of(f'boundary_{name}'):
-            users = sorted(f for f in FRAMES
-                           if any(node in references(obj) for obj in graph_of(frame_file(f))))
-            assert users == frames, (name, node, users)
-    # 5. Every package loads on its own, keeps every boundary node's container, and has no dangling reference
-    # in its RDF files or its manifest
-    containers = {node.mRID: node.ConnectivityNodeContainer.mRID
-                  for name, graph in owned.items() if name.startswith('boundary_')
-                  for node in graph[network.cim.ConnectivityNode].values()}
+    for name, model in UPDATES.items():
+        assert ids_of(name) <= ids_of(model), name
+        assert not set().union(*(references(node) for node in graph_of(name))), name
+    # 4. A feeder head node joins its substation and its feeder. A tie node is one feeder's, and a tie
+    # joins two feeders
+    users = {}
+    for node in boundary[cim.ConnectivityNode].values():
+        iri = f'urn:uuid:{node.identifier}'
+        users[node.mRID] = sorted(f for f in FRAMES if any(iri in references(o) for o in graph_of(frame_file(f))))
+    tie_nodes = {t.ConnectivityNode.mRID for s in switches for t in s.Terminals}
+    for mrid, frames in users.items():
+        if mrid in tie_nodes:
+            assert len(frames) == 1 and frames[0] in FEEDERS, (mrid, frames)
+        else:
+            feeder = mrid.removesuffix('_head')
+            assert frames == sorted([FEEDERS[feeder], feeder]), (mrid, frames)
+    for switch in switches:
+        assert len({users[t.ConnectivityNode.mRID][0] for t in switch.Terminals}) == 2, switch.mRID
+    # 5. Every package loads on its own, keeps every boundary node's container, has no dangling reference
+    # across its RDF files, and its assembly.xml describes every resource it references
+    containers = {node.mRID: node.ConnectivityNodeContainer.mRID for node in boundary[cim.ConnectivityNode].values()}
     for item in built:
         alone = cimtables.load_model(str(item['master']))
-        for name in item['names']:
-            if name.startswith('boundary_'):
-                for node in owned[name][network.cim.ConnectivityNode].values():
-                    assert alone.find_by_mRID(node.mRID).ConnectivityNodeContainer.mRID == containers[node.mRID]
+        for mrid, container in containers.items():
+            assert alone.find_by_mRID(mrid).ConnectivityNodeContainer.mRID == container, (item['feeder'], mrid)
         names = item['names']
         stray = set().union(*(references(o) for n in names for o in graph_of(n))) - set().union(*(ids_of(n) for n in names))
         assert not stray, (item['feeder'], sorted(stray)[:3])
-        assert not undescribed(item['manifest']['@graph']), (item['feeder'], undescribed(item['manifest']['@graph']))
+        assert not undescribed(item['assembly']), (item['feeder'], undescribed(item['assembly']))
         assert all(load.p is not None for load in alone.graph[alone.cim.EnergyConsumer].values()), item['feeder']
-    framework = json.loads((HERE / 'framework.jsonld').read_text(encoding='utf-8'))['@graph']
-    assert not undescribed(framework), undescribed(framework)
-    # 6. A shared dataset has one identifier and one set of checksums wherever it appears
+        assert all(s.open is not None for cls, objs in alone.graph.items() if issubclass(cls, alone.cim.Switch)
+                   for s in objs.values()), item['feeder']
+    # 6. A shared model has one identifier and one set of checksums wherever it appears
     seen: dict[str, set] = {}
     for item in built:
-        for ds in item['manifest']['@graph'][0]['dcat:dataset']:
+        for ds in item['manifest']['dcat:dataset'][1:]:
             seen.setdefault(ds['@id'], set()).add(
                 tuple(d['spdx:checksum']['spdx:checksumValue'] for d in ds['dcat:distribution']))
     assert all(len(sums) == 1 for sums in seen.values()), seen
-    # 7. Assembled, each tie runs from its owner's node to a boundary node, and every SSH binds
+    # 7. Assembled, the ties are open, the breakers closed and every load has its p
     assembled = cimtables.load_model(str(MODEL / 'merged_assembly.cimtbl'))
-    for tie, owner, ends in (('sw_tie_s1_f1_s1_f2', 'feeder_s1_f1', ['s1_f1_end', 's1_f2_end']),
-                             ('sw_tie_s1_f3_s2_f1', 'feeder_s1_f3', ['s1_f3_end', 's2_f1_end'])):
-        switch = assembled.find_by_mRID(tie)
-        assert declared[tie] == owner and declared[ends[1]].startswith('boundary_'), tie
-        assert [t.ConnectivityNode.mRID for t in switch.Terminals] == ends and switch.normalOpen, tie
-        assert switch.open is True, tie
-    assert all(assembled.find_by_mRID(f'sw_{feeder}').open is False for feeder in FEEDERS)
+    for switch in switches:
+        tie = assembled.find_by_mRID(switch.mRID)
+        assert tie.normalOpen and tie.open is True, switch.mRID
+    assert all(assembled.find_by_mRID(f'brk_{feeder}').open is False for feeder in FEEDERS)
     assert all(load.p is not None for load in assembled.graph[assembled.cim.EnergyConsumer].values())
     total = sum(len(v) for v in assembled.graph.values())
     assert total == sum(len(objs) for graph in owned.values() for objs in graph.values()), total
-    print(f'ok: {len(built)} packages, {len(FRAMES)} frames, {len(BOUNDARIES)} boundaries, '
-          f'{len(seen)} datasets, {total} objects assembled')
-
-
-def write_assembly(network) -> None:
-    write_rdf(network.graph, network.cim, HERE / 'merged_assembly')
+    print(f'ok: {len(built)} packages, {len(FRAMES)} frames, 1 boundary with {len(switches)} ties, '
+          f'{len(seen)} models, {total} objects assembled')
 
 
 def write_zip(feeder: str) -> None:
-    """A zip with the manifests first, with fixed timestamps so the bytes repeat."""
+    """A zip with the metadata first, with fixed timestamps so the bytes repeat."""
     root = PACKAGES / feeder
     (HERE / 'dist').mkdir(exist_ok=True)
     files = sorted(p for p in root.rglob('*') if p.is_file())
-    files.sort(key=lambda p: not p.name.startswith('manifest.'))
+    files.sort(key=lambda p: p.parent != root)
     with zipfile.ZipFile(HERE / 'dist' / f'{feeder}.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in files:
-            info = zipfile.ZipInfo(path.relative_to(root).as_posix(), date_time=(2026, 11, 16, 0, 0, 0))
+            info = zipfile.ZipInfo(path.relative_to(root).as_posix(), date_time=(2026, 11, 18, 0, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(info, path.read_bytes())
 
@@ -520,13 +440,16 @@ def write_zip(feeder: str) -> None:
 def main() -> None:
     if PACKAGES.exists():
         shutil.rmtree(PACKAGES)
-    network, owned = load_by_dataset()
+    network, owned = load_by_model()
+    ids = identifiers(network)
+    write_framework(ids)
     with tempfile.TemporaryDirectory() as staging:
-        write_datasets(network, owned, Path(staging))
+        for name, graph in owned.items():
+            write_rdf(graph, network.cim, Path(staging) / name)
         apply_ssh(network, Path(staging))
-        built = [build_package(feeder, Path(staging)) for feeder in FEEDERS]
+        built = [build_package(feeder, Path(staging), ids) for feeder in FEEDERS]
     check(network, owned, built)
-    write_assembly(network)
+    write_rdf(network.graph, network.cim, HERE / 'merged_assembly')
     if '--zip' in sys.argv:
         for feeder in FEEDERS:
             write_zip(feeder)

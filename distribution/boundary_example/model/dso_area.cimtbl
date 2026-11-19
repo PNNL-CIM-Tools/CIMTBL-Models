@@ -1,0 +1,20 @@
+# DSO service areas 
+
+Profile = cim18v17
+
+Table ConnectedArea: mRID, kind, ContainedWithin
+    s1_s2_dist_area, distributionArea,
+
+    sub_s1_service_area, substationServiceArea, s1_s2_dist_area
+    sub_s2_service_area, substationServiceArea, s1_s2_dist_area
+
+    feed_area_s1_f1, feederArea, sub_s1_service_area
+    feed_area_s1_f2, feederArea, sub_s1_service_area
+    feed_area_s1_f3, feederArea, sub_s1_service_area
+
+    feed_area_s2_f1, feederArea, sub_s2_service_area
+    feed_area_s2_f2, feederArea, sub_s2_service_area
+
+Table Disconnector: mRID, node1, node2, normalOpen, open, areaBoundary, BaseVoltage, EquipmentContainer
+    sw_tie_s1_f1_s1_f2, s1_f1_bnd, s1_f2_bnd, true, true, true, bv_12p47kv, sub_s1_service_area
+    sw_tie_s1_f3_s2_f1, s1_f3_bnd, s2_f1_bnd, true, true, true, bv_12p47kv, s1_s2_dist_area

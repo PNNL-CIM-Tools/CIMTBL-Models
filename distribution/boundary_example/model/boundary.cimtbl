@@ -1,0 +1,25 @@
+# The boundary model of the distribution area: every node where its frames meet, and each tie switch
+# with the nodes on both of its sides. Identical in every package.
+#
+# A node's container is the smallest area that contains every frame that meets there. Import this
+# file after containers.cimtbl and before any frame, because cimtables gives a node with no container
+# the container of the first equipment that touches it.
+
+Profile = cim18v17
+
+Table ConnectivityNode: mRID, ConnectivityNodeContainer
+
+    # Feeder head nodes to clip feeder to substation head
+    s1_f1_head, sub_s1_service_area
+    s1_f2_head, sub_s1_service_area
+    s1_f3_head, sub_s1_service_area
+    s2_f1_head, sub_s2_service_area
+    s2_f2_head, sub_s2_service_area
+
+    # Sides of tie switch between feeders from same substation
+    s1_f1_bnd, sub_s1_service_area
+    s1_f2_bnd, sub_s1_service_area
+
+    # Sides of tie switch between feeders from different subsations
+    s1_f3_bnd, s1_s2_dist_area
+    s2_f1_bnd, s1_s2_dist_area

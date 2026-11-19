@@ -12,11 +12,6 @@
       "@type": "cim:EnergyConsumer",
       "cim:EnergyConsumer.p": "500000",
       "cim:EnergyConsumer.q": "120000"
-    },
-    {
-      "@id": "urn:uuid:7a02619a-132e-5fe1-b379-5750b0a0a80b",
-      "@type": "cim:Recloser",
-      "cim:Switch.open": "false"
     }
   ]
 }

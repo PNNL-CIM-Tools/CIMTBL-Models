@@ -2,719 +2,673 @@
   "@context": [
     "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
     {
-      "adms": "http://www.w3.org/ns/adms#",
-      "spdx": "http://spdx.org/rdf/terms#",
-      "foaf": "http://xmlns.com/foaf/0.1/",
-      "cim:FrameModel.perimeter": {
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "cim:GridModel.usedIn": {
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "cim:Boundary.separates": {
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "cim:Frame.connectsTo": {
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "cim:Frame.includedIn": {
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "dct:requires": {
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "dct:conformsTo": {
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "cim:FrameModel.represents": {
-        "@type": "@id"
-      },
-      "dct:license": {
-        "@type": "@id"
-      },
-      "dct:spatial": {
-        "@type": "@id"
-      },
-      "dcat:isVersionOf": {
-        "@type": "@id"
-      },
-      "spdx:algorithm": {
-        "@type": "@id"
-      },
-      "dcat:mediaType": {
-        "@type": "@id"
-      }
+      "spdx": "http://spdx.org/rdf/terms#"
     }
   ],
-  "@graph": [
+  "@id": "urn:uuid:2e811da2-77fd-518a-a24c-7179b0e3e0f6",
+  "@type": "dcat:Catalog",
+  "dct:title": "Boundary example package s2-f1 v3.0.0",
+  "dct:issued": "2026-11-18T00:00:00Z",
+  "dcat:dataset": [
     {
-      "@id": "urn:uuid:2a58357a-f6fd-5b5e-9c87-79ff860c407e",
-      "@type": "dcat:Catalog",
-      "dct:identifier": "2a58357a-f6fd-5b5e-9c87-79ff860c407e",
-      "dct:title": "Boundary example: package s2-f1 v2.0.0",
-      "dct:issued": "2026-11-16T00:00:00Z",
-      "dcat:version": "2.0.0",
-      "dcat:dataset": [
+      "@id": "urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac",
+      "@type": "dcat:Dataset",
+      "dct:identifier": "e8eb275b-8069-522f-b076-310d4490d4ac",
+      "dct:title": "s2-f1",
+      "dct:issued": "2026-11-18T00:00:00Z",
+      "dcat:version": "3.0.0",
+      "dct:license": {
+        "@id": "https://spdx.org/licenses/BSD-3-Clause.html"
+      },
+      "dcat:distribution": [
         {
-          "@id": "urn:uuid:e3ad05ea-a27b-5c31-a545-e5270a563edf",
-          "@type": [
-            "dcat:Dataset",
-            "cim:GridAssembly"
-          ],
-          "dct:identifier": "e3ad05ea-a27b-5c31-a545-e5270a563edf",
-          "dct:title": "Package s2-f1",
-          "dct:description": "Feeder s2-f1 with its substation, ready to load and solve on its own: an assembly of two frame models, the boundary models on their perimeters, the reference data, and the steady state hypothesis of the feeder.",
-          "dct:issued": "2026-11-16T00:00:00Z",
-          "dcat:version": "2.0.0",
-          "adms:versionNotes": "Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).",
-          "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#package_s2_f1",
-          "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
-          "dct:publisher": {
-            "@id": "https://www.pnnl.gov/",
-            "@type": "foaf:Organization",
-            "foaf:name": "Pacific Northwest National Laboratory"
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/s2_f1.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+          "dcat:byteSize": 477,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "444e16474ca84e2f032f4571f29764ac8ecb98192d4c62ba85e6b304aaa9d0cc"
+          },
           "dct:conformsTo": [
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-          ],
-          "dcat:distribution": [
             {
-              "@id": "urn:uuid:9ebbe520-c34a-5a9a-9e45-feebbfbf6d9d",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "cimtbl/s2_f1.cimtbl",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/text/plain",
-              "dcat:byteSize": 454,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "e04133392be6ca034c1c5f92ec12690459df839cef0df8d1b6c6377adf78befd"
-              },
-              "dct:conformsTo": [
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
             }
           ]
         },
         {
-          "@id": "urn:uuid:85c93c5c-6ed6-5ac3-aed0-556b9e4a587f",
-          "@type": [
-            "dcat:Dataset"
-          ],
-          "dct:identifier": "85c93c5c-6ed6-5ac3-aed0-556b9e4a587f",
-          "dct:title": "Reference data: catalogue",
-          "dct:description": "Base voltages and the line impedance that every frame points at.",
-          "dct:issued": "2026-11-16T00:00:00Z",
-          "dcat:version": "2.0.0",
-          "adms:versionNotes": "Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).",
-          "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#catalog",
-          "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
-          "dct:publisher": {
-            "@id": "https://www.pnnl.gov/",
-            "@type": "foaf:Organization",
-            "foaf:name": "Pacific Northwest National Laboratory"
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "assembly.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
+          "dcat:byteSize": 6281,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "3da129c55cdff44f655161e8de0c23fb101686a1155bcd12c130c234cba327b3"
+          },
           "dct:conformsTo": [
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-          ],
-          "dcat:distribution": [
             {
-              "@id": "urn:uuid:2d0a469d-0d03-5855-9a41-3b4a649fe55f",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "cimtbl/catalog.cimtbl",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/text/plain",
-              "dcat:byteSize": 510,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "6cba4f199b05f88927fc0e32bb6b4b25d7c628ba510b4d0a87bb166e5fe9a1a3"
-              },
-              "dct:conformsTo": [
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:0321d3a2-d196-57b6-b49f-72dbceda6d17",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "xml/catalog.xml",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/rdf+xml",
-              "dcat:byteSize": 1855,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "504ec8bfd018269f109a1a3cce7ba1176f44e1b27620445f9666514de0be4580"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-552:2016",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:533a3593-085b-5107-94ab-5490dce62308",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "jsonld/catalog.jsonld",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/ld+json",
-              "dcat:byteSize": 1016,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "b7a87a302cec5a8de27dc211b138563584cb80796e6910c39b3ebc59f41cb48b"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-553:draft:ed-1",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            }
-          ]
-        },
-        {
-          "@id": "urn:uuid:31ea1108-a2f2-5d6c-a25b-158111476e95",
-          "@type": [
-            "dcat:Dataset"
-          ],
-          "dct:identifier": "31ea1108-a2f2-5d6c-a25b-158111476e95",
-          "dct:title": "Reference data: containers",
-          "dct:description": "The containers that more than one frame names: the as-built ConnectedArea objects, nested by ContainedWithin, and the Substations.",
-          "dct:issued": "2026-11-16T00:00:00Z",
-          "dcat:version": "2.0.0",
-          "adms:versionNotes": "Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).",
-          "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#containers",
-          "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
-          "dct:publisher": {
-            "@id": "https://www.pnnl.gov/",
-            "@type": "foaf:Organization",
-            "foaf:name": "Pacific Northwest National Laboratory"
-          },
-          "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-          "dct:conformsTo": [
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-          ],
-          "dcat:distribution": [
-            {
-              "@id": "urn:uuid:834eb0ae-fca9-561f-92a8-2cc8a1d99570",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "cimtbl/containers.cimtbl",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/text/plain",
-              "dcat:byteSize": 1106,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "008c2e44c77707e1a82837d2f2b171077c6e7b37547776a2e86c7d7425d17579"
-              },
-              "dct:conformsTo": [
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:437f5d92-40ce-554d-b88e-a85097914d16",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "xml/containers.xml",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/rdf+xml",
-              "dcat:byteSize": 5233,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "dceab507c27396cab51146f7d062c425a225293e795dd262de5e14bb3264c825"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-552:2016",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:c0c9ec55-e019-58b1-9c3c-1abd6596e55e",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "jsonld/containers.jsonld",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/ld+json",
-              "dcat:byteSize": 3350,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "eeb9f64e078f817553340bef838c299fbbc5b867346e88274b4a67d0cfe705c8"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-553:draft:ed-1",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            }
-          ]
-        },
-        {
-          "@id": "urn:uuid:f3b50153-a5a6-53aa-8a34-137ec6eeb18e",
-          "@type": [
-            "dcat:Dataset",
-            "cim:BoundaryModel"
-          ],
-          "dct:identifier": "f3b50153-a5a6-53aa-8a34-137ec6eeb18e",
-          "dct:title": "Boundary model s1-f3 | s2-f1",
-          "dct:description": "The connectivity nodes where frames s1-f3, s2-f1 join, and nothing else.",
-          "dct:issued": "2026-11-16T00:00:00Z",
-          "dcat:version": "2.0.0",
-          "adms:versionNotes": "Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).",
-          "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#boundary_s1_f3-s2_f1",
-          "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
-          "dct:publisher": {
-            "@id": "https://www.pnnl.gov/",
-            "@type": "foaf:Organization",
-            "foaf:name": "Pacific Northwest National Laboratory"
-          },
-          "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-          "dct:spatial": "urn:uuid:5c61f745-9264-5aed-9e82-6f7038ada283",
-          "dct:requires": [
-            "urn:uuid:31ea1108-a2f2-5d6c-a25b-158111476e95"
-          ],
-          "cim:GridModel.usedIn": [
-            "urn:uuid:e3ad05ea-a27b-5c31-a545-e5270a563edf"
-          ],
-          "dcat:distribution": [
-            {
-              "@id": "urn:uuid:b4cd2006-e5b1-56ba-87a2-41d23cf7845b",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "cimtbl/boundary_s1_f3-s2_f1.cimtbl",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/text/plain",
-              "dcat:byteSize": 397,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "9b4d8b949672fb1135f07ef871465c8667ab85265619c32bc8e7b7d23184e690"
-              },
-              "dct:conformsTo": [
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:99771ff2-e94d-532f-a11e-52b1914ece5c",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "xml/boundary_s1_f3-s2_f1.xml",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/rdf+xml",
-              "dcat:byteSize": 848,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "b039770c118bb219abbe671cd45f7d0f05be837464b7c9e4525795087058f942"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-552:2016",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:c14bd1f8-5531-50f9-8c5a-eae0cefe866e",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "jsonld/boundary_s1_f3-s2_f1.jsonld",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/ld+json",
-              "dcat:byteSize": 380,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "da4a9f4b2bbdf315903c0e1efe17fc715cab498ecb4de315816c535a6b4ef491"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-553:draft:ed-1",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            }
-          ]
-        },
-        {
-          "@id": "urn:uuid:2316af6c-3ff9-5b21-a35c-b5990549f945",
-          "@type": [
-            "dcat:Dataset",
-            "cim:BoundaryModel"
-          ],
-          "dct:identifier": "2316af6c-3ff9-5b21-a35c-b5990549f945",
-          "dct:title": "Boundary model s2 | s2-f1 | s2-f2",
-          "dct:description": "The connectivity nodes where frames s2, s2-f1, s2-f2 join, and nothing else.",
-          "dct:issued": "2026-11-16T00:00:00Z",
-          "dcat:version": "2.0.0",
-          "adms:versionNotes": "Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).",
-          "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#boundary_s2-s2_f1-s2_f2",
-          "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
-          "dct:publisher": {
-            "@id": "https://www.pnnl.gov/",
-            "@type": "foaf:Organization",
-            "foaf:name": "Pacific Northwest National Laboratory"
-          },
-          "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-          "dct:spatial": "urn:uuid:7f9871bd-3cba-5495-9a5f-9820260c81f3",
-          "dct:requires": [
-            "urn:uuid:31ea1108-a2f2-5d6c-a25b-158111476e95"
-          ],
-          "cim:GridModel.usedIn": [
-            "urn:uuid:e3ad05ea-a27b-5c31-a545-e5270a563edf"
-          ],
-          "dcat:distribution": [
-            {
-              "@id": "urn:uuid:8b5bb8ec-d826-58c3-bb27-3455b234db5c",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "cimtbl/boundary_s2-s2_f1-s2_f2.cimtbl",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/text/plain",
-              "dcat:byteSize": 395,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "dd97f548fc1b569069754f7693ac80c2c0e121e23a387467357a14e67858b369"
-              },
-              "dct:conformsTo": [
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:f2add2c2-f0cf-5f2a-9e83-94d97004004a",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "xml/boundary_s2-s2_f1-s2_f2.xml",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/rdf+xml",
-              "dcat:byteSize": 845,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "2a82740164b9fcf4937be59540f6bf25fc1c3407b32163e3e39a586a91d44af2"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-552:2016",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:78889deb-9f38-5f0d-b6d3-eb0eb4dd9377",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "jsonld/boundary_s2-s2_f1-s2_f2.jsonld",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/ld+json",
-              "dcat:byteSize": 377,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "e0c54f0bb3d968222948e4ebe8e332fa2961b39d2169ad9990b9d20633e339ce"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-553:draft:ed-1",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            }
-          ]
-        },
-        {
-          "@id": "urn:uuid:8384e0f3-d9ca-5df2-abc8-27768a4038f9",
-          "@type": [
-            "dcat:Dataset",
-            "cim:FrameModel"
-          ],
-          "dct:identifier": "8384e0f3-d9ca-5df2-abc8-27768a4038f9",
-          "dct:title": "Frame model s2",
-          "dct:description": "The structural model of substation s2: its source.",
-          "dct:issued": "2026-11-16T00:00:00Z",
-          "dcat:version": "2.0.0",
-          "adms:versionNotes": "Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).",
-          "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#substation_s2",
-          "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
-          "dct:publisher": {
-            "@id": "https://www.pnnl.gov/",
-            "@type": "foaf:Organization",
-            "foaf:name": "Pacific Northwest National Laboratory"
-          },
-          "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-          "dct:conformsTo": [
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-          ],
-          "dct:spatial": "urn:uuid:f7d1f7be-a9fa-5ced-8412-061f9108f820",
-          "cim:FrameModel.represents": "urn:uuid:f7d1f7be-a9fa-5ced-8412-061f9108f820",
-          "cim:FrameModel.perimeter": [
-            "urn:uuid:2316af6c-3ff9-5b21-a35c-b5990549f945"
-          ],
-          "dct:requires": [
-            "urn:uuid:85c93c5c-6ed6-5ac3-aed0-556b9e4a587f",
-            "urn:uuid:31ea1108-a2f2-5d6c-a25b-158111476e95",
-            "urn:uuid:2316af6c-3ff9-5b21-a35c-b5990549f945"
-          ],
-          "cim:GridModel.usedIn": [
-            "urn:uuid:e3ad05ea-a27b-5c31-a545-e5270a563edf"
-          ],
-          "dcat:distribution": [
-            {
-              "@id": "urn:uuid:48bca5e5-29b7-588a-ae56-5df95a99a28e",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "cimtbl/substation_s2.cimtbl",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/text/plain",
-              "dcat:byteSize": 577,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "089f837ac79083025a649c959c8a4b67e9141b1b68683308ba2c97b991018d2e"
-              },
-              "dct:conformsTo": [
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:60743686-c958-501b-bd61-59b81a111cdf",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "xml/substation_s2.xml",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/rdf+xml",
-              "dcat:byteSize": 1930,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "0e50275fca2502077b31071c4c43762da38972f9b057c6c6b531c8d397de6820"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-552:2016",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:d6e1543e-86a0-57bd-8b33-8d6092b35e31",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "jsonld/substation_s2.jsonld",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/ld+json",
-              "dcat:byteSize": 1174,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "0acab6fd28218d14ebd088965d96605e26c9446e2788b618ed29c8371cd78984"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-553:draft:ed-1",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            }
-          ]
-        },
-        {
-          "@id": "urn:uuid:1b4ba52d-4d6a-590e-ac55-ffeba8b8ee74",
-          "@type": [
-            "dcat:Dataset",
-            "cim:FrameModel"
-          ],
-          "dct:identifier": "1b4ba52d-4d6a-590e-ac55-ffeba8b8ee74",
-          "dct:title": "Frame model s2-f1",
-          "dct:description": "The structural model of feeder s2-f1.",
-          "dct:issued": "2026-11-16T00:00:00Z",
-          "dcat:version": "2.0.0",
-          "adms:versionNotes": "Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).",
-          "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#feeder_s2_f1",
-          "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
-          "dct:publisher": {
-            "@id": "https://www.pnnl.gov/",
-            "@type": "foaf:Organization",
-            "foaf:name": "Pacific Northwest National Laboratory"
-          },
-          "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-          "dct:conformsTo": [
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-          ],
-          "dct:spatial": "urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e",
-          "cim:FrameModel.represents": "urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e",
-          "cim:FrameModel.perimeter": [
-            "urn:uuid:f3b50153-a5a6-53aa-8a34-137ec6eeb18e",
-            "urn:uuid:2316af6c-3ff9-5b21-a35c-b5990549f945"
-          ],
-          "dct:requires": [
-            "urn:uuid:85c93c5c-6ed6-5ac3-aed0-556b9e4a587f",
-            "urn:uuid:31ea1108-a2f2-5d6c-a25b-158111476e95",
-            "urn:uuid:f3b50153-a5a6-53aa-8a34-137ec6eeb18e",
-            "urn:uuid:2316af6c-3ff9-5b21-a35c-b5990549f945"
-          ],
-          "cim:GridModel.usedIn": [
-            "urn:uuid:e3ad05ea-a27b-5c31-a545-e5270a563edf"
-          ],
-          "dcat:distribution": [
-            {
-              "@id": "urn:uuid:2dc49da0-dfc9-590b-a7cd-71fdd7de7b09",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "cimtbl/feeder_s2_f1.cimtbl",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/text/plain",
-              "dcat:byteSize": 2377,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "df3f874c0cb23124b6c60a732ad37798a28fe4e6d4a461e523f3029a5838f19b"
-              },
-              "dct:conformsTo": [
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:ada362d3-265a-5fd1-95d2-402de67439bb",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "xml/feeder_s2_f1.xml",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/rdf+xml",
-              "dcat:byteSize": 21524,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "ab0d4190d850759af72de8816afdd1db6b2214e0001806d191e8ace7fe34a584"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-552:2016",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:733c8890-9512-55cc-9512-eef3acf087bc",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "jsonld/feeder_s2_f1.jsonld",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/ld+json",
-              "dcat:byteSize": 15506,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "762aa5c69daf88756a63ddc3d067ff0e0812928ea0eec80f4f46481710825f44"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-553:draft:ed-1",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            }
-          ]
-        },
-        {
-          "@id": "urn:uuid:de3fb766-ed8a-5ee5-8b2e-33d608fee7d7",
-          "@type": [
-            "dcat:Dataset",
-            "cim:FrameModel"
-          ],
-          "dct:identifier": "de3fb766-ed8a-5ee5-8b2e-33d608fee7d7",
-          "dct:title": "Steady state hypothesis s2-f1",
-          "dct:description": "The p and q of the loads and the positions of the switches of frame s2-f1, in normal operation.",
-          "dct:issued": "2026-11-16T00:00:00Z",
-          "dcat:version": "2.0.0",
-          "adms:versionNotes": "Reorganised as frames and boundaries after GB Grid Code Planning Code PC.G.3 (GC0139).",
-          "dcat:isVersionOf": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models/tree/main/distribution/boundary_example#ssh_s2_f1",
-          "md:Model.modelingAuthoritySet": "https://github.com/PNNL-CIM-Tools/CIMTBL-Models",
-          "dct:publisher": {
-            "@id": "https://www.pnnl.gov/",
-            "@type": "foaf:Organization",
-            "foaf:name": "Pacific Northwest National Laboratory"
-          },
-          "dct:license": "https://spdx.org/licenses/BSD-3-Clause.html",
-          "dct:conformsTo": [
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-            "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-          ],
-          "dct:spatial": "urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e",
-          "cim:FrameModel.represents": "urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e",
-          "dct:requires": [
-            "urn:uuid:1b4ba52d-4d6a-590e-ac55-ffeba8b8ee74"
-          ],
-          "cim:GridModel.usedIn": [
-            "urn:uuid:e3ad05ea-a27b-5c31-a545-e5270a563edf"
-          ],
-          "dcat:distribution": [
-            {
-              "@id": "urn:uuid:a9ef9bbe-3532-5c11-b3c3-96ca894f3d6e",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "cimtbl/ssh_s2_f1.cimtbl",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/text/plain",
-              "dcat:byteSize": 363,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "6a5d59b3d3e7e1c85da1f805185c6adabf78a72b8a2a2e96945d55cc92bb6e9b"
-              },
-              "dct:conformsTo": [
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:c15f2892-7095-511a-8833-ae65b57b531c",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "xml/ssh_s2_f1.xml",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/rdf+xml",
-              "dcat:byteSize": 1031,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "49b37e81983fbb5098a40a715cf03a08206be0809d0110d3c4108e0ed982f3db"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-552:2016",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
-            },
-            {
-              "@id": "urn:uuid:f5dd739f-fd4a-5378-8c39-1af89069e290",
-              "@type": "dcat:Distribution",
-              "dcat:accessURL": "jsonld/ssh_s2_f1.jsonld",
-              "dcat:mediaType": "https://www.iana.org/assignments/media-types/application/ld+json",
-              "dcat:byteSize": 635,
-              "spdx:checksum": {
-                "@type": "spdx:Checksum",
-                "spdx:algorithm": "spdx:checksumAlgorithm_sha256",
-                "spdx:checksumValue": "c43fa60acb2b3179e66926538068ccdde5ce35aefe50bba7bd0f59ab1f75d84b"
-              },
-              "dct:conformsTo": [
-                "urn:iso:std:iec:61970-553:draft:ed-1",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld",
-                "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-              ]
+              "@id": "urn:iso:std:iec:61970-552:2016"
             }
           ]
         }
       ]
     },
     {
-      "@id": "urn:uuid:f7d1f7be-a9fa-5ced-8412-061f9108f820",
-      "@type": "cim:Frame",
-      "dct:title": "Frame s2",
-      "cim:Frame.connectsTo": [
-        "urn:uuid:7f9871bd-3cba-5495-9a5f-9820260c81f3"
+      "@id": "urn:uuid:f22db9b6-c6ee-5413-a68d-6b9229c07ece",
+      "@type": "dcat:Dataset",
+      "dct:title": "Catalogue data",
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/catalog.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
+          },
+          "dcat:byteSize": 510,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "6cba4f199b05f88927fc0e32bb6b4b25d7c628ba510b4d0a87bb166e5fe9a1a3"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "jsonld/catalog.jsonld",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
+          },
+          "dcat:byteSize": 1016,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "b7a87a302cec5a8de27dc211b138563584cb80796e6910c39b3ebc59f41cb48b"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "xml/catalog.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
+          },
+          "dcat:byteSize": 1855,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "504ec8bfd018269f109a1a3cce7ba1176f44e1b27620445f9666514de0be4580"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-552:2016"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        }
       ]
     },
     {
-      "@id": "urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e",
-      "@type": "cim:Frame",
-      "dct:title": "Frame s2-f1",
-      "cim:Frame.connectsTo": [
-        "urn:uuid:5c61f745-9264-5aed-9e82-6f7038ada283",
-        "urn:uuid:7f9871bd-3cba-5495-9a5f-9820260c81f3"
+      "@id": "urn:uuid:d8068a9c-d859-5b21-86f2-41baa581bede",
+      "@type": "dcat:Dataset",
+      "dct:title": "Containers",
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/containers.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
+          },
+          "dcat:byteSize": 1110,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "6523322c0b841ee08ea6fb7c707c3c94e183fc6c60898fbd8ea207ba5286ba2b"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "jsonld/containers.jsonld",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
+          },
+          "dcat:byteSize": 3350,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "eeb9f64e078f817553340bef838c299fbbc5b867346e88274b4a67d0cfe705c8"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "xml/containers.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
+          },
+          "dcat:byteSize": 5233,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "dceab507c27396cab51146f7d062c425a225293e795dd262de5e14bb3264c825"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-552:2016"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        }
       ]
     },
     {
-      "@id": "urn:uuid:941d12a4-7774-5011-bb8f-ba9427e077b6",
-      "@type": "cim:Frame",
-      "dct:title": "Frame s1-f3"
-    },
-    {
-      "@id": "urn:uuid:8adce91a-722e-5280-bfa9-1486a36078fd",
-      "@type": "cim:Frame",
-      "dct:title": "Frame s2-f2"
-    },
-    {
-      "@id": "urn:uuid:5c61f745-9264-5aed-9e82-6f7038ada283",
-      "@type": "cim:Boundary",
-      "dct:title": "Boundary s1-f3 | s2-f1",
-      "cim:Boundary.separates": [
-        "urn:uuid:941d12a4-7774-5011-bb8f-ba9427e077b6",
-        "urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e"
+      "@id": "urn:uuid:1def4f48-4c7a-5bd9-91a2-bdb6762c797b",
+      "@type": "dcat:Dataset",
+      "dct:title": "Boundary",
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/boundary.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
+          },
+          "dcat:byteSize": 1812,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "59775df5d674e09e19db22fda88cb4ed9c388cb39c90dbfac1a022df90a51e14"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "jsonld/boundary.jsonld",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
+          },
+          "dcat:byteSize": 5046,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "9b83e8bfc5d50d48ab7545ca67c18b9464b6a50912f4307c8c542307d3b78260"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "xml/boundary.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
+          },
+          "dcat:byteSize": 7253,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "d070c3557b9b489bfc23fde5888a37b53feb13af551a557581f3c64cdda6d3bc"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-552:2016"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        }
       ]
     },
     {
-      "@id": "urn:uuid:7f9871bd-3cba-5495-9a5f-9820260c81f3",
-      "@type": "cim:Boundary",
-      "dct:title": "Boundary s2 | s2-f1 | s2-f2",
-      "cim:Boundary.separates": [
-        "urn:uuid:f7d1f7be-a9fa-5ced-8412-061f9108f820",
-        "urn:uuid:d02c2f4d-086d-5f3c-8d26-59947de9274e",
-        "urn:uuid:8adce91a-722e-5280-bfa9-1486a36078fd"
+      "@id": "urn:uuid:63ea662e-0810-5a1b-8672-0ecded51c993",
+      "@type": "dcat:Dataset",
+      "dct:title": "Substation frame",
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/substation_s2.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
+          },
+          "dcat:byteSize": 1148,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "4c7e1ed551bc6145c3bf2363e44dc5bf404011b3262217b19c05140df5a50e19"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "jsonld/substation_s2.jsonld",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
+          },
+          "dcat:byteSize": 4568,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "6084ed7a05c66e33f818b97f1443d567b1867de58f36e148f264ddfd7b275f3f"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "xml/substation_s2.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
+          },
+          "dcat:byteSize": 6500,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "cfcd5f5e86d93f44ae45856a64649ac5f0ed37f8557245f5529371b32331bfa6"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-552:2016"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:69d1beb5-5870-57be-bc6e-0ddcef071644",
+      "@type": "dcat:Dataset",
+      "dct:title": "Feeder frame",
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/feeder_s2_f1.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
+          },
+          "dcat:byteSize": 2259,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "8ead32eb858de2d4076db07dafcd746566e745aaa7b511b2992b7a6a90dd4a32"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "jsonld/feeder_s2_f1.jsonld",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
+          },
+          "dcat:byteSize": 14100,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "76a3c50cde7709a12f27d6b4391d75b3bee263f66b72508998042537842ae98a"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "xml/feeder_s2_f1.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
+          },
+          "dcat:byteSize": 19589,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "1ee0bac74f4486c5a53860420a78f2a3cc0eb6d4a575fe84c57a650b24d4f297"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-552:2016"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:be26086a-65c2-58c2-9ba7-3754ed15ee92",
+      "@type": "dcat:Dataset",
+      "dct:title": "Boundary situation",
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/ssh_boundary.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
+          },
+          "dcat:byteSize": 293,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "96262f881d767d6525a65ef6d21ed3a14e409285c8d1cd7762afdc287892f91b"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "jsonld/ssh_boundary.jsonld",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
+          },
+          "dcat:byteSize": 401,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "3d4be8d683c65e265a5f5f011358604e6541d4374cf5d30514e8cae32a507276"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "xml/ssh_boundary.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
+          },
+          "dcat:byteSize": 757,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "4401dd28f85ca7f92758849367f31c46f7594635c197dfecef09fddda368a258"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-552:2016"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:adcb5441-5b41-5939-82c3-477cbf427946",
+      "@type": "dcat:Dataset",
+      "dct:title": "Substation situation",
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/ssh_s2.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
+          },
+          "dcat:byteSize": 351,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "95215c3dcb981b6f632a955c125caafe108257d991c69eee4f25fd2810b3910b"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "jsonld/ssh_s2.jsonld",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
+          },
+          "dcat:byteSize": 595,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "75a3583bec348fae3b8fa6f87a09eaecc93caebd406fb5edde987e2849318ace"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "xml/ssh_s2.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
+          },
+          "dcat:byteSize": 980,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "41a8dd6d48a1c0c437b4892abc45c0092762c5bd7313f00f8fe28d2e93287923"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-552:2016"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@id": "urn:uuid:2439a6c2-a5ef-52d7-ad8a-09a0e40441d7",
+      "@type": "dcat:Dataset",
+      "dct:title": "Feeder situation",
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "cimtbl/ssh_s2_f1.cimtbl",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/text/plain"
+          },
+          "dcat:byteSize": 381,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "d6ebba2291b876c7d29c1cc70bf420d0d2a47e1075dc804deaaa111e4c3af0e9"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "jsonld/ssh_s2_f1.jsonld",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
+          },
+          "dcat:byteSize": 496,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "e033d00091c01c60c0a5a77bf043989e5e2b741efdd5086d03c9a91a7ab65a45"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
+            }
+          ]
+        },
+        {
+          "@type": "dcat:Distribution",
+          "dcat:accessURL": "xml/ssh_s2_f1.xml",
+          "dcat:mediaType": {
+            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
+          },
+          "dcat:byteSize": 899,
+          "spdx:checksum": {
+            "@type": "spdx:Checksum",
+            "spdx:algorithm": {
+              "@id": "spdx:checksumAlgorithm_sha256"
+            },
+            "spdx:checksumValue": "232a79a307f97624e92ca98e379baca19b8ce7d35999a0d47cf1151e4fcdf599"
+          },
+          "dct:conformsTo": [
+            {
+              "@id": "urn:iso:std:iec:61970-552:2016"
+            },
+            {
+              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
+            }
+          ]
+        }
       ]
     }
   ]

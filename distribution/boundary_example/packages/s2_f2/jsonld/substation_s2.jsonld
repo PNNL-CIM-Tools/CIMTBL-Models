@@ -2,19 +2,91 @@
   "@context": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
   "@graph": [
     {
+      "@id": "urn:uuid:5c7468e6-fc24-54c6-897e-4f878646f07e",
+      "@type": "cim:Breaker",
+      "cim:Switch.areaBoundary": "true",
+      "cim:Switch.normalOpen": "false",
+      "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
+      "cim:Equipment.EquipmentContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
+      "cim:IdentifiedObject.mRID": "brk_s2_f1",
+      "cim:IdentifiedObject.name": "s2-f1 breaker"
+    },
+    {
+      "@id": "urn:uuid:ca59757e-60ad-5a69-833c-628aa2023175",
+      "@type": "cim:Breaker",
+      "cim:Switch.areaBoundary": "true",
+      "cim:Switch.normalOpen": "false",
+      "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
+      "cim:Equipment.EquipmentContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
+      "cim:IdentifiedObject.mRID": "brk_s2_f2",
+      "cim:IdentifiedObject.name": "s2-f2 breaker"
+    },
+    {
+      "@id": "urn:uuid:93a71810-c25d-5554-aeb8-ce0ee0ca0572",
+      "@type": "cim:BusbarSection",
+      "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
+      "cim:Equipment.EquipmentContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
+      "cim:IdentifiedObject.mRID": "bus_s2",
+      "cim:IdentifiedObject.name": "s2 bus"
+    },
+    {
+      "@id": "urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018",
+      "@type": "cim:ConnectivityNode",
+      "cim:ConnectivityNode.ConnectivityNodeContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
+      "cim:IdentifiedObject.mRID": "s2_bus"
+    },
+    {
       "@id": "urn:uuid:732ba5b5-6f82-5c16-98ab-c704820d8a42",
       "@type": "cim:EnergySource",
       "cim:EnergySource.nominalVoltage": "13200",
       "cim:EnergySource.r": "0.12446",
       "cim:EnergySource.x": "1.2446",
-      "cim:EnergySource.voltageAngle": "0",
-      "cim:EnergySource.voltageMagnitude": "13200",
       "cim:EnergySource.r0": "0.12446",
       "cim:EnergySource.x0": "1.2446",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
       "cim:Equipment.EquipmentContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
       "cim:IdentifiedObject.mRID": "src_s2",
       "cim:IdentifiedObject.name": "s2"
+    },
+    {
+      "@id": "urn:uuid:2e251c22-9e88-5199-89f4-ac4594b3c02b",
+      "@type": "cim:Terminal",
+      "cim:Terminal.ConductingEquipment": "urn:uuid:ca59757e-60ad-5a69-833c-628aa2023175",
+      "cim:Terminal.ConnectivityNode": "urn:uuid:5968f21d-2ad7-52a7-b6a2-177493fe306b",
+      "cim:ACDCTerminal.sequenceNumber": "2",
+      "cim:IdentifiedObject.mRID": "brk_s2_f2_T2"
+    },
+    {
+      "@id": "urn:uuid:307ebc88-198d-5b84-ab43-958d446ecc50",
+      "@type": "cim:Terminal",
+      "cim:Terminal.ConductingEquipment": "urn:uuid:5c7468e6-fc24-54c6-897e-4f878646f07e",
+      "cim:Terminal.ConnectivityNode": "urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018",
+      "cim:ACDCTerminal.sequenceNumber": "1",
+      "cim:IdentifiedObject.mRID": "brk_s2_f1_T1"
+    },
+    {
+      "@id": "urn:uuid:3a96ae0e-efd0-5162-bda1-8b8ab6808685",
+      "@type": "cim:Terminal",
+      "cim:Terminal.ConductingEquipment": "urn:uuid:93a71810-c25d-5554-aeb8-ce0ee0ca0572",
+      "cim:Terminal.ConnectivityNode": "urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018",
+      "cim:ACDCTerminal.sequenceNumber": "1",
+      "cim:IdentifiedObject.mRID": "bus_s2_T1"
+    },
+    {
+      "@id": "urn:uuid:48b51781-22c7-51f6-998d-a508fea46feb",
+      "@type": "cim:Terminal",
+      "cim:Terminal.ConductingEquipment": "urn:uuid:ca59757e-60ad-5a69-833c-628aa2023175",
+      "cim:Terminal.ConnectivityNode": "urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018",
+      "cim:ACDCTerminal.sequenceNumber": "1",
+      "cim:IdentifiedObject.mRID": "brk_s2_f2_T1"
+    },
+    {
+      "@id": "urn:uuid:68a7749d-a926-5084-b1df-8803b0d524ed",
+      "@type": "cim:Terminal",
+      "cim:Terminal.ConductingEquipment": "urn:uuid:5c7468e6-fc24-54c6-897e-4f878646f07e",
+      "cim:Terminal.ConnectivityNode": "urn:uuid:0cb4cbb7-1634-5dd3-8c9e-9b6f7a391e02",
+      "cim:ACDCTerminal.sequenceNumber": "2",
+      "cim:IdentifiedObject.mRID": "brk_s2_f1_T2"
     },
     {
       "@id": "urn:uuid:df6879e6-614d-5943-8834-97ea4ba814ce",

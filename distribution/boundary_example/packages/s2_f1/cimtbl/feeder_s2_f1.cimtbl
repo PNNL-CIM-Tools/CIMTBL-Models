@@ -1,16 +1,16 @@
-# Frame s2-f1: the feeder's own equipment, head recloser to the step-down units.
+# Frame s2-f1: the feeder's own equipment, from its head node to the step-down units.
 
 Profile = cim18v17
 
 Object Feeder: mRID=fdr_s2_f1, name=s2-f1, NormalEnergizingSubstation=sub_s2
 
-# The head recloser is in this frame. Its bus side is the boundary node s2_bus, which this file names
-# but does not declare. Its container is the Substation, which is reference data.
-Object Recloser: mRID=sw_s2_f1, name=s2-f1 head, node1=s2_bus, node2=s2_f1_head, normalOpen=false, areaBoundary=true, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
-
+# Its head node is a boundary node (boundary.cimtbl): named here, not declared.
 Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_13p2kv, EquipmentContainer=fdr_s2_f1
     ln_s2_f1_1, s2_f1_head, s2_f1_mid,  1.0
     ln_s2_f1_2, s2_f1_mid,  s2_f1_step, 1.5
+
+# Feeder.NormalHeadTerminal: the first span's terminal on the head node
+Update Terminal: mRID=ln_s2_f1_1_T1, NormalHeadFeeder=fdr_s2_f1
 
 Table EnergyConsumer: mRID, node, BaseVoltage=bv_13p2kv, EquipmentContainer=fdr_s2_f1
     ld_s2_f1_mid, s2_f1_mid
@@ -18,8 +18,8 @@ Table EnergyConsumer: mRID, node, BaseVoltage=bv_13p2kv, EquipmentContainer=fdr_
 
 # Step-down autotransformers, one single-phase unit per phase, 13.2 kV to 12.47 kV, so that both
 # sides of the tie to feeder s1-f3 are 12.47 kV. End 1 is the 13.2 kV side.
-# s2_f1_end is a boundary node (boundary_s1_f3-s2_f1.cimtbl): named here, not declared. It is the
-# far side of tie 2, which is in frame s1-f3.
+# s2_f1_end is a boundary node (boundary.cimtbl): named here, not declared. It is this feeder's side
+# of tie 2 (to s1-f3), which is in the boundary model.
 Table AutoTransformer: mRID, name, EquipmentContainer=fdr_s2_f1
     xf_s2_f1_step_a, step A
     xf_s2_f1_step_b, step B

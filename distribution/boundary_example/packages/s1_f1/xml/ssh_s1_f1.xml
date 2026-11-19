@@ -8,10 +8,4 @@
   <cim:EnergyConsumer.p>500000.0</cim:EnergyConsumer.p>
   <cim:EnergyConsumer.q>120000.0</cim:EnergyConsumer.q>
 </cim:EnergyConsumer>
-<cim:LoadBreakSwitch rdf:about="urn:uuid:cd61a583-3494-58f5-83f6-c1cb571cf37c">
-  <cim:Switch.open>true</cim:Switch.open>
-</cim:LoadBreakSwitch>
-<cim:Recloser rdf:about="urn:uuid:e2ef1ac8-2b08-57e6-9b08-cd9a8a83edf8">
-  <cim:Switch.open>false</cim:Switch.open>
-</cim:Recloser>
 </rdf:RDF>

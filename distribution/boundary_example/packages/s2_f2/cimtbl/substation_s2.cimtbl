@@ -1,8 +1,19 @@
-# Frame s2: substation s2's source, standing for the grid behind the bus (10 % on 14 MVA at 13.2 kV, X/R = 10).
+# Frame s2: substation s2 as CIM-Builder lays out a primitive single bus. The source stands for the
+# grid behind the bus (10 % on 14 MVA at 13.2 kV, X/R = 10), and one breaker per feeder runs from
+# the bus to that feeder's head node.
 #
-# The bus node is in the boundary model of the substation and its feeders. The Substation container
-# is reference data (containers.cimtbl). The feeder-head reclosers are in the feeder frames.
+# The bus node is this frame's own. The head nodes are in the boundary model, so the joint with each
+# feeder is bilateral. The Substation container is reference data (containers.cimtbl). The source's
+# set point and the breakers' positions are in the substation's steady state hypothesis.
 
 Profile = cim18v17
 
-Object EnergySource: mRID=src_s2, name=s2, node=s2_bus, nominalVoltage (kV)=13.2, voltageMagnitude (kV)=13.2, voltageAngle (deg)=0, r (ohm)=0.12446, x (ohm)=1.2446, r0 (ohm)=0.12446, x0 (ohm)=1.2446, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
+Object ConnectivityNode: mRID=s2_bus, ConnectivityNodeContainer=sub_s2
+
+Object BusbarSection: mRID=bus_s2, name=s2 bus, node=s2_bus, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
+
+Object EnergySource: mRID=src_s2, name=s2, node=s2_bus, nominalVoltage (kV)=13.2, r (ohm)=0.12446, x (ohm)=1.2446, r0 (ohm)=0.12446, x0 (ohm)=1.2446, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
+
+Table Breaker: mRID, name, node1=s2_bus, node2, normalOpen=false, areaBoundary=true, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
+    brk_s2_f1, s2-f1 breaker, s2_f1_head
+    brk_s2_f2, s2-f2 breaker, s2_f2_head

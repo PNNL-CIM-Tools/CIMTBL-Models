@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<cim:Breaker rdf:about="urn:uuid:5c7468e6-fc24-54c6-897e-4f878646f07e">
+  <cim:Identity.identifier>5c7468e6-fc24-54c6-897e-4f878646f07e</cim:Identity.identifier>
+  <cim:Switch.areaBoundary>true</cim:Switch.areaBoundary>
+  <cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+  <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
+  <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
+  <cim:IdentifiedObject.mRID>brk_s2_f1</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>s2-f1 breaker</cim:IdentifiedObject.name>
+</cim:Breaker>
+<cim:Breaker rdf:about="urn:uuid:ca59757e-60ad-5a69-833c-628aa2023175">
+  <cim:Identity.identifier>ca59757e-60ad-5a69-833c-628aa2023175</cim:Identity.identifier>
+  <cim:Switch.areaBoundary>true</cim:Switch.areaBoundary>
+  <cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+  <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
+  <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
+  <cim:IdentifiedObject.mRID>brk_s2_f2</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>s2-f2 breaker</cim:IdentifiedObject.name>
+</cim:Breaker>
+<cim:BusbarSection rdf:about="urn:uuid:93a71810-c25d-5554-aeb8-ce0ee0ca0572">
+  <cim:Identity.identifier>93a71810-c25d-5554-aeb8-ce0ee0ca0572</cim:Identity.identifier>
+  <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
+  <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
+  <cim:IdentifiedObject.mRID>bus_s2</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>s2 bus</cim:IdentifiedObject.name>
+</cim:BusbarSection>
+<cim:ConnectivityNode rdf:about="urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018">
+  <cim:Identity.identifier>f04dbe83-d059-55c2-923d-a711cc925018</cim:Identity.identifier>
+  <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
+  <cim:IdentifiedObject.mRID>s2_bus</cim:IdentifiedObject.mRID>
+</cim:ConnectivityNode>
 <cim:EnergySource rdf:about="urn:uuid:732ba5b5-6f82-5c16-98ab-c704820d8a42">
   <cim:Identity.identifier>732ba5b5-6f82-5c16-98ab-c704820d8a42</cim:Identity.identifier>
   <cim:EnergySource.nominalVoltage>13200.0</cim:EnergySource.nominalVoltage>
   <cim:EnergySource.r>0.12446</cim:EnergySource.r>
   <cim:EnergySource.x>1.2446</cim:EnergySource.x>
-  <cim:EnergySource.voltageAngle>0.0</cim:EnergySource.voltageAngle>
-  <cim:EnergySource.voltageMagnitude>13200.0</cim:EnergySource.voltageMagnitude>
   <cim:EnergySource.r0>0.12446</cim:EnergySource.r0>
   <cim:EnergySource.x0>1.2446</cim:EnergySource.x0>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
@@ -14,6 +42,41 @@
   <cim:IdentifiedObject.mRID>src_s2</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>s2</cim:IdentifiedObject.name>
 </cim:EnergySource>
+<cim:Terminal rdf:about="urn:uuid:2e251c22-9e88-5199-89f4-ac4594b3c02b">
+  <cim:Identity.identifier>2e251c22-9e88-5199-89f4-ac4594b3c02b</cim:Identity.identifier>
+  <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:ca59757e-60ad-5a69-833c-628aa2023175"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:5968f21d-2ad7-52a7-b6a2-177493fe306b"/>
+  <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
+  <cim:IdentifiedObject.mRID>brk_s2_f2_T2</cim:IdentifiedObject.mRID>
+</cim:Terminal>
+<cim:Terminal rdf:about="urn:uuid:307ebc88-198d-5b84-ab43-958d446ecc50">
+  <cim:Identity.identifier>307ebc88-198d-5b84-ab43-958d446ecc50</cim:Identity.identifier>
+  <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:5c7468e6-fc24-54c6-897e-4f878646f07e"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018"/>
+  <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+  <cim:IdentifiedObject.mRID>brk_s2_f1_T1</cim:IdentifiedObject.mRID>
+</cim:Terminal>
+<cim:Terminal rdf:about="urn:uuid:3a96ae0e-efd0-5162-bda1-8b8ab6808685">
+  <cim:Identity.identifier>3a96ae0e-efd0-5162-bda1-8b8ab6808685</cim:Identity.identifier>
+  <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:93a71810-c25d-5554-aeb8-ce0ee0ca0572"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018"/>
+  <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+  <cim:IdentifiedObject.mRID>bus_s2_T1</cim:IdentifiedObject.mRID>
+</cim:Terminal>
+<cim:Terminal rdf:about="urn:uuid:48b51781-22c7-51f6-998d-a508fea46feb">
+  <cim:Identity.identifier>48b51781-22c7-51f6-998d-a508fea46feb</cim:Identity.identifier>
+  <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:ca59757e-60ad-5a69-833c-628aa2023175"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:f04dbe83-d059-55c2-923d-a711cc925018"/>
+  <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+  <cim:IdentifiedObject.mRID>brk_s2_f2_T1</cim:IdentifiedObject.mRID>
+</cim:Terminal>
+<cim:Terminal rdf:about="urn:uuid:68a7749d-a926-5084-b1df-8803b0d524ed">
+  <cim:Identity.identifier>68a7749d-a926-5084-b1df-8803b0d524ed</cim:Identity.identifier>
+  <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:5c7468e6-fc24-54c6-897e-4f878646f07e"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:0cb4cbb7-1634-5dd3-8c9e-9b6f7a391e02"/>
+  <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
+  <cim:IdentifiedObject.mRID>brk_s2_f1_T2</cim:IdentifiedObject.mRID>
+</cim:Terminal>
 <cim:Terminal rdf:about="urn:uuid:df6879e6-614d-5943-8834-97ea4ba814ce">
   <cim:Identity.identifier>df6879e6-614d-5943-8834-97ea4ba814ce</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:732ba5b5-6f82-5c16-98ab-c704820d8a42"/>

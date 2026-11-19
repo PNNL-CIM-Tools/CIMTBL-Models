@@ -1,0 +1,11 @@
+# Steady state hypothesis (SSH) of frame s1, normal operation: the source's set point and the
+# breakers' positions, and nothing else. Load it after the frame's structural model.
+
+Profile = cim18v17
+
+Update EnergySource: mRID=src_s1, voltageMagnitude (kV)=12.47, voltageAngle (deg)=0
+
+Update Table Breaker: mRID, open=false
+    brk_s1_f1
+    brk_s1_f2
+    brk_s1_f3

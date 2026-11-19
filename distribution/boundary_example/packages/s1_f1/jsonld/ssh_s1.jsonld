@@ -1,0 +1,26 @@
+{
+  "@context": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:uuid:28e418c8-3ee7-556b-a5c8-328c133d4d27",
+      "@type": "cim:Breaker",
+      "cim:Switch.open": "false"
+    },
+    {
+      "@id": "urn:uuid:62229793-5ae5-55a1-83d8-e637cb66b8f0",
+      "@type": "cim:Breaker",
+      "cim:Switch.open": "false"
+    },
+    {
+      "@id": "urn:uuid:bb662115-f3b4-55d1-98de-84edcd384d24",
+      "@type": "cim:Breaker",
+      "cim:Switch.open": "false"
+    },
+    {
+      "@id": "urn:uuid:12c5e636-b1df-558e-a9ae-e2ec7fd55e96",
+      "@type": "cim:EnergySource",
+      "cim:EnergySource.voltageAngle": "0",
+      "cim:EnergySource.voltageMagnitude": "12470"
+    }
+  ]
+}

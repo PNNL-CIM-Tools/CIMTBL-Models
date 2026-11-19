@@ -1,0 +1,15 @@
+{
+  "@context": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:uuid:7d3d1b7e-371b-5dad-84f8-a99e6b82b5a5",
+      "@type": "cim:Disconnector",
+      "cim:Switch.open": "true"
+    },
+    {
+      "@id": "urn:uuid:cd61a583-3494-58f5-83f6-c1cb571cf37c",
+      "@type": "cim:LoadBreakSwitch",
+      "cim:Switch.open": "true"
+    }
+  ]
+}

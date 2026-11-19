@@ -1,5 +1,5 @@
-# The whole example as one assembly: reference data, every boundary model, every frame, then
-# every frame's steady state hypothesis.
+# The whole example as one assembly: reference data, the boundary model, every frame, then the
+# steady state hypothesis of the boundary and of every frame.
 #
 # The order matters in one place: the containers, then the boundary nodes, before any equipment,
 # because cimtables gives a node with no container the container of the first equipment that
@@ -11,11 +11,7 @@ Model = boundary_example
 
 Import catalog.cimtbl
 Import containers.cimtbl
-
-Import boundary_s1-s1_f1-s1_f2-s1_f3.cimtbl
-Import boundary_s1_f1-s1_f2.cimtbl
-Import boundary_s1_f3-s2_f1.cimtbl
-Import boundary_s2-s2_f1-s2_f2.cimtbl
+Import boundary.cimtbl
 
 Import substation_s1.cimtbl
 Import substation_s2.cimtbl
@@ -26,6 +22,9 @@ Import feeder_s1_f3.cimtbl
 Import feeder_s2_f1.cimtbl
 Import feeder_s2_f2.cimtbl
 
+Import ssh_boundary.cimtbl
+Import ssh_s1.cimtbl
+Import ssh_s2.cimtbl
 Import ssh_s1_f1.cimtbl
 Import ssh_s1_f2.cimtbl
 Import ssh_s1_f3.cimtbl

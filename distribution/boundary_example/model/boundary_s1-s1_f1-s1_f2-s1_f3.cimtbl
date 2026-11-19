@@ -1,9 +1,0 @@
-# Boundary s1 | s1-f1 | s1-f2 | s1-f3: the bus of substation s1, where its three feeders meet its source.
-#
-# A boundary model holds only connectivity nodes. Each node's container is the smallest area that
-# contains every frame of the boundary. Import it after containers.cimtbl and before any equipment.
-
-Profile = cim18v17
-
-Table ConnectivityNode: mRID, ConnectivityNodeContainer=area_ss_s1
-    s1_bus

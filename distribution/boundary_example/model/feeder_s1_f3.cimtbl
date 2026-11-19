@@ -1,23 +1,34 @@
-# Frame s1-f3: the feeder's own equipment, head recloser to its far end.
+# Frame s1-f3: the feeder's own equipment, from its head node to its far end.
 
 Profile = cim18v17
 
 Object Feeder: mRID=fdr_s1_f3, name=s1-f3, NormalEnergizingSubstation=sub_s1
 
-# The head recloser is in this frame. Its bus side is the boundary node s1_bus, which this file names
-# but does not declare. Its container is the Substation, which is reference data.
-Object Recloser: mRID=sw_s1_f3, name=s1-f3 head, node1=s1_bus, node2=s1_f3_head, normalOpen=false, areaBoundary=true, BaseVoltage=bv_12p47kv, EquipmentContainer=sub_s1
+Object MultiCircuitGroup: mRID=f2_f3_dbl_circuit
 
-# s1_f3_end is this frame's own node: the owner's side of tie 2.
-Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
+Object XYSpacing: mRID=rus_2_52_1, isTemplate=false, MultiCircuitGroup=f2_f3_dbl_circuit
+
+Table WirePosition: xCoord (in), yCoord (in), sequenceNumber, circuitNumber, kind, XYSpacing=rus_2_52_1
+    dbl_cct_pos_4, -44.0, 0.0, 4, 2, phase
+    dbl_cct_pos_5, 0.0,  18.0, 5, 2, phase
+    dbl_cct_pos_6, 44.0,  0.0, 6, 2, phase
+    dbl_cct_pos_7, 6.0,  -72.0, 7,  , neutral
+
+Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89
+
+Table ACLineSegment, mRID, node1, node2, length (mile), WireSpacing=rus_2_52_1, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f2, MultiCircuitGroup=f2_f3_dbl_circuit
     ln_s1_f3_1, s1_f3_head, s1_f3_mid, 1.0
+
+Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
     ln_s1_f3_2, s1_f3_mid,  s1_f3_end, 1.5
+    ln_s1_f3_3, s1_f3_end,  s1_f3_bnd, 0.5
+
+Update ACLineSegmentPhase: mRID, MultiCircuitGroup
+    ln_s1_f3_1_A, f2_f3_dbl_circuit
 
 Table EnergyConsumer: mRID, node, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
     ld_s1_f3_mid, s1_f3_mid
     ld_s1_f3_end, s1_f3_end
 
-# Tie 2 to feeder s2-f1 of substation s2. This frame owns it (its name sorts first). Its container
-# is the distribution area, the smallest area that contains both feeders. Both sides are 12.47 kV:
-# feeder s2-f1 steps down from 13.2 kV one span before the tie.
-Object Disconnector: mRID=sw_tie_s1_f3_s2_f1, name=tie s1-f3 s2-f1, node1=s1_f3_end, node2=s2_f1_end, normalOpen=true, areaBoundary=true, BaseVoltage=bv_12p47kv, EquipmentContainer=area_d_example
+# Feeder.NormalHeadTerminal: the first span's terminal on the head node
+Update Terminal: mRID=ln_s1_f3_1_T1, NormalHeadFeeder=fdr_s1_f3

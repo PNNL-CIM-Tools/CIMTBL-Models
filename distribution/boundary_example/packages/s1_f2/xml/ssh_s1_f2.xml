@@ -8,7 +8,4 @@
   <cim:EnergyConsumer.p>500000.0</cim:EnergyConsumer.p>
   <cim:EnergyConsumer.q>120000.0</cim:EnergyConsumer.q>
 </cim:EnergyConsumer>
-<cim:Recloser rdf:about="urn:uuid:3c383e66-c7b0-50f1-b1de-2c6df89655b8">
-  <cim:Switch.open>false</cim:Switch.open>
-</cim:Recloser>
 </rdf:RDF>

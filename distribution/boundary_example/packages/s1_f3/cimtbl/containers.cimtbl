@@ -1,11 +1,11 @@
 # Reference data: the containers that more than one frame names. Identical in every package.
 #
-# A frame model may reference only its own objects, the boundary models on its perimeter and the
-# reference data. So a container that several frames name is reference data, not part of any frame:
+# A frame model may reference only its own objects, the boundary model and the reference data. So a
+# container that several frames name is reference data, not part of any frame:
 # - the as-built ConnectedArea objects, which nest by ContainedWithin and change only with
-#   construction, never with switching;
-# - each Substation, which is the EquipmentContainer of the substation frame's source and of the
-#   feeder-head reclosers in the feeder frames.
+#   construction, never with switching. They contain the boundary nodes and the ties;
+# - each Substation, which contains the substation frame's equipment and is the feeders'
+#   NormalEnergizingSubstation.
 
 Profile = cim18v17
 

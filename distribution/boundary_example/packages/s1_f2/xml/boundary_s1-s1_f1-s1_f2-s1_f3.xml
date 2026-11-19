@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<cim:ConnectivityNode rdf:about="urn:uuid:e106dbfd-cee9-53d4-8375-b47bb2c73a9f">
-  <cim:Identity.identifier>e106dbfd-cee9-53d4-8375-b47bb2c73a9f</cim:Identity.identifier>
-  <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:cd8b0a0e-0367-5b2c-98bb-7986a92e38c3"/>
-  <cim:IdentifiedObject.mRID>s1_bus</cim:IdentifiedObject.mRID>
-</cim:ConnectivityNode>
-</rdf:RDF>

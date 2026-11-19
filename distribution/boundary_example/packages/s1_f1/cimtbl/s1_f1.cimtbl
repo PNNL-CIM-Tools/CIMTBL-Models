@@ -1,5 +1,5 @@
-# Package s1-f1: the reference data, the boundary models, the frames of substation s1 and feeder s1-f1,
-# then the feeder's steady state hypothesis.
+# Package s1-f1: the reference data, the boundary model, the frames of substation s1 and feeder s1-f1,
+# then the steady state hypotheses of the boundary and of both frames.
 
 Profile = cim18v17
 Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models
@@ -7,8 +7,9 @@ Model = boundary_example
 
 Import catalog.cimtbl
 Import containers.cimtbl
-Import boundary_s1-s1_f1-s1_f2-s1_f3.cimtbl
-Import boundary_s1_f1-s1_f2.cimtbl
+Import boundary.cimtbl
 Import substation_s1.cimtbl
 Import feeder_s1_f1.cimtbl
+Import ssh_boundary.cimtbl
+Import ssh_s1.cimtbl
 Import ssh_s1_f1.cimtbl
