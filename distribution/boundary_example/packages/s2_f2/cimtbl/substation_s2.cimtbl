@@ -17,7 +17,7 @@ Object ConnectivityNode: mRID=s2_bus, ConnectivityNodeContainer=sub_s2
 
 Object BusbarSection: mRID=bus_s2, name=s2 bus, node=s2_bus, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
 
-Object EnergySource: mRID=src_s2, name=s2, node=s2_bus, nominalVoltage (kV)=13.2, r (ohm)=0.12446, x (ohm)=1.2446, r0 (ohm)=0.12446, x0 (ohm)=1.2446, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
+Object EnergySource: mRID=src_s2, name=s2, node=s2_bus, nominalVoltage (kV)=13.2, voltageMagnitude (kV)=13.2, voltageAngle (deg)=0, r (ohm)=0.12446, x (ohm)=1.2446, r0 (ohm)=0.12446, x0 (ohm)=1.2446, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
 
 Table Breaker: mRID, name, node1=s2_bus, node2, normalOpen=false, open=false, areaBoundary=true, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
     brk_s2_f1, s2-f1 breaker, s2_f1_head

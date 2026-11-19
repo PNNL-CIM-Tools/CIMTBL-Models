@@ -33,16 +33,34 @@
 </cim:ConnectivityNode>
 <cim:EnergyConsumer rdf:about="urn:uuid:18a213eb-2b05-5226-9b6e-ebbcdd5a9146">
   <cim:Identity.identifier>18a213eb-2b05-5226-9b6e-ebbcdd5a9146</cim:Identity.identifier>
+  <cim:EnergyConsumer.grounded>true</cim:EnergyConsumer.grounded>
+  <cim:EnergyConsumer.phaseConnection rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseShuntConnectionKind.Y"/>
+  <cim:EnergyConsumer.LoadResponse rdf:resource="urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6"/>
   <cim:IdentifiedObject.mRID>ld_s2_f2_mid</cim:IdentifiedObject.mRID>
 </cim:EnergyConsumer>
 <cim:EnergyConsumer rdf:about="urn:uuid:841a55f9-d007-53af-85d2-5315f6aa6362">
   <cim:Identity.identifier>841a55f9-d007-53af-85d2-5315f6aa6362</cim:Identity.identifier>
+  <cim:EnergyConsumer.grounded>true</cim:EnergyConsumer.grounded>
+  <cim:EnergyConsumer.phaseConnection rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseShuntConnectionKind.Y"/>
+  <cim:EnergyConsumer.LoadResponse rdf:resource="urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6"/>
   <cim:IdentifiedObject.mRID>ld_s2_f2_end</cim:IdentifiedObject.mRID>
 </cim:EnergyConsumer>
+<cim:LoadResponseCharacteristic rdf:about="urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2">
+  <cim:Identity.identifier>13abf69c-c18c-554d-8500-da6e23fb39d2</cim:Identity.identifier>
+  <cim:LoadResponseCharacteristic.exponentModel>false</cim:LoadResponseCharacteristic.exponentModel>
+  <cim:LoadResponseCharacteristic.pConstantCurrent>0.0</cim:LoadResponseCharacteristic.pConstantCurrent>
+  <cim:LoadResponseCharacteristic.pConstantImpedance>0.0</cim:LoadResponseCharacteristic.pConstantImpedance>
+  <cim:LoadResponseCharacteristic.pConstantPower>1.0</cim:LoadResponseCharacteristic.pConstantPower>
+  <cim:LoadResponseCharacteristic.qConstantCurrent>0.0</cim:LoadResponseCharacteristic.qConstantCurrent>
+  <cim:LoadResponseCharacteristic.qConstantImpedance>0.0</cim:LoadResponseCharacteristic.qConstantImpedance>
+  <cim:LoadResponseCharacteristic.qConstantPower>1.0</cim:LoadResponseCharacteristic.qConstantPower>
+  <cim:IdentifiedObject.mRID>lrc_constant_pq</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>constant PQ</cim:IdentifiedObject.name>
+</cim:LoadResponseCharacteristic>
 <cim:PerLengthSequenceImpedance rdf:about="urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5">
   <cim:Identity.identifier>0f702510-68a1-543f-822a-f8d9c8a95bc5</cim:Identity.identifier>
   <cim:PerLengthSequenceImpedance.r>0.00019013958482462417</cim:PerLengthSequenceImpedance.r>

@@ -23,6 +23,7 @@
       "@id": "urn:uuid:be2c1658-ecd7-5c43-beed-436a14d48e98",
       "@type": "cim:ACLineSegment",
       "cim:ACLineSegment.MultiCircuitGroup": "urn:uuid:692d55ae-5182-5634-985f-b799921edd42",
+      "cim:ACLineSegment.spacingYOffset": "12.191999999999998",
       "cim:ACLineSegment.WireSpacing": "urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67",
       "cim:Conductor.length": "1609.344",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57",
@@ -85,8 +86,19 @@
       "cim:IdentifiedObject.mRID": "s1_f2_end"
     },
     {
+      "@id": "urn:uuid:03bfb676-e309-5eaf-98eb-6d749b2f7525",
+      "@type": "gad:EarthResistivity",
+      "gad:EarthResistivity.earthModelType": "gad:EarthModelKind.carson",
+      "gad:EarthResistivity.rho": "100",
+      "cim:IdentifiedObject.mRID": "earth_carson_100",
+      "cim:IdentifiedObject.name": "Carson 100 ohm-m"
+    },
+    {
       "@id": "urn:uuid:b8e567b4-74f4-53e3-81a9-8d166f3a4ce8",
       "@type": "cim:EnergyConsumer",
+      "cim:EnergyConsumer.grounded": "true",
+      "cim:EnergyConsumer.phaseConnection": "cim:PhaseShuntConnectionKind.Y",
+      "cim:EnergyConsumer.LoadResponse": "urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57",
       "cim:Equipment.EquipmentContainer": "urn:uuid:5f5f4107-0303-5716-b967-afc3d047a1dd",
       "cim:IdentifiedObject.mRID": "ld_s1_f2_mid"
@@ -94,9 +106,25 @@
     {
       "@id": "urn:uuid:d4c23d98-9545-5114-9733-5badc91723e0",
       "@type": "cim:EnergyConsumer",
+      "cim:EnergyConsumer.grounded": "true",
+      "cim:EnergyConsumer.phaseConnection": "cim:PhaseShuntConnectionKind.Y",
+      "cim:EnergyConsumer.LoadResponse": "urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57",
       "cim:Equipment.EquipmentContainer": "urn:uuid:5f5f4107-0303-5716-b967-afc3d047a1dd",
       "cim:IdentifiedObject.mRID": "ld_s1_f2_end"
+    },
+    {
+      "@id": "urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2",
+      "@type": "cim:LoadResponseCharacteristic",
+      "cim:LoadResponseCharacteristic.exponentModel": "false",
+      "cim:LoadResponseCharacteristic.pConstantCurrent": "0.0",
+      "cim:LoadResponseCharacteristic.pConstantImpedance": "0.0",
+      "cim:LoadResponseCharacteristic.pConstantPower": "1.0",
+      "cim:LoadResponseCharacteristic.qConstantCurrent": "0.0",
+      "cim:LoadResponseCharacteristic.qConstantImpedance": "0.0",
+      "cim:LoadResponseCharacteristic.qConstantPower": "1.0",
+      "cim:IdentifiedObject.mRID": "lrc_constant_pq",
+      "cim:IdentifiedObject.name": "constant PQ"
     },
     {
       "@id": "urn:uuid:692d55ae-5182-5634-985f-b799921edd42",
@@ -113,7 +141,7 @@
       "cim:WireInfo.gmr": "0.008077199999999998",
       "cim:WireInfo.radius": "0.009944099999999999",
       "cim:ConductorInfo.material": "cim:WireMaterialKind.acsr",
-      "cim:ConductorInfo.rAC50": "0.0001609351387894695",
+      "cim:ConductorInfo.rAC25": "0.0001464571900103396",
       "cim:ConductingAssetInfo.ratedCurrent": "590",
       "cim:IdentifiedObject.mRID": "acsr_397",
       "cim:IdentifiedObject.name": "397 ACSR"

@@ -226,13 +226,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dcat:byteSize": 1383,
+          "dcat:byteSize": 1434,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "2d53ab2131b927b07a142696d6b333ecb249dc4591d9d7d7a9d02bb481487beb"
+            "spdx:checksumValue": "0445c2b8f10481b63fffd0f39f8d41c5b512948703f63fcc6f982b8d629e383e"
           },
           "dct:conformsTo": [
             {
@@ -246,13 +246,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
           },
-          "dcat:byteSize": 6260,
+          "dcat:byteSize": 6356,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "7475a38754149bad40a586da9c6162ac7c00fa121f30a167dda1eac87a2fc3ae"
+            "spdx:checksumValue": "95563366b9d0708db2e06f7d820f61568f3be1e7ba3e2fae8dc4289dcbc4ebd9"
           },
           "dct:conformsTo": [
             {
@@ -272,13 +272,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dcat:byteSize": 8863,
+          "dcat:byteSize": 9013,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "096731a9786fb1092beb0385126ecc7d7ffed10dc8aef5acd29f87a3ee656fb8"
+            "spdx:checksumValue": "24e2748f1feba218bb918c1411a06dc93d7f8cc5da0040f6b5d68def67698a1a"
           },
           "dct:conformsTo": [
             {
@@ -302,13 +302,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dcat:byteSize": 1079,
+          "dcat:byteSize": 1445,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "32bc6ca7123ce98cc147f5fbc279277e8aa6aca16bd2445ea5a6a1402b3a4ad0"
+            "spdx:checksumValue": "4e9e44c53d6bd0f9e80c2006976da6e37d535ef0acf2d0c0bda7cdb38d9553e6"
           },
           "dct:conformsTo": [
             {
@@ -322,13 +322,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
           },
-          "dcat:byteSize": 6628,
+          "dcat:byteSize": 7728,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "408bcc75b63bb842d6cb1d26c2586e7eeb9f312c9f2b9f1ceffdd702596af603"
+            "spdx:checksumValue": "6d5edd900487f7d612ceb15d514a9188388f58970e8abd4b773a0b81d8e632b2"
           },
           "dct:conformsTo": [
             {
@@ -348,13 +348,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dcat:byteSize": 9281,
+          "dcat:byteSize": 10929,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "aa9339554f1b3ba77a88266f154b774594b78a64dd12b53a18ef76093bdb57ea"
+            "spdx:checksumValue": "db544faf5527d40ce94f86c6fb23ffa12b339cec4e8bbf1fa5d585b1b1bd4347"
           },
           "dct:conformsTo": [
             {

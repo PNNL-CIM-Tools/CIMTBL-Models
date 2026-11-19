@@ -6,8 +6,14 @@ Object BaseVoltage: mRID=bv_12p47kv, nominalVoltage (kV)=12.47
 
 Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89
 
-Object OverheadWireInfo: mRID=acsr_397, name=397 ACSR, sizeDescription=397.5 kcmil 26/7, material=acsr, strandCount=26, coreStrandCount=7, radius (in)=0.3915, gmr (ft)=0.0265, rAC50 (ohm/mile)=0.259, ratedCurrent (A)=590
+Object OverheadWireInfo: mRID=acsr_397, name=397 ACSR, sizeDescription=397.5 kcmil 26/7, material=acsr, strandCount=26, coreStrandCount=7, radius (in)=0.3915, gmr (ft)=0.0265, rAC25 (ohm/mile)=0.2357, ratedCurrent (A)=590
 
+# The earth the double-circuit span's geometry is solved over. cim18v17 ties an EarthResistivity only to a
+# WireConfiguration or a PerLengthImpedance, so a line with a direct WireSpacing takes the model's one.
+Object EarthResistivity: mRID=earth_carson_100, name=Carson 100 ohm-m, earthModelType=carson, rho (ohm)=100
+
+# Every load is constant power (reference data, restated by each feeder that uses it)
+Object LoadResponseCharacteristic: mRID=lrc_constant_pq, name=constant PQ, exponentModel=false, pConstantPower=1, pConstantCurrent=0, pConstantImpedance=0, qConstantPower=1, qConstantCurrent=0, qConstantImpedance=0
 
 # The first span shares its structure with the first span of s1-f2: one double-circuit spacing, s1-f2
 # on positions 1-3 (circuit 1), this feeder on positions 4-6 (circuit 2), and one neutral on
@@ -22,13 +28,14 @@ Table WirePosition: mRID, xCoord (in), yCoord (in), sequenceNumber, circuitNumbe
     dbl_cct_pos_6, 44.0,  0.0,   6, 2, phase
     dbl_cct_pos_7, 6.0,   -72.0, 7,  , neutral
 
+# The positions are measured from the pole top; spacingYOffset puts the pole top 40 ft above ground.
 # Its head node and its side of tie 2 are boundary nodes (boundary.cimtbl): named here, not declared.
-Table ACLineSegment: mRID, node1, node2, length (mile), phases=ABCN, sequenceNumbers=4 5 6 7, WireSpacing=rus_2_52_1, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3, MultiCircuitGroup=f2_f3_dbl_circuit
+Table ACLineSegment: mRID, node1, node2, length (mile), phases=ABCN, sequenceNumbers=4 5 6 7, WireSpacing=rus_2_52_1, spacingYOffset (ft)=40, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3, MultiCircuitGroup=f2_f3_dbl_circuit
     ln_s1_f3_1, s1_f3_head, s1_f3_mid, 1.0
 
 # The spacing is not a template (isTemplate=false), so each phase of the span names its wire
 Update Table ACLineSegmentPhase: mRID, MultiCircuitGroup, WireInfo=acsr_397
-    ln_s1_f3_1_A, 
+    ln_s1_f3_1_A,
     ln_s1_f3_1_B,
     ln_s1_f3_1_C,
     ln_s1_f3_1_N, f2_f3_dbl_circuit
@@ -37,7 +44,7 @@ Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_33
     ln_s1_f3_2, s1_f3_mid,  s1_f3_end, 1.5
     ln_s1_f3_3, s1_f3_end,  s1_f3_bnd, 0.5
 
-Table EnergyConsumer: mRID, node, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
+Table EnergyConsumer: mRID, node, phaseConnection=Y, grounded=true, LoadResponse=lrc_constant_pq, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3
     ld_s1_f3_mid, s1_f3_mid
     ld_s1_f3_end, s1_f3_end
 

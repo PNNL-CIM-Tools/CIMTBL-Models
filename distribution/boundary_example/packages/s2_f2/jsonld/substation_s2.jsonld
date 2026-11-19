@@ -49,6 +49,8 @@
       "cim:EnergySource.nominalVoltage": "13200",
       "cim:EnergySource.r": "0.12446",
       "cim:EnergySource.x": "1.2446",
+      "cim:EnergySource.voltageAngle": "0",
+      "cim:EnergySource.voltageMagnitude": "13200",
       "cim:EnergySource.r0": "0.12446",
       "cim:EnergySource.x0": "1.2446",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",

@@ -145,6 +145,9 @@
     {
       "@id": "urn:uuid:2a425b09-3a37-5a4e-bba3-d60fca57e815",
       "@type": "cim:EnergyConsumer",
+      "cim:EnergyConsumer.grounded": "true",
+      "cim:EnergyConsumer.phaseConnection": "cim:PhaseShuntConnectionKind.Y",
+      "cim:EnergyConsumer.LoadResponse": "urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
       "cim:Equipment.EquipmentContainer": "urn:uuid:4b574874-bccf-5261-8eaa-35e7071e04b2",
       "cim:IdentifiedObject.mRID": "ld_s2_f1_mid"
@@ -152,9 +155,25 @@
     {
       "@id": "urn:uuid:850951ed-3de0-528e-bde5-e726c9c76997",
       "@type": "cim:EnergyConsumer",
+      "cim:EnergyConsumer.grounded": "true",
+      "cim:EnergyConsumer.phaseConnection": "cim:PhaseShuntConnectionKind.Y",
+      "cim:EnergyConsumer.LoadResponse": "urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
       "cim:Equipment.EquipmentContainer": "urn:uuid:4b574874-bccf-5261-8eaa-35e7071e04b2",
       "cim:IdentifiedObject.mRID": "ld_s2_f1_step"
+    },
+    {
+      "@id": "urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2",
+      "@type": "cim:LoadResponseCharacteristic",
+      "cim:LoadResponseCharacteristic.exponentModel": "false",
+      "cim:LoadResponseCharacteristic.pConstantCurrent": "0.0",
+      "cim:LoadResponseCharacteristic.pConstantImpedance": "0.0",
+      "cim:LoadResponseCharacteristic.pConstantPower": "1.0",
+      "cim:LoadResponseCharacteristic.qConstantCurrent": "0.0",
+      "cim:LoadResponseCharacteristic.qConstantImpedance": "0.0",
+      "cim:LoadResponseCharacteristic.qConstantPower": "1.0",
+      "cim:IdentifiedObject.mRID": "lrc_constant_pq",
+      "cim:IdentifiedObject.name": "constant PQ"
     },
     {
       "@id": "urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5",

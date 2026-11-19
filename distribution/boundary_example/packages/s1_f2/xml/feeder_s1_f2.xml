@@ -19,6 +19,7 @@
 <cim:ACLineSegment rdf:about="urn:uuid:be2c1658-ecd7-5c43-beed-436a14d48e98">
   <cim:Identity.identifier>be2c1658-ecd7-5c43-beed-436a14d48e98</cim:Identity.identifier>
   <cim:ACLineSegment.MultiCircuitGroup rdf:resource="urn:uuid:692d55ae-5182-5634-985f-b799921edd42"/>
+  <cim:ACLineSegment.spacingYOffset>12.191999999999998</cim:ACLineSegment.spacingYOffset>
   <cim:ACLineSegment.WireSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
   <cim:Conductor.length>1609.344</cim:Conductor.length>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
@@ -73,18 +74,43 @@
   <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:5f5f4107-0303-5716-b967-afc3d047a1dd"/>
   <cim:IdentifiedObject.mRID>s1_f2_end</cim:IdentifiedObject.mRID>
 </cim:ConnectivityNode>
+<gad:EarthResistivity rdf:about="urn:uuid:03bfb676-e309-5eaf-98eb-6d749b2f7525">
+  <cim:Identity.identifier>03bfb676-e309-5eaf-98eb-6d749b2f7525</cim:Identity.identifier>
+  <gad:EarthResistivity.earthModelType rdf:resource="http://gridappsd.org/CIM/extension#EarthModelKind.carson"/>
+  <gad:EarthResistivity.rho>100.0</gad:EarthResistivity.rho>
+  <cim:IdentifiedObject.mRID>earth_carson_100</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>Carson 100 ohm-m</cim:IdentifiedObject.name>
+</gad:EarthResistivity>
 <cim:EnergyConsumer rdf:about="urn:uuid:b8e567b4-74f4-53e3-81a9-8d166f3a4ce8">
   <cim:Identity.identifier>b8e567b4-74f4-53e3-81a9-8d166f3a4ce8</cim:Identity.identifier>
+  <cim:EnergyConsumer.grounded>true</cim:EnergyConsumer.grounded>
+  <cim:EnergyConsumer.phaseConnection rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseShuntConnectionKind.Y"/>
+  <cim:EnergyConsumer.LoadResponse rdf:resource="urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:5f5f4107-0303-5716-b967-afc3d047a1dd"/>
   <cim:IdentifiedObject.mRID>ld_s1_f2_mid</cim:IdentifiedObject.mRID>
 </cim:EnergyConsumer>
 <cim:EnergyConsumer rdf:about="urn:uuid:d4c23d98-9545-5114-9733-5badc91723e0">
   <cim:Identity.identifier>d4c23d98-9545-5114-9733-5badc91723e0</cim:Identity.identifier>
+  <cim:EnergyConsumer.grounded>true</cim:EnergyConsumer.grounded>
+  <cim:EnergyConsumer.phaseConnection rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseShuntConnectionKind.Y"/>
+  <cim:EnergyConsumer.LoadResponse rdf:resource="urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2"/>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:5f5f4107-0303-5716-b967-afc3d047a1dd"/>
   <cim:IdentifiedObject.mRID>ld_s1_f2_end</cim:IdentifiedObject.mRID>
 </cim:EnergyConsumer>
+<cim:LoadResponseCharacteristic rdf:about="urn:uuid:13abf69c-c18c-554d-8500-da6e23fb39d2">
+  <cim:Identity.identifier>13abf69c-c18c-554d-8500-da6e23fb39d2</cim:Identity.identifier>
+  <cim:LoadResponseCharacteristic.exponentModel>false</cim:LoadResponseCharacteristic.exponentModel>
+  <cim:LoadResponseCharacteristic.pConstantCurrent>0.0</cim:LoadResponseCharacteristic.pConstantCurrent>
+  <cim:LoadResponseCharacteristic.pConstantImpedance>0.0</cim:LoadResponseCharacteristic.pConstantImpedance>
+  <cim:LoadResponseCharacteristic.pConstantPower>1.0</cim:LoadResponseCharacteristic.pConstantPower>
+  <cim:LoadResponseCharacteristic.qConstantCurrent>0.0</cim:LoadResponseCharacteristic.qConstantCurrent>
+  <cim:LoadResponseCharacteristic.qConstantImpedance>0.0</cim:LoadResponseCharacteristic.qConstantImpedance>
+  <cim:LoadResponseCharacteristic.qConstantPower>1.0</cim:LoadResponseCharacteristic.qConstantPower>
+  <cim:IdentifiedObject.mRID>lrc_constant_pq</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>constant PQ</cim:IdentifiedObject.name>
+</cim:LoadResponseCharacteristic>
 <cim:MultiCircuitGroup rdf:about="urn:uuid:692d55ae-5182-5634-985f-b799921edd42">
   <cim:Identity.identifier>692d55ae-5182-5634-985f-b799921edd42</cim:Identity.identifier>
   <cim:MultiCircuitGroup.XYSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
@@ -98,7 +124,7 @@
   <cim:WireInfo.gmr>0.008077199999999998</cim:WireInfo.gmr>
   <cim:WireInfo.radius>0.009944099999999999</cim:WireInfo.radius>
   <cim:ConductorInfo.material rdf:resource="http://cim.ucaiug.io/cim101/draft#WireMaterialKind.acsr"/>
-  <cim:ConductorInfo.rAC50>0.0001609351387894695</cim:ConductorInfo.rAC50>
+  <cim:ConductorInfo.rAC25>0.0001464571900103396</cim:ConductorInfo.rAC25>
   <cim:ConductingAssetInfo.ratedCurrent>590.0</cim:ConductingAssetInfo.ratedCurrent>
   <cim:IdentifiedObject.mRID>acsr_397</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>397 ACSR</cim:IdentifiedObject.name>
