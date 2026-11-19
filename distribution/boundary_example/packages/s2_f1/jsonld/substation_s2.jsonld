@@ -2,10 +2,17 @@
   "@context": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld",
   "@graph": [
     {
+      "@id": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
+      "@type": "cim:BaseVoltage",
+      "cim:BaseVoltage.nominalVoltage": "13200",
+      "cim:IdentifiedObject.mRID": "bv_13p2kv"
+    },
+    {
       "@id": "urn:uuid:5c7468e6-fc24-54c6-897e-4f878646f07e",
       "@type": "cim:Breaker",
       "cim:Switch.areaBoundary": "true",
       "cim:Switch.normalOpen": "false",
+      "cim:Switch.open": "false",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
       "cim:Equipment.EquipmentContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
       "cim:IdentifiedObject.mRID": "brk_s2_f1",
@@ -16,6 +23,7 @@
       "@type": "cim:Breaker",
       "cim:Switch.areaBoundary": "true",
       "cim:Switch.normalOpen": "false",
+      "cim:Switch.open": "false",
       "cim:ConductingEquipment.BaseVoltage": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
       "cim:Equipment.EquipmentContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
       "cim:IdentifiedObject.mRID": "brk_s2_f2",
@@ -47,6 +55,11 @@
       "cim:Equipment.EquipmentContainer": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
       "cim:IdentifiedObject.mRID": "src_s2",
       "cim:IdentifiedObject.name": "s2"
+    },
+    {
+      "@id": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
+      "@type": "cim:Substation",
+      "cim:IdentifiedObject.mRID": "sub_s2"
     },
     {
       "@id": "urn:uuid:2e251c22-9e88-5199-89f4-ac4594b3c02b",

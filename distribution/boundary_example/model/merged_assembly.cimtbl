@@ -1,11 +1,13 @@
-# The whole example as one assembly: the service areas and their ties, the boundary model, every
-# frame, then the steady state hypothesis (SSH) of every feeder frame.
+# The whole example as one assembly: the distribution-area frame (its areas, Feeders and ties), the
+# boundary model, the substation and feeder frames, then the steady state hypothesis (SSH) of every
+# feeder frame.
 #
-# Each file declares the reference data it uses (base voltages, line impedances, wires, spacings),
-# so a file loaded after another that declares the same object restates it.
+# Each file declares the reference data it uses (base voltages, line impedances, wires, spacings), so
+# a file loaded after another that declares the same object restates it.
 #
-# The order matters in one place: the areas, then the boundary nodes, before any frame, because
-# cimtables gives a node with no container the container of the first equipment that touches it.
+# The order matters in one place: the distribution-area frame, then the boundary nodes, before any
+# other frame, because cimtables gives a node with no container the container of the first equipment
+# that touches it.
 
 Profile = cim18v17
 Authority = https://github.com/PNNL-CIM-Tools/CIMTBL-Models

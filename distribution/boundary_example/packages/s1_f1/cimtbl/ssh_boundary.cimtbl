@@ -1,8 +1,0 @@
-# Steady state hypothesis (SSH) of the boundary, normal operation: the positions of the tie switches,
-# and nothing else. Load it after the boundary model.
-
-Profile = cim18v17
-
-Update LoadBreakSwitch: mRID=sw_tie_s1_f1_s1_f2, open=true
-
-Update Disconnector: mRID=sw_tie_s1_f3_s2_f1, open=true

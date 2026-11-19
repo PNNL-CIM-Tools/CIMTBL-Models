@@ -1,5 +1,6 @@
 # Steady state hypothesis (SSH) of frame s1-f3, normal operation: the p and q of its loads, and nothing
-# else. The feeder has no switch: its breaker is in the substation frame and its tie in dso_area.cimtbl.
+# else. The feeder has no switch: its breaker is in the substation frame and its tie in the
+# distribution-area frame (dso_area.cimtbl).
 # Load it after the frame's structural model.
 
 Profile = cim18v17

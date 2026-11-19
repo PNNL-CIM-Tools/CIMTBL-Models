@@ -106,6 +106,16 @@
   <cim:TransformerEnd.Terminal rdf:resource="urn:uuid:a37cea4d-7ff7-5cb6-a63d-7bfb9083248a"/>
   <cim:IdentifiedObject.mRID>xf_s2_f1_step_c_1</cim:IdentifiedObject.mRID>
 </gad:AutoTransformerEnd>
+<cim:BaseVoltage rdf:about="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241">
+  <cim:Identity.identifier>217958b4-53cb-5416-a7ae-375f00b81241</cim:Identity.identifier>
+  <cim:BaseVoltage.nominalVoltage>13200.0</cim:BaseVoltage.nominalVoltage>
+  <cim:IdentifiedObject.mRID>bv_13p2kv</cim:IdentifiedObject.mRID>
+</cim:BaseVoltage>
+<cim:BaseVoltage rdf:about="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57">
+  <cim:Identity.identifier>af05b919-1762-5348-8ee3-6f1dc1376a57</cim:Identity.identifier>
+  <cim:BaseVoltage.nominalVoltage>12470.0</cim:BaseVoltage.nominalVoltage>
+  <cim:IdentifiedObject.mRID>bv_12p47kv</cim:IdentifiedObject.mRID>
+</cim:BaseVoltage>
 <cim:ConnectivityNode rdf:about="urn:uuid:800dcf1a-5dc1-58f5-a1f3-1bc6ebb38d39">
   <cim:Identity.identifier>800dcf1a-5dc1-58f5-a1f3-1bc6ebb38d39</cim:Identity.identifier>
   <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:4b574874-bccf-5261-8eaa-35e7071e04b2"/>
@@ -128,16 +138,19 @@
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:4b574874-bccf-5261-8eaa-35e7071e04b2"/>
   <cim:IdentifiedObject.mRID>ld_s2_f1_step</cim:IdentifiedObject.mRID>
 </cim:EnergyConsumer>
-<cim:Feeder rdf:about="urn:uuid:4b574874-bccf-5261-8eaa-35e7071e04b2">
-  <cim:Identity.identifier>4b574874-bccf-5261-8eaa-35e7071e04b2</cim:Identity.identifier>
-  <cim:Feeder.NormalEnergizingSubstation rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
-  <cim:IdentifiedObject.mRID>fdr_s2_f1</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>s2-f1</cim:IdentifiedObject.name>
-</cim:Feeder>
+<cim:PerLengthSequenceImpedance rdf:about="urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5">
+  <cim:Identity.identifier>0f702510-68a1-543f-822a-f8d9c8a95bc5</cim:Identity.identifier>
+  <cim:PerLengthSequenceImpedance.r>0.00019013958482462417</cim:PerLengthSequenceImpedance.r>
+  <cim:PerLengthSequenceImpedance.x>0.0003895997375328084</cim:PerLengthSequenceImpedance.x>
+  <cim:PerLengthSequenceImpedance.r0>0.00036785174580450164</cim:PerLengthSequenceImpedance.r0>
+  <cim:PerLengthSequenceImpedance.x0>0.001174391553328561</cim:PerLengthSequenceImpedance.x0>
+  <cim:IdentifiedObject.mRID>lc_336_acsr</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>336 ACSR</cim:IdentifiedObject.name>
+</cim:PerLengthSequenceImpedance>
 <cim:Terminal rdf:about="urn:uuid:0f2555ac-5767-5a1e-b92b-4bd67a6866eb">
   <cim:Identity.identifier>0f2555ac-5767-5a1e-b92b-4bd67a6866eb</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:d0858410-e5d0-5040-a0ee-f1cf895c3580"/>
-  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:74d6002f-b4ef-5784-aece-b38c867e66e8"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:af90744f-1eb7-5c89-a72c-5d67fa09a9e4"/>
   <cim:Terminal.phases rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseCode.AN"/>
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:IdentifiedObject.mRID>xf_s2_f1_step_a_T2</cim:IdentifiedObject.mRID>
@@ -198,7 +211,7 @@
 <cim:Terminal rdf:about="urn:uuid:b072fab3-00a9-56cc-b129-42b0d87102eb">
   <cim:Identity.identifier>b072fab3-00a9-56cc-b129-42b0d87102eb</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:1c55fb04-49c1-5b40-9175-f714ba8b1a13"/>
-  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:74d6002f-b4ef-5784-aece-b38c867e66e8"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:af90744f-1eb7-5c89-a72c-5d67fa09a9e4"/>
   <cim:Terminal.phases rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseCode.BN"/>
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:IdentifiedObject.mRID>xf_s2_f1_step_b_T2</cim:IdentifiedObject.mRID>
@@ -220,7 +233,7 @@
 <cim:Terminal rdf:about="urn:uuid:f03f06f0-162e-5a66-b65a-2441283820c5">
   <cim:Identity.identifier>f03f06f0-162e-5a66-b65a-2441283820c5</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:1cc554f1-7b49-5653-b464-a532d37c0cdf"/>
-  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:74d6002f-b4ef-5784-aece-b38c867e66e8"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:af90744f-1eb7-5c89-a72c-5d67fa09a9e4"/>
   <cim:Terminal.phases rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseCode.CN"/>
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:IdentifiedObject.mRID>xf_s2_f1_step_c_T2</cim:IdentifiedObject.mRID>

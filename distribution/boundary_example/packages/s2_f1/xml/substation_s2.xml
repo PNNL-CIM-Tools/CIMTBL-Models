@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<cim:BaseVoltage rdf:about="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241">
+  <cim:Identity.identifier>217958b4-53cb-5416-a7ae-375f00b81241</cim:Identity.identifier>
+  <cim:BaseVoltage.nominalVoltage>13200.0</cim:BaseVoltage.nominalVoltage>
+  <cim:IdentifiedObject.mRID>bv_13p2kv</cim:IdentifiedObject.mRID>
+</cim:BaseVoltage>
 <cim:Breaker rdf:about="urn:uuid:5c7468e6-fc24-54c6-897e-4f878646f07e">
   <cim:Identity.identifier>5c7468e6-fc24-54c6-897e-4f878646f07e</cim:Identity.identifier>
   <cim:Switch.areaBoundary>true</cim:Switch.areaBoundary>
   <cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+  <cim:Switch.open>false</cim:Switch.open>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
   <cim:IdentifiedObject.mRID>brk_s2_f1</cim:IdentifiedObject.mRID>
@@ -13,6 +19,7 @@
   <cim:Identity.identifier>ca59757e-60ad-5a69-833c-628aa2023175</cim:Identity.identifier>
   <cim:Switch.areaBoundary>true</cim:Switch.areaBoundary>
   <cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+  <cim:Switch.open>false</cim:Switch.open>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
   <cim:IdentifiedObject.mRID>brk_s2_f2</cim:IdentifiedObject.mRID>
@@ -42,6 +49,10 @@
   <cim:IdentifiedObject.mRID>src_s2</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>s2</cim:IdentifiedObject.name>
 </cim:EnergySource>
+<cim:Substation rdf:about="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f">
+  <cim:Identity.identifier>ea6c1881-3d02-5b03-968b-51de8f4b925f</cim:Identity.identifier>
+  <cim:IdentifiedObject.mRID>sub_s2</cim:IdentifiedObject.mRID>
+</cim:Substation>
 <cim:Terminal rdf:about="urn:uuid:2e251c22-9e88-5199-89f4-ac4594b3c02b">
   <cim:Identity.identifier>2e251c22-9e88-5199-89f4-ac4594b3c02b</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:ca59757e-60ad-5a69-833c-628aa2023175"/>

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<cim:BaseVoltage rdf:about="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57">
+  <cim:Identity.identifier>af05b919-1762-5348-8ee3-6f1dc1376a57</cim:Identity.identifier>
+  <cim:BaseVoltage.nominalVoltage>12470.0</cim:BaseVoltage.nominalVoltage>
+  <cim:IdentifiedObject.mRID>bv_12p47kv</cim:IdentifiedObject.mRID>
+</cim:BaseVoltage>
 <cim:Breaker rdf:about="urn:uuid:28e418c8-3ee7-556b-a5c8-328c133d4d27">
   <cim:Identity.identifier>28e418c8-3ee7-556b-a5c8-328c133d4d27</cim:Identity.identifier>
   <cim:Switch.areaBoundary>true</cim:Switch.areaBoundary>
   <cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+  <cim:Switch.open>false</cim:Switch.open>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:dae9e879-540c-56fd-8c6a-17b15508bbdc"/>
   <cim:IdentifiedObject.mRID>brk_s1_f3</cim:IdentifiedObject.mRID>
@@ -13,6 +19,7 @@
   <cim:Identity.identifier>62229793-5ae5-55a1-83d8-e637cb66b8f0</cim:Identity.identifier>
   <cim:Switch.areaBoundary>true</cim:Switch.areaBoundary>
   <cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+  <cim:Switch.open>false</cim:Switch.open>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:dae9e879-540c-56fd-8c6a-17b15508bbdc"/>
   <cim:IdentifiedObject.mRID>brk_s1_f1</cim:IdentifiedObject.mRID>
@@ -22,6 +29,7 @@
   <cim:Identity.identifier>bb662115-f3b4-55d1-98de-84edcd384d24</cim:Identity.identifier>
   <cim:Switch.areaBoundary>true</cim:Switch.areaBoundary>
   <cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+  <cim:Switch.open>false</cim:Switch.open>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:dae9e879-540c-56fd-8c6a-17b15508bbdc"/>
   <cim:IdentifiedObject.mRID>brk_s1_f2</cim:IdentifiedObject.mRID>
@@ -51,6 +59,10 @@
   <cim:IdentifiedObject.mRID>src_s1</cim:IdentifiedObject.mRID>
   <cim:IdentifiedObject.name>s1</cim:IdentifiedObject.name>
 </cim:EnergySource>
+<cim:Substation rdf:about="urn:uuid:dae9e879-540c-56fd-8c6a-17b15508bbdc">
+  <cim:Identity.identifier>dae9e879-540c-56fd-8c6a-17b15508bbdc</cim:Identity.identifier>
+  <cim:IdentifiedObject.mRID>sub_s1</cim:IdentifiedObject.mRID>
+</cim:Substation>
 <cim:Terminal rdf:about="urn:uuid:1dbfd3a9-a4ed-597a-8253-f3974af6f135">
   <cim:Identity.identifier>1dbfd3a9-a4ed-597a-8253-f3974af6f135</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:aa86fe3e-cdf8-50f0-a72a-afd0afc6477f"/>

@@ -1,34 +1,26 @@
-# The boundary model of the distribution area: every node where its frames meet, and each tie switch
-# with the nodes on both of its sides. Identical in every package.
+# The boundary model of the distribution area: every node where two of its frames meet, and nothing
+# else. Each node joins exactly two frames. Identical in every feeder assembly.
 #
-# A node's container is the smallest area that contains every frame that meets there. Import this
-# file after containers.cimtbl and before any frame, because cimtables gives a node with no container
-# the container of the first equipment that touches it.
+# A node's container is the smallest area that contains both frames that meet there. Import this file
+# after dso_area.cimtbl, whose areas it names, and before any other frame, because cimtables gives a
+# node with no container the container of the first equipment that touches it.
 
 Profile = cim18v17
 
-# Feeder head nodes: each substation breaker on one side, the feeder's first span on the other.
 Table ConnectivityNode: mRID, ConnectivityNodeContainer
-    s1_f1_head, area_ss_s1
-    s1_f2_head, area_ss_s1
-    s1_f3_head, area_ss_s1
-    s2_f1_head, area_ss_s2
-    s2_f2_head, area_ss_s2
 
-# Tie 1, between feeders s1-f1 and s1-f2 of substation s1. Each feeder's last span ends on its own
-# side of the switch. Its container is the smallest area that contains both feeders. normalOpen is
-# as built; the position is in the boundary's steady state hypothesis.
-Table ConnectivityNode: mRID, ConnectivityNodeContainer=area_ss_s1
-    s1_f1_end
-    s1_f2_end
+    # Feeder head nodes: a substation breaker on one side, the feeder's first span on the other
+    s1_f1_head, sub_s1_service_area
+    s1_f2_head, sub_s1_service_area
+    s1_f3_head, sub_s1_service_area
+    s2_f1_head, sub_s2_service_area
+    s2_f2_head, sub_s2_service_area
 
-Object LoadBreakSwitch: mRID=sw_tie_s1_f1_s1_f2, name=tie s1-f1 s1-f2, node1=s1_f1_end, node2=s1_f2_end, normalOpen=true, areaBoundary=true, BaseVoltage=bv_12p47kv, EquipmentContainer=area_ss_s1
+    # The two sides of tie 1, between feeders of the same substation: the tie on one side, a feeder's
+    # last span on the other
+    s1_f1_bnd, sub_s1_service_area
+    s1_f2_bnd, sub_s1_service_area
 
-# Tie 2, between feeder s1-f3 and feeder s2-f1 of substation s2: the distribution area is the
-# smallest area that contains both. Both sides are 12.47 kV, because s2-f1 steps down from 13.2 kV
-# one span before the tie.
-Table ConnectivityNode: mRID, ConnectivityNodeContainer=area_d_example
-    s1_f3_end
-    s2_f1_end
-
-Object Disconnector: mRID=sw_tie_s1_f3_s2_f1, name=tie s1-f3 s2-f1, node1=s1_f3_end, node2=s2_f1_end, normalOpen=true, areaBoundary=true, BaseVoltage=bv_12p47kv, EquipmentContainer=area_d_example
+    # The two sides of tie 2, between feeders of different substations
+    s1_f3_bnd, s1_s2_dist_area
+    s2_f1_bnd, s1_s2_dist_area

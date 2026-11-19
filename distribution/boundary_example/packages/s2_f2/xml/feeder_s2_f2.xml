@@ -16,6 +16,11 @@
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6"/>
   <cim:IdentifiedObject.mRID>ln_s2_f2_2</cim:IdentifiedObject.mRID>
 </cim:ACLineSegment>
+<cim:BaseVoltage rdf:about="urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241">
+  <cim:Identity.identifier>217958b4-53cb-5416-a7ae-375f00b81241</cim:Identity.identifier>
+  <cim:BaseVoltage.nominalVoltage>13200.0</cim:BaseVoltage.nominalVoltage>
+  <cim:IdentifiedObject.mRID>bv_13p2kv</cim:IdentifiedObject.mRID>
+</cim:BaseVoltage>
 <cim:ConnectivityNode rdf:about="urn:uuid:32bed609-d179-5b59-89c9-9e350c617002">
   <cim:Identity.identifier>32bed609-d179-5b59-89c9-9e350c617002</cim:Identity.identifier>
   <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6"/>
@@ -38,12 +43,15 @@
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6"/>
   <cim:IdentifiedObject.mRID>ld_s2_f2_end</cim:IdentifiedObject.mRID>
 </cim:EnergyConsumer>
-<cim:Feeder rdf:about="urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6">
-  <cim:Identity.identifier>0044965f-c85e-51ff-8789-246431fa4fe6</cim:Identity.identifier>
-  <cim:Feeder.NormalEnergizingSubstation rdf:resource="urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f"/>
-  <cim:IdentifiedObject.mRID>fdr_s2_f2</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>s2-f2</cim:IdentifiedObject.name>
-</cim:Feeder>
+<cim:PerLengthSequenceImpedance rdf:about="urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5">
+  <cim:Identity.identifier>0f702510-68a1-543f-822a-f8d9c8a95bc5</cim:Identity.identifier>
+  <cim:PerLengthSequenceImpedance.r>0.00019013958482462417</cim:PerLengthSequenceImpedance.r>
+  <cim:PerLengthSequenceImpedance.x>0.0003895997375328084</cim:PerLengthSequenceImpedance.x>
+  <cim:PerLengthSequenceImpedance.r0>0.00036785174580450164</cim:PerLengthSequenceImpedance.r0>
+  <cim:PerLengthSequenceImpedance.x0>0.001174391553328561</cim:PerLengthSequenceImpedance.x0>
+  <cim:IdentifiedObject.mRID>lc_336_acsr</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>336 ACSR</cim:IdentifiedObject.name>
+</cim:PerLengthSequenceImpedance>
 <cim:Terminal rdf:about="urn:uuid:2470c505-d9fe-5e1e-808d-ce5fe0531de8">
   <cim:Identity.identifier>2470c505-d9fe-5e1e-808d-ce5fe0531de8</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:841a55f9-d007-53af-85d2-5315f6aa6362"/>

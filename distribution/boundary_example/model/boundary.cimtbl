@@ -1,8 +1,8 @@
-# The boundary model of the distribution area: every node where its frames meet. Identical in every
-# package.
+# The boundary model of the distribution area: every node where two of its frames meet, and nothing
+# else. Each node joins exactly two frames. Identical in every feeder assembly.
 #
-# A node's container is the smallest area that contains every frame that meets there. Import this
-# file after dso_area.cimtbl, whose areas it names, and before any frame, because cimtables gives a
+# A node's container is the smallest area that contains both frames that meet there. Import this file
+# after dso_area.cimtbl, whose areas it names, and before any other frame, because cimtables gives a
 # node with no container the container of the first equipment that touches it.
 
 Profile = cim18v17
@@ -16,7 +16,8 @@ Table ConnectivityNode: mRID, ConnectivityNodeContainer
     s2_f1_head, sub_s2_service_area
     s2_f2_head, sub_s2_service_area
 
-    # The two sides of tie 1, between feeders of the same substation
+    # The two sides of tie 1, between feeders of the same substation: the tie on one side, a feeder's
+    # last span on the other
     s1_f1_bnd, sub_s1_service_area
     s1_f2_bnd, sub_s1_service_area
 

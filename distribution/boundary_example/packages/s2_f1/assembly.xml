@@ -4,74 +4,60 @@
     xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#"
     xmlns:dct="http://purl.org/dc/terms/"
     xmlns:dcat="http://www.w3.org/ns/dcat#">
-  <cim:GridAssembly rdf:about="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac">
-    <dct:title>Boundary example package s2-f1 v3.0.0</dct:title>
-    <dcat:version>3.0.0</dcat:version>
+  <cim:GridAssembly rdf:about="urn:uuid:68162e83-899f-5b24-9269-5697f7a76afc">
+    <dct:title>Boundary example feeder assembly s2-f1 v4.0.0</dct:title>
+    <dcat:version>4.0.0</dcat:version>
     <md:Model.modelingAuthoritySet>https://github.com/PNNL-CIM-Tools/CIMTBL-Models</md:Model.modelingAuthoritySet>
   </cim:GridAssembly>
-  <cim:GridModel rdf:about="urn:uuid:f22db9b6-c6ee-5413-a68d-6b9229c07ece">
-    <dct:title>Catalogue data</dct:title>
-    <cim:GridModel.usedIn rdf:resource="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac"/>
-  </cim:GridModel>
-  <cim:GridModel rdf:about="urn:uuid:d8068a9c-d859-5b21-86f2-41baa581bede">
-    <dct:title>Containers</dct:title>
-    <cim:GridModel.usedIn rdf:resource="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac"/>
-    <dct:requires rdf:resource="urn:uuid:f22db9b6-c6ee-5413-a68d-6b9229c07ece"/>
-  </cim:GridModel>
-  <cim:BoundaryModel rdf:about="urn:uuid:1def4f48-4c7a-5bd9-91a2-bdb6762c797b">
+  <cim:FrameModel rdf:about="urn:uuid:5d56a974-3879-5397-80b2-853e6706a5e0">
+    <dct:title>Distribution area frame</dct:title>
+    <cim:GridModel.usedIn rdf:resource="urn:uuid:68162e83-899f-5b24-9269-5697f7a76afc"/>
+    <dct:requires rdf:resource="urn:uuid:23f4b24c-8246-5127-be6d-bd7d54913d2d"/>
+    <cim:FrameModel.represents rdf:resource="urn:uuid:1c2ae217-8c57-550f-985c-8f618908c6d5"/>
+    <dct:spatial rdf:resource="urn:uuid:1c2ae217-8c57-550f-985c-8f618908c6d5"/>
+    <cim:FrameModel.perimeter rdf:resource="urn:uuid:23f4b24c-8246-5127-be6d-bd7d54913d2d"/>
+  </cim:FrameModel>
+  <cim:BoundaryModel rdf:about="urn:uuid:23f4b24c-8246-5127-be6d-bd7d54913d2d">
     <dct:title>Boundary</dct:title>
-    <cim:GridModel.usedIn rdf:resource="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac"/>
-    <dct:requires rdf:resource="urn:uuid:f22db9b6-c6ee-5413-a68d-6b9229c07ece"/>
-    <dct:requires rdf:resource="urn:uuid:d8068a9c-d859-5b21-86f2-41baa581bede"/>
-    <dct:spatial rdf:resource="urn:uuid:2724de81-84a6-51fb-adaa-38ea809b6494"/>
+    <cim:GridModel.usedIn rdf:resource="urn:uuid:68162e83-899f-5b24-9269-5697f7a76afc"/>
+    <dct:requires rdf:resource="urn:uuid:5d56a974-3879-5397-80b2-853e6706a5e0"/>
+    <dct:spatial rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
   </cim:BoundaryModel>
   <cim:FrameModel rdf:about="urn:uuid:63ea662e-0810-5a1b-8672-0ecded51c993">
     <dct:title>Substation frame</dct:title>
-    <cim:GridModel.usedIn rdf:resource="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac"/>
-    <dct:requires rdf:resource="urn:uuid:f22db9b6-c6ee-5413-a68d-6b9229c07ece"/>
-    <dct:requires rdf:resource="urn:uuid:d8068a9c-d859-5b21-86f2-41baa581bede"/>
-    <dct:requires rdf:resource="urn:uuid:1def4f48-4c7a-5bd9-91a2-bdb6762c797b"/>
+    <cim:GridModel.usedIn rdf:resource="urn:uuid:68162e83-899f-5b24-9269-5697f7a76afc"/>
+    <dct:requires rdf:resource="urn:uuid:23f4b24c-8246-5127-be6d-bd7d54913d2d"/>
     <cim:FrameModel.represents rdf:resource="urn:uuid:b98abf02-8ac7-53e7-8fb7-1cfda10dc049"/>
     <dct:spatial rdf:resource="urn:uuid:b98abf02-8ac7-53e7-8fb7-1cfda10dc049"/>
-    <cim:FrameModel.perimeter rdf:resource="urn:uuid:1def4f48-4c7a-5bd9-91a2-bdb6762c797b"/>
+    <cim:FrameModel.perimeter rdf:resource="urn:uuid:23f4b24c-8246-5127-be6d-bd7d54913d2d"/>
   </cim:FrameModel>
-  <cim:FrameModel rdf:about="urn:uuid:69d1beb5-5870-57be-bc6e-0ddcef071644">
+  <cim:FrameModel rdf:about="urn:uuid:d056f879-52dc-5ecd-a4a0-3c574ee436f4">
     <dct:title>Feeder frame</dct:title>
-    <cim:GridModel.usedIn rdf:resource="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac"/>
-    <dct:requires rdf:resource="urn:uuid:f22db9b6-c6ee-5413-a68d-6b9229c07ece"/>
-    <dct:requires rdf:resource="urn:uuid:d8068a9c-d859-5b21-86f2-41baa581bede"/>
-    <dct:requires rdf:resource="urn:uuid:1def4f48-4c7a-5bd9-91a2-bdb6762c797b"/>
+    <cim:GridModel.usedIn rdf:resource="urn:uuid:68162e83-899f-5b24-9269-5697f7a76afc"/>
+    <dct:requires rdf:resource="urn:uuid:5d56a974-3879-5397-80b2-853e6706a5e0"/>
+    <dct:requires rdf:resource="urn:uuid:23f4b24c-8246-5127-be6d-bd7d54913d2d"/>
     <cim:FrameModel.represents rdf:resource="urn:uuid:8384c0e5-61bf-5b6a-ad61-2025255c5a14"/>
     <dct:spatial rdf:resource="urn:uuid:8384c0e5-61bf-5b6a-ad61-2025255c5a14"/>
-    <cim:FrameModel.perimeter rdf:resource="urn:uuid:1def4f48-4c7a-5bd9-91a2-bdb6762c797b"/>
+    <cim:FrameModel.perimeter rdf:resource="urn:uuid:23f4b24c-8246-5127-be6d-bd7d54913d2d"/>
   </cim:FrameModel>
-  <cim:BoundaryModel rdf:about="urn:uuid:be26086a-65c2-58c2-9ba7-3754ed15ee92">
-    <dct:title>Boundary situation</dct:title>
-    <cim:GridModel.usedIn rdf:resource="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac"/>
-    <dct:requires rdf:resource="urn:uuid:1def4f48-4c7a-5bd9-91a2-bdb6762c797b"/>
-    <dct:spatial rdf:resource="urn:uuid:2724de81-84a6-51fb-adaa-38ea809b6494"/>
-  </cim:BoundaryModel>
-  <cim:FrameModel rdf:about="urn:uuid:adcb5441-5b41-5939-82c3-477cbf427946">
-    <dct:title>Substation situation</dct:title>
-    <cim:GridModel.usedIn rdf:resource="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac"/>
-    <dct:requires rdf:resource="urn:uuid:63ea662e-0810-5a1b-8672-0ecded51c993"/>
-    <cim:FrameModel.represents rdf:resource="urn:uuid:b98abf02-8ac7-53e7-8fb7-1cfda10dc049"/>
-    <dct:spatial rdf:resource="urn:uuid:b98abf02-8ac7-53e7-8fb7-1cfda10dc049"/>
-  </cim:FrameModel>
-  <cim:FrameModel rdf:about="urn:uuid:2439a6c2-a5ef-52d7-ad8a-09a0e40441d7">
+  <cim:FrameModel rdf:about="urn:uuid:7e8f7fc6-21f9-5c91-ab11-78e84e7e32bf">
     <dct:title>Feeder situation</dct:title>
-    <cim:GridModel.usedIn rdf:resource="urn:uuid:e8eb275b-8069-522f-b076-310d4490d4ac"/>
-    <dct:requires rdf:resource="urn:uuid:69d1beb5-5870-57be-bc6e-0ddcef071644"/>
+    <cim:GridModel.usedIn rdf:resource="urn:uuid:68162e83-899f-5b24-9269-5697f7a76afc"/>
+    <dct:requires rdf:resource="urn:uuid:d056f879-52dc-5ecd-a4a0-3c574ee436f4"/>
     <cim:FrameModel.represents rdf:resource="urn:uuid:8384c0e5-61bf-5b6a-ad61-2025255c5a14"/>
     <dct:spatial rdf:resource="urn:uuid:8384c0e5-61bf-5b6a-ad61-2025255c5a14"/>
   </cim:FrameModel>
+  <cim:Frame rdf:about="urn:uuid:1c2ae217-8c57-550f-985c-8f618908c6d5">
+    <dct:title>s1-s2 area</dct:title>
+    <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
+  </cim:Frame>
   <cim:Frame rdf:about="urn:uuid:b98abf02-8ac7-53e7-8fb7-1cfda10dc049">
     <dct:title>s2</dct:title>
-    <cim:Frame.connectsTo rdf:resource="urn:uuid:2724de81-84a6-51fb-adaa-38ea809b6494"/>
+    <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
   </cim:Frame>
   <cim:Frame rdf:about="urn:uuid:8384c0e5-61bf-5b6a-ad61-2025255c5a14">
     <dct:title>s2-f1</dct:title>
-    <cim:Frame.connectsTo rdf:resource="urn:uuid:2724de81-84a6-51fb-adaa-38ea809b6494"/>
+    <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
   </cim:Frame>
   <cim:Frame rdf:about="urn:uuid:ed00a5cc-5140-5f2f-9abc-a28ad796c755">
     <dct:title>s1</dct:title>
@@ -88,8 +74,9 @@
   <cim:Frame rdf:about="urn:uuid:8884c64d-6aeb-5d6b-aba4-1d02f66540a2">
     <dct:title>s2-f2</dct:title>
   </cim:Frame>
-  <cim:Boundary rdf:about="urn:uuid:2724de81-84a6-51fb-adaa-38ea809b6494">
+  <cim:Boundary rdf:about="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382">
     <dct:title>Distribution area boundary</dct:title>
+    <cim:Boundary.separates rdf:resource="urn:uuid:1c2ae217-8c57-550f-985c-8f618908c6d5"/>
     <cim:Boundary.separates rdf:resource="urn:uuid:ed00a5cc-5140-5f2f-9abc-a28ad796c755"/>
     <cim:Boundary.separates rdf:resource="urn:uuid:5ca0f520-045e-5976-adfb-e82bd5cf13ed"/>
     <cim:Boundary.separates rdf:resource="urn:uuid:cb0ccd49-91fd-5303-aa49-bb2c761494f7"/>

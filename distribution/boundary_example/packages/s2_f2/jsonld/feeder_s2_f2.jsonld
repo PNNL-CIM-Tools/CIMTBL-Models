@@ -20,6 +20,12 @@
       "cim:IdentifiedObject.mRID": "ln_s2_f2_2"
     },
     {
+      "@id": "urn:uuid:217958b4-53cb-5416-a7ae-375f00b81241",
+      "@type": "cim:BaseVoltage",
+      "cim:BaseVoltage.nominalVoltage": "13200",
+      "cim:IdentifiedObject.mRID": "bv_13p2kv"
+    },
+    {
       "@id": "urn:uuid:32bed609-d179-5b59-89c9-9e350c617002",
       "@type": "cim:ConnectivityNode",
       "cim:ConnectivityNode.ConnectivityNodeContainer": "urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6",
@@ -46,11 +52,14 @@
       "cim:IdentifiedObject.mRID": "ld_s2_f2_end"
     },
     {
-      "@id": "urn:uuid:0044965f-c85e-51ff-8789-246431fa4fe6",
-      "@type": "cim:Feeder",
-      "cim:Feeder.NormalEnergizingSubstation": "urn:uuid:ea6c1881-3d02-5b03-968b-51de8f4b925f",
-      "cim:IdentifiedObject.mRID": "fdr_s2_f2",
-      "cim:IdentifiedObject.name": "s2-f2"
+      "@id": "urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5",
+      "@type": "cim:PerLengthSequenceImpedance",
+      "cim:PerLengthSequenceImpedance.r": "0.00019013958482462417",
+      "cim:PerLengthSequenceImpedance.x": "0.0003895997375328084",
+      "cim:PerLengthSequenceImpedance.r0": "0.00036785174580450164",
+      "cim:PerLengthSequenceImpedance.x0": "0.001174391553328561",
+      "cim:IdentifiedObject.mRID": "lc_336_acsr",
+      "cim:IdentifiedObject.name": "336 ACSR"
     },
     {
       "@id": "urn:uuid:2470c505-d9fe-5e1e-808d-ce5fe0531de8",

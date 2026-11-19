@@ -5,18 +5,18 @@
       "spdx": "http://spdx.org/rdf/terms#"
     }
   ],
-  "@id": "urn:uuid:65b6d14a-51f0-577c-9c57-f495474cab9e",
+  "@id": "urn:uuid:8c63f7b7-b56f-5945-aa11-92fe17b89771",
   "@type": "dcat:Catalog",
-  "dct:title": "Boundary example package s1-f1 v3.0.0",
-  "dct:issued": "2026-11-18T00:00:00Z",
+  "dct:title": "Boundary example feeder assembly s1-f1 v4.0.0",
+  "dct:issued": "2026-11-19T00:00:00Z",
   "dcat:dataset": [
     {
-      "@id": "urn:uuid:e6209383-e5f8-57d0-a3df-c1d6ee8d5c63",
+      "@id": "urn:uuid:be32396a-520d-57a1-b40b-7eb998f6f517",
       "@type": "dcat:Dataset",
-      "dct:identifier": "e6209383-e5f8-57d0-a3df-c1d6ee8d5c63",
+      "dct:identifier": "be32396a-520d-57a1-b40b-7eb998f6f517",
       "dct:title": "s1-f1",
-      "dct:issued": "2026-11-18T00:00:00Z",
-      "dcat:version": "3.0.0",
+      "dct:issued": "2026-11-19T00:00:00Z",
+      "dcat:version": "4.0.0",
       "dct:license": {
         "@id": "https://spdx.org/licenses/BSD-3-Clause.html"
       },
@@ -27,13 +27,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dcat:byteSize": 477,
+          "dcat:byteSize": 401,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "a94c02c5528d4b0495b7b59e590e4e9325594191253978e21ca9a6ffbcf01716"
+            "spdx:checksumValue": "2bc08fea63ccec7325573f40dc5498f78699857b8b8d5d3b5af14a1ab2d532a6"
           },
           "dct:conformsTo": [
             {
@@ -47,13 +47,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dcat:byteSize": 6281,
+          "dcat:byteSize": 5438,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "5778b725630d13c7266a35b2b0ad7f9d8151e03762eb89f70df595bf9f18581f"
+            "spdx:checksumValue": "1efcb00821ca3ae17a3e1d5ca6de0c56b3b5c6d5bd86cdad3a0510c10a2f618a"
           },
           "dct:conformsTo": [
             {
@@ -64,23 +64,23 @@
       ]
     },
     {
-      "@id": "urn:uuid:f22db9b6-c6ee-5413-a68d-6b9229c07ece",
+      "@id": "urn:uuid:5d56a974-3879-5397-80b2-853e6706a5e0",
       "@type": "dcat:Dataset",
-      "dct:title": "Catalogue data",
+      "dct:title": "Distribution area frame",
       "dcat:distribution": [
         {
           "@type": "dcat:Distribution",
-          "dcat:accessURL": "cimtbl/catalog.cimtbl",
+          "dcat:accessURL": "cimtbl/dso_area.cimtbl",
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dcat:byteSize": 510,
+          "dcat:byteSize": 2099,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "6cba4f199b05f88927fc0e32bb6b4b25d7c628ba510b4d0a87bb166e5fe9a1a3"
+            "spdx:checksumValue": "4ffc30165058bc19bca62d30c190fbcf850dc0a163794f84e8cfdd87ee301867"
           },
           "dct:conformsTo": [
             {
@@ -90,17 +90,17 @@
         },
         {
           "@type": "dcat:Distribution",
-          "dcat:accessURL": "jsonld/catalog.jsonld",
+          "dcat:accessURL": "jsonld/dso_area.jsonld",
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
           },
-          "dcat:byteSize": 1016,
+          "dcat:byteSize": 7103,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "b7a87a302cec5a8de27dc211b138563584cb80796e6910c39b3ebc59f41cb48b"
+            "spdx:checksumValue": "db9bf98c73fc2e041001f1d1ea0f66a19061c4bda0f80ee8e239f9a4031c391f"
           },
           "dct:conformsTo": [
             {
@@ -116,17 +116,17 @@
         },
         {
           "@type": "dcat:Distribution",
-          "dcat:accessURL": "xml/catalog.xml",
+          "dcat:accessURL": "xml/dso_area.xml",
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dcat:byteSize": 1855,
+          "dcat:byteSize": 10352,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "504ec8bfd018269f109a1a3cce7ba1176f44e1b27620445f9666514de0be4580"
+            "spdx:checksumValue": "8e2fe6078798baca69a7e9c72c4c886e6764f49c7134e32b0b8142efe9344186"
           },
           "dct:conformsTo": [
             {
@@ -140,83 +140,7 @@
       ]
     },
     {
-      "@id": "urn:uuid:d8068a9c-d859-5b21-86f2-41baa581bede",
-      "@type": "dcat:Dataset",
-      "dct:title": "Containers",
-      "dcat:distribution": [
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "cimtbl/containers.cimtbl",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/text/plain"
-          },
-          "dcat:byteSize": 1110,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "6523322c0b841ee08ea6fb7c707c3c94e183fc6c60898fbd8ea207ba5286ba2b"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            }
-          ]
-        },
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "jsonld/containers.jsonld",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
-          },
-          "dcat:byteSize": 3350,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "eeb9f64e078f817553340bef838c299fbbc5b867346e88274b4a67d0cfe705c8"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
-            }
-          ]
-        },
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "xml/containers.xml",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
-          },
-          "dcat:byteSize": 5233,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "dceab507c27396cab51146f7d062c425a225293e795dd262de5e14bb3264c825"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "urn:iso:std:iec:61970-552:2016"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "@id": "urn:uuid:1def4f48-4c7a-5bd9-91a2-bdb6762c797b",
+      "@id": "urn:uuid:23f4b24c-8246-5127-be6d-bd7d54913d2d",
       "@type": "dcat:Dataset",
       "dct:title": "Boundary",
       "dcat:distribution": [
@@ -226,13 +150,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dcat:byteSize": 1812,
+          "dcat:byteSize": 1154,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "59775df5d674e09e19db22fda88cb4ed9c388cb39c90dbfac1a022df90a51e14"
+            "spdx:checksumValue": "b3b9d935dab61bb9590ec93c43987441a126cb873bcc7fe301e71251fd89b04f"
           },
           "dct:conformsTo": [
             {
@@ -246,13 +170,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
           },
-          "dcat:byteSize": 5046,
+          "dcat:byteSize": 2513,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "9b83e8bfc5d50d48ab7545ca67c18b9464b6a50912f4307c8c542307d3b78260"
+            "spdx:checksumValue": "6c375e04d7d2b453cb414da017efc25da253d213f5a3c7b53f533d78c063f8ad"
           },
           "dct:conformsTo": [
             {
@@ -272,13 +196,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dcat:byteSize": 7253,
+          "dcat:byteSize": 3853,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "d070c3557b9b489bfc23fde5888a37b53feb13af551a557581f3c64cdda6d3bc"
+            "spdx:checksumValue": "c1421e31df0ea1c91ee28558b1b06584c137dfe9607ddd7fc68706a97d3979c9"
           },
           "dct:conformsTo": [
             {
@@ -302,13 +226,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dcat:byteSize": 1194,
+          "dcat:byteSize": 1383,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "fb87e59ac25a82f216e3b8d489ac16669705e6f7e46c71d92c3b4b545cc8ab05"
+            "spdx:checksumValue": "2d53ab2131b927b07a142696d6b333ecb249dc4591d9d7d7a9d02bb481487beb"
           },
           "dct:conformsTo": [
             {
@@ -322,13 +246,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
           },
-          "dcat:byteSize": 5800,
+          "dcat:byteSize": 6260,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "0f284873692e2a8fbc6bbbb18a1d67b83434dba94d7a005279a965069f828430"
+            "spdx:checksumValue": "7475a38754149bad40a586da9c6162ac7c00fa121f30a167dda1eac87a2fc3ae"
           },
           "dct:conformsTo": [
             {
@@ -348,13 +272,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dcat:byteSize": 8159,
+          "dcat:byteSize": 8863,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "4934082ba2a59c4f489a5618b8332f01646022f19243f02c314b58da66df25bc"
+            "spdx:checksumValue": "096731a9786fb1092beb0385126ecc7d7ffed10dc8aef5acd29f87a3ee656fb8"
           },
           "dct:conformsTo": [
             {
@@ -368,7 +292,7 @@
       ]
     },
     {
-      "@id": "urn:uuid:cf5245f7-4b92-5fce-9edd-0044aa0c5773",
+      "@id": "urn:uuid:b274fd41-7e33-54e9-a7de-b214bc206dfa",
       "@type": "dcat:Dataset",
       "dct:title": "Feeder frame",
       "dcat:distribution": [
@@ -378,13 +302,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dcat:byteSize": 872,
+          "dcat:byteSize": 1079,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "89c15e036fa86eda38f41562b58847b6a486e3c76e604856dcc6d7c33e343cbb"
+            "spdx:checksumValue": "32bc6ca7123ce98cc147f5fbc279277e8aa6aca16bd2445ea5a6a1402b3a4ad0"
           },
           "dct:conformsTo": [
             {
@@ -398,13 +322,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
           },
-          "dcat:byteSize": 4711,
+          "dcat:byteSize": 6628,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "00d504362f1b2702f227807497bef4ef89524a643e433119c457a0d9454ed2ee"
+            "spdx:checksumValue": "408bcc75b63bb842d6cb1d26c2586e7eeb9f312c9f2b9f1ceffdd702596af603"
           },
           "dct:conformsTo": [
             {
@@ -424,13 +348,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dcat:byteSize": 6611,
+          "dcat:byteSize": 9281,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "5f6cdf4e47c21f2dbe38e213382d0a28a623c1ce6b1083d75a7c8fd8a8d6af40"
+            "spdx:checksumValue": "aa9339554f1b3ba77a88266f154b774594b78a64dd12b53a18ef76093bdb57ea"
           },
           "dct:conformsTo": [
             {
@@ -444,159 +368,7 @@
       ]
     },
     {
-      "@id": "urn:uuid:be26086a-65c2-58c2-9ba7-3754ed15ee92",
-      "@type": "dcat:Dataset",
-      "dct:title": "Boundary situation",
-      "dcat:distribution": [
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "cimtbl/ssh_boundary.cimtbl",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/text/plain"
-          },
-          "dcat:byteSize": 293,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "96262f881d767d6525a65ef6d21ed3a14e409285c8d1cd7762afdc287892f91b"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            }
-          ]
-        },
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "jsonld/ssh_boundary.jsonld",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
-          },
-          "dcat:byteSize": 401,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "3d4be8d683c65e265a5f5f011358604e6541d4374cf5d30514e8cae32a507276"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
-            }
-          ]
-        },
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "xml/ssh_boundary.xml",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
-          },
-          "dcat:byteSize": 757,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "4401dd28f85ca7f92758849367f31c46f7594635c197dfecef09fddda368a258"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "urn:iso:std:iec:61970-552:2016"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "@id": "urn:uuid:1a634935-ddcf-59a5-9a1d-0ef0c3ffdbcc",
-      "@type": "dcat:Dataset",
-      "dct:title": "Substation situation",
-      "dcat:distribution": [
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "cimtbl/ssh_s1.cimtbl",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/text/plain"
-          },
-          "dcat:byteSize": 366,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "0f6e7c89002078d3b1645dd228dce3f6d4077e1d51eeaa7558e8fa51af3f2318"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            }
-          ]
-        },
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "jsonld/ssh_s1.jsonld",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/application/ld+json"
-          },
-          "dcat:byteSize": 733,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "72376bd9f80f97dc46534e6f4134d6ef4bb2adb8c9d325b72014f386afe81a20"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "urn:iso:std:iec:61970-553:draft:ed-1"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/units-si.jsonld"
-            }
-          ]
-        },
-        {
-          "@type": "dcat:Distribution",
-          "dcat:accessURL": "xml/ssh_s1.xml",
-          "dcat:mediaType": {
-            "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
-          },
-          "dcat:byteSize": 1110,
-          "spdx:checksum": {
-            "@type": "spdx:Checksum",
-            "spdx:algorithm": {
-              "@id": "spdx:checksumAlgorithm_sha256"
-            },
-            "spdx:checksumValue": "4f69a590076f74e66be29539205b08e4498ff3497edf042e8ce06811c52fae25"
-          },
-          "dct:conformsTo": [
-            {
-              "@id": "urn:iso:std:iec:61970-552:2016"
-            },
-            {
-              "@id": "https://pnnl-cim-tools.github.io/CIM-Profiles/cim18v17/0.2.0/context.jsonld"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "@id": "urn:uuid:f158e366-658d-5e2a-b918-b73b26df8377",
+      "@id": "urn:uuid:a8fca885-276d-5c2f-ae6e-0e9ae8589f7a",
       "@type": "dcat:Dataset",
       "dct:title": "Feeder situation",
       "dcat:distribution": [
@@ -606,13 +378,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/text/plain"
           },
-          "dcat:byteSize": 379,
+          "dcat:byteSize": 414,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "3fe56b51c910e7373830f55a689f454c7a87bae5192775fe575f98189ea1d711"
+            "spdx:checksumValue": "904df5f7d4982a68e01b6d6f28185075d68bf6724eaa533f3f3fbc527161ad1f"
           },
           "dct:conformsTo": [
             {

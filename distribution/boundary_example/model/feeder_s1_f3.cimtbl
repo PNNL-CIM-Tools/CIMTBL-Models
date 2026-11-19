@@ -8,7 +8,6 @@ Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)
 
 Object OverheadWireInfo: mRID=acsr_397, name=397 ACSR, sizeDescription=397.5 kcmil 26/7, material=acsr, strandCount=26, coreStrandCount=7, radius (in)=0.3915, gmr (ft)=0.0265, rAC50 (ohm/mile)=0.259, ratedCurrent (A)=590
 
-Object Feeder: mRID=fdr_s1_f3, name=s1-f3, NormalEnergizingSubstation=sub_s1
 
 # The first span shares its structure with the first span of s1-f2: one double-circuit spacing, s1-f2
 # on positions 1-3 (circuit 1), this feeder on positions 4-6 (circuit 2), and one neutral on
@@ -42,5 +41,6 @@ Table EnergyConsumer: mRID, node, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr
     ld_s1_f3_mid, s1_f3_mid
     ld_s1_f3_end, s1_f3_end
 
-# Feeder.NormalHeadTerminal: the first span's terminal on the head node
+# Feeder.NormalHeadTerminal: the first span's terminal on the head node. The Feeder, which contains
+# this frame's equipment, is in the distribution-area frame (dso_area.cimtbl).
 Update Terminal: mRID=ln_s1_f3_1_T1, NormalHeadFeeder=fdr_s1_f3

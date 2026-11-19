@@ -1,10 +1,11 @@
 # Frame s2: substation s2 as CIM-Builder lays out a primitive single bus. The source stands for the
-# grid behind the bus (10 % on 14 MVA at 13.2 kV, X/R = 10), and one breaker per feeder runs from
-# the bus to that feeder's head node.
+# 46 kV sub-transmission network behind the bus (10 % on 14 MVA at 13.2 kV, X/R = 10), which will be a
+# frame of its own and is out of scope for now. One breaker per feeder runs from the bus to that
+# feeder's head node.
 #
 # The bus node is this frame's own. The head nodes are in the boundary model, so the joint with each
-# feeder is bilateral. The frame declares its Substation, which its feeders name as their
-# NormalEnergizingSubstation.
+# feeder is bilateral. The frame declares its Substation; the distribution-area frame
+# (dso_area.cimtbl) restates it for the Feeders that name it as their NormalEnergizingSubstation.
 
 Profile = cim18v17
 

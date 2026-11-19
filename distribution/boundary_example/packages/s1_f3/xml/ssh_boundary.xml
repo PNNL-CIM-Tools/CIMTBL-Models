@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<cim:Disconnector rdf:about="urn:uuid:7d3d1b7e-371b-5dad-84f8-a99e6b82b5a5">
-  <cim:Switch.open>true</cim:Switch.open>
-</cim:Disconnector>
-<cim:LoadBreakSwitch rdf:about="urn:uuid:cd61a583-3494-58f5-83f6-c1cb571cf37c">
-  <cim:Switch.open>true</cim:Switch.open>
-</cim:LoadBreakSwitch>
-</rdf:RDF>

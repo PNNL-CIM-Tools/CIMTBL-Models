@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:cim="http://cim.ucaiug.io/cim101/draft#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eu="http://iec.ch/TC57/CIM100-European#" xmlns:gad="http://gridappsd.org/CIM/extension#" xmlns:gb="http://GB/placeholder/ext#" xmlns:nc="http://entsoe.eu/ns/nc#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<cim:ACLineSegment rdf:about="urn:uuid:21a61ea2-6ffa-5d84-b98c-59a58ee0fecd">
+  <cim:Identity.identifier>21a61ea2-6ffa-5d84-b98c-59a58ee0fecd</cim:Identity.identifier>
+  <cim:ACLineSegment.PerLengthImpedance rdf:resource="urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5"/>
+  <cim:Conductor.length>804.672</cim:Conductor.length>
+  <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
+  <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:3cdf0620-41f7-5c61-8696-52c668159947"/>
+  <cim:IdentifiedObject.mRID>ln_s1_f3_3</cim:IdentifiedObject.mRID>
+</cim:ACLineSegment>
 <cim:ACLineSegment rdf:about="urn:uuid:bce7e954-cfb0-5d96-a0a3-7f64a3520973">
   <cim:Identity.identifier>bce7e954-cfb0-5d96-a0a3-7f64a3520973</cim:Identity.identifier>
-  <cim:ACLineSegment.PerLengthImpedance rdf:resource="urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5"/>
+  <cim:ACLineSegment.MultiCircuitGroup rdf:resource="urn:uuid:692d55ae-5182-5634-985f-b799921edd42"/>
+  <cim:ACLineSegment.WireSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
   <cim:Conductor.length>1609.344</cim:Conductor.length>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:3cdf0620-41f7-5c61-8696-52c668159947"/>
@@ -16,10 +25,53 @@
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:3cdf0620-41f7-5c61-8696-52c668159947"/>
   <cim:IdentifiedObject.mRID>ln_s1_f3_2</cim:IdentifiedObject.mRID>
 </cim:ACLineSegment>
+<cim:ACLineSegmentPhase rdf:about="urn:uuid:58e884dc-db32-5bb8-919f-c80fe5272b8b">
+  <cim:Identity.identifier>58e884dc-db32-5bb8-919f-c80fe5272b8b</cim:Identity.identifier>
+  <cim:ACLineSegmentPhase.sequenceNumber>6</cim:ACLineSegmentPhase.sequenceNumber>
+  <cim:ACLineSegmentPhase.phase rdf:resource="http://cim.ucaiug.io/cim101/draft#SinglePhaseKind.C"/>
+  <cim:ACLineSegmentPhase.ACLineSegment rdf:resource="urn:uuid:bce7e954-cfb0-5d96-a0a3-7f64a3520973"/>
+  <cim:ACLineSegmentPhase.WireInfo rdf:resource="urn:uuid:7ede2f06-2d61-531a-a99d-4f24d24ee088"/>
+  <cim:IdentifiedObject.mRID>ln_s1_f3_1_C</cim:IdentifiedObject.mRID>
+</cim:ACLineSegmentPhase>
+<cim:ACLineSegmentPhase rdf:about="urn:uuid:983da411-4c9f-5bb7-96a1-216b44055a84">
+  <cim:Identity.identifier>983da411-4c9f-5bb7-96a1-216b44055a84</cim:Identity.identifier>
+  <cim:ACLineSegmentPhase.sequenceNumber>5</cim:ACLineSegmentPhase.sequenceNumber>
+  <cim:ACLineSegmentPhase.phase rdf:resource="http://cim.ucaiug.io/cim101/draft#SinglePhaseKind.B"/>
+  <cim:ACLineSegmentPhase.ACLineSegment rdf:resource="urn:uuid:bce7e954-cfb0-5d96-a0a3-7f64a3520973"/>
+  <cim:ACLineSegmentPhase.WireInfo rdf:resource="urn:uuid:7ede2f06-2d61-531a-a99d-4f24d24ee088"/>
+  <cim:IdentifiedObject.mRID>ln_s1_f3_1_B</cim:IdentifiedObject.mRID>
+</cim:ACLineSegmentPhase>
+<cim:ACLineSegmentPhase rdf:about="urn:uuid:ab4067dd-84f1-562b-b60c-70cebad4bd2c">
+  <cim:Identity.identifier>ab4067dd-84f1-562b-b60c-70cebad4bd2c</cim:Identity.identifier>
+  <cim:ACLineSegmentPhase.sequenceNumber>7</cim:ACLineSegmentPhase.sequenceNumber>
+  <cim:ACLineSegmentPhase.phase rdf:resource="http://cim.ucaiug.io/cim101/draft#SinglePhaseKind.N"/>
+  <cim:ACLineSegmentPhase.ACLineSegment rdf:resource="urn:uuid:bce7e954-cfb0-5d96-a0a3-7f64a3520973"/>
+  <cim:ACLineSegmentPhase.MultiCircuitGroup rdf:resource="urn:uuid:692d55ae-5182-5634-985f-b799921edd42"/>
+  <cim:ACLineSegmentPhase.WireInfo rdf:resource="urn:uuid:7ede2f06-2d61-531a-a99d-4f24d24ee088"/>
+  <cim:IdentifiedObject.mRID>ln_s1_f3_1_N</cim:IdentifiedObject.mRID>
+</cim:ACLineSegmentPhase>
+<cim:ACLineSegmentPhase rdf:about="urn:uuid:ad18f2b2-d691-50ad-9d66-5d995bb89c7e">
+  <cim:Identity.identifier>ad18f2b2-d691-50ad-9d66-5d995bb89c7e</cim:Identity.identifier>
+  <cim:ACLineSegmentPhase.sequenceNumber>4</cim:ACLineSegmentPhase.sequenceNumber>
+  <cim:ACLineSegmentPhase.phase rdf:resource="http://cim.ucaiug.io/cim101/draft#SinglePhaseKind.A"/>
+  <cim:ACLineSegmentPhase.ACLineSegment rdf:resource="urn:uuid:bce7e954-cfb0-5d96-a0a3-7f64a3520973"/>
+  <cim:ACLineSegmentPhase.WireInfo rdf:resource="urn:uuid:7ede2f06-2d61-531a-a99d-4f24d24ee088"/>
+  <cim:IdentifiedObject.mRID>ln_s1_f3_1_A</cim:IdentifiedObject.mRID>
+</cim:ACLineSegmentPhase>
+<cim:BaseVoltage rdf:about="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57">
+  <cim:Identity.identifier>af05b919-1762-5348-8ee3-6f1dc1376a57</cim:Identity.identifier>
+  <cim:BaseVoltage.nominalVoltage>12470.0</cim:BaseVoltage.nominalVoltage>
+  <cim:IdentifiedObject.mRID>bv_12p47kv</cim:IdentifiedObject.mRID>
+</cim:BaseVoltage>
 <cim:ConnectivityNode rdf:about="urn:uuid:1e703291-0292-5fc3-a643-0ca0ae105578">
   <cim:Identity.identifier>1e703291-0292-5fc3-a643-0ca0ae105578</cim:Identity.identifier>
   <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:3cdf0620-41f7-5c61-8696-52c668159947"/>
   <cim:IdentifiedObject.mRID>s1_f3_mid</cim:IdentifiedObject.mRID>
+</cim:ConnectivityNode>
+<cim:ConnectivityNode rdf:about="urn:uuid:47069ca0-839c-527a-8057-d563868725ce">
+  <cim:Identity.identifier>47069ca0-839c-527a-8057-d563868725ce</cim:Identity.identifier>
+  <cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="urn:uuid:3cdf0620-41f7-5c61-8696-52c668159947"/>
+  <cim:IdentifiedObject.mRID>s1_f3_end</cim:IdentifiedObject.mRID>
 </cim:ConnectivityNode>
 <cim:EnergyConsumer rdf:about="urn:uuid:4e57f957-491e-59f8-a80c-94c7f1b016e7">
   <cim:Identity.identifier>4e57f957-491e-59f8-a80c-94c7f1b016e7</cim:Identity.identifier>
@@ -33,12 +85,33 @@
   <cim:Equipment.EquipmentContainer rdf:resource="urn:uuid:3cdf0620-41f7-5c61-8696-52c668159947"/>
   <cim:IdentifiedObject.mRID>ld_s1_f3_mid</cim:IdentifiedObject.mRID>
 </cim:EnergyConsumer>
-<cim:Feeder rdf:about="urn:uuid:3cdf0620-41f7-5c61-8696-52c668159947">
-  <cim:Identity.identifier>3cdf0620-41f7-5c61-8696-52c668159947</cim:Identity.identifier>
-  <cim:Feeder.NormalEnergizingSubstation rdf:resource="urn:uuid:dae9e879-540c-56fd-8c6a-17b15508bbdc"/>
-  <cim:IdentifiedObject.mRID>fdr_s1_f3</cim:IdentifiedObject.mRID>
-  <cim:IdentifiedObject.name>s1-f3</cim:IdentifiedObject.name>
-</cim:Feeder>
+<cim:MultiCircuitGroup rdf:about="urn:uuid:692d55ae-5182-5634-985f-b799921edd42">
+  <cim:Identity.identifier>692d55ae-5182-5634-985f-b799921edd42</cim:Identity.identifier>
+  <cim:MultiCircuitGroup.XYSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
+  <cim:IdentifiedObject.mRID>f2_f3_dbl_circuit</cim:IdentifiedObject.mRID>
+</cim:MultiCircuitGroup>
+<cim:OverheadWireInfo rdf:about="urn:uuid:7ede2f06-2d61-531a-a99d-4f24d24ee088">
+  <cim:Identity.identifier>7ede2f06-2d61-531a-a99d-4f24d24ee088</cim:Identity.identifier>
+  <cim:WireInfo.coreStrandCount>7</cim:WireInfo.coreStrandCount>
+  <cim:WireInfo.sizeDescription>397.5 kcmil 26/7</cim:WireInfo.sizeDescription>
+  <cim:WireInfo.strandCount>26</cim:WireInfo.strandCount>
+  <cim:WireInfo.gmr>0.008077199999999998</cim:WireInfo.gmr>
+  <cim:WireInfo.radius>0.009944099999999999</cim:WireInfo.radius>
+  <cim:ConductorInfo.material rdf:resource="http://cim.ucaiug.io/cim101/draft#WireMaterialKind.acsr"/>
+  <cim:ConductorInfo.rAC50>0.0001609351387894695</cim:ConductorInfo.rAC50>
+  <cim:ConductingAssetInfo.ratedCurrent>590.0</cim:ConductingAssetInfo.ratedCurrent>
+  <cim:IdentifiedObject.mRID>acsr_397</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>397 ACSR</cim:IdentifiedObject.name>
+</cim:OverheadWireInfo>
+<cim:PerLengthSequenceImpedance rdf:about="urn:uuid:0f702510-68a1-543f-822a-f8d9c8a95bc5">
+  <cim:Identity.identifier>0f702510-68a1-543f-822a-f8d9c8a95bc5</cim:Identity.identifier>
+  <cim:PerLengthSequenceImpedance.r>0.00019013958482462417</cim:PerLengthSequenceImpedance.r>
+  <cim:PerLengthSequenceImpedance.x>0.0003895997375328084</cim:PerLengthSequenceImpedance.x>
+  <cim:PerLengthSequenceImpedance.r0>0.00036785174580450164</cim:PerLengthSequenceImpedance.r0>
+  <cim:PerLengthSequenceImpedance.x0>0.001174391553328561</cim:PerLengthSequenceImpedance.x0>
+  <cim:IdentifiedObject.mRID>lc_336_acsr</cim:IdentifiedObject.mRID>
+  <cim:IdentifiedObject.name>336 ACSR</cim:IdentifiedObject.name>
+</cim:PerLengthSequenceImpedance>
 <cim:Terminal rdf:about="urn:uuid:3da23021-d023-5a6e-874a-93f505f2f4b2">
   <cim:Identity.identifier>3da23021-d023-5a6e-874a-93f505f2f4b2</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:a4c9d12a-1560-5b5d-a727-bb178d8fb91f"/>
@@ -53,10 +126,18 @@
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:IdentifiedObject.mRID>ld_s1_f3_end_T1</cim:IdentifiedObject.mRID>
 </cim:Terminal>
+<cim:Terminal rdf:about="urn:uuid:522567ac-9b1f-5fe0-a430-b9d6fa93f483">
+  <cim:Identity.identifier>522567ac-9b1f-5fe0-a430-b9d6fa93f483</cim:Identity.identifier>
+  <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:21a61ea2-6ffa-5d84-b98c-59a58ee0fecd"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:dad7413b-0589-5dc1-ab4a-ceb3e57c0d36"/>
+  <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
+  <cim:IdentifiedObject.mRID>ln_s1_f3_3_T2</cim:IdentifiedObject.mRID>
+</cim:Terminal>
 <cim:Terminal rdf:about="urn:uuid:5582a9fd-a574-5534-ae5d-84ce00f9eb11">
   <cim:Identity.identifier>5582a9fd-a574-5534-ae5d-84ce00f9eb11</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:bce7e954-cfb0-5d96-a0a3-7f64a3520973"/>
   <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:1e703291-0292-5fc3-a643-0ca0ae105578"/>
+  <cim:Terminal.phases rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseCode.ABCN"/>
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:IdentifiedObject.mRID>ln_s1_f3_1_T2</cim:IdentifiedObject.mRID>
 </cim:Terminal>
@@ -64,9 +145,17 @@
   <cim:Identity.identifier>6906c2ad-e326-5f03-8782-7e16de61bed1</cim:Identity.identifier>
   <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:bce7e954-cfb0-5d96-a0a3-7f64a3520973"/>
   <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:b4084df9-1420-5de6-90bb-b879014ee251"/>
+  <cim:Terminal.phases rdf:resource="http://cim.ucaiug.io/cim101/draft#PhaseCode.ABCN"/>
   <cim:Terminal.NormalHeadFeeder rdf:resource="urn:uuid:3cdf0620-41f7-5c61-8696-52c668159947"/>
   <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
   <cim:IdentifiedObject.mRID>ln_s1_f3_1_T1</cim:IdentifiedObject.mRID>
+</cim:Terminal>
+<cim:Terminal rdf:about="urn:uuid:c25966db-fe30-5540-b1fb-b6563119dab5">
+  <cim:Identity.identifier>c25966db-fe30-5540-b1fb-b6563119dab5</cim:Identity.identifier>
+  <cim:Terminal.ConductingEquipment rdf:resource="urn:uuid:21a61ea2-6ffa-5d84-b98c-59a58ee0fecd"/>
+  <cim:Terminal.ConnectivityNode rdf:resource="urn:uuid:47069ca0-839c-527a-8057-d563868725ce"/>
+  <cim:ACDCTerminal.sequenceNumber>1</cim:ACDCTerminal.sequenceNumber>
+  <cim:IdentifiedObject.mRID>ln_s1_f3_3_T1</cim:IdentifiedObject.mRID>
 </cim:Terminal>
 <cim:Terminal rdf:about="urn:uuid:cc949431-c688-5136-abf4-ff713de28dc6">
   <cim:Identity.identifier>cc949431-c688-5136-abf4-ff713de28dc6</cim:Identity.identifier>
@@ -82,4 +171,49 @@
   <cim:ACDCTerminal.sequenceNumber>2</cim:ACDCTerminal.sequenceNumber>
   <cim:IdentifiedObject.mRID>ln_s1_f3_2_T2</cim:IdentifiedObject.mRID>
 </cim:Terminal>
+<gad:WirePosition rdf:about="urn:uuid:0f17e5db-7174-51e8-84a1-32678d0aa71b">
+  <cim:Identity.identifier>0f17e5db-7174-51e8-84a1-32678d0aa71b</cim:Identity.identifier>
+  <cim:XYConductorPosition.XYSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
+  <cim:ConductorPosition.sequenceNumber>7</cim:ConductorPosition.sequenceNumber>
+  <cim:ConductorPosition.kind rdf:resource="http://cim.ucaiug.io/cim101/draft#ConductorPositionKind.neutral"/>
+  <cim:SpacingPosition.xCoord>0.15239999999999998</cim:SpacingPosition.xCoord>
+  <cim:SpacingPosition.yCoord>-1.8288</cim:SpacingPosition.yCoord>
+  <cim:IdentifiedObject.mRID>dbl_cct_pos_7</cim:IdentifiedObject.mRID>
+</gad:WirePosition>
+<gad:WirePosition rdf:about="urn:uuid:3aaaf3c6-0807-59a3-bf7e-bfc4e33919ab">
+  <cim:Identity.identifier>3aaaf3c6-0807-59a3-bf7e-bfc4e33919ab</cim:Identity.identifier>
+  <cim:XYConductorPosition.XYSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
+  <cim:ConductorPosition.circuitNumber>2</cim:ConductorPosition.circuitNumber>
+  <cim:ConductorPosition.sequenceNumber>4</cim:ConductorPosition.sequenceNumber>
+  <cim:ConductorPosition.kind rdf:resource="http://cim.ucaiug.io/cim101/draft#ConductorPositionKind.phase"/>
+  <cim:SpacingPosition.xCoord>-1.1176</cim:SpacingPosition.xCoord>
+  <cim:SpacingPosition.yCoord>0.0</cim:SpacingPosition.yCoord>
+  <cim:IdentifiedObject.mRID>dbl_cct_pos_4</cim:IdentifiedObject.mRID>
+</gad:WirePosition>
+<gad:WirePosition rdf:about="urn:uuid:7ffa0d1f-4186-5989-a2eb-8bce8e2d108c">
+  <cim:Identity.identifier>7ffa0d1f-4186-5989-a2eb-8bce8e2d108c</cim:Identity.identifier>
+  <cim:XYConductorPosition.XYSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
+  <cim:ConductorPosition.circuitNumber>2</cim:ConductorPosition.circuitNumber>
+  <cim:ConductorPosition.sequenceNumber>5</cim:ConductorPosition.sequenceNumber>
+  <cim:ConductorPosition.kind rdf:resource="http://cim.ucaiug.io/cim101/draft#ConductorPositionKind.phase"/>
+  <cim:SpacingPosition.xCoord>0.0</cim:SpacingPosition.xCoord>
+  <cim:SpacingPosition.yCoord>0.4572</cim:SpacingPosition.yCoord>
+  <cim:IdentifiedObject.mRID>dbl_cct_pos_5</cim:IdentifiedObject.mRID>
+</gad:WirePosition>
+<gad:WirePosition rdf:about="urn:uuid:c1b6d69e-6b44-53e9-84d6-723329cd21f8">
+  <cim:Identity.identifier>c1b6d69e-6b44-53e9-84d6-723329cd21f8</cim:Identity.identifier>
+  <cim:XYConductorPosition.XYSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
+  <cim:ConductorPosition.circuitNumber>2</cim:ConductorPosition.circuitNumber>
+  <cim:ConductorPosition.sequenceNumber>6</cim:ConductorPosition.sequenceNumber>
+  <cim:ConductorPosition.kind rdf:resource="http://cim.ucaiug.io/cim101/draft#ConductorPositionKind.phase"/>
+  <cim:SpacingPosition.xCoord>1.1176</cim:SpacingPosition.xCoord>
+  <cim:SpacingPosition.yCoord>0.0</cim:SpacingPosition.yCoord>
+  <cim:IdentifiedObject.mRID>dbl_cct_pos_6</cim:IdentifiedObject.mRID>
+</gad:WirePosition>
+<cim:XYSpacing rdf:about="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67">
+  <cim:Identity.identifier>a43979e7-7801-5347-ab01-ee1663163c67</cim:Identity.identifier>
+  <cim:XYSpacing.MultiCircuitGroup rdf:resource="urn:uuid:692d55ae-5182-5634-985f-b799921edd42"/>
+  <cim:WireSpacing.isTemplate>false</cim:WireSpacing.isTemplate>
+  <cim:IdentifiedObject.mRID>rus_2_52_1</cim:IdentifiedObject.mRID>
+</cim:XYSpacing>
 </rdf:RDF>

@@ -1,12 +1,17 @@
 # Frame s2: substation s2 as CIM-Builder lays out a primitive single bus. The source stands for the
-# grid behind the bus (10 % on 14 MVA at 13.2 kV, X/R = 10), and one breaker per feeder runs from
-# the bus to that feeder's head node.
+# 46 kV sub-transmission network behind the bus (10 % on 14 MVA at 13.2 kV, X/R = 10), which will be a
+# frame of its own and is out of scope for now. One breaker per feeder runs from the bus to that
+# feeder's head node.
 #
 # The bus node is this frame's own. The head nodes are in the boundary model, so the joint with each
-# feeder is bilateral. The Substation container is reference data (containers.cimtbl). The source's
-# set point and the breakers' positions are in the substation's steady state hypothesis.
+# feeder is bilateral. The frame declares its Substation; the distribution-area frame
+# (dso_area.cimtbl) restates it for the Feeders that name it as their NormalEnergizingSubstation.
 
 Profile = cim18v17
+
+Object BaseVoltage: mRID=bv_13p2kv, nominalVoltage (kV)=13.2
+
+Object Substation: mRID=sub_s2
 
 Object ConnectivityNode: mRID=s2_bus, ConnectivityNodeContainer=sub_s2
 
@@ -14,6 +19,6 @@ Object BusbarSection: mRID=bus_s2, name=s2 bus, node=s2_bus, BaseVoltage=bv_13p2
 
 Object EnergySource: mRID=src_s2, name=s2, node=s2_bus, nominalVoltage (kV)=13.2, r (ohm)=0.12446, x (ohm)=1.2446, r0 (ohm)=0.12446, x0 (ohm)=1.2446, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
 
-Table Breaker: mRID, name, node1=s2_bus, node2, normalOpen=false, areaBoundary=true, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
+Table Breaker: mRID, name, node1=s2_bus, node2, normalOpen=false, open=false, areaBoundary=true, BaseVoltage=bv_13p2kv, EquipmentContainer=sub_s2
     brk_s2_f1, s2-f1 breaker, s2_f1_head
     brk_s2_f2, s2-f2 breaker, s2_f2_head

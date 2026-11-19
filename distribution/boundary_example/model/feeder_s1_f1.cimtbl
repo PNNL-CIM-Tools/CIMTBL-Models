@@ -6,7 +6,6 @@ Object BaseVoltage: mRID=bv_12p47kv, nominalVoltage (kV)=12.47
 
 Object PerLengthSequenceImpedance: mRID=lc_336_acsr, name=336 ACSR, r (ohm/mile)=0.306, x (ohm/mile)=0.627, r0 (ohm/mile)=0.592, x0 (ohm/mile)=1.89
 
-Object Feeder: mRID=fdr_s1_f1, name=s1-f1, NormalEnergizingSubstation=sub_s1
 
 # Its head node and its side of tie 1 are boundary nodes (boundary.cimtbl): named here, not declared.
 Table ACLineSegment: mRID, node1, node2, length (mile), PerLengthImpedance=lc_336_acsr, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f1
@@ -18,5 +17,6 @@ Table EnergyConsumer: mRID, node, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr
     ld_s1_f1_mid, s1_f1_mid
     ld_s1_f1_end, s1_f1_end
 
-# Feeder.NormalHeadTerminal: the first span's terminal on the head node
+# Feeder.NormalHeadTerminal: the first span's terminal on the head node. The Feeder, which contains
+# this frame's equipment, is in the distribution-area frame (dso_area.cimtbl).
 Update Terminal: mRID=ln_s1_f1_1_T1, NormalHeadFeeder=fdr_s1_f1
