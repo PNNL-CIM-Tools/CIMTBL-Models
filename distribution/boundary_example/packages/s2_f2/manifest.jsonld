@@ -5,18 +5,36 @@
       "spdx": "http://spdx.org/rdf/terms#"
     }
   ],
-  "@id": "urn:uuid:14d17191-0e65-54d6-91f0-cc4bd6e4b531",
+  "@id": "urn:uuid:c2a2f5c7-7ce3-5921-ba1e-88f5c2e4c023",
   "@type": "dcat:Catalog",
-  "dct:title": "Boundary example feeder assembly s2-f2 v4.0.0",
+  "dct:title": "Grid Kitchen package XX-2b4028a34f v4.1.0",
   "dct:issued": "2026-11-19T00:00:00Z",
   "dcat:dataset": [
     {
-      "@id": "urn:uuid:2ff99ad9-c0c9-5db4-a10c-f5ebd7c54580",
+      "@id": "urn:uuid:c1ef7eb1-5d8a-5757-b439-5fcce4243690",
       "@type": "dcat:Dataset",
-      "dct:identifier": "2ff99ad9-c0c9-5db4-a10c-f5ebd7c54580",
-      "dct:title": "s2-f2",
+      "dct:identifier": "c1ef7eb1-5d8a-5757-b439-5fcce4243690",
+      "dct:title": "XX-2b4028a34f",
       "dct:issued": "2026-11-19T00:00:00Z",
-      "dcat:version": "4.0.0",
+      "dcat:version": "4.1.0",
+      "dcat:isVersionOf": {
+        "@id": "https://gridkitchen.pnnl.gov/models/XX-2b4028a34f"
+      },
+      "dcat:landingPage": {
+        "@id": "https://gridkitchen.pnnl.gov/models/XX-2b4028a34f/4.1.0"
+      },
+      "dcat:inSeries": [
+        {
+          "@id": "https://gridkitchen.pnnl.gov/series/XX-e036f0aad6",
+          "@type": "dcat:DatasetSeries",
+          "dct:title": "Grid Kitchen substation XX-e036f0aad6"
+        },
+        {
+          "@id": "https://gridkitchen.pnnl.gov/series/XX-31208a45a0",
+          "@type": "dcat:DatasetSeries",
+          "dct:title": "Grid Kitchen distribution area XX-31208a45a0"
+        }
+      ],
       "dct:license": {
         "@id": "https://spdx.org/licenses/BSD-3-Clause.html"
       },
@@ -47,13 +65,13 @@
           "dcat:mediaType": {
             "@id": "https://www.iana.org/assignments/media-types/application/rdf+xml"
           },
-          "dcat:byteSize": 5438,
+          "dcat:byteSize": 5499,
           "spdx:checksum": {
             "@type": "spdx:Checksum",
             "spdx:algorithm": {
               "@id": "spdx:checksumAlgorithm_sha256"
             },
-            "spdx:checksumValue": "1da96d01812ae0f2a2de52d12a1b0af18b25e8fd909296c978772bb30a6774c3"
+            "spdx:checksumValue": "6cce761410a0404c66b2124e3afa4eba73effe59100e849fa82359f08e62e966"
           },
           "dct:conformsTo": [
             {
@@ -292,7 +310,7 @@
       ]
     },
     {
-      "@id": "urn:uuid:6693e151-477f-5630-83d8-ddade1511a85",
+      "@id": "urn:uuid:7260be9f-4fb7-5eda-9d6d-b432b7c0cf9d",
       "@type": "dcat:Dataset",
       "dct:title": "Feeder frame",
       "dcat:distribution": [
@@ -368,7 +386,7 @@
       ]
     },
     {
-      "@id": "urn:uuid:7a3841a3-7de5-593c-a57c-be35be6964f8",
+      "@id": "urn:uuid:b106da53-5ee5-54e9-af19-ddbf3ee82a18",
       "@type": "dcat:Dataset",
       "dct:title": "Feeder situation",
       "dcat:distribution": [

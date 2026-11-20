@@ -2,12 +2,12 @@
 
 A small made-up model, two substations and five feeders joined by two ties. It is organised as frames and
 boundaries along the lines of J. Britton's Frameworks note (v5) and the GB Grid Code Planning Code (PC.G.3,
-from modification GC0139), as the Grid Kitchen publishing contract 0.4.0 applies them, and it is described
+from modification GC0139), as the Grid Kitchen publishing contract 0.5.0 applies them, and it is described
 with the draft grid-model metadata classes of IEC 61970-55x (`cim18v17.metadata` in CIM-Profiles). Each
 feeder is published as its own assembly, which loads and solves on its own; any two or more of the five
 snap together into one model. The electrical values are illustrative.
 
-Version 4.0.0 (2026-11-19). This version is for review: the questions at the end are the points where we
+Version 4.1.0 (2026-11-19). This version is for review: the questions at the end are the points where we
 are least sure we have read the drafts correctly, or where we depart from them on purpose.
 
 ## The system
@@ -143,12 +143,39 @@ SSH file does.
 
 ## The metadata
 
-The metadata is split in two, as contract 0.4.0 (5.3) has it.
+The metadata is split in two, as Grid Kitchen contract 0.5.0 (5.3) has it, and each feeder assembly is
+identified as a Grid Kitchen package would be (contract section 2), so its metadata can be read by the
+portal as it is.
 
-**`manifest.jsonld`** is the DCAT description of what is in the assembly: a `dcat:Catalog` whose
-`dcat:dataset` lists the assembly (its distributions are the master and `assembly.xml`) and then one
-`dcat:Dataset` per model, titled "Distribution area frame", "Boundary", "Substation frame", "Feeder frame"
-or "Feeder situation". Each file is one `dcat:Distribution` with:
+| Feeder | `model_id` | Substation's sibling group | Area's group |
+|---|---|---|---|
+| s1-f1 | `XX-6ff8fc3330` | `XX-3db0e703a8` (s1) | `XX-31208a45a0` |
+| s1-f2 | `XX-83f72e3bb3` | `XX-3db0e703a8` (s1) | `XX-31208a45a0` |
+| s1-f3 | `XX-3cf8687e9a` | `XX-3db0e703a8` (s1) | `XX-31208a45a0` |
+| s2-f1 | `XX-7a0c44bb82` | `XX-e036f0aad6` (s2) | `XX-31208a45a0` |
+| s2-f2 | `XX-2b4028a34f` | `XX-e036f0aad6` (s2) | `XX-31208a45a0` |
+
+The contract takes HMAC-SHA256 of the source names with a secret key. A made-up model has no secret, so
+the example takes SHA-256 of `boundary_example/<substation>/<feeder>`, `boundary_example/<substation>`
+and `boundary_example/area/<area>`, and `XX` stands for the state code.
+
+**`manifest.jsonld`** is the DCAT description of what is in the assembly: a `dcat:Catalog`, titled
+"Grid Kitchen package `<model_id>` v`<version>`", whose `dcat:dataset` lists:
+
+1. **The package**, `@id` the version identifier, with `dct:identifier`, `dct:title` (the `model_id`),
+   `dct:issued`, `dcat:version`, `dcat:isVersionOf` (`https://gridkitchen.pnnl.gov/models/<model_id>`),
+   `dcat:landingPage` (`…/models/<model_id>/<version>`), `dcat:inSeries` and `dct:license`. Its
+   distributions are the master and `assembly.xml`.
+2. **One dataset per model**, titled "Distribution area frame", "Boundary", "Substation frame",
+   "Feeder frame" or "Feeder situation", whose distributions are its three files.
+
+`dcat:inSeries` names two `dcat:DatasetSeries`, described inline with their titles: the feeders of the
+feeder's substation (`https://gridkitchen.pnnl.gov/series/<sibling group>`, "Grid Kitchen substation
+…") and the feeders of its distribution area (`…/series/<area group>`, "Grid Kitchen distribution
+area …"). A landing page lists the other feeders of either from the catalog. The ties themselves are
+in the area's frame model, which every package ships.
+
+Each file is one `dcat:Distribution` with:
 
 - `dcat:accessURL`, the relative path;
 - an IANA `dcat:mediaType`, `dcat:byteSize` and an SPDX SHA-256 checksum;
@@ -160,14 +187,14 @@ or "Feeder situation". Each file is one `dcat:Distribution` with:
 
 | Resource | Links |
 |---|---|
-| `cim:GridAssembly`, the feeder assembly | `dcat:version`, `md:Model.modelingAuthoritySet` |
+| `cim:GridAssembly`, the feeder assembly | `rdf:about` the version identifier, the manifest's package; `dct:title` the manifest's; `dcat:version`, `md:Model.modelingAuthoritySet` |
 | The boundary model: `cim:BoundaryModel` | `dct:spatial` the `cim:Boundary`; `cim:GridModel.usedIn`; `dct:requires` the area's frame model; no `dct:conformsTo` |
 | The area's frame model: `cim:FrameModel` | `cim:FrameModel.represents` and `dct:spatial` its `cim:Frame`; `cim:FrameModel.perimeter` the boundary model; `dct:requires` the boundary model |
 | Each substation frame model: `cim:FrameModel` | As the area's; `dct:requires` the boundary model |
 | Each feeder frame model: `cim:FrameModel` | As the area's; `dct:requires` the area's frame model and the boundary model |
 | The feeder's SSH: `cim:FrameModel` | `represents` and `dct:spatial` its `cim:Frame`; `dct:requires` its frame model |
-| The assembly's three `cim:Frame`s | `dct:title`; `cim:Frame.connectsTo` the boundary |
-| The `cim:Boundary` | `cim:Boundary.separates` all eight frames. The five outside the assembly are named by title only, so the file has no undescribed reference, and the build checks this |
+| The assembly's three `cim:Frame`s | `dct:title` the area's group, the sibling group or the `model_id`; `cim:Frame.connectsTo` the boundary |
+| The `cim:Boundary` | `cim:Boundary.separates` all eight frames: the area's frame first, then the other seven by title. The five outside the assembly are named by title only, so the file has no undescribed reference, and the build checks this |
 
 `framework.xml` lists every frame, each with `cim:Frame.includedIn` the one `cim:FrameworkEdition`, and the
 boundary.
@@ -185,7 +212,9 @@ boundary.
 - **Identifiers follow the contract (section 2):** UUID v5, in the contract's namespace, of
   `<code>/<role>/<key>`, with `boundary_example` as the code. The area's frame and boundary models are
   keyed by the UUID of the distribution area, a substation's by the UUID of its `Substation`, feeder models
-  by `<feeder>@<version>`, so a shared model has the same identifier in every assembly. All files use one
+  by `<model_id>@<version>`, so a shared model has the same identifier in every assembly. A frame is keyed
+  by its title. The package, the `cim:GridAssembly`, is `<model_id>@<version>`, and the manifest
+  `<model_id>@<version>/manifest`. All files use one
   `Authority` and `Model`, so a shared or restated object has one UUID everywhere.
 - `md:Model.modelingAuthoritySet` and `dct:requires` follow the Grid Kitchen contract rather than ENTSO-E,
   which asks new profiles not to use the first and replaces `md:Model.DependentOn` with `dct:references`.
@@ -194,7 +223,7 @@ boundary.
 ## Rebuild and check
 
 ```bash
-uv run --no-project --prerelease=allow --with cim-tables python distribution/boundary_example/build.py [--zip]
+uv run --no-project --prerelease=allow --with cim-tables --with rdflib python distribution/boundary_example/build.py [--zip]
 ```
 
 The model needs a cim-tables that accepts restated objects, which is not yet released; until it is, run
@@ -214,7 +243,11 @@ The build raises unless:
 6. a model carried by several assemblies has one identifier and one set of checksums;
 7. every combination of two to five feeder assemblies, their masters loaded into one model, holds exactly
    the objects of their RDF files;
-8. assembled, the ties are open, the breakers closed and every load has its `p`.
+8. assembled, the ties are open, the breakers closed and every load has its `p`;
+9. each assembly's `manifest.jsonld` and `assembly.xml` parse with rdflib, every manifest key expanding
+   to an IRI (the profile context is read from cim-profiles' cache, so the check runs offline); the
+   manifest's datasets are exactly the assembly and the models of `assembly.xml`, each model used in the
+   assembly; and no data file carries a header.
 
 `--zip` also writes `dist/<feeder>.zip`, metadata first. The output is deterministic.
 
@@ -263,6 +296,33 @@ The build raises unless:
 11. **Profile keywords.** No `dcat:keyword` (EQ, SSH, …) is set, because a `.cimtbl` model is not split by
     CGMES profile.
 12. **Not shown:** solution models, edge models, equivalents and tie flows.
+
+## Departures from Grid Kitchen contract 0.5.0
+
+Contract 0.5.0 adopts this example's 4.1.0 layout and metadata: the distribution area as a frame holding
+its `ConnectedArea`s, `Feeder`s and ties; reference data restated in each file, with no catalog or
+containers models; one SSH per feeder; the area's group and distribution-area series; and the model
+titles and identifier roles used here. What remains is example-only:
+
+1. **File names** are readable: `dso_area.cimtbl` (the contract's `area.cimtbl`), `substation_s1`,
+   `feeder_s1_f1`, `ssh_s1_f1` and the master `s1_f1.cimtbl`, not the sibling group or `model_id`.
+2. **Identifiers** of section 2 are SHA-256 of the readable names, not HMAC with `GK_MODEL_ID_KEY`, and
+   the state code is `XX`.
+3. **The code and authority** are `boundary_example` and `https://github.com/PNNL-CIM-Tools/CIMTBL-Models`,
+   not a utility code. Changing them would change every UUID in the data files.
+4. **The package's distributions** are the master and `assembly.xml` only: the publisher writes
+   `README.md`, `notebook.ipynb`, `LICENSE.txt` and `DISCLAIMER.txt`.
+5. **The version** is the example's (4.1.0), not a first publish (1.0.0).
+
+## Changes from 4.0.0
+
+- Each feeder assembly has a Grid Kitchen identity: a `model_id`, its substation's sibling group and its
+  area's group. The package's `dct:title`, the frames' titles and the feeder model and frame identifiers
+  are keyed by them.
+- The manifest's package has `dcat:isVersionOf`, `dcat:landingPage` and `dcat:inSeries` (its substation
+  and its distribution area), and the manifest and `cim:GridAssembly` the contract's titles.
+- `cim:Boundary.separates` lists the area's frame first, then the other frames by title.
+- The build parses the metadata with rdflib (check 9).
 
 ## Changes from 3.0.0
 

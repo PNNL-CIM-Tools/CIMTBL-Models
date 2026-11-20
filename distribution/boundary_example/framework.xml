@@ -8,55 +8,55 @@
     <dct:title>Boundary example framework, edition 1</dct:title>
     <dct:issued>2026-11-19T00:00:00Z</dct:issued>
   </cim:FrameworkEdition>
-  <cim:Frame rdf:about="urn:uuid:1c2ae217-8c57-550f-985c-8f618908c6d5">
-    <dct:title>s1-s2 area</dct:title>
+  <cim:Frame rdf:about="urn:uuid:7ec7e652-65a7-5806-9f75-f7482481d459">
+    <dct:title>XX-31208a45a0</dct:title>
     <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
     <cim:Frame.includedIn rdf:resource="urn:uuid:5668aaaa-3c23-5e7e-a628-12be9c2cd5ed"/>
   </cim:Frame>
-  <cim:Frame rdf:about="urn:uuid:ed00a5cc-5140-5f2f-9abc-a28ad796c755">
-    <dct:title>s1</dct:title>
+  <cim:Frame rdf:about="urn:uuid:6790fb70-bc45-5fd2-8e66-32d8e51e1669">
+    <dct:title>XX-3db0e703a8</dct:title>
     <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
     <cim:Frame.includedIn rdf:resource="urn:uuid:5668aaaa-3c23-5e7e-a628-12be9c2cd5ed"/>
   </cim:Frame>
-  <cim:Frame rdf:about="urn:uuid:b98abf02-8ac7-53e7-8fb7-1cfda10dc049">
-    <dct:title>s2</dct:title>
+  <cim:Frame rdf:about="urn:uuid:faaf92ac-f8a3-528b-a394-e9f680b3e699">
+    <dct:title>XX-e036f0aad6</dct:title>
     <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
     <cim:Frame.includedIn rdf:resource="urn:uuid:5668aaaa-3c23-5e7e-a628-12be9c2cd5ed"/>
   </cim:Frame>
-  <cim:Frame rdf:about="urn:uuid:5ca0f520-045e-5976-adfb-e82bd5cf13ed">
-    <dct:title>s1-f1</dct:title>
+  <cim:Frame rdf:about="urn:uuid:8ef4ca62-e544-57f0-8247-b14be2882189">
+    <dct:title>XX-6ff8fc3330</dct:title>
     <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
     <cim:Frame.includedIn rdf:resource="urn:uuid:5668aaaa-3c23-5e7e-a628-12be9c2cd5ed"/>
   </cim:Frame>
-  <cim:Frame rdf:about="urn:uuid:cb0ccd49-91fd-5303-aa49-bb2c761494f7">
-    <dct:title>s1-f2</dct:title>
+  <cim:Frame rdf:about="urn:uuid:ade62737-06b9-54c4-9296-fe45d9021ca9">
+    <dct:title>XX-83f72e3bb3</dct:title>
     <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
     <cim:Frame.includedIn rdf:resource="urn:uuid:5668aaaa-3c23-5e7e-a628-12be9c2cd5ed"/>
   </cim:Frame>
-  <cim:Frame rdf:about="urn:uuid:64864d48-7bb8-5dee-8d00-b66bbd804fac">
-    <dct:title>s1-f3</dct:title>
+  <cim:Frame rdf:about="urn:uuid:fa4c192d-f8a1-5021-a908-ae14e8d0548d">
+    <dct:title>XX-3cf8687e9a</dct:title>
     <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
     <cim:Frame.includedIn rdf:resource="urn:uuid:5668aaaa-3c23-5e7e-a628-12be9c2cd5ed"/>
   </cim:Frame>
-  <cim:Frame rdf:about="urn:uuid:8384c0e5-61bf-5b6a-ad61-2025255c5a14">
-    <dct:title>s2-f1</dct:title>
+  <cim:Frame rdf:about="urn:uuid:12cf843d-384e-57dc-ac05-f07556fa23f4">
+    <dct:title>XX-7a0c44bb82</dct:title>
     <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
     <cim:Frame.includedIn rdf:resource="urn:uuid:5668aaaa-3c23-5e7e-a628-12be9c2cd5ed"/>
   </cim:Frame>
-  <cim:Frame rdf:about="urn:uuid:8884c64d-6aeb-5d6b-aba4-1d02f66540a2">
-    <dct:title>s2-f2</dct:title>
+  <cim:Frame rdf:about="urn:uuid:9382687c-fe48-541b-9a55-0c71ff1af9de">
+    <dct:title>XX-2b4028a34f</dct:title>
     <cim:Frame.connectsTo rdf:resource="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382"/>
     <cim:Frame.includedIn rdf:resource="urn:uuid:5668aaaa-3c23-5e7e-a628-12be9c2cd5ed"/>
   </cim:Frame>
   <cim:Boundary rdf:about="urn:uuid:b0dffad6-5cf2-5eea-a8e0-0b511a52f382">
     <dct:title>Distribution area boundary</dct:title>
-    <cim:Boundary.separates rdf:resource="urn:uuid:1c2ae217-8c57-550f-985c-8f618908c6d5"/>
-    <cim:Boundary.separates rdf:resource="urn:uuid:ed00a5cc-5140-5f2f-9abc-a28ad796c755"/>
-    <cim:Boundary.separates rdf:resource="urn:uuid:5ca0f520-045e-5976-adfb-e82bd5cf13ed"/>
-    <cim:Boundary.separates rdf:resource="urn:uuid:cb0ccd49-91fd-5303-aa49-bb2c761494f7"/>
-    <cim:Boundary.separates rdf:resource="urn:uuid:64864d48-7bb8-5dee-8d00-b66bbd804fac"/>
-    <cim:Boundary.separates rdf:resource="urn:uuid:b98abf02-8ac7-53e7-8fb7-1cfda10dc049"/>
-    <cim:Boundary.separates rdf:resource="urn:uuid:8384c0e5-61bf-5b6a-ad61-2025255c5a14"/>
-    <cim:Boundary.separates rdf:resource="urn:uuid:8884c64d-6aeb-5d6b-aba4-1d02f66540a2"/>
+    <cim:Boundary.separates rdf:resource="urn:uuid:7ec7e652-65a7-5806-9f75-f7482481d459"/>
+    <cim:Boundary.separates rdf:resource="urn:uuid:9382687c-fe48-541b-9a55-0c71ff1af9de"/>
+    <cim:Boundary.separates rdf:resource="urn:uuid:fa4c192d-f8a1-5021-a908-ae14e8d0548d"/>
+    <cim:Boundary.separates rdf:resource="urn:uuid:6790fb70-bc45-5fd2-8e66-32d8e51e1669"/>
+    <cim:Boundary.separates rdf:resource="urn:uuid:8ef4ca62-e544-57f0-8247-b14be2882189"/>
+    <cim:Boundary.separates rdf:resource="urn:uuid:12cf843d-384e-57dc-ac05-f07556fa23f4"/>
+    <cim:Boundary.separates rdf:resource="urn:uuid:ade62737-06b9-54c4-9296-fe45d9021ca9"/>
+    <cim:Boundary.separates rdf:resource="urn:uuid:faaf92ac-f8a3-528b-a394-e9f680b3e699"/>
   </cim:Boundary>
 </rdf:RDF>

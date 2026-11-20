@@ -34,9 +34,12 @@ from pathlib import Path
 from xml.sax.saxutils import escape, quoteattr
 
 import cimtables
+import rdflib
 from cimgraph.utils import write_json_ld
 from cimgraph.utils.write_xml import write_graph_xml
 from cimprofiles.jsonld import profile_jsonld
+from cimprofiles.jsonld.documents import load_document
+from rdflib.namespace import RDF
 
 HERE = Path(__file__).parent
 MODEL = HERE / 'model'
@@ -47,7 +50,7 @@ AUTHORITY = 'https://github.com/PNNL-CIM-Tools/CIMTBL-Models'
 CODE = 'boundary_example'
 NAMESPACE = uuid.UUID('f2acde89-6756-4b1a-8817-efd5597eb830')
 ISSUED = '2026-11-19T00:00:00Z'
-VERSION = '4.0.0'
+VERSION = '4.1.0'
 LICENSE = 'https://spdx.org/licenses/BSD-3-Clause.html'
 PROFILE_DOCS = profile_jsonld(PROFILE)
 CONTEXT = PROFILE_DOCS['context']
@@ -69,6 +72,32 @@ SUBSTATIONS = ['s1', 's2']
 FEEDERS = {'s1_f1': 's1', 's1_f2': 's1', 's1_f3': 's1', 's2_f1': 's2', 's2_f2': 's2'}
 FRAMES = [AREA_FRAME] + SUBSTATIONS + list(FEEDERS)
 AREA = 's1_s2_dist_area'
+PORTAL = 'https://gridkitchen.pnnl.gov'
+# A made-up state code: the portal needs a model_id of the form <ST>-<10 hex>
+STATE = 'XX'
+
+
+def gk_id(text: str) -> str:
+    """A Grid Kitchen identifier (contract section 2). The contract takes HMAC-SHA256 of the source names
+    with the secret GK_MODEL_ID_KEY; a made-up model has no secret, so the example takes SHA-256."""
+    return f'{STATE}-' + hashlib.sha256(text.encode()).hexdigest()[:10]
+
+
+# A feeder's model_id; a substation's sibling group, the key of its series; the area's group likewise
+MODEL_IDS = {feeder: gk_id(f'{CODE}/{sub}/{feeder}') for feeder, sub in FEEDERS.items()}
+GROUPS = {sub: gk_id(f'{CODE}/{sub}') for sub in SUBSTATIONS} | {AREA_FRAME: gk_id(f'{CODE}/area/{AREA}')}
+
+
+def frame_key(frame: str) -> str:
+    """A frame's key and dct:title: the feeder's model_id, else the substation's or the area's group."""
+    return MODEL_IDS.get(frame) or GROUPS[frame]
+
+
+def series(group: str) -> dict:
+    """A substation's or the area's dcat:DatasetSeries: the feeders the portal lists together."""
+    kind = 'distribution area' if group == GROUPS[AREA_FRAME] else 'substation'
+    return {'@id': f'{PORTAL}/series/{group}', '@type': 'dcat:DatasetSeries',
+            'dct:title': f'Grid Kitchen {kind} {group}'}
 
 
 def label(name: str) -> str:
@@ -117,11 +146,11 @@ def identifiers(network) -> dict:
     for sub in SUBSTATIONS:
         station = str(network.find_by_mRID(f'sub_{sub}').identifier)
         keys[f'substation_{sub}'] = f'substation/{station}'
-    for feeder in FEEDERS:
-        keys[f'feeder_{feeder}'] = f'feeder/{feeder}@{VERSION}'
-        keys[f'ssh_{feeder}'] = f'ssh-feeder/{feeder}@{VERSION}'
+    for feeder, model_id in MODEL_IDS.items():
+        keys[f'feeder_{feeder}'] = f'feeder/{model_id}@{VERSION}'
+        keys[f'ssh_{feeder}'] = f'ssh-feeder/{model_id}@{VERSION}'
     out = {name: 'urn:uuid:' + uuid_of(f'{CODE}/{key}') for name, key in keys.items()}
-    out |= {f'frame:{f}': 'urn:uuid:' + uuid_of(f'{CODE}/frame/{f}') for f in FRAMES}
+    out |= {f'frame:{f}': 'urn:uuid:' + uuid_of(f'{CODE}/frame/{frame_key(f)}') for f in FRAMES}
     out['area-boundary'] = 'urn:uuid:' + uuid_of(f'{CODE}/area-boundary/{area}')
     return out
 
@@ -148,15 +177,21 @@ def rdf_xml(nodes: list[dict]) -> str:
     return '\n'.join(lines + ['</rdf:RDF>']) + '\n'
 
 
+def separated() -> list[str]:
+    """The frames the boundary separates, in contract 0.5.0's order: the area's frame, then the others by
+    title."""
+    return [AREA_FRAME] + sorted((f for f in FRAMES if f != AREA_FRAME), key=frame_key)
+
+
 def frame_nodes(ids: dict, frames: list[str]) -> list[dict]:
     """The cim:Frame resources and the one cim:Boundary. Each of `frames` is described with the boundary
     it connects to; every other frame of the area is named only, so no reference is left undescribed."""
-    nodes = [{'@id': ids[f'frame:{f}'], '@type': 'cim:Frame', 'dct:title': label(f),
+    nodes = [{'@id': ids[f'frame:{f}'], '@type': 'cim:Frame', 'dct:title': frame_key(f),
               'cim:Frame.connectsTo': ids['area-boundary']} for f in frames]
-    nodes += [{'@id': ids[f'frame:{f}'], '@type': 'cim:Frame', 'dct:title': label(f)}
+    nodes += [{'@id': ids[f'frame:{f}'], '@type': 'cim:Frame', 'dct:title': frame_key(f)}
               for f in sorted(FRAMES) if f not in frames]
     nodes.append({'@id': ids['area-boundary'], '@type': 'cim:Boundary', 'dct:title': 'Distribution area boundary',
-                  'cim:Boundary.separates': [ids[f'frame:{f}'] for f in sorted(FRAMES)]})
+                  'cim:Boundary.separates': [ids[f'frame:{f}'] for f in separated()]})
     return nodes
 
 
@@ -299,23 +334,29 @@ def build_package(feeder: str, staging: Path, ids: dict) -> dict:
         f'substation {FEEDERS[feeder]}\n# and feeder {label(feeder)}, then the steady state hypothesis of '
         'the feeder.', names), encoding='utf-8')
 
-    title = f'Boundary example feeder assembly {label(feeder)} v{VERSION}'
-    assembly_id = 'urn:uuid:' + uuid_of(f'{feeder}@{VERSION}')
+    model_id = MODEL_IDS[feeder]
+    title = f'Grid Kitchen package {model_id} v{VERSION}'
+    assembly_id = 'urn:uuid:' + uuid_of(f'{model_id}@{VERSION}')
     assembly = [{'@id': assembly_id, '@type': 'cim:GridAssembly', 'dct:title': title, 'dcat:version': VERSION,
                  'md:Model.modelingAuthoritySet': AUTHORITY}]
     assembly += [model_node(ids, name, assembly_id) for name in names]
     assembly += frame_nodes(ids, [AREA_FRAME, FEEDERS[feeder], feeder])
     (root / 'assembly.xml').write_text(rdf_xml(assembly), encoding='utf-8')
 
+    # Its version's landing page, and the two series the portal lists it in: its substation's feeders and
+    # its distribution area's
     package = {'@id': assembly_id, '@type': 'dcat:Dataset', 'dct:identifier': assembly_id.removeprefix('urn:uuid:'),
-               'dct:title': label(feeder), 'dct:issued': ISSUED, 'dcat:version': VERSION,
+               'dct:title': model_id, 'dct:issued': ISSUED, 'dcat:version': VERSION,
+               'dcat:isVersionOf': {'@id': f'{PORTAL}/models/{model_id}'},
+               'dcat:landingPage': {'@id': f'{PORTAL}/models/{model_id}/{VERSION}'},
+               'dcat:inSeries': [series(GROUPS[FEEDERS[feeder]]), series(GROUPS[AREA_FRAME])],
                'dct:license': {'@id': LICENSE},
                'dcat:distribution': [distribution(root, master), distribution(root, root / 'assembly.xml')]}
     datasets = [package] + [{'@id': ids[name], '@type': 'dcat:Dataset', 'dct:title': MODELS[name]['title'],
                              'dcat:distribution': [distribution(root, f) for f in files[name]]} for name in names]
     manifest = {
         '@context': [CONTEXT, {'spdx': 'http://spdx.org/rdf/terms#'}],
-        '@id': 'urn:uuid:' + uuid_of(f'{feeder}@{VERSION}/manifest'),
+        '@id': 'urn:uuid:' + uuid_of(f'{model_id}@{VERSION}/manifest'),
         '@type': 'dcat:Catalog',
         'dct:title': title,
         'dct:issued': ISSUED,
@@ -439,9 +480,52 @@ def check(network, owned: dict, built: list[dict]) -> None:
     assert all(load.p is not None for load in assembled.graph[assembled.cim.EnergyConsumer].values())
     total = sum(len(v) for v in assembled.graph.values())
     assert total == len(owners), (total, len(owners))
+    triples = check_metadata(built)
     print(f'ok: {len(built)} feeder assemblies, {len(FRAMES)} frames, 1 boundary with {len(users)} nodes, '
           f'{len(switches)} ties, {len(seen)} models, {len(restated)} objects restated, '
           f'{len(combinations)} combinations snapped, {total} objects assembled')
+    print('triples (manifest, assembly.xml): ' + ', '.join(f'{f} {m}, {a}' for f, (m, a) in triples.items()))
+
+
+def keys_of(node) -> set[str]:
+    """Every property name used in a JSON-LD node and the nodes inside it."""
+    found = set()
+    for item in node if isinstance(node, list) else [node]:
+        if isinstance(item, dict):
+            found |= {key for key in item if not key.startswith('@')}
+            found |= set().union(*(keys_of(value) for value in item.values()))
+    return found
+
+
+def check_metadata(built: list[dict]) -> dict:
+    """9. Each assembly's two metadata files parse as RDF, every manifest key expanding to an IRI; the
+    manifest's datasets are exactly assembly.xml's assembly and models, each model used in the assembly;
+    and no data file carries a header. Returns the triple counts."""
+    context = load_document(CONTEXT)['@context']
+    prefixes = {term for term, iri in context.items() if isinstance(iri, str) and iri.endswith(('#', '/'))}
+    cim, dcat = rdflib.Namespace(NS['cim']), rdflib.Namespace(NS['dcat'])
+    triples = {}
+    for item in built:
+        root = PACKAGES / item['feeder']
+        manifest = item['manifest']
+        inline = manifest['@context'][1]
+        loose = sorted(k for k in keys_of(manifest) if k.split(':')[0] not in prefixes | set(inline))
+        assert not loose, (item['feeder'], loose)
+        offline = dict(manifest, **{'@context': [context, inline]})
+        described = rdflib.Graph().parse(data=json.dumps(offline), format='json-ld')
+        grid = rdflib.Graph().parse(root / 'assembly.xml', format='xml')
+        [assembly] = grid.subjects(RDF.type, cim.GridAssembly)
+        models = {m for cls in ('GridModel', 'BoundaryModel', 'FrameModel') for m in grid.subjects(RDF.type, cim[cls])}
+        datasets = set(described.subjects(RDF.type, dcat.Dataset))
+        assert datasets == models | {assembly}, (item['feeder'], sorted(map(str, datasets ^ (models | {assembly}))))
+        assert all((m, cim['GridModel.usedIn'], assembly) in grid for m in models), item['feeder']
+        for path in sorted((root / 'jsonld').glob('*.jsonld')):
+            assert set(json.loads(path.read_text(encoding='utf-8'))) == {'@context', '@graph'}, path
+        for path in sorted((root / 'xml').glob('*.xml')):
+            text = path.read_text(encoding='utf-8')
+            assert 'FullModel' not in text and 'dcat:' not in text, path
+        triples[item['feeder']] = (len(described), len(grid))
+    return triples
 
 
 def write_zip(feeder: str) -> None:
