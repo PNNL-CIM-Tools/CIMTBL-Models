@@ -28,9 +28,9 @@ Table WirePosition: mRID, xCoord (in), yCoord (in), sequenceNumber, circuitNumbe
     dbl_cct_pos_6, 44.0,  0.0,   6, 2, phase
     dbl_cct_pos_7, 6.0,   -72.0, 7,  , neutral
 
-# The positions are measured from the pole top; spacingYOffset puts the pole top 40 ft above ground.
+# The positions are measured from the pole top; ySpacingOffset puts the pole top 40 ft above ground.
 # Its head node and its side of tie 2 are boundary nodes (boundary.cimtbl): named here, not declared.
-Table ACLineSegment: mRID, node1, node2, length (mile), phases=ABCN, sequenceNumbers=4 5 6 7, WireSpacing=rus_2_52_1, spacingYOffset (ft)=40, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3, MultiCircuitGroup=f2_f3_dbl_circuit
+Table ACLineSegment: mRID, node1, node2, length (mile), phases=ABCN, sequenceNumbers=4 5 6 7, WireSpacing=rus_2_52_1, ySpacingOffset (ft)=40, BaseVoltage=bv_12p47kv, EquipmentContainer=fdr_s1_f3, MultiCircuitGroup=f2_f3_dbl_circuit
     ln_s1_f3_1, s1_f3_head, s1_f3_mid, 1.0
 
 # The spacing is not a template (isTemplate=false), so each phase of the span names its wire

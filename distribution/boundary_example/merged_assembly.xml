@@ -83,7 +83,7 @@
 <cim:ACLineSegment rdf:about="urn:uuid:bce7e954-cfb0-5d96-a0a3-7f64a3520973">
   <cim:Identity.identifier>bce7e954-cfb0-5d96-a0a3-7f64a3520973</cim:Identity.identifier>
   <cim:ACLineSegment.MultiCircuitGroup rdf:resource="urn:uuid:692d55ae-5182-5634-985f-b799921edd42"/>
-  <cim:ACLineSegment.spacingYOffset>12.191999999999998</cim:ACLineSegment.spacingYOffset>
+  <cim:ACLineSegment.ySpacingOffset>12.191999999999998</cim:ACLineSegment.ySpacingOffset>
   <cim:ACLineSegment.WireSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
   <cim:Conductor.length>1609.344</cim:Conductor.length>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
@@ -93,7 +93,7 @@
 <cim:ACLineSegment rdf:about="urn:uuid:be2c1658-ecd7-5c43-beed-436a14d48e98">
   <cim:Identity.identifier>be2c1658-ecd7-5c43-beed-436a14d48e98</cim:Identity.identifier>
   <cim:ACLineSegment.MultiCircuitGroup rdf:resource="urn:uuid:692d55ae-5182-5634-985f-b799921edd42"/>
-  <cim:ACLineSegment.spacingYOffset>12.191999999999998</cim:ACLineSegment.spacingYOffset>
+  <cim:ACLineSegment.ySpacingOffset>12.191999999999998</cim:ACLineSegment.ySpacingOffset>
   <cim:ACLineSegment.WireSpacing rdf:resource="urn:uuid:a43979e7-7801-5347-ab01-ee1663163c67"/>
   <cim:Conductor.length>1609.344</cim:Conductor.length>
   <cim:ConductingEquipment.BaseVoltage rdf:resource="urn:uuid:af05b919-1762-5348-8ee3-6f1dc1376a57"/>
